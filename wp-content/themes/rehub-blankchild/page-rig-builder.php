@@ -23,41 +23,8 @@
 		                    <?php the_content();?>
 		                    <?php wp_link_pages(array('before' => '<div class="page-link">' . __('Pages:', 'rehub_framework'), 'after' => '</div>'));?>
 		                    <?php endwhile;endif;?>
-                    <!-- START -->
-                    <table>
-                        <tr>
-                            <td class="">
-                                <div class="">
-                                    <div class="">CPU</div>
-                                </div>
-                            </td>
-                            <td class="">
-                                <div class=""></div>
-                            </td>
-                            <td class="" style="width: 79%;" colspan="6">
-                                <div class="row-inline-add-container">
-                                    <input name="submit" type="submit" id="submit" class="submit" value="Post comment">
-                                </div>
-                            </td>
-                        </tr>
-                        <tr class="">
-                            <td class="">
-                                <div class="">
-                                    <div class="">Motherboard</div>
-                                </div>
-                            </td>
-                            <td class="">
-                                <div class=""></div>
-                            </td>
-                            <td class="" style="width: 79%;" colspan="6">
-                                <div class="row-inline-add-container">
-                                    <input name="submit" type="submit" id="submit" class="submit" value="Post comment">
-                                </div>
-                            </td>
-                        </tr>
-                    </table>
+ 
                     <?php
-
 $products = new WP_Query(array(
     'posts_per_page'   => -1,
     'post_type'        => 'post',
@@ -65,9 +32,34 @@ $products = new WP_Query(array(
 	// 'meta_value'	=> 'Melbourne'
 ));
 
-var_dump($products->posts);
+// var_dump($products->posts);
 
 if( $products->have_posts() ) { ?>
+
+<table id="miningRigTable" class="display">
+    <thead>
+        <tr>
+            <th>#</th>
+            <th>Title</th>
+            <th>Description</th>
+            <th>Price</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>Row 1 Data 1</td>
+            <td>Row 1 Data 2</td>
+            <td>Row 1 Data 1</td>
+            <td>Row 1 Data 2</td>
+        </tr>
+        <tr>
+            <td>Row 2 Data 1</td>
+            <td>Row 2 Data 2</td>
+            <td>Row 1 Data 1</td>
+            <td>Row 1 Data 2</td>
+        </tr>
+    </tbody>
+</table>
 	<ul>
 	<?php while ( $products->have_posts() ) { $products->the_post()  ?>
 		<li>

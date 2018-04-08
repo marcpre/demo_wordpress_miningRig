@@ -17,7 +17,7 @@ wp-content/plugins/hello.php
 /sitemap.xml.gz
 
 # Do not Ignore
-!/package.json
+package.json
 
 # Ignore everything in the "wp-content" directory, except the "plugins",
 # "themes" and "mu-plugins" directories.
