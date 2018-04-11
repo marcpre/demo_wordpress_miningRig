@@ -36,7 +36,7 @@ $products = new WP_Query(array(
 
 if( $products->have_posts() ) { ?>
 
-<table id="miningRigTable" class="display">
+<table id="table_id" class="display">
     <thead>
         <tr>
             <th>#</th>
