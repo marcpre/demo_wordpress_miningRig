@@ -3,7 +3,7 @@ import $ from 'jquery';
 import dt from 'datatables.net';
 
 // Our modules / classes
-import Test from './modules/Test';
+// import Test from './modules/Test';
 import Util from './modules/util';
 import Modal from './modules/Modal';
 import DataTable from './modules/DataTable'

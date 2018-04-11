@@ -25741,54 +25741,25 @@ var _jquery = _interopRequireDefault(__webpack_require__(0));
 
 var _datatables = _interopRequireDefault(__webpack_require__(1));
 
-var _Test = _interopRequireDefault(__webpack_require__(4));
-
 var _util = _interopRequireDefault(__webpack_require__(2));
 
-var _Modal = _interopRequireDefault(__webpack_require__(5));
+var _Modal = _interopRequireDefault(__webpack_require__(4));
 
-var _DataTable = _interopRequireDefault(__webpack_require__(6));
+var _DataTable = _interopRequireDefault(__webpack_require__(5));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 // 3rd party packages from NPM
 // Our modules / classes
+// import Test from './modules/Test';
 // Instantiate a new object using our modules/classes
-var dataTable = new _DataTable.default();
-var test = new _Test.default();
+var dataTable = new _DataTable.default(); // var test = new Test(); // Test Message
+
 var util = new _util.default();
 var modal = new _Modal.default();
 
 /***/ }),
 /* 4 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.default = void 0;
-
-var _jquery = _interopRequireDefault(__webpack_require__(0));
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-var Test = function Test() {
-  _classCallCheck(this, Test);
-
-  alert("Lolonator");
-} // end constructor
-;
-
-var _default = Test;
-exports.default = _default;
-
-/***/ }),
-/* 5 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -26418,7 +26389,7 @@ var _default = Modal;
 exports.default = _default;
 
 /***/ }),
-/* 6 */
+/* 5 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -26444,8 +26415,7 @@ var DataTable = function DataTable() {
   (0, _jquery.default)(document).ready(function () {
     console.log("lolonator");
     (0, _jquery.default)('#table_id').DataTable();
-  });
-  alert("This is a test message.");
+  }); // alert("This is a test message.")
 } // end constructor
 ;
 
