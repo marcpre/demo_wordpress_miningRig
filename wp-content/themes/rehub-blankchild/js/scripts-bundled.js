@@ -25747,20 +25747,17 @@ var _util = _interopRequireDefault(__webpack_require__(2));
 
 var _Modal = _interopRequireDefault(__webpack_require__(5));
 
-var _datatablesMin = _interopRequireDefault(__webpack_require__(!(function webpackMissingModule() { var e = new Error("Cannot find module \"./modules/datatables.min.js\""); e.code = 'MODULE_NOT_FOUND'; throw e; }())));
-
-var _MiningRigSelectionTable = _interopRequireDefault(__webpack_require__(6));
+var _DataTable = _interopRequireDefault(__webpack_require__(6));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 // 3rd party packages from NPM
 // Our modules / classes
 // Instantiate a new object using our modules/classes
+var dataTable = new _DataTable.default();
+var test = new _Test.default();
 var util = new _util.default();
 var modal = new _Modal.default();
-var datatable = new _datatablesMin.default();
-var miningRigSelectionTable = new _MiningRigSelectionTable.default();
-var test = new _Test.default();
 
 /***/ }),
 /* 4 */
@@ -26441,8 +26438,8 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 //var dt = require('datatables.net')();
-var MiningRigSelectionTable = function MiningRigSelectionTable() {
-  _classCallCheck(this, MiningRigSelectionTable);
+var DataTable = function DataTable() {
+  _classCallCheck(this, DataTable);
 
   (0, _jquery.default)(document).ready(function () {
     console.log("lolonator");
@@ -26452,7 +26449,7 @@ var MiningRigSelectionTable = function MiningRigSelectionTable() {
 } // end constructor
 ;
 
-var _default = MiningRigSelectionTable;
+var _default = DataTable;
 exports.default = _default;
 
 /***/ })
