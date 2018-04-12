@@ -46,9 +46,10 @@ if( $products->have_posts() ) { ?>
 	<?php while ( $products->have_posts() ) { $products->the_post()  ?>
 		<li>
 			<a href="<?php the_permalink(); ?>"><?php the_title(); ?></a>
+            </br>
             <?php 
             $amazon = get_post_meta( get_the_ID(), '_cegg_data_Amazon', true); 
-            
+                        
             print_r($amazon);
             ?>
 		</li>
@@ -60,11 +61,6 @@ if( $products->have_posts() ) { ?>
 wp_reset_postdata();
 
 ?>
-
- <!-- Button trigger modal -->
- <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
-  Launch demo modal
-</button>
 
 <!-- Modal -->
 <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
