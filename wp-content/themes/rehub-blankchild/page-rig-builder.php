@@ -78,7 +78,7 @@ wp_reset_postdata();
       </div>
       <div class="modal-body">
 
-        <table id="table_id" class="display">
+        <table id="table_id" class="display" style="width:100%">
             <thead>
                 <tr>
                     <th>#</th>
@@ -97,7 +97,7 @@ wp_reset_postdata();
                 <tr>
                     <td>Row 2 Data 1</td>
                     <td>Row 2 Data 2</td>
-                    <td>Row 1 Data 1</td>
+                    <td>lolonator</td>
                     <td>Row 1 Data 2</td>
                 </tr>
             </tbody>
