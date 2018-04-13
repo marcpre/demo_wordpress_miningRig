@@ -50,7 +50,15 @@ if( $products->have_posts() ) { ?>
             <?php 
             $amazon = get_post_meta( get_the_ID(), '_cegg_data_Amazon', true); 
                         
-            print_r($amazon);
+            $keys = array_keys($amazon); // convert associative arrays to index array
+            print_r($amazon[$keys[0]]['price']);    
+            print_r($amazon[$keys[0]]['currency']);            
+            print_r($amazon[$keys[0]]['manufacturer']);    
+            print_r($amazon[$keys[1]][0]);  //get title here
+            
+//            print_r($amazon);
+            $var_str = var_export($amazon[$keys[0]], true);
+            file_put_contents('filename.txt', $var_str);
             ?>
 		</li>
 	<?php }; ?>
