@@ -33,6 +33,7 @@ function miningRigBuilder_post_types()
             'singular_name' => 'Computer-Hardware',
         ),
         'menu_icon' => 'dashicons-dashboard',
+        'taxonomies' => array( 'category' ),
     ));
 
 }

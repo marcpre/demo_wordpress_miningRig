@@ -1,5 +1,7 @@
 <?php
 
+require get_theme_file_path('/inc/computerHardwareRoute.php');
+
 function enqueue_parent_theme_style()
 {
     if ( is_page( 'Rig Builder' ) ) {
