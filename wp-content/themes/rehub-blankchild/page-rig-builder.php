@@ -42,7 +42,7 @@ if ($products->have_posts()) {?>
                                 <tr>
                                     <td>CPU</td>
                                     <td>
-                                        <button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#exampleModal">
+                                        <button type="button" data-exists="cpu" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#exampleModal">
                                             Add CPU
                                         </button>
                                     </td>
@@ -50,7 +50,7 @@ if ($products->have_posts()) {?>
                                 <tr>
                                     <td>Motherboard</td>
                                     <td>
-                                        <button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#exampleModal">
+                                        <button type="button" data-exists="motherboard" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#exampleModal">
                                             Add Motherboard
                                         </button>
                                     </td>
@@ -58,8 +58,8 @@ if ($products->have_posts()) {?>
                                 <tr>
                                     <td>Graphic Card</td>
                                     <td>
-                                        <button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#exampleModal">
-                                            Launch demo modal
+                                        <button type="button" data-exists="graphic-card" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#exampleModal">
+                                            Add Graphic Card
                                         </button>
                                     </td>
                                 </tr>

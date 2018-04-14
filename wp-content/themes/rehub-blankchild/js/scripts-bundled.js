@@ -26442,13 +26442,48 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
-var RigBuilder = function RigBuilder() {
-  _classCallCheck(this, RigBuilder);
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
 
-  alert("Lolonator");
-  console.log("RigBuilder Console Log");
-} // end constructor
-;
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+var RigBuilder =
+/*#__PURE__*/
+function () {
+  function RigBuilder() {
+    _classCallCheck(this, RigBuilder);
+
+    this.events(); // console.log("RigBuilder Console Log")
+  } // end constructor
+
+
+  _createClass(RigBuilder, [{
+    key: "events",
+    value: function events() {
+      (0, _jquery.default)(".btn.btn-primary.btn-sm").on("click", this.ourClickDispatcher.bind(this));
+    } // methods
+
+  }, {
+    key: "ourClickDispatcher",
+    value: function ourClickDispatcher(e) {
+      var currentButton = (0, _jquery.default)(e.target).closest(".btn.btn-primary.btn-sm");
+      console.log("lolonator");
+
+      if (currentButton.data('exists') == 'cpu') {
+        console.log("cpu clicked");
+      }
+
+      if (currentButton.data('exists') == 'motherboard') {
+        console.log("motherboard clicked");
+      }
+
+      if (currentButton.data('exists') == 'graphic-card') {
+        console.log("graphic-card clicked");
+      }
+    }
+  }]);
+
+  return RigBuilder;
+}();
 
 var _default = RigBuilder;
 exports.default = _default;

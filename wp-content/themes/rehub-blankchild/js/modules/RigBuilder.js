@@ -3,22 +3,28 @@ import $ from 'jquery';
 class RigBuilder {
     constructor() {
         this.events();
-        console.log("RigBuilder Console Log")
+        // console.log("RigBuilder Console Log")
     } // end constructor
 
     events() {
-        $(".like-box").on("click", this.ourClickDispatcher.bind(this));
+        $(".btn.btn-primary.btn-sm").on("click", this.ourClickDispatcher.bind(this));
     }
 
     // methods
     ourClickDispatcher(e) {
-        var currentLikeBox = $(e.target).closest(".like-box");
+        var currentButton = $(e.target).closest(".btn.btn-primary.btn-sm");
+        console.log("lolonator")
 
-
-        if (currentLikeBox.data('exists') == 'yes') {
-            this.deleteLike(currentLikeBox);
-        } else {
-            this.createLike(currentLikeBox);
+        if (currentButton.data('exists') == 'cpu') {
+            console.log("cpu clicked")
+        }
+        
+        if (currentButton.data('exists') == 'motherboard') {
+            console.log("motherboard clicked")
+        }
+        
+        if (currentButton.data('exists') == 'graphic-card') {
+            console.log("graphic-card clicked")
         }
     }
 
