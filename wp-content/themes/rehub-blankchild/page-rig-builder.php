@@ -27,7 +27,8 @@
                     <?php
 $products = new WP_Query(array(
     'posts_per_page' => -1,
-    'post_type' => 'post',
+    //'post_type' => 'post',
+    'post_type' => 'Computer-Hardware',
     //'meta_key'        => '_cegg_data_Amazon',
     // 'meta_value'    => 'Melbourne'
 ));

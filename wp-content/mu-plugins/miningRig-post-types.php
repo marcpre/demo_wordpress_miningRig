@@ -21,7 +21,9 @@ function miningRigBuilder_post_types()
     // Computer Hardware Post Type
     register_post_type('Computer-Hardware', array(
         'supports' => array('title', 'editor', 'thumbnail'),
-        'public' => false,
+        'public' => true,
+        'exclude_from_search' => true,
+        'publicly_queryable' => true,
         'show_ui' => true,
         'labels' => array(
             'name' => 'Computer-Hardware',
