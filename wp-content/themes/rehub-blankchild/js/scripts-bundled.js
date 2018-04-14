@@ -25747,12 +25747,15 @@ var _Modal = _interopRequireDefault(__webpack_require__(4));
 
 var _DataTable = _interopRequireDefault(__webpack_require__(5));
 
+var _RigBuilder = _interopRequireDefault(__webpack_require__(6));
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 // 3rd party packages from NPM
 // Our modules / classes
 // import Test from './modules/Test';
 // Instantiate a new object using our modules/classes
+var rigBuilder = new _RigBuilder.default();
 var dataTable = new _DataTable.default(); // var test = new Test(); // Test Message
 
 var util = new _util.default();
@@ -26413,13 +26416,41 @@ var DataTable = function DataTable() {
   _classCallCheck(this, DataTable);
 
   (0, _jquery.default)(document).ready(function () {
-    console.log("lolonator");
     (0, _jquery.default)('#table_id').DataTable();
   }); // alert("This is a test message.")
 } // end constructor
 ;
 
 var _default = DataTable;
+exports.default = _default;
+
+/***/ }),
+/* 6 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+var _jquery = _interopRequireDefault(__webpack_require__(0));
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+var RigBuilder = function RigBuilder() {
+  _classCallCheck(this, RigBuilder);
+
+  alert("Lolonator");
+  console.log("RigBuilder Console Log");
+} // end constructor
+;
+
+var _default = RigBuilder;
 exports.default = _default;
 
 /***/ })

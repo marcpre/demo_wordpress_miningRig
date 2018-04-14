@@ -5,7 +5,6 @@ import dt from 'datatables.net';
 class DataTable {
     constructor() {
         $(document).ready(function () {
-            console.log("lolonator")
             $('#table_id').DataTable();
         });
         // alert("This is a test message.")

@@ -57,7 +57,7 @@ if ($products->have_posts()) {?>
                                 <tr>
                                     <td>Graphic Card</td>
                                     <td>
-                                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
+                                        <button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#exampleModal">
                                             Launch demo modal
                                         </button>
                                     </td>
@@ -65,7 +65,7 @@ if ($products->have_posts()) {?>
                                 <tr>
                                     <td>Power Supply&nbsp;</td>
                                     <td>
-                                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
+                                        <button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#exampleModal">
                                             Launch demo modal
                                         </button>
                                     </td>
@@ -73,7 +73,7 @@ if ($products->have_posts()) {?>
                                 <tr>
                                     <td>Rig Frame&nbsp;</td>
                                     <td>
-                                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
+                                        <button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#exampleModal">
                                             Launch demo modal
                                         </button>
                                     </td>
@@ -81,7 +81,7 @@ if ($products->have_posts()) {?>
                                 <tr>
                                     <td>More Parts&nbsp;</td>
                                     <td>
-                                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
+                                        <button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#exampleModal">
                                             Launch demo modal
                                         </button>
                                     </td>
