@@ -10,11 +10,18 @@ function computerHardwareRoutes()
 
 }
 
-function allRigHardware()
+function allRigHardware($data)
 {
     $mainQuery = new WP_Query(array(
         'posts_per_page' => -1,
         'post_type' => 'Computer-Hardware',
+        'tax_query' => array(
+            array(
+                'taxonomy' => 'category',
+                'field'    => 'slug',
+                'terms'    => sanitize_text_field($data['term']),
+            ),
+        ),
     ));
     
     $results = array(
