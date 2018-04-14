@@ -36,13 +36,67 @@ $products = new WP_Query(array(
 
 if ($products->have_posts()) {?>
 
+                        <table style="float: left;" class="table table-bordered">
+                            <tbody>
+                                <tr>
+                                    <td>CPU</td>
+                                    <td>
+                                        <button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#exampleModal">
+                                            Add CPU
+                                        </button>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Motherboard</td>
+                                    <td>
+                                        <button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#exampleModal">
+                                            Add Motherboard
+                                        </button>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Graphic Card</td>
+                                    <td>
+                                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
+                                            Launch demo modal
+                                        </button>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Power Supply&nbsp;</td>
+                                    <td>
+                                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
+                                            Launch demo modal
+                                        </button>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Rig Frame&nbsp;</td>
+                                    <td>
+                                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
+                                            Launch demo modal
+                                        </button>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>More Parts&nbsp;</td>
+                                    <td>
+                                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
+                                            Launch demo modal
+                                        </button>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+
+
                         <!-- Button trigger modal -->
                         <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
                             Launch demo modal
                         </button>
 
 
-                        
+
                         <?php };
 
 wp_reset_postdata();
@@ -60,56 +114,56 @@ wp_reset_postdata();
                                     </div>
                                     <div class="modal-body">
 
-                                                                <table id="table_id" class="display" style="width:100%">
-                            <thead>
-                                <tr>
-                                    <th>#</th>
-                                    <th>Title</th>
-                                    <th>Manufacturer</th>
-                                    <th>Price</th>
-                                    <th>Availability</th>
-                                    <th></th>
-                                    <th></th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <?php 
+                                        <table id="table_id" class="display" style="width:100%">
+                                            <thead>
+                                                <tr>
+                                                    <th>#</th>
+                                                    <th>Title</th>
+                                                    <th>Manufacturer</th>
+                                                    <th>Price</th>
+                                                    <th>Availability</th>
+                                                    <th></th>
+                                                    <th></th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <?php 
                                 $i = 0;
                                 while ($products->have_posts()) {
                                     $products->the_post()?>
 
-                                </br>
-                                <?php
+                                                </br>
+                                                <?php
 $amazon = get_post_meta(get_the_ID(), '_cegg_data_Amazon', true);
 $keys = array_keys($amazon); // convert associative arrays to index array
     ?>
-                                    <tr>
-                                        <td>
-                                            <?php echo $i++; ?>
-                                        </td>
-                                        <td>
-                                            <img src="<?php echo $amazon[$keys[0]]['img']; ?>" alt="<?php the_title();?>" height="42" width="42">
-                                            <a href="<?php the_permalink();?>">
-                                                <?php the_title();?>
-                                            </a>
-                                        </td>
-                                        <td>
-                                            <?php echo $amazon[$keys[0]]['manufacturer']; ?>
-                                        </td>
-                                        <td>
-                                            <?php
+                                                    <tr>
+                                                        <td>
+                                                            <?php echo $i++; ?>
+                                                        </td>
+                                                        <td>
+                                                            <img src="<?php echo $amazon[$keys[0]]['img']; ?>" alt="<?php the_title();?>" height="42" width="42">
+                                                            <a href="<?php the_permalink();?>">
+                                                                <?php the_title();?>
+                                                            </a>
+                                                        </td>
+                                                        <td>
+                                                            <?php echo $amazon[$keys[0]]['manufacturer']; ?>
+                                                        </td>
+                                                        <td>
+                                                            <?php
                                                 echo $amazon[$keys[0]]['currency'];
                                                 echo $amazon[$keys[0]]['price'];
                                             ?>
-                                        </td>
-                                        <td>
-                                            <?php print_r($amazon[$keys[0]]['extra']['availability']);?>
-                                        </td>
-                                        <td>Buy</td>
-                                        <td>Add</td>
-                                    </tr>
+                                                        </td>
+                                                        <td>
+                                                            <?php print_r($amazon[$keys[0]]['extra']['availability']);?>
+                                                        </td>
+                                                        <td>Buy</td>
+                                                        <td>Add</td>
+                                                    </tr>
 
-                                    <?php
+                                                    <?php
 
     //remove this php part
     //            print_r($amazon[$keys[0]]['price']);
@@ -122,9 +176,9 @@ $keys = array_keys($amazon); // convert associative arrays to index array
     //            $var_str = var_export($amazon[$keys[0]], true);
     //            file_put_contents('filename.txt', $var_str);
     ?>
-        <?php };?>
-                            </tbody>
-                        </table>
+                                                        <?php };?>
+                                            </tbody>
+                                        </table>
 
                                     </div>
                                     <div class="modal-footer">
