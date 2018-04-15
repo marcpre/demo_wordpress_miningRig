@@ -42,7 +42,7 @@ if ($products->have_posts()) {?>
                                 <tr>
                                     <td>CPU</td>
                                     <td>
-                                        <button type="button" data-exists="cpu" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#exampleModal">
+                                        <button type="button" data-exists="cpu" class="btn btn-primary btn-sm" >
                                             Add CPU
                                         </button>
                                     </td>
@@ -50,7 +50,7 @@ if ($products->have_posts()) {?>
                                 <tr>
                                     <td>Motherboard</td>
                                     <td>
-                                        <button type="button" data-exists="motherboard" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#exampleModal">
+                                        <button type="button" data-exists="motherboard" class="btn btn-primary btn-sm" >
                                             Add Motherboard
                                         </button>
                                     </td>
@@ -58,7 +58,7 @@ if ($products->have_posts()) {?>
                                 <tr>
                                     <td>Graphic Card</td>
                                     <td>
-                                        <button type="button" data-exists="graphic-card" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#exampleModal">
+                                        <button type="button" data-exists="graphic-card" class="btn btn-primary btn-sm" >
                                             Add Graphic Card
                                         </button>
                                     </td>
@@ -116,7 +116,7 @@ wp_reset_postdata();
                                     <div class="modal-body">
 
                                         <table id="table_id" class="display" style="width:100%">
-                                            <thead>
+                            <!--                <thead>
                                                 <tr>
                                                     <th>#</th>
                                                     <th>Title</th>
@@ -128,13 +128,13 @@ wp_reset_postdata();
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                                <?php 
+-->                                                <?php /*
                                 $i = 0;
                                 while ($products->have_posts()) {
                                     $products->the_post()?>
 
                                                 </br>
-                                                <?php
+                                                <?php 
 $amazon = get_post_meta(get_the_ID(), '_cegg_data_Amazon', true);
 $keys = array_keys($amazon); // convert associative arrays to index array
     ?>
@@ -177,8 +177,8 @@ $keys = array_keys($amazon); // convert associative arrays to index array
     //            $var_str = var_export($amazon[$keys[0]], true);
     //            file_put_contents('filename.txt', $var_str);
     ?>
-                                                        <?php };?>
-                                            </tbody>
+                                                        <?php }; */ ?>
+                                        <!--S    </tbody> -->
                                         </table>
 
                                     </div>

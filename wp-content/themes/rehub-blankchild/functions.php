@@ -16,8 +16,12 @@ function enqueue_parent_theme_style()
        
         //js
         wp_enqueue_script('main-mining-rig-js', get_theme_file_uri('/js/scripts-bundled.js'), NULL, '1.0', true);
+        
+        wp_localize_script('main-mining-rig-js', 'miningRigData', array(
+            'root_url' => get_site_url(),
+            'nonce' => wp_create_nonce('wp_rest')
+        ));
     }
 }
 
 add_action('wp_enqueue_scripts', 'enqueue_parent_theme_style', 1);
-

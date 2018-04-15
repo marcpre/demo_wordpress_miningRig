@@ -5,7 +5,7 @@ import dt from 'datatables.net';
 class DataTable {
     constructor() {
         $(document).ready(function () {
-            $('#table_id').DataTable();
+            // $('#table_id').DataTable();
         });
         // alert("This is a test message.")
     } // end constructor

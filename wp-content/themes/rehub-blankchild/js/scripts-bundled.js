@@ -26415,8 +26415,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 var DataTable = function DataTable() {
   _classCallCheck(this, DataTable);
 
-  (0, _jquery.default)(document).ready(function () {
-    (0, _jquery.default)('#table_id').DataTable();
+  (0, _jquery.default)(document).ready(function () {// $('#table_id').DataTable();
   }); // alert("This is a test message.")
 } // end constructor
 ;
@@ -26437,6 +26436,8 @@ Object.defineProperty(exports, "__esModule", {
 exports.default = void 0;
 
 var _jquery = _interopRequireDefault(__webpack_require__(0));
+
+var _datatables = _interopRequireDefault(__webpack_require__(1));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -26470,15 +26471,48 @@ function () {
 
       if (currentButton.data('exists') == 'cpu') {
         console.log("cpu clicked");
+        this.loadMiningHardware('cpu').bind(this);
       }
 
       if (currentButton.data('exists') == 'motherboard') {
         console.log("motherboard clicked");
+        this.loadMiningHardware('motherboard').bind(this);
       }
 
       if (currentButton.data('exists') == 'graphic-card') {
         console.log("graphic-card clicked");
+        this.loadMiningHardware('graphic-card').bind(this);
       }
+    }
+  }, {
+    key: "loadMiningHardware",
+    value: function loadMiningHardware(part) {
+      console.log("loadMiningHardware ".concat(part, " clicked"));
+
+      _jquery.default.getJSON(miningRigData.root_url + '/wp-json/rigHardware/v1/manageRigHardware?term=' + part, function (results) {
+        console.log(results);
+        (0, _jquery.default)('#exampleModal').modal('show');
+        var dataSet = [["1", "System Architect", "Edinburgh", "5421", "2011/04/25", "$320,800", "$320,800"], ["2", "Accountant", "Tokyo", "8422", "2011/07/25", "$170,750", "$320,800"], ["3", "Junior Technical Author", "San Francisco", "1562", "2009/01/12", "$86,000", "$320,800"]];
+        (0, _jquery.default)('#table_id').DataTable({
+          data: dataSet,
+          columns: [{
+            title: "#"
+          }, {
+            title: "Title"
+          }, {
+            title: "Manufacturer"
+          }, {
+            title: "Price"
+          }, {
+            title: "Availability"
+          }, {
+            title: ""
+          }, {
+            title: ""
+          }]
+        });
+      }); // open modal
+
     }
   }]);
 
