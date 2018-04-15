@@ -39,13 +39,25 @@ class RigBuilder {
             console.log(results)
 
             $('#exampleModal').modal('show');
-            
-            var dataSet = [
-                [ "1", "System Architect", "Edinburgh", "5421", "2011/04/25", "$320,800", "$320,800" ],
-                [ "2", "Accountant", "Tokyo", "8422", "2011/07/25", "$170,750", "$320,800" ],
-                [ "3", "Junior Technical Author", "San Francisco", "1562", "2009/01/12", "$86,000", "$320,800" ],
-            ];
-            
+
+            //transform data set
+            let dataSet = results.generalInfo.map((item, i) => [
+                i + 1,
+                `<img src="${item.img}" alt="${item.title}" height="42" width="42">
+                 <a href="<?php the_permalink();?>">
+                     ${item.title}
+                 </a>`,
+                item.manufacturer,
+                `<div>${item.currency} ${item.price}</div>`,
+                item.availability,
+                `<button type="button">
+                    Add
+                </button>`,
+                `<button type="button">
+                    Buy
+                </button>`
+            ]) 
+
             $('#table_id').DataTable({
                 data: dataSet,
                 columns: [{
@@ -71,9 +83,9 @@ class RigBuilder {
                     }
                 ]
             });
-            
+
         });
-        
+
         // open modal
     }
 }

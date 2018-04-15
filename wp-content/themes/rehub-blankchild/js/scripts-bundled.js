@@ -26491,8 +26491,11 @@ function () {
 
       _jquery.default.getJSON(miningRigData.root_url + '/wp-json/rigHardware/v1/manageRigHardware?term=' + part, function (results) {
         console.log(results);
-        (0, _jquery.default)('#exampleModal').modal('show');
-        var dataSet = [["1", "System Architect", "Edinburgh", "5421", "2011/04/25", "$320,800", "$320,800"], ["2", "Accountant", "Tokyo", "8422", "2011/07/25", "$170,750", "$320,800"], ["3", "Junior Technical Author", "San Francisco", "1562", "2009/01/12", "$86,000", "$320,800"]];
+        (0, _jquery.default)('#exampleModal').modal('show'); //transform data set
+
+        var dataSet = results.generalInfo.map(function (item, i) {
+          return [i + 1, "<img src=\"".concat(item.img, "\" alt=\"").concat(item.title, "\" height=\"42\" width=\"42\">\n                 <a href=\"<?php the_permalink();?>\">\n                     ").concat(item.title, "\n                 </a>"), item.manufacturer, "<div>".concat(item.currency, " ").concat(item.price, "</div>"), item.availability, "<button type=\"button\">\n                    Add\n                </button>", "<button type=\"button\">\n                    Buy\n                </button>"];
+        });
         (0, _jquery.default)('#table_id').DataTable({
           data: dataSet,
           columns: [{

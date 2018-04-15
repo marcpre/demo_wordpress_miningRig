@@ -33,15 +33,16 @@ function allRigHardware($data)
         
         //get post meta 
         $amazon = get_post_meta(get_the_ID(), '_cegg_data_Amazon', true);
-$keys = array_keys($amazon); // convert associative arrays to index array
+        $keys = array_keys($amazon); // convert associative arrays to index array
 
 //        if (get_post_type() == 'post' or get_post_type() == 'page') {
             array_push($results['generalInfo'], array(
                 'title' => get_the_title(),
                 'permalink' => get_the_permalink(),
+                'manufacturer' => $amazon[$keys[0]]['manufacturer'],
                 'category' => get_the_category(),
                 'img' => $amazon[$keys[0]]['img'],
-                'curreny' => $amazon[$keys[0]]['currency'],
+                'currency' => $amazon[$keys[0]]['currency'],
                 'price' => $amazon[$keys[0]]['price'],
                 'availability' => $amazon[$keys[0]]['extra']['availability'],
                 'tellAFriend' => $amazon[$keys[0]]['extra']['itemLinks'][4]['URL'],
