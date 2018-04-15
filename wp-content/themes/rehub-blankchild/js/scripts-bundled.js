@@ -26453,7 +26453,8 @@ function () {
   function RigBuilder() {
     _classCallCheck(this, RigBuilder);
 
-    this.events(); // console.log("RigBuilder Console Log")
+    var resultsGlobal = [];
+    this.events();
   } // end constructor
 
 
@@ -26461,6 +26462,7 @@ function () {
     key: "events",
     value: function events() {
       (0, _jquery.default)(".btn.btn-primary.btn-sm").on("click", this.ourClickDispatcher.bind(this));
+      (0, _jquery.default)('#table_id').on('click', 'button.addButton', this.addToTable.bind(this));
     } // methods
 
   }, {
@@ -26487,6 +26489,8 @@ function () {
   }, {
     key: "loadMiningHardware",
     value: function loadMiningHardware(part) {
+      var _this = this;
+
       console.log("loadMiningHardware ".concat(part, " clicked"));
 
       _jquery.default.getJSON(miningRigData.root_url + '/wp-json/rigHardware/v1/manageRigHardware?term=' + part, function (results) {
@@ -26494,10 +26498,13 @@ function () {
         (0, _jquery.default)('#exampleModal').modal('show'); //transform data set
 
         var dataSet = results.generalInfo.map(function (item, i) {
-          return [i + 1, "<img src=\"".concat(item.img, "\" alt=\"").concat(item.title, "\" height=\"42\" width=\"42\">\n                 <a href=\"<?php the_permalink();?>\">\n                     ").concat(item.title, "\n                 </a>"), item.manufacturer, "<div>".concat(item.currency, " ").concat(item.price, "</div>"), item.availability, "<button type=\"button\">\n                    Add\n                </button>", "<button type=\"button\">\n                    Buy\n                </button>"];
+          return [i + 1, "<img src=\"".concat(item.img, "\" alt=\"").concat(item.title, "\" height=\"42\" width=\"42\">\n                 <a href=\"<?php the_permalink();?>\">\n                     ").concat(item.title, "\n                 </a>"), item.manufacturer, "<div>".concat(item.currency, " ").concat(item.price, "</div>"), item.availability, "<button class=\"addButton\" type=\"button\" data-item-index=\"".concat(i, "\">\n                    Add\n                </button>"), "<a class=\"btn btn-primary\" href=\"".concat(item.affiliateLink, "\" target=\"_blank\" role=\"button\">\n                    Buy\n                </a>")];
         });
+        _this.resultsGlobal = results; //assign to global variable
+
         (0, _jquery.default)('#table_id').DataTable({
           data: dataSet,
+          destroy: true,
           columns: [{
             title: "#"
           }, {
@@ -26514,8 +26521,16 @@ function () {
             title: ""
           }]
         });
-      }); // open modal
+      });
+    }
+  }, {
+    key: "addToTable",
+    value: function addToTable(e) {
+      var currentButton = (0, _jquery.default)(e.target).closest("button.addButton");
+      var itemIndex = parseInt(currentButton.data('item-index'));
+      var item = this.resultsGlobal.generalInfo[itemIndex]; //replace button and append to table
 
+      (0, _jquery.default)("ul").append("<li>".concat(item.title, "</li>"));
     }
   }]);
 

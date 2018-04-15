@@ -3,12 +3,13 @@ import dt from 'datatables.net';
 
 class RigBuilder {
     constructor() {
+        let resultsGlobal = []
         this.events();
-        // console.log("RigBuilder Console Log")
     } // end constructor
 
     events() {
         $(".btn.btn-primary.btn-sm").on("click", this.ourClickDispatcher.bind(this));
+        $('#table_id').on('click', 'button.addButton', this.addToTable.bind(this));
     }
 
     // methods
@@ -37,7 +38,6 @@ class RigBuilder {
         console.log(`loadMiningHardware ${part} clicked`)
         $.getJSON(miningRigData.root_url + '/wp-json/rigHardware/v1/manageRigHardware?term=' + part, (results) => {
             console.log(results)
-
             $('#exampleModal').modal('show');
 
             //transform data set
@@ -50,16 +50,19 @@ class RigBuilder {
                 item.manufacturer,
                 `<div>${item.currency} ${item.price}</div>`,
                 item.availability,
-                `<button type="button">
+                `<button class="addButton" type="button" data-item-index="${i}">
                     Add
                 </button>`,
-                `<button type="button">
+                `<a class="btn btn-primary" href="${item.affiliateLink}" target="_blank" role="button">
                     Buy
-                </button>`
-            ]) 
+                </a>`
+            ])
+
+            this.resultsGlobal = results //assign to global variable
 
             $('#table_id').DataTable({
                 data: dataSet,
+                destroy: true,
                 columns: [{
                         title: "#"
                     },
@@ -83,10 +86,16 @@ class RigBuilder {
                     }
                 ]
             });
-
         });
+    }
 
-        // open modal
+    addToTable(e) {
+        const currentButton = $(e.target).closest("button.addButton")
+        const itemIndex = parseInt(currentButton.data('item-index'))
+        const item = this.resultsGlobal.generalInfo[itemIndex]
+        
+        //replace button and append to table
+        $("ul").append(`<li>${item.title}</li>`);
     }
 }
 

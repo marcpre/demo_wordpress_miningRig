@@ -37,6 +37,8 @@ function allRigHardware($data)
 
 //        if (get_post_type() == 'post' or get_post_type() == 'page') {
             array_push($results['generalInfo'], array(
+                'unique_id' => $amazon[$keys[0]]['unique_id'],
+                'post_id' => get_the_ID(),
                 'title' => get_the_title(),
                 'permalink' => get_the_permalink(),
                 'manufacturer' => $amazon[$keys[0]]['manufacturer'],
