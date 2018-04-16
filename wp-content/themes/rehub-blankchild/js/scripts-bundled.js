@@ -26473,17 +26473,32 @@ function () {
 
       if (currentButton.data('exists') == 'cpu') {
         console.log("cpu clicked");
-        this.loadMiningHardware('cpu').bind(this);
+        this.loadMiningHardware('cpu');
       }
 
       if (currentButton.data('exists') == 'motherboard') {
         console.log("motherboard clicked");
-        this.loadMiningHardware('motherboard').bind(this);
+        this.loadMiningHardware('motherboard');
       }
 
       if (currentButton.data('exists') == 'graphic-card') {
         console.log("graphic-card clicked");
-        this.loadMiningHardware('graphic-card').bind(this);
+        this.loadMiningHardware('graphic-card');
+      }
+
+      if (currentButton.data('exists') == 'power-supply') {
+        console.log("power-supply clicked");
+        this.loadMiningHardware('power-supply');
+      }
+
+      if (currentButton.data('exists') == 'rig-frame') {
+        console.log("rig-frame clicked");
+        this.loadMiningHardware('rig-frame');
+      }
+
+      if (currentButton.data('exists') == 'more-parts') {
+        console.log("more-parts clicked");
+        this.loadMiningHardware('more-parts');
       }
     }
   }, {
