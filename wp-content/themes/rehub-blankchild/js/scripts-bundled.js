@@ -26545,10 +26545,14 @@ function () {
       var itemIndex = parseInt(currentButton.data('item-index'));
       var item = this.resultsGlobal.generalInfo[itemIndex];
       console.log(item);
-      console.log(item.category.slug);
-      var targetButton = (0, _jquery.default)(".btn.btn-primary.btn-sm" + item.category.slug);
+      console.log(item.category["0"].slug);
+      var targetButton = (0, _jquery.default)(".btn.btn-primary.btn-sm." + item.category["0"].slug);
       console.log(targetButton);
-      targetButton.prepend("\n        <td>\n            <img src=\"".concat(item.img, "\" alt=\"").concat(item.title, "\" height=\"42\" width=\"42\">\n            <a href=\"<?php the_permalink();?>\">\n                ").concat(item.title, "\n            </a>\n        </td>"));
+      targetButton.append("\n        <td>\n            <img src=\"".concat(item.img, "\" alt=\"").concat(item.title, "\" height=\"42\" width=\"42\">\n            <a href=\"<?php the_permalink();?>\">\n                ").concat(item.title, "\n            </a>\n        </td>    \n        "));
+      targetButton.attr('class', 'btn btn-danger btn-sm cpu ' + item.category["0"].slug); // change button class to red
+      // close modal window
+
+      (0, _jquery.default)('#exampleModal').modal('hide');
     }
   }]);
 

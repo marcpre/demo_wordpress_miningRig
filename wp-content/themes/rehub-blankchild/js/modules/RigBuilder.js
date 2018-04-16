@@ -110,20 +110,27 @@ class RigBuilder {
         const item = this.resultsGlobal.generalInfo[itemIndex]
 
         console.log(item)
-        console.log(item.category.slug)
+        console.log(item.category["0"].slug)
 
-        const targetButton = $(".btn.btn-primary.btn-sm" + item.category.slug)
+        const targetButton = $(".btn.btn-primary.btn-sm." + item.category["0"].slug)
 
         console.log(targetButton)
 
-        targetButton.prepend(`
+        targetButton.append(`
         <td>
             <img src="${item.img}" alt="${item.title}" height="42" width="42">
             <a href="<?php the_permalink();?>">
                 ${item.title}
             </a>
-        </td>`)
+        </td>    
+        `)
+        
+        targetButton.attr('class', 'btn btn-danger btn-sm cpu ' + item.category["0"].slug); // change button class to red
+        
+        // close modal window
+        $('#exampleModal').modal('hide');
     }
 }
 
 export default RigBuilder;
+
