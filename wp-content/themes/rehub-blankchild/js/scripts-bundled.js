@@ -26544,9 +26544,11 @@ function () {
       var currentButton = (0, _jquery.default)(e.target).closest("button.addButton");
       var itemIndex = parseInt(currentButton.data('item-index'));
       var item = this.resultsGlobal.generalInfo[itemIndex];
-      console.log(item); //replace button and append to table
-
-      (0, _jquery.default)("ul").append("<li>".concat(item.title, "</li>"));
+      console.log(item);
+      console.log(item.category.slug);
+      var targetButton = (0, _jquery.default)(".btn.btn-primary.btn-sm" + item.category.slug);
+      console.log(targetButton);
+      targetButton.prepend("\n        <td>\n            <img src=\"".concat(item.img, "\" alt=\"").concat(item.title, "\" height=\"42\" width=\"42\">\n            <a href=\"<?php the_permalink();?>\">\n                ").concat(item.title, "\n            </a>\n        </td>"));
     }
   }]);
 

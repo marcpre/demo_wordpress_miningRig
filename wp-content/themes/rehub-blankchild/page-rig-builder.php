@@ -42,7 +42,7 @@ if ($products->have_posts()) {?>
                                 <tr>
                                     <td>CPU</td>
                                     <td>
-                                        <button type="button" data-exists="cpu" class="btn btn-primary btn-sm" >
+                                        <button type="button" data-exists="cpu" class="btn btn-primary btn-sm cpu" >
                                             Add CPU
                                         </button>
                                     </td>
@@ -50,7 +50,7 @@ if ($products->have_posts()) {?>
                                 <tr>
                                     <td>Motherboard</td>
                                     <td>
-                                        <button type="button" data-exists="motherboard" class="btn btn-primary btn-sm" >
+                                        <button type="button" data-exists="motherboard" class="btn btn-primary btn-sm motherboard" >
                                             Add Motherboard
                                         </button>
                                     </td>
@@ -58,7 +58,7 @@ if ($products->have_posts()) {?>
                                 <tr>
                                     <td>Graphic Card</td>
                                     <td>
-                                        <button type="button" data-exists="graphic-card" class="btn btn-primary btn-sm" >
+                                        <button type="button" data-exists="graphic-card" class="btn btn-primary btn-sm graphic-card" >
                                             Add Graphic Card
                                         </button>
                                     </td>
@@ -66,7 +66,7 @@ if ($products->have_posts()) {?>
                                 <tr>
                                     <td>Power Supply&nbsp;</td>
                                     <td>
-                                        <button type="button" data-exists="power-supply" class="btn btn-primary btn-sm" >
+                                        <button type="button" data-exists="power-supply" class="btn btn-primary btn-sm power-supply" >
                                             Add Power Supply
                                         </button>
                                     </td>
@@ -74,7 +74,7 @@ if ($products->have_posts()) {?>
                                 <tr>
                                     <td>Rig Frame&nbsp;</td>
                                     <td>
-                                        <button type="button" data-exists="rig-frame" class="btn btn-primary btn-sm" >
+                                        <button type="button" data-exists="rig-frame" class="btn btn-primary btn-sm rig-frame" >
                                             Add Rig Frame
                                         </button>
                                     </td>
@@ -82,7 +82,7 @@ if ($products->have_posts()) {?>
                                 <tr>
                                     <td>More Parts&nbsp;</td>
                                     <td>
-                                        <button type="button" data-exists="more-parts" class="btn btn-primary btn-sm" >
+                                        <button type="button" data-exists="more-parts" class="btn btn-primary btn-sm more-parts" >
                                             Add More Parts
                                         </button>
                                     </td>

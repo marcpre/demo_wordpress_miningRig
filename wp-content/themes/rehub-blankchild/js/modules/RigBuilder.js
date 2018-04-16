@@ -110,9 +110,19 @@ class RigBuilder {
         const item = this.resultsGlobal.generalInfo[itemIndex]
 
         console.log(item)
+        console.log(item.category.slug)
 
-        //replace button and append to table
-        $("ul").append(`<li>${item.title}</li>`);
+        const targetButton = $(".btn.btn-primary.btn-sm" + item.category.slug)
+
+        console.log(targetButton)
+
+        targetButton.prepend(`
+        <td>
+            <img src="${item.img}" alt="${item.title}" height="42" width="42">
+            <a href="<?php the_permalink();?>">
+                ${item.title}
+            </a>
+        </td>`)
     }
 }
 
