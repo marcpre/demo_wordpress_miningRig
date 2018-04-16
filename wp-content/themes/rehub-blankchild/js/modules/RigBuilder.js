@@ -94,6 +94,8 @@ class RigBuilder {
         const itemIndex = parseInt(currentButton.data('item-index'))
         const item = this.resultsGlobal.generalInfo[itemIndex]
         
+        console.log(item)
+        
         //replace button and append to table
         $("ul").append(`<li>${item.title}</li>`);
     }

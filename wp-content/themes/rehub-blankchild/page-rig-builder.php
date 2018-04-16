@@ -66,24 +66,24 @@ if ($products->have_posts()) {?>
                                 <tr>
                                     <td>Power Supply&nbsp;</td>
                                     <td>
-                                        <button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#exampleModal">
-                                            Launch demo modal
+                                        <button type="button" data-exists="power-supply" class="btn btn-primary btn-sm" >
+                                            Add Power Supply
                                         </button>
                                     </td>
                                 </tr>
                                 <tr>
                                     <td>Rig Frame&nbsp;</td>
                                     <td>
-                                        <button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#exampleModal">
-                                            Launch demo modal
+                                        <button type="button" data-exists="rig-frame" class="btn btn-primary btn-sm" >
+                                            Add Rig Frame
                                         </button>
                                     </td>
                                 </tr>
                                 <tr>
                                     <td>More Parts&nbsp;</td>
                                     <td>
-                                        <button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#exampleModal">
-                                            Launch demo modal
+                                        <button type="button" data-exists="more-parts" class="btn btn-primary btn-sm" >
+                                            Add More Parts
                                         </button>
                                     </td>
                                 </tr>
@@ -101,7 +101,7 @@ if ($products->have_posts()) {?>
                         <!-- DELETE ME -->
 
 
-                        <?php };
+                        <?php  };
 
 wp_reset_postdata();
 ?>

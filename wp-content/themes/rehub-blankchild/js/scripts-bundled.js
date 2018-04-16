@@ -26528,7 +26528,8 @@ function () {
     value: function addToTable(e) {
       var currentButton = (0, _jquery.default)(e.target).closest("button.addButton");
       var itemIndex = parseInt(currentButton.data('item-index'));
-      var item = this.resultsGlobal.generalInfo[itemIndex]; //replace button and append to table
+      var item = this.resultsGlobal.generalInfo[itemIndex];
+      console.log(item); //replace button and append to table
 
       (0, _jquery.default)("ul").append("<li>".concat(item.title, "</li>"));
     }
