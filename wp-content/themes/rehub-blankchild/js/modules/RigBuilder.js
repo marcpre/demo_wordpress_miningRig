@@ -113,10 +113,11 @@ class RigBuilder {
         console.log(item.category["0"].slug)
 
         const targetButton = $(".btn.btn-primary.btn-sm." + item.category["0"].slug)
+        const targetButtonParent = targetButton[0].parentElement
 
         console.log(targetButton)
 
-        targetButton.append(`
+        targetButtonParent.insertAdjacentHTML('beforebegin', `
         <td>
             <img src="${item.img}" alt="${item.title}" height="42" width="42">
             <a href="<?php the_permalink();?>">
@@ -124,8 +125,9 @@ class RigBuilder {
             </a>
         </td>    
         `)
-        
+
         targetButton.attr('class', 'btn btn-danger btn-sm cpu ' + item.category["0"].slug); // change button class to red
+        targetButton.html().replace('Add','Edit');
         
         // close modal window
         $('#exampleModal').modal('hide');

@@ -26547,8 +26547,20 @@ function () {
       console.log(item);
       console.log(item.category["0"].slug);
       var targetButton = (0, _jquery.default)(".btn.btn-primary.btn-sm." + item.category["0"].slug);
+      var targetButtonParent = targetButton[0].parentElement;
       console.log(targetButton);
-      targetButton.append("\n        <td>\n            <img src=\"".concat(item.img, "\" alt=\"").concat(item.title, "\" height=\"42\" width=\"42\">\n            <a href=\"<?php the_permalink();?>\">\n                ").concat(item.title, "\n            </a>\n        </td>    \n        "));
+      targetButtonParent.insertAdjacentHTML('beforebegin', "\n        <td>\n            <img src=\"".concat(item.img, "\" alt=\"").concat(item.title, "\" height=\"42\" width=\"42\">\n            <a href=\"<?php the_permalink();?>\">\n                ").concat(item.title, "\n            </a>\n        </td>    \n        "));
+      /*
+              targetButton.append(`
+              <td>
+                  <img src="${item.img}" alt="${item.title}" height="42" width="42">
+                  <a href="<?php the_permalink();?>">
+                      ${item.title}
+                  </a>
+              </td>    
+              `)
+      */
+
       targetButton.attr('class', 'btn btn-danger btn-sm cpu ' + item.category["0"].slug); // change button class to red
       // close modal window
 

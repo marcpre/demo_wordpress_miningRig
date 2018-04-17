@@ -50,12 +50,6 @@ if ($products->have_posts()) {?>
                                 <tr>
                                     <td>Motherboard</td>
                                     <td>
-            <img src="" alt="" height="42" width="42">
-            <a href="">
-                Test Title
-            </a>
-        </td>  
-                                    <td>
                                         <button type="button" data-exists="motherboard" class="btn btn-primary btn-sm motherboard" >
                                             Add Motherboard
                                         </button>
