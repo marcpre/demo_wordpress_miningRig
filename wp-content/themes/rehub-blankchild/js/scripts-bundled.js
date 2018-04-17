@@ -26441,6 +26441,8 @@ var _datatables = _interopRequireDefault(__webpack_require__(1));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
+function _readOnlyError(name) { throw new Error("\"" + name + "\" is read-only"); }
+
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
@@ -26462,6 +26464,7 @@ function () {
     key: "events",
     value: function events() {
       (0, _jquery.default)(".btn.btn-primary.btn-sm").on("click", this.ourClickDispatcher.bind(this));
+      (0, _jquery.default)(".btn.btn-danger.btn-sm").on("click", this.ourClickDispatcher.bind(this));
       (0, _jquery.default)('#table_id').on('click', 'button.addButton', this.addToTable.bind(this));
     } // methods
 
@@ -26469,7 +26472,12 @@ function () {
     key: "ourClickDispatcher",
     value: function ourClickDispatcher(e) {
       var currentButton = (0, _jquery.default)(e.target).closest(".btn.btn-primary.btn-sm");
-      console.log("lolonator");
+      console.log(currentButton);
+
+      if (!(currentButton.length > 0)) {
+        console.log("lolonator");
+        currentButton = (0, _jquery.default)(e.target).closest(".btn.btn-danger.btn-sm");
+      }
 
       if (currentButton.data('exists') == 'cpu') {
         console.log("cpu clicked");
@@ -26548,23 +26556,30 @@ function () {
       console.log(item.category["0"].slug);
       var targetButton = (0, _jquery.default)(".btn.btn-primary.btn-sm." + item.category["0"].slug);
       var targetButtonParent = targetButton[0].parentElement;
-      console.log(targetButton);
-      targetButtonParent.insertAdjacentHTML('beforebegin', "\n        <td>\n            <img src=\"".concat(item.img, "\" alt=\"").concat(item.title, "\" height=\"42\" width=\"42\">\n            <a href=\"<?php the_permalink();?>\">\n                ").concat(item.title, "\n            </a>\n        </td>    \n        "));
-      /*
-              targetButton.append(`
-              <td>
-                  <img src="${item.img}" alt="${item.title}" height="42" width="42">
-                  <a href="<?php the_permalink();?>">
-                      ${item.title}
-                  </a>
-              </td>    
-              `)
-      */
 
-      targetButton.attr('class', 'btn btn-danger btn-sm cpu ' + item.category["0"].slug); // change button class to red
-      // close modal window
+      if (targetButton.length > 0) {
+        targetButtonParent.insertAdjacentHTML('beforebegin', "\n                <td>\n                    <img src=\"".concat(item.img, "\" alt=\"").concat(item.title, "\" height=\"42\" width=\"42\">\n                    <a href=\"").concat(item.affiliateLink, "\">\n                        ").concat(item.title, "\n                    </a>\n                </td>    \n            "));
+        targetButton.attr('class', 'btn btn-danger btn-sm ' + item.category["0"].slug); // change button class to red
 
-      (0, _jquery.default)('#exampleModal').modal('hide');
+        targetButton.text(function () {
+          return (0, _jquery.default)(this).text().replace("Add", "Edit");
+        }); // close modal window
+
+        (0, _jquery.default)('#exampleModal').modal('hide');
+      } else {
+        console.log("lolonator + addToTable");
+        targetButton = (_readOnlyError("targetButton"), (0, _jquery.default)(e.target).closest(".btn.btn-danger.btn-sm." + item.category["0"].slug));
+        console.log(targetButton);
+        targetButtonParent = (_readOnlyError("targetButtonParent"), targetButton[0].parentElement);
+        targetButtonParent.insertAdjacentHTML('beforebegin', "\n               <img src=\"".concat(item.img, "\" alt=\"").concat(item.title, "\" height=\"42\" width=\"42\">\n                <a href=\"").concat(item.affiliateLink, "\">\n                    ").concat(item.title, "\n                </a>\n            "));
+        targetButton.attr('class', 'btn btn-danger btn-sm ' + item.category["0"].slug); // change button class to red
+
+        targetButton.text(function () {
+          return (0, _jquery.default)(this).text().replace("Add", "Edit");
+        }); // close modal window
+
+        (0, _jquery.default)('#exampleModal').modal('hide');
+      }
     }
   }]);
 

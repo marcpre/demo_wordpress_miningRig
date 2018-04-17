@@ -9,13 +9,20 @@ class RigBuilder {
 
     events() {
         $(".btn.btn-primary.btn-sm").on("click", this.ourClickDispatcher.bind(this));
+        $(".btn.btn-danger.btn-sm").on("click", this.ourClickDispatcher.bind(this));
         $('#table_id').on('click', 'button.addButton', this.addToTable.bind(this));
     }
 
     // methods
     ourClickDispatcher(e) {
-        var currentButton = $(e.target).closest(".btn.btn-primary.btn-sm");
-        console.log("lolonator")
+        let currentButton = $(e.target).closest(".btn.btn-primary.btn-sm");
+
+        console.log(currentButton)
+
+        if (!(currentButton.length > 0)) {
+            console.log("lolonator")
+            currentButton = $(e.target).closest(".btn.btn-danger.btn-sm");
+        }
 
         if (currentButton.data('exists') == 'cpu') {
             console.log("cpu clicked")
@@ -105,7 +112,8 @@ class RigBuilder {
     }
 
     addToTable(e) {
-        const currentButton = $(e.target).closest("button.addButton")
+        let currentButton = $(e.target).closest("button.addButton")
+
         const itemIndex = parseInt(currentButton.data('item-index'))
         const item = this.resultsGlobal.generalInfo[itemIndex]
 
@@ -115,24 +123,50 @@ class RigBuilder {
         const targetButton = $(".btn.btn-primary.btn-sm." + item.category["0"].slug)
         const targetButtonParent = targetButton[0].parentElement
 
-        console.log(targetButton)
+        if (targetButton.length > 0) {
 
-        targetButtonParent.insertAdjacentHTML('beforebegin', `
-        <td>
-            <img src="${item.img}" alt="${item.title}" height="42" width="42">
-            <a href="<?php the_permalink();?>">
-                ${item.title}
-            </a>
-        </td>    
-        `)
+            targetButtonParent.insertAdjacentHTML('beforebegin', `
+                <td>
+                    <img src="${item.img}" alt="${item.title}" height="42" width="42">
+                    <a href="${item.affiliateLink}">
+                        ${item.title}
+                    </a>
+                </td>    
+            `)
 
-        targetButton.attr('class', 'btn btn-danger btn-sm cpu ' + item.category["0"].slug); // change button class to red
-        targetButton.html().replace('Add','Edit');
-        
-        // close modal window
-        $('#exampleModal').modal('hide');
+            targetButton.attr('class', 'btn btn-danger btn-sm ' + item.category["0"].slug); // change button class to red
+
+            targetButton.text(function() {
+                return $(this).text().replace("Add", "Edit");
+            });
+
+            // close modal window
+            $('#exampleModal').modal('hide');
+        }
+        else {
+
+            console.log("lolonator + addToTable")
+            targetButton = $(e.target).closest(".btn.btn-danger.btn-sm." + item.category["0"].slug);
+
+            console.log(targetButton)
+
+            targetButtonParent = targetButton[0].parentElement
+            targetButtonParent.insertAdjacentHTML('beforebegin', `
+               <img src="${item.img}" alt="${item.title}" height="42" width="42">
+                <a href="${item.affiliateLink}">
+                    ${item.title}
+                </a>
+            `)
+
+            targetButton.attr('class', 'btn btn-danger btn-sm ' + item.category["0"].slug); // change button class to red
+
+            targetButton.text(function() {
+                return $(this).text().replace("Add", "Edit");
+            });
+            // close modal window
+            $('#exampleModal').modal('hide');
+        }
     }
 }
 
 export default RigBuilder;
-

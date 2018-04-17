@@ -92,10 +92,10 @@ if ($products->have_posts()) {?>
 
 
                         <!-- Button trigger modal -->
-                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
+<!--                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
                             Launch demo modal
                         </button>
-                        
+-->                        
                         <!-- DELETE ME -->
                         <ul></ul>
                         <!-- DELETE ME -->
