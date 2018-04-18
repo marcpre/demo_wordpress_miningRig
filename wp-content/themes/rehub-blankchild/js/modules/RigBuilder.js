@@ -19,16 +19,17 @@ class RigBuilder {
         let plusButton = $(e.target).closest(".btn.btn-dark.btn-sm");
 
         if (plusButton.hasClass("graphic-card")) {
-            let plusButtonParent = plusButton[0].parentElement
-            plusButtonParent.insertAdjacentHTML('beforebegin', `
-            <tr>
-                <td>
-                    <button type="button" data-exists="graphic-card" class="btn btn-primary btn-sm graphic-card" >
-                        Add Graphic Card
-                    </button>
-                </td>
-            </tr>
-            `)
+            let plusButtonParent = plusButton[0].parentElement.parentElement
+            plusButtonParent.insertAdjacentHTML('afterend', `
+                <tr>
+                    <td></td>
+                    <td>
+                        <button type="button" data-exists="graphic-card" class="btn btn-primary btn-sm graphic-card" >
+                            Add Graphic Card
+                        </button>
+                    </td>
+                </tr>
+            `).on("click", '.btn.btn-primary.btn-sm', this.ourClickDispatcher.bind(this))
         }
     }
 

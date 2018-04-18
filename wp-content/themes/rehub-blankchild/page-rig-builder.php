@@ -45,6 +45,7 @@ if ($products->have_posts()) {?>
                                         <button type="button" data-exists="cpu" class="btn btn-primary btn-sm cpu" >
                                             Add CPU
                                         </button>
+                                        <button type="button" class="btn btn-dark btn-sm cpu">+</button>
                                     </td>
                                 </tr>
                                 <tr>
@@ -71,6 +72,7 @@ if ($products->have_posts()) {?>
                                         <button type="button" data-exists="power-supply" class="btn btn-primary btn-sm power-supply" >
                                             Add Power Supply
                                         </button>
+                                        <button type="button" class="btn btn-dark btn-sm power-supply">+</button>
                                     </td>
                                 </tr>
                                 <tr>
@@ -87,6 +89,7 @@ if ($products->have_posts()) {?>
                                         <button type="button" data-exists="more-parts" class="btn btn-primary btn-sm more-parts" >
                                             Add More Parts
                                         </button>
+                                        <button type="button" class="btn btn-dark btn-sm more-parts">+</button>
                                     </td>
                                 </tr>
                             </tbody>

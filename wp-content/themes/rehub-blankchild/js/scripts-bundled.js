@@ -26473,8 +26473,8 @@ function () {
       var plusButton = (0, _jquery.default)(e.target).closest(".btn.btn-dark.btn-sm");
 
       if (plusButton.hasClass("graphic-card")) {
-        var plusButtonParent = plusButton[0].parentElement;
-        plusButtonParent.insertAdjacentHTML('beforebegin', "\n            <tr>\n                <td>\n                    <button type=\"button\" data-exists=\"graphic-card\" class=\"btn btn-primary btn-sm graphic-card\" >\n                        Add Graphic Card\n                    </button>\n                </td>\n            </tr>\n            ");
+        var plusButtonParent = plusButton[0].parentElement.parentElement;
+        plusButtonParent.insertAdjacentHTML('afterend', "\n                <tr>\n                    <td></td>\n                    <td>\n                        <button type=\"button\" data-exists=\"graphic-card\" class=\"btn btn-primary btn-sm graphic-card\" >\n                            Add Graphic Card\n                        </button>\n                    </td>\n                </tr>\n            ").on("click", '.btn.btn-primary.btn-sm', this.ourClickDispatcher.bind(this));
       }
     }
   }, {
