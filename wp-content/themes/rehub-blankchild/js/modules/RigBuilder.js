@@ -11,9 +11,27 @@ class RigBuilder {
         $(".btn.btn-primary.btn-sm").on("click", this.ourClickDispatcher.bind(this));
         $(".btn.btn-danger.btn-sm").on("click", this.ourClickDispatcher.bind(this));
         $('#table_id').on('click', 'button.addButton', this.addToTable.bind(this));
+        $(".btn.btn-dark.btn-sm").on("click", this.clickDispatcherTable.bind(this));
     }
 
     // methods
+    clickDispatcherTable(e) {
+        let plusButton = $(e.target).closest(".btn.btn-dark.btn-sm");
+
+        if (plusButton.hasClass("graphic-card")) {
+            let plusButtonParent = plusButton[0].parentElement
+            plusButtonParent.insertAdjacentHTML('beforebegin', `
+            <tr>
+                <td>
+                    <button type="button" data-exists="graphic-card" class="btn btn-primary btn-sm graphic-card" >
+                        Add Graphic Card
+                    </button>
+                </td>
+            </tr>
+            `)
+        }
+    }
+
     ourClickDispatcher(e) {
         let currentButton = $(e.target).closest(".btn.btn-primary.btn-sm");
 

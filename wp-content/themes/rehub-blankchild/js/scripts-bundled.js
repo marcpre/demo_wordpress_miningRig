@@ -26464,8 +26464,19 @@ function () {
       (0, _jquery.default)(".btn.btn-primary.btn-sm").on("click", this.ourClickDispatcher.bind(this));
       (0, _jquery.default)(".btn.btn-danger.btn-sm").on("click", this.ourClickDispatcher.bind(this));
       (0, _jquery.default)('#table_id').on('click', 'button.addButton', this.addToTable.bind(this));
+      (0, _jquery.default)(".btn.btn-dark.btn-sm").on("click", this.clickDispatcherTable.bind(this));
     } // methods
 
+  }, {
+    key: "clickDispatcherTable",
+    value: function clickDispatcherTable(e) {
+      var plusButton = (0, _jquery.default)(e.target).closest(".btn.btn-dark.btn-sm");
+
+      if (plusButton.hasClass("graphic-card")) {
+        var plusButtonParent = plusButton[0].parentElement;
+        plusButtonParent.insertAdjacentHTML('beforebegin', "\n            <tr>\n                <td>\n                    <button type=\"button\" data-exists=\"graphic-card\" class=\"btn btn-primary btn-sm graphic-card\" >\n                        Add Graphic Card\n                    </button>\n                </td>\n            </tr>\n            ");
+      }
+    }
   }, {
     key: "ourClickDispatcher",
     value: function ourClickDispatcher(e) {
