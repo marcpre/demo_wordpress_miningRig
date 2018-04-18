@@ -17,8 +17,6 @@ class RigBuilder {
     ourClickDispatcher(e) {
         let currentButton = $(e.target).closest(".btn.btn-primary.btn-sm");
 
-        console.log(currentButton)
-
         if (!(currentButton.length > 0)) {
             console.log("lolonator")
             currentButton = $(e.target).closest(".btn.btn-danger.btn-sm");
@@ -117,9 +115,6 @@ class RigBuilder {
         const itemIndex = parseInt(currentButton.data('item-index'))
         const item = this.resultsGlobal.generalInfo[itemIndex]
 
-        console.log(item)
-        console.log(item.category["0"].slug)
-
         let targetButton = $(".btn.btn-primary.btn-sm." + item.category["0"].slug)
 
         if (targetButton.length > 0) {
@@ -148,18 +143,16 @@ class RigBuilder {
         else {
             console.log("else part")
 
-            console.log(e)
             targetButton = $(".btn.btn-danger.btn-sm." + item.category["0"].slug)
-            console.log(".btn.btn-danger.btn-sm." + item.category["0"].slug)
-            console.log(targetButton)
 
-            let targetButtonParent = targetButton[0].parentElement
-            
-            targetButtonParent.insertAdjacentHTML('beforebegin', `
-               <img src="${item.img}" alt="${item.title}" height="42" width="42">
-                <a href="${item.affiliateLink}">
-                    ${item.title}
-                </a>
+            let elementToBeModified = targetButton.closest('tr').find('td:nth-child(2)');
+            elementToBeModified.empty();
+
+            elementToBeModified.html(`
+                   <img src="${item.img}" alt="${item.title}" height="42" width="42">
+                    <a href="${item.affiliateLink}">
+                        ${item.title}
+                    </a>
             `)
 
             targetButton.attr('class', 'btn btn-danger btn-sm ' + item.category["0"].slug); // change button class to red

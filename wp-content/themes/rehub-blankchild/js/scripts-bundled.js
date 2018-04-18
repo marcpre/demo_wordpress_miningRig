@@ -26470,7 +26470,6 @@ function () {
     key: "ourClickDispatcher",
     value: function ourClickDispatcher(e) {
       var currentButton = (0, _jquery.default)(e.target).closest(".btn.btn-primary.btn-sm");
-      console.log(currentButton);
 
       if (!(currentButton.length > 0)) {
         console.log("lolonator");
@@ -26550,8 +26549,6 @@ function () {
       var currentButton = (0, _jquery.default)(e.target).closest("button.addButton");
       var itemIndex = parseInt(currentButton.data('item-index'));
       var item = this.resultsGlobal.generalInfo[itemIndex];
-      console.log(item);
-      console.log(item.category["0"].slug);
       var targetButton = (0, _jquery.default)(".btn.btn-primary.btn-sm." + item.category["0"].slug);
 
       if (targetButton.length > 0) {
@@ -26567,14 +26564,10 @@ function () {
         (0, _jquery.default)('#exampleModal').modal('hide');
       } else {
         console.log("else part");
-        console.log(e);
         targetButton = (0, _jquery.default)(".btn.btn-danger.btn-sm." + item.category["0"].slug);
-        console.log(".btn.btn-danger.btn-sm." + item.category["0"].slug);
-        console.log(targetButton);
-        var _targetButtonParent = targetButton[0].parentElement;
-
-        _targetButtonParent.insertAdjacentHTML('beforebegin', "\n               <img src=\"".concat(item.img, "\" alt=\"").concat(item.title, "\" height=\"42\" width=\"42\">\n                <a href=\"").concat(item.affiliateLink, "\">\n                    ").concat(item.title, "\n                </a>\n            "));
-
+        var elementToBeModified = targetButton.closest('tr').find('td:nth-child(2)');
+        elementToBeModified.empty();
+        elementToBeModified.html("\n                   <img src=\"".concat(item.img, "\" alt=\"").concat(item.title, "\" height=\"42\" width=\"42\">\n                    <a href=\"").concat(item.affiliateLink, "\">\n                        ").concat(item.title, "\n                    </a>\n            "));
         targetButton.attr('class', 'btn btn-danger btn-sm ' + item.category["0"].slug); // change button class to red
 
         targetButton.text(function () {
