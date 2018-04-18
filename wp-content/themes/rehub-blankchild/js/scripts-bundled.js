@@ -26441,8 +26441,6 @@ var _datatables = _interopRequireDefault(__webpack_require__(1));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-function _readOnlyError(name) { throw new Error("\"" + name + "\" is read-only"); }
-
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
@@ -26555,9 +26553,10 @@ function () {
       console.log(item);
       console.log(item.category["0"].slug);
       var targetButton = (0, _jquery.default)(".btn.btn-primary.btn-sm." + item.category["0"].slug);
-      var targetButtonParent = targetButton[0].parentElement;
 
       if (targetButton.length > 0) {
+        console.log("if part");
+        var targetButtonParent = targetButton[0].parentElement;
         targetButtonParent.insertAdjacentHTML('beforebegin', "\n                <td>\n                    <img src=\"".concat(item.img, "\" alt=\"").concat(item.title, "\" height=\"42\" width=\"42\">\n                    <a href=\"").concat(item.affiliateLink, "\">\n                        ").concat(item.title, "\n                    </a>\n                </td>    \n            "));
         targetButton.attr('class', 'btn btn-danger btn-sm ' + item.category["0"].slug); // change button class to red
 
@@ -26567,11 +26566,15 @@ function () {
 
         (0, _jquery.default)('#exampleModal').modal('hide');
       } else {
-        console.log("lolonator + addToTable");
-        targetButton = (_readOnlyError("targetButton"), (0, _jquery.default)(e.target).closest(".btn.btn-danger.btn-sm." + item.category["0"].slug));
+        console.log("else part");
+        console.log(e);
+        targetButton = (0, _jquery.default)(".btn.btn-danger.btn-sm." + item.category["0"].slug);
+        console.log(".btn.btn-danger.btn-sm." + item.category["0"].slug);
         console.log(targetButton);
-        targetButtonParent = (_readOnlyError("targetButtonParent"), targetButton[0].parentElement);
-        targetButtonParent.insertAdjacentHTML('beforebegin', "\n               <img src=\"".concat(item.img, "\" alt=\"").concat(item.title, "\" height=\"42\" width=\"42\">\n                <a href=\"").concat(item.affiliateLink, "\">\n                    ").concat(item.title, "\n                </a>\n            "));
+        var _targetButtonParent = targetButton[0].parentElement;
+
+        _targetButtonParent.insertAdjacentHTML('beforebegin', "\n               <img src=\"".concat(item.img, "\" alt=\"").concat(item.title, "\" height=\"42\" width=\"42\">\n                <a href=\"").concat(item.affiliateLink, "\">\n                    ").concat(item.title, "\n                </a>\n            "));
+
         targetButton.attr('class', 'btn btn-danger btn-sm ' + item.category["0"].slug); // change button class to red
 
         targetButton.text(function () {

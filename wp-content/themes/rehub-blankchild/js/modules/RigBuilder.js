@@ -120,10 +120,12 @@ class RigBuilder {
         console.log(item)
         console.log(item.category["0"].slug)
 
-        const targetButton = $(".btn.btn-primary.btn-sm." + item.category["0"].slug)
-        const targetButtonParent = targetButton[0].parentElement
+        let targetButton = $(".btn.btn-primary.btn-sm." + item.category["0"].slug)
 
         if (targetButton.length > 0) {
+            console.log("if part")
+
+            let targetButtonParent = targetButton[0].parentElement
 
             targetButtonParent.insertAdjacentHTML('beforebegin', `
                 <td>
@@ -144,13 +146,15 @@ class RigBuilder {
             $('#exampleModal').modal('hide');
         }
         else {
+            console.log("else part")
 
-            console.log("lolonator + addToTable")
-            targetButton = $(e.target).closest(".btn.btn-danger.btn-sm." + item.category["0"].slug);
-
+            console.log(e)
+            targetButton = $(".btn.btn-danger.btn-sm." + item.category["0"].slug)
+            console.log(".btn.btn-danger.btn-sm." + item.category["0"].slug)
             console.log(targetButton)
 
-            targetButtonParent = targetButton[0].parentElement
+            let targetButtonParent = targetButton[0].parentElement
+            
             targetButtonParent.insertAdjacentHTML('beforebegin', `
                <img src="${item.img}" alt="${item.title}" height="42" width="42">
                 <a href="${item.affiliateLink}">
