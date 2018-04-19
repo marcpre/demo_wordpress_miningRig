@@ -37,7 +37,7 @@ $products = new WP_Query(array(
 
 if ($products->have_posts()) {?>
 
-                        <table style="float: left;" class="table table-bordered">
+                        <table id="miningRigTable" style="float: left;" class="table table-bordered">
                             <tbody>
                                 <tr>
                                     <td>CPU</td>

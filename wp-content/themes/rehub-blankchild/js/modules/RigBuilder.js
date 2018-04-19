@@ -2,71 +2,94 @@ import $ from 'jquery';
 import dt from 'datatables.net';
 
 class RigBuilder {
+
+
     constructor() {
+        var pressedButton = null
         let resultsGlobal = []
-        this.events();
+        this.events()
     } // end constructor
 
     events() {
-        $(".btn.btn-primary.btn-sm").on("click", this.ourClickDispatcher.bind(this));
-        $(".btn.btn-danger.btn-sm").on("click", this.ourClickDispatcher.bind(this));
-        $('#table_id').on('click', 'button.addButton', this.addToTable.bind(this));
-        $(".btn.btn-dark.btn-sm").on("click", this.clickDispatcherTable.bind(this));
+        // $(".btn.btn-primary.btn-sm").on("click", this.ourClickDispatcher.bind(this));
+        $(".btn.btn-danger.btn-sm").on("click", this.ourClickDispatcher.bind(this))
+        $(".btn.btn-dark.btn-sm").on("click", this.clickDispatcherTable.bind(this))
+
+        //DataTable
+        $('#table_id').on('click', 'button.addButton', this.addToTable.bind(this))
+        //Mining Rig Table
+        $("#miningRigTable").on("click", ".btn.btn-primary.btn-sm", this.ourClickDispatcher.bind(this))
+        $("#miningRigTable").on("click", ".btn.btn-danger.btn-sm", this.ourClickDispatcher.bind(this))
     }
 
     // methods
     clickDispatcherTable(e) {
         let plusButton = $(e.target).closest(".btn.btn-dark.btn-sm");
 
+        console.log("Test")
+        console.log(plusButton)
+
+        let plusButtonParent = plusButton[0].parentElement.parentElement
+
+        console.log(plusButtonParent)
+        console.log("lolonator")
+        console.log($(plusButtonParent).children('td').length)
+
         if (plusButton.hasClass("graphic-card")) {
-            let plusButtonParent = plusButton[0].parentElement.parentElement
-            plusButtonParent.insertAdjacentHTML('afterend', `
-                <tr>
-                    <td></td>
-                    <td>
-                        <button type="button" data-exists="graphic-card" class="btn btn-primary btn-sm graphic-card" >
-                            Add Graphic Card
-                        </button>
-                    </td>
-                </tr>
-            `).on("click", '.btn.btn-primary.btn-sm', this.ourClickDispatcher.bind(this))
+            if ($(plusButtonParent).children('td').length == 3) {
+                plusButtonParent.insertAdjacentHTML('afterend', `
+                    <tr>
+                        <td></td>
+                        <td>
+                            <button type="button" data-exists="graphic-card" class="btn btn-primary btn-sm graphic-card" >
+                                Add Graphic Card
+                            </button>
+                        </td>
+                    </tr>
+                `)
+                console.log("Button DISABLED")
+                // plusButton.prop("disabled", true);
+            }
         }
     }
 
     ourClickDispatcher(e) {
-        let currentButton = $(e.target).closest(".btn.btn-primary.btn-sm");
+        console.log("ourClickDispatcher")
+        this.pressedButton = $(e.target).closest(".btn.btn-primary.btn-sm");
 
-        if (!(currentButton.length > 0)) {
+        console.log(this.pressedButton.length)
+
+        if (!(this.pressedButton.length > 0)) {
             console.log("lolonator")
-            currentButton = $(e.target).closest(".btn.btn-danger.btn-sm");
+            this.pressedButton = $(e.target).closest(".btn.btn-danger.btn-sm");
         }
 
-        if (currentButton.data('exists') == 'cpu') {
+        if (this.pressedButton.data('exists') == 'cpu') {
             console.log("cpu clicked")
             this.loadMiningHardware('cpu')
         }
 
-        if (currentButton.data('exists') == 'motherboard') {
+        if (this.pressedButton.data('exists') == 'motherboard') {
             console.log("motherboard clicked")
             this.loadMiningHardware('motherboard')
         }
 
-        if (currentButton.data('exists') == 'graphic-card') {
+        if (this.pressedButton.data('exists') == 'graphic-card') {
             console.log("graphic-card clicked")
             this.loadMiningHardware('graphic-card')
         }
 
-        if (currentButton.data('exists') == 'power-supply') {
+        if (this.pressedButton.data('exists') == 'power-supply') {
             console.log("power-supply clicked")
             this.loadMiningHardware('power-supply')
         }
 
-        if (currentButton.data('exists') == 'rig-frame') {
+        if (this.pressedButton.data('exists') == 'rig-frame') {
             console.log("rig-frame clicked")
             this.loadMiningHardware('rig-frame')
         }
 
-        if (currentButton.data('exists') == 'more-parts') {
+        if (this.pressedButton.data('exists') == 'more-parts') {
             console.log("more-parts clicked")
             this.loadMiningHardware('more-parts')
         }
@@ -129,12 +152,14 @@ class RigBuilder {
     }
 
     addToTable(e) {
-        let currentButton = $(e.target).closest("button.addButton")
+        let addButton = $(e.target).closest("button.addButton")
 
-        const itemIndex = parseInt(currentButton.data('item-index'))
+        const itemIndex = parseInt(addButton.data('item-index'))
         const item = this.resultsGlobal.generalInfo[itemIndex]
 
-        let targetButton = $(".btn.btn-primary.btn-sm." + item.category["0"].slug)
+        // let targetButton = $(".btn.btn-primary.btn-sm." + item.category["0"].slug)
+
+        let targetButton = this.pressedButton
 
         if (targetButton.length > 0) {
             console.log("if part")
@@ -163,6 +188,8 @@ class RigBuilder {
             console.log("else part")
 
             targetButton = $(".btn.btn-danger.btn-sm." + item.category["0"].slug)
+
+            console.log(targetButton)
 
             let elementToBeModified = targetButton.closest('tr').find('td:nth-child(2)');
             elementToBeModified.empty();

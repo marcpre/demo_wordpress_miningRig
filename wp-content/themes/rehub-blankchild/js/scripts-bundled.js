@@ -26453,6 +26453,7 @@ function () {
   function RigBuilder() {
     _classCallCheck(this, RigBuilder);
 
+    var pressedButton = null;
     var resultsGlobal = [];
     this.events();
   } // end constructor
@@ -26461,58 +26462,72 @@ function () {
   _createClass(RigBuilder, [{
     key: "events",
     value: function events() {
-      (0, _jquery.default)(".btn.btn-primary.btn-sm").on("click", this.ourClickDispatcher.bind(this));
+      // $(".btn.btn-primary.btn-sm").on("click", this.ourClickDispatcher.bind(this));
       (0, _jquery.default)(".btn.btn-danger.btn-sm").on("click", this.ourClickDispatcher.bind(this));
-      (0, _jquery.default)('#table_id').on('click', 'button.addButton', this.addToTable.bind(this));
-      (0, _jquery.default)(".btn.btn-dark.btn-sm").on("click", this.clickDispatcherTable.bind(this));
+      (0, _jquery.default)(".btn.btn-dark.btn-sm").on("click", this.clickDispatcherTable.bind(this)); //DataTable
+
+      (0, _jquery.default)('#table_id').on('click', 'button.addButton', this.addToTable.bind(this)); //Mining Rig Table
+
+      (0, _jquery.default)("#miningRigTable").on("click", ".btn.btn-primary.btn-sm", this.ourClickDispatcher.bind(this));
+      (0, _jquery.default)("#miningRigTable").on("click", ".btn.btn-danger.btn-sm", this.ourClickDispatcher.bind(this));
     } // methods
 
   }, {
     key: "clickDispatcherTable",
     value: function clickDispatcherTable(e) {
       var plusButton = (0, _jquery.default)(e.target).closest(".btn.btn-dark.btn-sm");
+      console.log("Test");
+      console.log(plusButton);
+      var plusButtonParent = plusButton[0].parentElement.parentElement;
+      console.log(plusButtonParent);
+      console.log("lolonator");
+      console.log((0, _jquery.default)(plusButtonParent).children('td').length);
 
       if (plusButton.hasClass("graphic-card")) {
-        var plusButtonParent = plusButton[0].parentElement.parentElement;
-        plusButtonParent.insertAdjacentHTML('afterend', "\n                <tr>\n                    <td></td>\n                    <td>\n                        <button type=\"button\" data-exists=\"graphic-card\" class=\"btn btn-primary btn-sm graphic-card\" >\n                            Add Graphic Card\n                        </button>\n                    </td>\n                </tr>\n            ").on("click", '.btn.btn-primary.btn-sm', this.ourClickDispatcher.bind(this));
+        if ((0, _jquery.default)(plusButtonParent).children('td').length == 3) {
+          plusButtonParent.insertAdjacentHTML('afterend', "\n                    <tr>\n                        <td></td>\n                        <td>\n                            <button type=\"button\" data-exists=\"graphic-card\" class=\"btn btn-primary btn-sm graphic-card\" >\n                                Add Graphic Card\n                            </button>\n                        </td>\n                    </tr>\n                ");
+          console.log("Button DISABLED"); // plusButton.prop("disabled", true);
+        }
       }
     }
   }, {
     key: "ourClickDispatcher",
     value: function ourClickDispatcher(e) {
-      var currentButton = (0, _jquery.default)(e.target).closest(".btn.btn-primary.btn-sm");
+      console.log("ourClickDispatcher");
+      this.pressedButton = (0, _jquery.default)(e.target).closest(".btn.btn-primary.btn-sm");
+      console.log(this.pressedButton.length);
 
-      if (!(currentButton.length > 0)) {
+      if (!(this.pressedButton.length > 0)) {
         console.log("lolonator");
-        currentButton = (0, _jquery.default)(e.target).closest(".btn.btn-danger.btn-sm");
+        this.pressedButton = (0, _jquery.default)(e.target).closest(".btn.btn-danger.btn-sm");
       }
 
-      if (currentButton.data('exists') == 'cpu') {
+      if (this.pressedButton.data('exists') == 'cpu') {
         console.log("cpu clicked");
         this.loadMiningHardware('cpu');
       }
 
-      if (currentButton.data('exists') == 'motherboard') {
+      if (this.pressedButton.data('exists') == 'motherboard') {
         console.log("motherboard clicked");
         this.loadMiningHardware('motherboard');
       }
 
-      if (currentButton.data('exists') == 'graphic-card') {
+      if (this.pressedButton.data('exists') == 'graphic-card') {
         console.log("graphic-card clicked");
         this.loadMiningHardware('graphic-card');
       }
 
-      if (currentButton.data('exists') == 'power-supply') {
+      if (this.pressedButton.data('exists') == 'power-supply') {
         console.log("power-supply clicked");
         this.loadMiningHardware('power-supply');
       }
 
-      if (currentButton.data('exists') == 'rig-frame') {
+      if (this.pressedButton.data('exists') == 'rig-frame') {
         console.log("rig-frame clicked");
         this.loadMiningHardware('rig-frame');
       }
 
-      if (currentButton.data('exists') == 'more-parts') {
+      if (this.pressedButton.data('exists') == 'more-parts') {
         console.log("more-parts clicked");
         this.loadMiningHardware('more-parts');
       }
@@ -26557,10 +26572,11 @@ function () {
   }, {
     key: "addToTable",
     value: function addToTable(e) {
-      var currentButton = (0, _jquery.default)(e.target).closest("button.addButton");
-      var itemIndex = parseInt(currentButton.data('item-index'));
-      var item = this.resultsGlobal.generalInfo[itemIndex];
-      var targetButton = (0, _jquery.default)(".btn.btn-primary.btn-sm." + item.category["0"].slug);
+      var addButton = (0, _jquery.default)(e.target).closest("button.addButton");
+      var itemIndex = parseInt(addButton.data('item-index'));
+      var item = this.resultsGlobal.generalInfo[itemIndex]; // let targetButton = $(".btn.btn-primary.btn-sm." + item.category["0"].slug)
+
+      var targetButton = this.pressedButton;
 
       if (targetButton.length > 0) {
         console.log("if part");
@@ -26576,6 +26592,7 @@ function () {
       } else {
         console.log("else part");
         targetButton = (0, _jquery.default)(".btn.btn-danger.btn-sm." + item.category["0"].slug);
+        console.log(targetButton);
         var elementToBeModified = targetButton.closest('tr').find('td:nth-child(2)');
         elementToBeModified.empty();
         elementToBeModified.html("\n                   <img src=\"".concat(item.img, "\" alt=\"").concat(item.title, "\" height=\"42\" width=\"42\">\n                    <a href=\"").concat(item.affiliateLink, "\">\n                        ").concat(item.title, "\n                    </a>\n            "));
