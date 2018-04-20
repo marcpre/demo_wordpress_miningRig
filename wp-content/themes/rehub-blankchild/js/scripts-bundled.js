@@ -26476,12 +26476,7 @@ function () {
     key: "clickDispatcherTable",
     value: function clickDispatcherTable(e) {
       var plusButton = (0, _jquery.default)(e.target).closest(".btn.btn-dark.btn-sm");
-      console.log("Test");
-      console.log(plusButton);
       var plusButtonParent = plusButton[0].parentElement.parentElement;
-      console.log(plusButtonParent);
-      console.log("lolonator");
-      console.log((0, _jquery.default)(plusButtonParent).children('td').length);
 
       if (plusButton.hasClass("graphic-card")) {
         if ((0, _jquery.default)(plusButtonParent).children('td').length == 3) {
@@ -26504,11 +26499,6 @@ function () {
       console.log("ourClickDispatcher");
       this.pressedButton = (0, _jquery.default)(e.target).closest(".btn.btn-primary.btn-sm");
       console.log(this.pressedButton.length);
-      /*
-      if (!(this.pressedButton.length > 0)) {
-          console.log("lolonator")
-          this.pressedButton = $(e.target).closest(".btn.btn-danger.btn-sm");
-      } */
 
       if (this.pressedButton.data('exists') == 'cpu') {
         console.log("cpu clicked");
@@ -26584,54 +26574,19 @@ function () {
       var itemIndex = parseInt(addButton.data('item-index'));
       var item = this.resultsGlobal.generalInfo[itemIndex];
       var targetButton = (0, _jquery.default)(".btn.btn-primary.btn-sm." + item.category["0"].slug);
-      console.log("pressedButton");
-      console.log(this.pressedButton); // let targetButton = this.pressedButton
 
       if (targetButton.length > 0) {
         console.log("if part");
         var targetButtonParent = targetButton[0].parentElement.parentElement;
-        console.log("targetButtonParent");
-        console.log(targetButtonParent);
         targetButtonParent.insertAdjacentHTML('afterend', "\n                <tr>\n                    <td></td>\n                    <td>\n                        <img src=\"".concat(item.img, "\" alt=\"").concat(item.title, "\" height=\"42\" width=\"42\">\n                        <a href=\"").concat(item.affiliateLink, "\">\n                            ").concat(item.title, "\n                        </a>\n                    </td>\n                    <td>").concat(item.currency).concat(item.price, "</td>\n                    <td class=\"buyMe\">\n                        <a class=\"btn btn-primary btn-sm\" href=\"").concat(item.affiliateLink, "\" target=\"_blank\" role=\"button\">\n                            Buy\n                        </a>\n                    </td>\n                    <td class=\"deleteMe\">\n                        <button type=\"button\" class=\"btn btn-danger btn-sm deleteMe\">x</button>\n                    </td>\n                </tr>\n            ")); //remove btn if they are not graphic card, other parts
-
-        console.log("item.category");
-        console.log(item.category["0"].slug);
-        console.log(item.category["0"].slug !== 'graphic-card');
-        console.log(item.category["0"].slug !== 'graphic-card' || item.category["0"].slug != 'more-parts');
 
         if (item.category["0"].slug !== 'graphic-card' && item.category["0"].slug != 'more-parts') {
           targetButton.attr("disabled", true);
-        } //targetButton.attr('class', 'btn btn-danger btn-sm ' + item.category["0"].slug); // change button class to red
-        // targetButton.text(function() {
-        //     return $(this).text().replace("Add", "Edit");
-        // });
-        // close modal window
+        } // close modal window
 
 
         (0, _jquery.default)('#exampleModal').modal('hide');
       }
-      /*
-      else {
-          console.log("else part")
-           targetButton = $(".btn.btn-danger.btn-sm." + item.category["0"].slug)
-           console.log(targetButton)
-           let elementToBeModified = targetButton.closest('tr').find('td:nth-child(2)');
-          elementToBeModified.empty();
-           elementToBeModified.html(`
-                 <img src="${item.img}" alt="${item.title}" height="42" width="42">
-                  <a href="${item.affiliateLink}">
-                      ${item.title}
-                  </a>
-          `)
-           targetButton.attr('class', 'btn btn-danger btn-sm ' + item.category["0"].slug); // change button class to red
-           targetButton.text(function() {
-              return $(this).text().replace("Add", "Edit");
-          });
-          // close modal window
-          $('#exampleModal').modal('hide');
-      }
-      */
-
     }
   }]);
 
