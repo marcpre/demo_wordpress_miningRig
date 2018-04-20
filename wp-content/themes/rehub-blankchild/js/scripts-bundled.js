@@ -26496,6 +26496,7 @@ function () {
       console.log("delete row");
       var deleteBtn = (0, _jquery.default)(e.target).closest(".deleteMe");
       deleteBtn.closest('tr').remove();
+      (0, _jquery.default)(".btn.btn-primary.btn-sm").attr("disabled", false);
     }
   }, {
     key: "ourClickDispatcher",

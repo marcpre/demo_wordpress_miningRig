@@ -57,6 +57,7 @@ class RigBuilder {
         console.log("delete row")
         let deleteBtn = $(e.target).closest(".deleteMe");
         deleteBtn.closest('tr').remove()
+        $(".btn.btn-primary.btn-sm").attr("disabled", false);
     }
 
     ourClickDispatcher(e) {
