@@ -10,14 +10,15 @@ class RigBuilder {
     } // end constructor
 
     events() {
-        // $(".btn.btn-primary.btn-sm").on("click", this.ourClickDispatcher.bind(this));
+        //$(".btn.btn-primary.btn-sm").on("click", this.ourClickDispatcher.bind(this));
         //$(".btn.btn-danger.btn-sm").on("click", this.ourClickDispatcher.bind(this))
-        $(".btn.btn-dark.btn-sm").on("click", this.clickDispatcherTable.bind(this))
+        //$(".btn.btn-dark.btn-sm").on("click", this.clickDispatcherTable.bind(this))
 
         //DataTable
         $('#table_id').on('click', 'button.addButton', this.addToTable.bind(this))
         //Mining Rig Table
         $("#miningRigTable").on("click", ".btn.btn-primary.btn-sm", this.ourClickDispatcher.bind(this))
+        $("#miningRigTable").on("click", ".btn.btn-danger.btn-sm.deleteMe", this.deleteRow.bind(this))
         //$("#miningRigTable").on("click", ".btn.btn-danger.btn-sm", this.ourClickDispatcher.bind(this))
     }
 
@@ -50,6 +51,12 @@ class RigBuilder {
                 // plusButton.prop("disabled", true);
             }
         }
+    }
+
+    deleteRow(e) {
+        console.log("delete row")
+        let deleteBtn = $(e.target).closest(".deleteMe");
+        deleteBtn.closest('tr').remove()
     }
 
     ourClickDispatcher(e) {
@@ -110,7 +117,7 @@ class RigBuilder {
                      ${item.title}
                  </a>`,
                 item.manufacturer,
-                `<div>${item.currency} ${item.price}</div>`,
+                `<div>${item.currency}${item.price}</div>`,
                 item.availability,
                 `<button class="addButton" type="button" data-item-index="${i}">
                     Add
@@ -167,22 +174,47 @@ class RigBuilder {
         if (targetButton.length > 0) {
             console.log("if part")
 
-            let targetButtonParent = targetButton[0].parentElement
+            let targetButtonParent = targetButton[0].parentElement.parentElement
 
-            targetButtonParent.insertAdjacentHTML('beforebegin', `
-                <td>
-                    <img src="${item.img}" alt="${item.title}" height="42" width="42">
-                    <a href="${item.affiliateLink}">
-                        ${item.title}
-                    </a>
-                </td>    
+            console.log("targetButtonParent")
+            console.log(targetButtonParent)
+
+            targetButtonParent.insertAdjacentHTML('afterend', `
+                <tr>
+                    <td></td>
+                    <td>
+                        <img src="${item.img}" alt="${item.title}" height="42" width="42">
+                        <a href="${item.affiliateLink}">
+                            ${item.title}
+                        </a>
+                    </td>
+                    <td>${item.currency}${item.price}</td>
+                    <td class="buyMe">
+                        <a class="btn btn-primary btn-sm" href="${item.affiliateLink}" target="_blank" role="button">
+                            Buy
+                        </a>
+                    </td>
+                    <td class="deleteMe">
+                        <button type="button" class="btn btn-danger btn-sm deleteMe">x</button>
+                    </td>
+                </tr>
             `)
+            
+            //remove btn if they are not graphic card, other parts
+            console.log("item.category")
+            console.log(item.category["0"].slug)
+            console.log(item.category["0"].slug !== 'graphic-card')
+            console.log(item.category["0"].slug !== 'graphic-card' || item.category["0"].slug != 'more-parts')
+            if(item.category["0"].slug !== 'graphic-card' &&  
+               item.category["0"].slug != 'more-parts') {
+                targetButton.attr("disabled", true);
+            }
 
             //targetButton.attr('class', 'btn btn-danger btn-sm ' + item.category["0"].slug); // change button class to red
 
-// targetButton.text(function() {
-//     return $(this).text().replace("Add", "Edit");
-// });
+            // targetButton.text(function() {
+            //     return $(this).text().replace("Add", "Edit");
+            // });
 
             // close modal window
             $('#exampleModal').modal('hide');

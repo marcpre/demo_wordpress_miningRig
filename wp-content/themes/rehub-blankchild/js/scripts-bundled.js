@@ -26462,13 +26462,14 @@ function () {
   _createClass(RigBuilder, [{
     key: "events",
     value: function events() {
-      // $(".btn.btn-primary.btn-sm").on("click", this.ourClickDispatcher.bind(this));
+      //$(".btn.btn-primary.btn-sm").on("click", this.ourClickDispatcher.bind(this));
       //$(".btn.btn-danger.btn-sm").on("click", this.ourClickDispatcher.bind(this))
-      (0, _jquery.default)(".btn.btn-dark.btn-sm").on("click", this.clickDispatcherTable.bind(this)); //DataTable
-
+      //$(".btn.btn-dark.btn-sm").on("click", this.clickDispatcherTable.bind(this))
+      //DataTable
       (0, _jquery.default)('#table_id').on('click', 'button.addButton', this.addToTable.bind(this)); //Mining Rig Table
 
-      (0, _jquery.default)("#miningRigTable").on("click", ".btn.btn-primary.btn-sm", this.ourClickDispatcher.bind(this)); //$("#miningRigTable").on("click", ".btn.btn-danger.btn-sm", this.ourClickDispatcher.bind(this))
+      (0, _jquery.default)("#miningRigTable").on("click", ".btn.btn-primary.btn-sm", this.ourClickDispatcher.bind(this));
+      (0, _jquery.default)("#miningRigTable").on("click", ".btn.btn-danger.btn-sm.deleteMe", this.deleteRow.bind(this)); //$("#miningRigTable").on("click", ".btn.btn-danger.btn-sm", this.ourClickDispatcher.bind(this))
     } // methods
 
   }, {
@@ -26488,6 +26489,13 @@ function () {
           console.log("Button DISABLED"); // plusButton.prop("disabled", true);
         }
       }
+    }
+  }, {
+    key: "deleteRow",
+    value: function deleteRow(e) {
+      console.log("delete row");
+      var deleteBtn = (0, _jquery.default)(e.target).closest(".deleteMe");
+      deleteBtn.closest('tr').remove();
     }
   }, {
     key: "ourClickDispatcher",
@@ -26543,7 +26551,7 @@ function () {
         (0, _jquery.default)('#exampleModal').modal('show'); //transform data set
 
         var dataSet = results.generalInfo.map(function (item, i) {
-          return [i + 1, "<img src=\"".concat(item.img, "\" alt=\"").concat(item.title, "\" height=\"42\" width=\"42\">\n                 <a href=\"<?php the_permalink();?>\">\n                     ").concat(item.title, "\n                 </a>"), item.manufacturer, "<div>".concat(item.currency, " ").concat(item.price, "</div>"), item.availability, "<button class=\"addButton\" type=\"button\" data-item-index=\"".concat(i, "\">\n                    Add\n                </button>"), "<a class=\"btn btn-primary\" href=\"".concat(item.affiliateLink, "\" target=\"_blank\" role=\"button\">\n                    Buy\n                </a>")];
+          return [i + 1, "<img src=\"".concat(item.img, "\" alt=\"").concat(item.title, "\" height=\"42\" width=\"42\">\n                 <a href=\"<?php the_permalink();?>\">\n                     ").concat(item.title, "\n                 </a>"), item.manufacturer, "<div>".concat(item.currency).concat(item.price, "</div>"), item.availability, "<button class=\"addButton\" type=\"button\" data-item-index=\"".concat(i, "\">\n                    Add\n                </button>"), "<a class=\"btn btn-primary\" href=\"".concat(item.affiliateLink, "\" target=\"_blank\" role=\"button\">\n                    Buy\n                </a>")];
         });
         _this.resultsGlobal = results; //assign to global variable
 
@@ -26580,12 +26588,24 @@ function () {
 
       if (targetButton.length > 0) {
         console.log("if part");
-        var targetButtonParent = targetButton[0].parentElement;
-        targetButtonParent.insertAdjacentHTML('beforebegin', "\n                <td>\n                    <img src=\"".concat(item.img, "\" alt=\"").concat(item.title, "\" height=\"42\" width=\"42\">\n                    <a href=\"").concat(item.affiliateLink, "\">\n                        ").concat(item.title, "\n                    </a>\n                </td>    \n            ")); //targetButton.attr('class', 'btn btn-danger btn-sm ' + item.category["0"].slug); // change button class to red
+        var targetButtonParent = targetButton[0].parentElement.parentElement;
+        console.log("targetButtonParent");
+        console.log(targetButtonParent);
+        targetButtonParent.insertAdjacentHTML('afterend', "\n                <tr>\n                    <td></td>\n                    <td>\n                        <img src=\"".concat(item.img, "\" alt=\"").concat(item.title, "\" height=\"42\" width=\"42\">\n                        <a href=\"").concat(item.affiliateLink, "\">\n                            ").concat(item.title, "\n                        </a>\n                    </td>\n                    <td>").concat(item.currency).concat(item.price, "</td>\n                    <td class=\"buyMe\">\n                        <a class=\"btn btn-primary btn-sm\" href=\"").concat(item.affiliateLink, "\" target=\"_blank\" role=\"button\">\n                            Buy\n                        </a>\n                    </td>\n                    <td class=\"deleteMe\">\n                        <button type=\"button\" class=\"btn btn-danger btn-sm deleteMe\">x</button>\n                    </td>\n                </tr>\n            ")); //remove btn if they are not graphic card, other parts
 
-        targetButton.text(function () {
-          return (0, _jquery.default)(this).text().replace("Add", "Edit");
-        }); // close modal window
+        console.log("item.category");
+        console.log(item.category["0"].slug);
+        console.log(item.category["0"].slug !== 'graphic-card');
+        console.log(item.category["0"].slug !== 'graphic-card' || item.category["0"].slug != 'more-parts');
+
+        if (item.category["0"].slug !== 'graphic-card' && item.category["0"].slug != 'more-parts') {
+          targetButton.attr("disabled", true);
+        } //targetButton.attr('class', 'btn btn-danger btn-sm ' + item.category["0"].slug); // change button class to red
+        // targetButton.text(function() {
+        //     return $(this).text().replace("Add", "Edit");
+        // });
+        // close modal window
+
 
         (0, _jquery.default)('#exampleModal').modal('hide');
       }

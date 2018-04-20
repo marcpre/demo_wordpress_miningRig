@@ -38,6 +38,14 @@ $products = new WP_Query(array(
 if ($products->have_posts()) {?>
 
                         <table id="miningRigTable" style="float: left;" class="table table-bordered">
+                            <thead>
+                                                <tr>
+                                                    <th>Component</th>
+                                                    <th>Selection</th>
+                                                    <th>Price</th>
+                                                    <th>Where</th>
+                                                </tr>
+                                            </thead>
                             <tbody>
                                 <tr>
                                     <td>CPU</td>
@@ -45,7 +53,6 @@ if ($products->have_posts()) {?>
                                         <button type="button" data-exists="cpu" class="btn btn-primary btn-sm cpu" >
                                             Add CPU
                                         </button>
-                                        <button type="button" class="btn btn-dark btn-sm cpu">+</button>
                                     </td>
                                 </tr>
                                 <tr>
@@ -54,7 +61,6 @@ if ($products->have_posts()) {?>
                                         <button type="button" data-exists="motherboard" class="btn btn-primary btn-sm motherboard" >
                                             Add Motherboard
                                         </button>
-                                        <button type="button" class="btn btn-dark btn-sm motherboard">+</button>
                                     </td>
                                 </tr>
                                 <tr>
@@ -63,7 +69,7 @@ if ($products->have_posts()) {?>
                                         <button type="button" data-exists="graphic-card" class="btn btn-primary btn-sm graphic-card" >
                                             Add Graphic Card
                                         </button>
-                                        <button type="button" class="btn btn-dark btn-sm graphic-card" disabled>+</button>
+                                        <!-- <button type="button" class="btn btn-dark btn-sm graphic-card" disabled>+</button> -->
                                     </td>
                                 </tr>
                                 <tr>
@@ -72,7 +78,6 @@ if ($products->have_posts()) {?>
                                         <button type="button" data-exists="power-supply" class="btn btn-primary btn-sm power-supply" >
                                             Add Power Supply
                                         </button>
-                                        <button type="button" class="btn btn-dark btn-sm power-supply" disabled>+</button>
                                     </td>
                                 </tr>
                                 <tr>
@@ -89,7 +94,6 @@ if ($products->have_posts()) {?>
                                         <button type="button" data-exists="more-parts" class="btn btn-primary btn-sm more-parts" >
                                             Add More Parts
                                         </button>
-                                        <button type="button" class="btn btn-dark btn-sm more-parts">+</button>
                                     </td>
                                 </tr>
                             </tbody>
@@ -192,7 +196,7 @@ $keys = array_keys($amazon); // convert associative arrays to index array
                                     </div>
                                     <div class="modal-footer">
                                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                        <button type="button" class="btn btn-primary">Save changes</button>
+                                        <!-- <button type="button" class="btn btn-primary">Save changes</button> -->
                                     </div>
                                 </div>
                             </div>
