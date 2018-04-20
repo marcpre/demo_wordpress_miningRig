@@ -26463,13 +26463,12 @@ function () {
     key: "events",
     value: function events() {
       // $(".btn.btn-primary.btn-sm").on("click", this.ourClickDispatcher.bind(this));
-      (0, _jquery.default)(".btn.btn-danger.btn-sm").on("click", this.ourClickDispatcher.bind(this));
+      //$(".btn.btn-danger.btn-sm").on("click", this.ourClickDispatcher.bind(this))
       (0, _jquery.default)(".btn.btn-dark.btn-sm").on("click", this.clickDispatcherTable.bind(this)); //DataTable
 
       (0, _jquery.default)('#table_id').on('click', 'button.addButton', this.addToTable.bind(this)); //Mining Rig Table
 
-      (0, _jquery.default)("#miningRigTable").on("click", ".btn.btn-primary.btn-sm", this.ourClickDispatcher.bind(this));
-      (0, _jquery.default)("#miningRigTable").on("click", ".btn.btn-danger.btn-sm", this.ourClickDispatcher.bind(this));
+      (0, _jquery.default)("#miningRigTable").on("click", ".btn.btn-primary.btn-sm", this.ourClickDispatcher.bind(this)); //$("#miningRigTable").on("click", ".btn.btn-danger.btn-sm", this.ourClickDispatcher.bind(this))
     } // methods
 
   }, {
@@ -26496,11 +26495,11 @@ function () {
       console.log("ourClickDispatcher");
       this.pressedButton = (0, _jquery.default)(e.target).closest(".btn.btn-primary.btn-sm");
       console.log(this.pressedButton.length);
-
+      /*
       if (!(this.pressedButton.length > 0)) {
-        console.log("lolonator");
-        this.pressedButton = (0, _jquery.default)(e.target).closest(".btn.btn-danger.btn-sm");
-      }
+          console.log("lolonator")
+          this.pressedButton = $(e.target).closest(".btn.btn-danger.btn-sm");
+      } */
 
       if (this.pressedButton.data('exists') == 'cpu') {
         console.log("cpu clicked");
@@ -26574,29 +26573,15 @@ function () {
     value: function addToTable(e) {
       var addButton = (0, _jquery.default)(e.target).closest("button.addButton");
       var itemIndex = parseInt(addButton.data('item-index'));
-      var item = this.resultsGlobal.generalInfo[itemIndex]; // let targetButton = $(".btn.btn-primary.btn-sm." + item.category["0"].slug)
-
-      var targetButton = this.pressedButton;
+      var item = this.resultsGlobal.generalInfo[itemIndex];
+      var targetButton = (0, _jquery.default)(".btn.btn-primary.btn-sm." + item.category["0"].slug);
+      console.log("pressedButton");
+      console.log(this.pressedButton); // let targetButton = this.pressedButton
 
       if (targetButton.length > 0) {
         console.log("if part");
         var targetButtonParent = targetButton[0].parentElement;
-        targetButtonParent.insertAdjacentHTML('beforebegin', "\n                <td>\n                    <img src=\"".concat(item.img, "\" alt=\"").concat(item.title, "\" height=\"42\" width=\"42\">\n                    <a href=\"").concat(item.affiliateLink, "\">\n                        ").concat(item.title, "\n                    </a>\n                </td>    \n            "));
-        targetButton.attr('class', 'btn btn-danger btn-sm ' + item.category["0"].slug); // change button class to red
-
-        targetButton.text(function () {
-          return (0, _jquery.default)(this).text().replace("Add", "Edit");
-        }); // close modal window
-
-        (0, _jquery.default)('#exampleModal').modal('hide');
-      } else {
-        console.log("else part");
-        targetButton = (0, _jquery.default)(".btn.btn-danger.btn-sm." + item.category["0"].slug);
-        console.log(targetButton);
-        var elementToBeModified = targetButton.closest('tr').find('td:nth-child(2)');
-        elementToBeModified.empty();
-        elementToBeModified.html("\n                   <img src=\"".concat(item.img, "\" alt=\"").concat(item.title, "\" height=\"42\" width=\"42\">\n                    <a href=\"").concat(item.affiliateLink, "\">\n                        ").concat(item.title, "\n                    </a>\n            "));
-        targetButton.attr('class', 'btn btn-danger btn-sm ' + item.category["0"].slug); // change button class to red
+        targetButtonParent.insertAdjacentHTML('beforebegin', "\n                <td>\n                    <img src=\"".concat(item.img, "\" alt=\"").concat(item.title, "\" height=\"42\" width=\"42\">\n                    <a href=\"").concat(item.affiliateLink, "\">\n                        ").concat(item.title, "\n                    </a>\n                </td>    \n            ")); //targetButton.attr('class', 'btn btn-danger btn-sm ' + item.category["0"].slug); // change button class to red
 
         targetButton.text(function () {
           return (0, _jquery.default)(this).text().replace("Add", "Edit");
@@ -26604,6 +26589,28 @@ function () {
 
         (0, _jquery.default)('#exampleModal').modal('hide');
       }
+      /*
+      else {
+          console.log("else part")
+           targetButton = $(".btn.btn-danger.btn-sm." + item.category["0"].slug)
+           console.log(targetButton)
+           let elementToBeModified = targetButton.closest('tr').find('td:nth-child(2)');
+          elementToBeModified.empty();
+           elementToBeModified.html(`
+                 <img src="${item.img}" alt="${item.title}" height="42" width="42">
+                  <a href="${item.affiliateLink}">
+                      ${item.title}
+                  </a>
+          `)
+           targetButton.attr('class', 'btn btn-danger btn-sm ' + item.category["0"].slug); // change button class to red
+           targetButton.text(function() {
+              return $(this).text().replace("Add", "Edit");
+          });
+          // close modal window
+          $('#exampleModal').modal('hide');
+      }
+      */
+
     }
   }]);
 

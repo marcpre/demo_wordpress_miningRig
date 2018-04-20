@@ -63,7 +63,7 @@ if ($products->have_posts()) {?>
                                         <button type="button" data-exists="graphic-card" class="btn btn-primary btn-sm graphic-card" >
                                             Add Graphic Card
                                         </button>
-                                        <button type="button" class="btn btn-dark btn-sm graphic-card">+</button>
+                                        <button type="button" class="btn btn-dark btn-sm graphic-card" disabled>+</button>
                                     </td>
                                 </tr>
                                 <tr>
@@ -72,7 +72,7 @@ if ($products->have_posts()) {?>
                                         <button type="button" data-exists="power-supply" class="btn btn-primary btn-sm power-supply" >
                                             Add Power Supply
                                         </button>
-                                        <button type="button" class="btn btn-dark btn-sm power-supply">+</button>
+                                        <button type="button" class="btn btn-dark btn-sm power-supply" disabled>+</button>
                                     </td>
                                 </tr>
                                 <tr>

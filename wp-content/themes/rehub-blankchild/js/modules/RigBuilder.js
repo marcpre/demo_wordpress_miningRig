@@ -3,7 +3,6 @@ import dt from 'datatables.net';
 
 class RigBuilder {
 
-
     constructor() {
         var pressedButton = null
         let resultsGlobal = []
@@ -12,14 +11,14 @@ class RigBuilder {
 
     events() {
         // $(".btn.btn-primary.btn-sm").on("click", this.ourClickDispatcher.bind(this));
-        $(".btn.btn-danger.btn-sm").on("click", this.ourClickDispatcher.bind(this))
+        //$(".btn.btn-danger.btn-sm").on("click", this.ourClickDispatcher.bind(this))
         $(".btn.btn-dark.btn-sm").on("click", this.clickDispatcherTable.bind(this))
 
         //DataTable
         $('#table_id').on('click', 'button.addButton', this.addToTable.bind(this))
         //Mining Rig Table
         $("#miningRigTable").on("click", ".btn.btn-primary.btn-sm", this.ourClickDispatcher.bind(this))
-        $("#miningRigTable").on("click", ".btn.btn-danger.btn-sm", this.ourClickDispatcher.bind(this))
+        //$("#miningRigTable").on("click", ".btn.btn-danger.btn-sm", this.ourClickDispatcher.bind(this))
     }
 
     // methods
@@ -59,10 +58,11 @@ class RigBuilder {
 
         console.log(this.pressedButton.length)
 
+        /*
         if (!(this.pressedButton.length > 0)) {
             console.log("lolonator")
             this.pressedButton = $(e.target).closest(".btn.btn-danger.btn-sm");
-        }
+        } */
 
         if (this.pressedButton.data('exists') == 'cpu') {
             console.log("cpu clicked")
@@ -157,9 +157,12 @@ class RigBuilder {
         const itemIndex = parseInt(addButton.data('item-index'))
         const item = this.resultsGlobal.generalInfo[itemIndex]
 
-        // let targetButton = $(".btn.btn-primary.btn-sm." + item.category["0"].slug)
+        let targetButton = $(".btn.btn-primary.btn-sm." + item.category["0"].slug)
 
-        let targetButton = this.pressedButton
+        console.log("pressedButton")
+        console.log(this.pressedButton)
+
+        // let targetButton = this.pressedButton
 
         if (targetButton.length > 0) {
             console.log("if part")
@@ -175,15 +178,16 @@ class RigBuilder {
                 </td>    
             `)
 
-            targetButton.attr('class', 'btn btn-danger btn-sm ' + item.category["0"].slug); // change button class to red
+            //targetButton.attr('class', 'btn btn-danger btn-sm ' + item.category["0"].slug); // change button class to red
 
-            targetButton.text(function() {
-                return $(this).text().replace("Add", "Edit");
-            });
+// targetButton.text(function() {
+//     return $(this).text().replace("Add", "Edit");
+// });
 
             // close modal window
             $('#exampleModal').modal('hide');
         }
+        /*
         else {
             console.log("else part")
 
@@ -209,6 +213,7 @@ class RigBuilder {
             // close modal window
             $('#exampleModal').modal('hide');
         }
+        */
     }
 }
 
