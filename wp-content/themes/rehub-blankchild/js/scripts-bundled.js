@@ -26441,6 +26441,8 @@ var _datatables = _interopRequireDefault(__webpack_require__(1));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
+function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
@@ -26455,7 +26457,9 @@ function () {
 
     var pressedButton = null;
     var resultsGlobal = [];
-    var overallPrice = 0; //calculate Price
+    this.buildResultsObjGlobal = {};
+    this.overallPrice = 0;
+    this.identifier = 1; //calculate Price
 
     this.calculatePrice();
     this.events();
@@ -26493,7 +26497,15 @@ function () {
     key: "deleteRow",
     value: function deleteRow(e) {
       console.log("delete row");
-      var deleteBtn = (0, _jquery.default)(e.target).closest(".deleteMe");
+      var deleteBtn = (0, _jquery.default)(e.target).closest(".deleteMe"); //delete element from result build
+
+      var elemId = deleteBtn.closest('tr').find("a[data-identifier]").data('identifier');
+      console.log("Deleted elemId with number: " + elemId); // delete this.buildResultsObjGlobal.elemId
+
+      delete this.buildResultsObjGlobal[elemId];
+      console.log("buildResultsObjGlobal");
+      console.log(this.buildResultsObjGlobal); //delete row
+
       deleteBtn.closest('tr').remove();
       (0, _jquery.default)(".btn.btn-primary.btn-sm").attr("disabled", false);
       this.calculatePrice();
@@ -26578,12 +26590,15 @@ function () {
       var addButton = (0, _jquery.default)(e.target).closest("button.addButton");
       var itemIndex = parseInt(addButton.data('item-index'));
       var item = this.resultsGlobal.generalInfo[itemIndex];
+      console.log("item");
+      console.log(item);
+      console.log(_typeof(item));
       var targetButton = (0, _jquery.default)(".btn.btn-primary.btn-sm." + item.category["0"].slug);
 
       if (targetButton.length > 0) {
         console.log("if part");
         var targetButtonParent = targetButton[0].parentElement.parentElement;
-        targetButtonParent.insertAdjacentHTML('afterend', "\n                <tr>\n                    <td></td>\n                    <td>\n                        <img src=\"".concat(item.img, "\" alt=\"").concat(item.title, "\" height=\"42\" width=\"42\">\n                        <a href=\"").concat(item.affiliateLink, "\">\n                            ").concat(item.title, "\n                        </a>\n                    </td>\n                    <td class=\"price\">").concat(item.currency, "<span class=\"priceComputerHardware\">").concat(item.price, "</span></td>\n                    <td class=\"buyMe\">\n                        <a class=\"btn btn-primary btn-sm\" href=\"").concat(item.affiliateLink, "\" target=\"_blank\" role=\"button\">\n                            Buy\n                        </a>\n                    </td>\n                    <td class=\"deleteMe\">\n                        <button type=\"button\" class=\"btn btn-danger btn-sm deleteMe\">x</button>\n                    </td>\n                </tr>\n            ")); //remove btn if they are not graphic card, other parts
+        targetButtonParent.insertAdjacentHTML('afterend', "\n                <tr>\n                    <td></td>\n                    <td>\n                        <img src=\"".concat(item.img, "\" alt=\"").concat(item.title, "\" height=\"42\" width=\"42\">\n                        <a href=\"").concat(item.affiliateLink, "\" data-post=\"").concat(item.post_id, "\" data-identifier=\"").concat(++this.identifier, "\">\n                            ").concat(item.title, "\n                        </a>\n                    </td>\n                    <td class=\"price\">").concat(item.currency, "<span class=\"priceComputerHardware\">").concat(item.price, "</span></td>\n                    <td class=\"buyMe\">\n                        <a class=\"btn btn-primary btn-sm\" href=\"").concat(item.affiliateLink, "\" target=\"_blank\" role=\"button\">\n                            Buy\n                        </a>\n                    </td>\n                    <td class=\"deleteMe\">\n                        <button type=\"button\" class=\"btn btn-danger btn-sm deleteMe\">x</button>\n                    </td>\n                </tr>\n            ")); //remove btn if they are not graphic card, other parts
 
         if (item.category["0"].slug !== 'graphic-card' && item.category["0"].slug != 'more-parts') {
           targetButton.attr("disabled", true);
@@ -26591,7 +26606,12 @@ function () {
 
 
         (0, _jquery.default)('#exampleModal').modal('hide');
-        this.calculatePrice();
+        this.calculatePrice(); //add hardware item from global array
+
+        console.log("identifier: " + this.identifier);
+        this.buildResultsObjGlobal[this.identifier] = item;
+        console.log("buildResultsGlobal");
+        console.log(this.buildResultsObjGlobal);
       }
     }
   }, {
@@ -26599,59 +26619,71 @@ function () {
     value: function calculatePrice() {
       var _this2 = this;
 
+      //TODO
+      // Calculate the price from the result Array!
       console.log("calculate Price");
+      var price = 0.0;
+      this.overallPrice = 0.0;
       (0, _jquery.default)(".priceComputerHardware").each(function () {
-        var price = parseFloat((0, _jquery.default)(".priceComputerHardware").text().replace("$", ""));
+        price = parseFloat((0, _jquery.default)(".priceComputerHardware").text().replace("$", "")); // console.log("Price12: " + price)
 
         if (price !== 'NaN') {
-          console.log("Price: " + price);
+          //    console.log("Price: " + price)
           _this2.overallPrice += parseFloat(price);
-        }
+        } // console.log("overall: " + this.overallPrice)
 
-        console.log("overall: " + _this2.overallPrice);
       });
+      /*        
+              if(!($(".priceComputerHardware").length > 0)) {
+                  console.log("overallPrice is " + this.overallPrice)
+                  console.log("price is " + price)
+                  this.overallPrice = 0.0
+                  price = 0.0
+              }*/
+
       (0, _jquery.default)(".total").text(this.overallPrice);
     }
   }, {
     key: "saveBuild",
     value: function saveBuild() {
       console.log("save build");
-      /*
-      const newBuild = {
-          'title': x,
-          'content': x,
-          'status': 'publish'
-      }
-        $.ajax({
-          beforeSend: (xhr) => {
-              xhr.setRequestHeader('X-WP-Nonce', universityData.nonce);
-          },
-          url: universityData.root_url + '/wp-json/wp/v2/note/',
-          type: 'POST',
-          data: ourNewPost,
-          success: (response) => {
-              $(".new-note-title, .new-note-body").val('');
-              $(`
-              <li data-id="${response.id}">
-                <input readonly class="note-title-field" value="${response.title.raw}">
-                <span class="edit-note"><i class="fa fa-pencil" aria-hidden="true"></i> Edit</span>
-                <span class="delete-note"><i class="fa fa-trash-o" aria-hidden="true"></i> Delete</span>
-                <textarea readonly class="note-body-field">${response.content.raw}</textarea>
-                <span class="update-note btn btn--blue btn--small"><i class="fa fa-arrow-right" aria-hidden="true"></i> Save</span>
-              </li>
-              `).prependTo("#my-notes").hide().slideDown();
-                console.log("Congrats");
-              console.log(response);
-          },
-          error: (response) => {
-              if (response.responseText == "You have reached your note limit.") {
-                  $(".note-limit-message").addClass("active");
-              }
-              console.log("Sorry");
-              console.log(response);
-          }
-      });
-      */
+      var newBuild = {
+        'title': x,
+        'content': x,
+        'status': 'publish'
+        /*
+                $.ajax({
+                    beforeSend: (xhr) => {
+                        xhr.setRequestHeader('X-WP-Nonce', universityData.nonce);
+                    },
+                    url: universityData.root_url + '/wp-json/wp/v2/note/',
+                    type: 'POST',
+                    data: ourNewPost,
+                    success: (response) => {
+                        $(".new-note-title, .new-note-body").val('');
+                        $(`
+                        <li data-id="${response.id}">
+                          <input readonly class="note-title-field" value="${response.title.raw}">
+                          <span class="edit-note"><i class="fa fa-pencil" aria-hidden="true"></i> Edit</span>
+                          <span class="delete-note"><i class="fa fa-trash-o" aria-hidden="true"></i> Delete</span>
+                          <textarea readonly class="note-body-field">${response.content.raw}</textarea>
+                          <span class="update-note btn btn--blue btn--small"><i class="fa fa-arrow-right" aria-hidden="true"></i> Save</span>
+                        </li>
+                        `).prependTo("#my-notes").hide().slideDown();
+                          console.log("Congrats");
+                        console.log(response);
+                    },
+                    error: (response) => {
+                        if (response.responseText == "You have reached your note limit.") {
+                            $(".note-limit-message").addClass("active");
+                        }
+                        console.log("Sorry");
+                        console.log(response);
+                    }
+                });
+                */
+
+      };
     }
   }]);
 

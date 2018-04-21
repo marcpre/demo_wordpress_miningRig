@@ -3,11 +3,12 @@ import dt from 'datatables.net';
 
 class RigBuilder {
 
-
     constructor() {
         var pressedButton = null
         let resultsGlobal = []
-        var overallPrice = 0
+        this.buildResultsObjGlobal = {}
+        this.overallPrice = 0
+        this.identifier = 1
         //calculate Price
         this.calculatePrice()
         this.events()
@@ -53,9 +54,18 @@ class RigBuilder {
     deleteRow(e) {
         console.log("delete row")
         let deleteBtn = $(e.target).closest(".deleteMe");
+        //delete element from result build
+        const elemId = deleteBtn.closest('tr').find("a[data-identifier]").data('identifier')
+        console.log("Deleted elemId with number: " + elemId)
+        // delete this.buildResultsObjGlobal.elemId
+        delete this.buildResultsObjGlobal[elemId]
+        console.log("buildResultsObjGlobal")       
+        console.log(this.buildResultsObjGlobal)
+        //delete row
         deleteBtn.closest('tr').remove()
         $(".btn.btn-primary.btn-sm").attr("disabled", false);
         this.calculatePrice()
+
     }
 
     ourClickDispatcher(e) {
@@ -157,11 +167,14 @@ class RigBuilder {
         const itemIndex = parseInt(addButton.data('item-index'))
         const item = this.resultsGlobal.generalInfo[itemIndex]
 
+        console.log("item")
+        console.log(item)
+        console.log(typeof(item))
+        
         let targetButton = $(".btn.btn-primary.btn-sm." + item.category["0"].slug)
-
+        
         if (targetButton.length > 0) {
             console.log("if part")
-            console.log(item)
 
             let targetButtonParent = targetButton[0].parentElement.parentElement
 
@@ -170,7 +183,7 @@ class RigBuilder {
                     <td></td>
                     <td>
                         <img src="${item.img}" alt="${item.title}" height="42" width="42">
-                        <a href="${item.affiliateLink}">
+                        <a href="${item.affiliateLink}" data-post="${item.post_id}" data-identifier="${++this.identifier}">
                             ${item.title}
                         </a>
                     </td>
@@ -195,65 +208,84 @@ class RigBuilder {
             // close modal window
             $('#exampleModal').modal('hide');
             this.calculatePrice()
+
+            //add hardware item from global array
+            console.log("identifier: " + this.identifier)
+            this.buildResultsObjGlobal[this.identifier] = item
+            console.log("buildResultsGlobal")
+            console.log(this.buildResultsObjGlobal)
         }
     }
 
     calculatePrice() {
+        
+        //TODO
+        // Calculate the price from the result Array!
         console.log("calculate Price")
-
+        
+        let price = 0.0
+        this.overallPrice = 0.0
+                
         $(".priceComputerHardware").each(() => {
-
-            let price = parseFloat($(".priceComputerHardware").text().replace("$", ""))
+            price = parseFloat($(".priceComputerHardware").text().replace("$", ""))
+            // console.log("Price12: " + price)
             if (price !== 'NaN') {
-                console.log("Price: " + price)
+            //    console.log("Price: " + price)
                 this.overallPrice += parseFloat(price)
             }
-            console.log("overall: " + this.overallPrice)
+            // console.log("overall: " + this.overallPrice)
         });
+/*        
+        if(!($(".priceComputerHardware").length > 0)) {
+            console.log("overallPrice is " + this.overallPrice)
+            console.log("price is " + price)
+            this.overallPrice = 0.0
+            price = 0.0
+        }*/        
         $(".total").text(this.overallPrice)
     }
 
     saveBuild() {
-        
+
         console.log("save build")
-        
+
         const newBuild = {
             'title': x,
             'content': x,
             'status': 'publish'
         }
-/*
-        $.ajax({
-            beforeSend: (xhr) => {
-                xhr.setRequestHeader('X-WP-Nonce', universityData.nonce);
-            },
-            url: universityData.root_url + '/wp-json/wp/v2/note/',
-            type: 'POST',
-            data: ourNewPost,
-            success: (response) => {
-                $(".new-note-title, .new-note-body").val('');
-                $(`
-                <li data-id="${response.id}">
-                  <input readonly class="note-title-field" value="${response.title.raw}">
-                  <span class="edit-note"><i class="fa fa-pencil" aria-hidden="true"></i> Edit</span>
-                  <span class="delete-note"><i class="fa fa-trash-o" aria-hidden="true"></i> Delete</span>
-                  <textarea readonly class="note-body-field">${response.content.raw}</textarea>
-                  <span class="update-note btn btn--blue btn--small"><i class="fa fa-arrow-right" aria-hidden="true"></i> Save</span>
-                </li>
-                `).prependTo("#my-notes").hide().slideDown();
+        /*
+                $.ajax({
+                    beforeSend: (xhr) => {
+                        xhr.setRequestHeader('X-WP-Nonce', universityData.nonce);
+                    },
+                    url: universityData.root_url + '/wp-json/wp/v2/note/',
+                    type: 'POST',
+                    data: ourNewPost,
+                    success: (response) => {
+                        $(".new-note-title, .new-note-body").val('');
+                        $(`
+                        <li data-id="${response.id}">
+                          <input readonly class="note-title-field" value="${response.title.raw}">
+                          <span class="edit-note"><i class="fa fa-pencil" aria-hidden="true"></i> Edit</span>
+                          <span class="delete-note"><i class="fa fa-trash-o" aria-hidden="true"></i> Delete</span>
+                          <textarea readonly class="note-body-field">${response.content.raw}</textarea>
+                          <span class="update-note btn btn--blue btn--small"><i class="fa fa-arrow-right" aria-hidden="true"></i> Save</span>
+                        </li>
+                        `).prependTo("#my-notes").hide().slideDown();
 
-                console.log("Congrats");
-                console.log(response);
-            },
-            error: (response) => {
-                if (response.responseText == "You have reached your note limit.") {
-                    $(".note-limit-message").addClass("active");
-                }
-                console.log("Sorry");
-                console.log(response);
-            }
-        });
-        */
+                        console.log("Congrats");
+                        console.log(response);
+                    },
+                    error: (response) => {
+                        if (response.responseText == "You have reached your note limit.") {
+                            $(".note-limit-message").addClass("active");
+                        }
+                        console.log("Sorry");
+                        console.log(response);
+                    }
+                });
+                */
     }
 }
 export default RigBuilder;
