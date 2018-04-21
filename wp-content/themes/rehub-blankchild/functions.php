@@ -13,7 +13,7 @@ function enqueue_parent_theme_style()
         wp_enqueue_style('bootstrap-4.0.0', get_stylesheet_directory_uri() . '/css/bootstrap.min.css', array($parentStyle));
         wp_enqueue_style('dataTables', '//cdn.datatables.net/1.10.16/css/jquery.dataTables.min.css', array($parentStyle) );
         wp_enqueue_style('dataTables-1.10.16', get_stylesheet_directory_uri() . '/css/dataTables.bootstrap4.min.css', array($parentStyle));
-        wp_enqueue_style('font-awesome', 'https://use.fontawesome.com/releases/v5.0.6/css/all.css', array($parentStyle));
+        wp_enqueue_style('font-awesome', 'http://use.fontawesome.com/releases/v5.0.6/css/all.css', array($parentStyle));
 
         //js
         wp_enqueue_script('main-mining-rig-js', get_theme_file_uri('/js/scripts-bundled.js'), NULL, '1.0', true);

@@ -2,8 +2,8 @@ import $ from 'jquery';
 import dt from 'datatables.net';
 
 class RigBuilder {
-    
-    
+
+
     constructor() {
         var pressedButton = null
         let resultsGlobal = []
@@ -16,7 +16,8 @@ class RigBuilder {
     events() {
         //$(".btn.btn-primary.btn-sm").on("click", this.ourClickDispatcher.bind(this));
         //$(".btn.btn-danger.btn-sm").on("click", this.ourClickDispatcher.bind(this))
-        //$(".btn.btn-dark.btn-sm").on("click", this.clickDispatcherTable.bind(this))
+        // Save Build
+        $(".btn.btn-primary.btn-lg.save-list").on("click", this.saveBuild.bind(this))
 
         //DataTable
         $('#table_id').on('click', 'button.addButton', this.addToTable.bind(this))
@@ -198,7 +199,7 @@ class RigBuilder {
 
     calculatePrice() {
         console.log("calculate Price")
-        
+
         $(".priceComputerHardware").each(() => {
 
             let price = parseFloat($(".priceComputerHardware").text().replace("$", ""))
@@ -209,6 +210,49 @@ class RigBuilder {
             console.log("overall: " + this.overallPrice)
         });
         $(".total").text(this.overallPrice)
+    }
+
+    saveBuild() {
+        
+        console.log("save build")
+        /*
+        const newBuild = {
+            'title': x,
+            'content': x,
+            'status': 'publish'
+        }
+
+        $.ajax({
+            beforeSend: (xhr) => {
+                xhr.setRequestHeader('X-WP-Nonce', universityData.nonce);
+            },
+            url: universityData.root_url + '/wp-json/wp/v2/note/',
+            type: 'POST',
+            data: ourNewPost,
+            success: (response) => {
+                $(".new-note-title, .new-note-body").val('');
+                $(`
+                <li data-id="${response.id}">
+                  <input readonly class="note-title-field" value="${response.title.raw}">
+                  <span class="edit-note"><i class="fa fa-pencil" aria-hidden="true"></i> Edit</span>
+                  <span class="delete-note"><i class="fa fa-trash-o" aria-hidden="true"></i> Delete</span>
+                  <textarea readonly class="note-body-field">${response.content.raw}</textarea>
+                  <span class="update-note btn btn--blue btn--small"><i class="fa fa-arrow-right" aria-hidden="true"></i> Save</span>
+                </li>
+                `).prependTo("#my-notes").hide().slideDown();
+
+                console.log("Congrats");
+                console.log(response);
+            },
+            error: (response) => {
+                if (response.responseText == "You have reached your note limit.") {
+                    $(".note-limit-message").addClass("active");
+                }
+                console.log("Sorry");
+                console.log(response);
+            }
+        });
+        */
     }
 }
 export default RigBuilder;
