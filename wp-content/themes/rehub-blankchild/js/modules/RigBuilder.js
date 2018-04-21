@@ -161,6 +161,7 @@ class RigBuilder {
 
         if (targetButton.length > 0) {
             console.log("if part")
+            console.log(item)
 
             let targetButtonParent = targetButton[0].parentElement.parentElement
 
@@ -215,13 +216,13 @@ class RigBuilder {
     saveBuild() {
         
         console.log("save build")
-        /*
+        
         const newBuild = {
             'title': x,
             'content': x,
             'status': 'publish'
         }
-
+/*
         $.ajax({
             beforeSend: (xhr) => {
                 xhr.setRequestHeader('X-WP-Nonce', universityData.nonce);

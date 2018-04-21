@@ -99,13 +99,13 @@ if ($products->have_posts()) {?>
                             </tbody>
                         </table>
                         <div align="left">
-                            <i class="fas fa-bolt"></i>Link
-                            <i class="fas fa-bolt"></i>Reddit
-                            <i class="fas fa-bolt"></i>vBCode
-                            <i class="fab fa-github-square"></i>Twitch
+                            <i class="fas fa-link"></i>Link
+                            <i class="fab fa-reddit-alien"></i>Reddit
+                            <i class="fas fa-users"></i>vBCode
+                            <i class="fab fa-twitch"></i>Twitch
                         </div>
                         <div align="right">
-                            Total: $
+                            Total: <i class="fas fa-dollar-sign"></i>
                             <span id="total" class="total"></span>
                         </div>
                         <div align="right">
