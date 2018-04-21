@@ -26455,6 +26455,9 @@ function () {
 
     var pressedButton = null;
     var resultsGlobal = [];
+    var overallPrice = 0; //calculate Price
+
+    this.calculatePrice();
     this.events();
   } // end constructor
 
@@ -26492,6 +26495,7 @@ function () {
       var deleteBtn = (0, _jquery.default)(e.target).closest(".deleteMe");
       deleteBtn.closest('tr').remove();
       (0, _jquery.default)(".btn.btn-primary.btn-sm").attr("disabled", false);
+      this.calculatePrice();
     }
   }, {
     key: "ourClickDispatcher",
@@ -26578,7 +26582,7 @@ function () {
       if (targetButton.length > 0) {
         console.log("if part");
         var targetButtonParent = targetButton[0].parentElement.parentElement;
-        targetButtonParent.insertAdjacentHTML('afterend', "\n                <tr>\n                    <td></td>\n                    <td>\n                        <img src=\"".concat(item.img, "\" alt=\"").concat(item.title, "\" height=\"42\" width=\"42\">\n                        <a href=\"").concat(item.affiliateLink, "\">\n                            ").concat(item.title, "\n                        </a>\n                    </td>\n                    <td>").concat(item.currency).concat(item.price, "</td>\n                    <td class=\"buyMe\">\n                        <a class=\"btn btn-primary btn-sm\" href=\"").concat(item.affiliateLink, "\" target=\"_blank\" role=\"button\">\n                            Buy\n                        </a>\n                    </td>\n                    <td class=\"deleteMe\">\n                        <button type=\"button\" class=\"btn btn-danger btn-sm deleteMe\">x</button>\n                    </td>\n                </tr>\n            ")); //remove btn if they are not graphic card, other parts
+        targetButtonParent.insertAdjacentHTML('afterend', "\n                <tr>\n                    <td></td>\n                    <td>\n                        <img src=\"".concat(item.img, "\" alt=\"").concat(item.title, "\" height=\"42\" width=\"42\">\n                        <a href=\"").concat(item.affiliateLink, "\">\n                            ").concat(item.title, "\n                        </a>\n                    </td>\n                    <td class=\"price\">").concat(item.currency, "<span class=\"priceComputerHardware\">").concat(item.price, "</span></td>\n                    <td class=\"buyMe\">\n                        <a class=\"btn btn-primary btn-sm\" href=\"").concat(item.affiliateLink, "\" target=\"_blank\" role=\"button\">\n                            Buy\n                        </a>\n                    </td>\n                    <td class=\"deleteMe\">\n                        <button type=\"button\" class=\"btn btn-danger btn-sm deleteMe\">x</button>\n                    </td>\n                </tr>\n            ")); //remove btn if they are not graphic card, other parts
 
         if (item.category["0"].slug !== 'graphic-card' && item.category["0"].slug != 'more-parts') {
           targetButton.attr("disabled", true);
@@ -26586,7 +26590,26 @@ function () {
 
 
         (0, _jquery.default)('#exampleModal').modal('hide');
+        this.calculatePrice();
       }
+    }
+  }, {
+    key: "calculatePrice",
+    value: function calculatePrice() {
+      var _this2 = this;
+
+      console.log("calculate Price");
+      (0, _jquery.default)(".priceComputerHardware").each(function () {
+        var price = parseFloat((0, _jquery.default)(".priceComputerHardware").text().replace("$", ""));
+
+        if (price !== 'NaN') {
+          console.log("Price: " + price);
+          _this2.overallPrice += parseFloat(price);
+        }
+
+        console.log("overall: " + _this2.overallPrice);
+      });
+      (0, _jquery.default)(".total").text(this.overallPrice);
     }
   }]);
 

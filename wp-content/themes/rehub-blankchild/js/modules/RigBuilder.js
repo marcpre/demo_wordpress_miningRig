@@ -2,10 +2,14 @@ import $ from 'jquery';
 import dt from 'datatables.net';
 
 class RigBuilder {
-
+    
+    
     constructor() {
         var pressedButton = null
         let resultsGlobal = []
+        var overallPrice = 0
+        //calculate Price
+        this.calculatePrice()
         this.events()
     } // end constructor
 
@@ -50,6 +54,7 @@ class RigBuilder {
         let deleteBtn = $(e.target).closest(".deleteMe");
         deleteBtn.closest('tr').remove()
         $(".btn.btn-primary.btn-sm").attr("disabled", false);
+        this.calculatePrice()
     }
 
     ourClickDispatcher(e) {
@@ -167,7 +172,7 @@ class RigBuilder {
                             ${item.title}
                         </a>
                     </td>
-                    <td>${item.currency}${item.price}</td>
+                    <td class="price">${item.currency}<span class="priceComputerHardware">${item.price}</span></td>
                     <td class="buyMe">
                         <a class="btn btn-primary btn-sm" href="${item.affiliateLink}" target="_blank" role="button">
                             Buy
@@ -178,17 +183,32 @@ class RigBuilder {
                     </td>
                 </tr>
             `)
-            
+
             //remove btn if they are not graphic card, other parts
-            if(item.category["0"].slug !== 'graphic-card' &&  
-               item.category["0"].slug != 'more-parts') {
+            if (item.category["0"].slug !== 'graphic-card' &&
+                item.category["0"].slug != 'more-parts') {
                 targetButton.attr("disabled", true);
             }
 
             // close modal window
             $('#exampleModal').modal('hide');
+            this.calculatePrice()
         }
     }
-}
 
+    calculatePrice() {
+        console.log("calculate Price")
+        
+        $(".priceComputerHardware").each(() => {
+
+            let price = parseFloat($(".priceComputerHardware").text().replace("$", ""))
+            if (price !== 'NaN') {
+                console.log("Price: " + price)
+                this.overallPrice += parseFloat(price)
+            }
+            console.log("overall: " + this.overallPrice)
+        });
+        $(".total").text(this.overallPrice)
+    }
+}
 export default RigBuilder;

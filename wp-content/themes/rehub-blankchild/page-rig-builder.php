@@ -98,6 +98,12 @@ if ($products->have_posts()) {?>
                                 </tr>
                             </tbody>
                         </table>
+                        <div align="right">
+                            Total: $<span id="total" class="total"></span>
+                        </div>
+                        <div align="right">
+                            Wattage Estimate:<i class="fas fa-bolt"></i><span id="wattage" class="wattage" aria-hidden="true"></span>W
+                        </div>
 
 
                         <!-- Button trigger modal -->
