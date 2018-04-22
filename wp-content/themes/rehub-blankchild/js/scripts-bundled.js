@@ -26625,10 +26625,10 @@ function () {
       console.log("save build");
       var newBuild = {
         'title': "Test Title",
-        'content': "x",
-        //'miningRig': this.buildResultsObjGlobal,
+        'miningRig': this.buildResultsObjGlobal,
         'status': 'publish'
       };
+      console.log(newBuild);
 
       _jquery.default.ajax({
         beforeSend: function beforeSend(xhr) {

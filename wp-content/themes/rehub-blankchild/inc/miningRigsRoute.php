@@ -16,9 +16,16 @@ function miningRigsRoutes()
 
 function createMiningRig($data)
 {
-    //var_dump($data);
-    //print_r($data);
-    return "Thanks for using the API";
+    //if ($data['miningRig']->count() > 0) {
+        return wp_insert_post(array(
+            'post_type' => 'Mining-Rig',
+            'post_status' => 'publish',
+            'post_title' => $data['title'],
+            'meta_input' => array(
+                'miningRig' => json_encode($data['miningRig']),
+            ),
+        ));
+    //} 
 }
 
 function allMiningRigs() {

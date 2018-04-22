@@ -227,14 +227,15 @@ class RigBuilder {
 
         const newBuild = {
             'title': "Test Title",
-            'content': "x",
-            //'miningRig': this.buildResultsObjGlobal,
+            'miningRig': this.buildResultsObjGlobal,
             'status': 'publish'
         }
         
+        console.log(newBuild)
+        
         $.ajax({
             beforeSend: (xhr) => {
-                xhr.setRequestHeader('X-WP-Nonce', miningRigData.nonce);
+                xhr.setRequestHeader('X-WP-Nonce', miningRigData.nonce)
             },
             url: miningRigData.root_url + '/wp-json/miningRigs/v1/createRig',
             type: 'POST',
