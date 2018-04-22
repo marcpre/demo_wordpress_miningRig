@@ -6,13 +6,19 @@ class RigBuilder {
     constructor() {
         var pressedButton = null
         let resultsGlobal = []
+        this.buildResultsObjGlobal = {}
+        this.overallPrice = 0
+        this.identifier = 1
+        //calculate Price
+        this.calculatePrice()
         this.events()
     } // end constructor
 
     events() {
         //$(".btn.btn-primary.btn-sm").on("click", this.ourClickDispatcher.bind(this));
         //$(".btn.btn-danger.btn-sm").on("click", this.ourClickDispatcher.bind(this))
-        //$(".btn.btn-dark.btn-sm").on("click", this.clickDispatcherTable.bind(this))
+        // Save Build
+        $(".btn.btn-primary.btn-lg.save-list").on("click", this.saveBuild.bind(this))
 
         //DataTable
         $('#table_id').on('click', 'button.addButton', this.addToTable.bind(this))
@@ -48,8 +54,18 @@ class RigBuilder {
     deleteRow(e) {
         console.log("delete row")
         let deleteBtn = $(e.target).closest(".deleteMe");
+        //delete element from result build
+        const elemId = deleteBtn.closest('tr').find("a[data-identifier]").data('identifier')
+        console.log("Deleted elemId with number: " + elemId)
+        // delete this.buildResultsObjGlobal.elemId
+        delete this.buildResultsObjGlobal[elemId]
+        console.log("buildResultsObjGlobal")
+        console.log(this.buildResultsObjGlobal)
+        //delete row
         deleteBtn.closest('tr').remove()
         $(".btn.btn-primary.btn-sm").attr("disabled", false);
+        this.calculatePrice()
+
     }
 
     ourClickDispatcher(e) {
@@ -163,11 +179,15 @@ class RigBuilder {
                     <td></td>
                     <td>
                         <img src="${item.img}" alt="${item.title}" height="42" width="42">
-                        <a href="${item.affiliateLink}">
+                        <a href="${item.affiliateLink}" data-post="${item.post_id}" data-identifier="${++this.identifier}">
                             ${item.title}
                         </a>
                     </td>
+<<<<<<< HEAD
                     <td class="price">${item.currency}${item.price}</td>
+=======
+                    <td class="price">${item.currency}<span class="priceComputerHardware">${item.price}</span></td>
+>>>>>>> 2d5e06bdd957874afe651f988f6e3d1047901e4b
                     <td class="buyMe">
                         <a class="btn btn-primary btn-sm" href="${item.affiliateLink}" target="_blank" role="button">
                             Buy
@@ -178,17 +198,66 @@ class RigBuilder {
                     </td>
                 </tr>
             `)
-            
-            //remove btn if they are not graphic card, other parts
-            if(item.category["0"].slug !== 'graphic-card' &&  
-               item.category["0"].slug != 'more-parts') {
+
+            // remove btn if they are not graphic card, other parts
+            if (item.category["0"].slug !== 'graphic-card' &&
+                item.category["0"].slug != 'more-parts') {
                 targetButton.attr("disabled", true);
             }
 
             // close modal window
             $('#exampleModal').modal('hide');
+
+            // add hardware item from global array
+            this.buildResultsObjGlobal[this.identifier] = item
+
+            // calculate price
+            this.calculatePrice()
         }
     }
-}
 
+    calculatePrice() {
+        console.log("calculate Price")
+        this.overallPrice = 0.0
+        for (var key in this.buildResultsObjGlobal) {
+            this.overallPrice += parseFloat(this.buildResultsObjGlobal[key]['price'])
+        }
+        $(".total").text(this.overallPrice.toFixed(2))
+    }
+
+    saveBuild() {
+        let rigPostIds = []
+
+        console.log("save build")
+
+        for (var key in this.buildResultsObjGlobal) {
+            rigPostIds.push(this.buildResultsObjGlobal[key]['post_id'])
+        }
+                
+        const newBuild = {
+            'title': "Test Title",
+            'miningRigPostIds': rigPostIds,
+            'status': 'publish'
+        }
+        
+        console.log(newBuild)
+        
+        $.ajax({
+            beforeSend: (xhr) => {
+                xhr.setRequestHeader('X-WP-Nonce', miningRigData.nonce)
+            },
+            url: miningRigData.root_url + '/wp-json/miningRigs/v1/createRig',
+            type: 'POST',
+            data: newBuild,
+            success: (response) => {
+                console.log("Congrats");
+                console.log(response);
+            },
+            error: (response) => {
+                console.log("Sorry");
+                console.log(response);
+            }
+        })
+    }
+}
 export default RigBuilder;

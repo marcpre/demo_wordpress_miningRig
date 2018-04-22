@@ -26455,6 +26455,11 @@ function () {
 
     var pressedButton = null;
     var resultsGlobal = [];
+    this.buildResultsObjGlobal = {};
+    this.overallPrice = 0;
+    this.identifier = 1; //calculate Price
+
+    this.calculatePrice();
     this.events();
   } // end constructor
 
@@ -26464,8 +26469,9 @@ function () {
     value: function events() {
       //$(".btn.btn-primary.btn-sm").on("click", this.ourClickDispatcher.bind(this));
       //$(".btn.btn-danger.btn-sm").on("click", this.ourClickDispatcher.bind(this))
-      //$(".btn.btn-dark.btn-sm").on("click", this.clickDispatcherTable.bind(this))
-      //DataTable
+      // Save Build
+      (0, _jquery.default)(".btn.btn-primary.btn-lg.save-list").on("click", this.saveBuild.bind(this)); //DataTable
+
       (0, _jquery.default)('#table_id').on('click', 'button.addButton', this.addToTable.bind(this)); //Mining Rig Table
 
       (0, _jquery.default)("#miningRigTable").on("click", ".btn.btn-primary.btn-sm", this.ourClickDispatcher.bind(this));
@@ -26489,9 +26495,18 @@ function () {
     key: "deleteRow",
     value: function deleteRow(e) {
       console.log("delete row");
-      var deleteBtn = (0, _jquery.default)(e.target).closest(".deleteMe");
+      var deleteBtn = (0, _jquery.default)(e.target).closest(".deleteMe"); //delete element from result build
+
+      var elemId = deleteBtn.closest('tr').find("a[data-identifier]").data('identifier');
+      console.log("Deleted elemId with number: " + elemId); // delete this.buildResultsObjGlobal.elemId
+
+      delete this.buildResultsObjGlobal[elemId];
+      console.log("buildResultsObjGlobal");
+      console.log(this.buildResultsObjGlobal); //delete row
+
       deleteBtn.closest('tr').remove();
       (0, _jquery.default)(".btn.btn-primary.btn-sm").attr("disabled", false);
+      this.calculatePrice();
     }
   }, {
     key: "ourClickDispatcher",
@@ -26578,15 +26593,65 @@ function () {
       if (targetButton.length > 0) {
         console.log("if part");
         var targetButtonParent = targetButton[0].parentElement.parentElement;
-        targetButtonParent.insertAdjacentHTML('afterend', "\n                <tr>\n                    <td></td>\n                    <td>\n                        <img src=\"".concat(item.img, "\" alt=\"").concat(item.title, "\" height=\"42\" width=\"42\">\n                        <a href=\"").concat(item.affiliateLink, "\">\n                            ").concat(item.title, "\n                        </a>\n                    </td>\n                    <td>").concat(item.currency).concat(item.price, "</td>\n                    <td class=\"buyMe\">\n                        <a class=\"btn btn-primary btn-sm\" href=\"").concat(item.affiliateLink, "\" target=\"_blank\" role=\"button\">\n                            Buy\n                        </a>\n                    </td>\n                    <td class=\"deleteMe\">\n                        <button type=\"button\" class=\"btn btn-danger btn-sm deleteMe\">x</button>\n                    </td>\n                </tr>\n            ")); //remove btn if they are not graphic card, other parts
+        targetButtonParent.insertAdjacentHTML('afterend', "\n                <tr>\n                    <td></td>\n                    <td>\n                        <img src=\"".concat(item.img, "\" alt=\"").concat(item.title, "\" height=\"42\" width=\"42\">\n                        <a href=\"").concat(item.affiliateLink, "\" data-post=\"").concat(item.post_id, "\" data-identifier=\"").concat(++this.identifier, "\">\n                            ").concat(item.title, "\n                        </a>\n                    </td>\n                    <td class=\"price\">").concat(item.currency, "<span class=\"priceComputerHardware\">").concat(item.price, "</span></td>\n                    <td class=\"buyMe\">\n                        <a class=\"btn btn-primary btn-sm\" href=\"").concat(item.affiliateLink, "\" target=\"_blank\" role=\"button\">\n                            Buy\n                        </a>\n                    </td>\n                    <td class=\"deleteMe\">\n                        <button type=\"button\" class=\"btn btn-danger btn-sm deleteMe\">x</button>\n                    </td>\n                </tr>\n            ")); // remove btn if they are not graphic card, other parts
 
         if (item.category["0"].slug !== 'graphic-card' && item.category["0"].slug != 'more-parts') {
           targetButton.attr("disabled", true);
         } // close modal window
 
 
-        (0, _jquery.default)('#exampleModal').modal('hide');
+        (0, _jquery.default)('#exampleModal').modal('hide'); // add hardware item from global array
+
+        this.buildResultsObjGlobal[this.identifier] = item; // calculate price
+
+        this.calculatePrice();
       }
+    }
+  }, {
+    key: "calculatePrice",
+    value: function calculatePrice() {
+      console.log("calculate Price");
+      this.overallPrice = 0.0;
+
+      for (var key in this.buildResultsObjGlobal) {
+        this.overallPrice += parseFloat(this.buildResultsObjGlobal[key]['price']);
+      }
+
+      (0, _jquery.default)(".total").text(this.overallPrice.toFixed(2));
+    }
+  }, {
+    key: "saveBuild",
+    value: function saveBuild() {
+      var rigPostIds = [];
+      console.log("save build");
+
+      for (var key in this.buildResultsObjGlobal) {
+        rigPostIds.push(this.buildResultsObjGlobal[key]['post_id']);
+      }
+
+      var newBuild = {
+        'title': "Test Title",
+        'miningRigPostIds': rigPostIds,
+        'status': 'publish'
+      };
+      console.log(newBuild);
+
+      _jquery.default.ajax({
+        beforeSend: function beforeSend(xhr) {
+          xhr.setRequestHeader('X-WP-Nonce', miningRigData.nonce);
+        },
+        url: miningRigData.root_url + '/wp-json/miningRigs/v1/createRig',
+        type: 'POST',
+        data: newBuild,
+        success: function success(response) {
+          console.log("Congrats");
+          console.log(response);
+        },
+        error: function error(response) {
+          console.log("Sorry");
+          console.log(response);
+        }
+      });
     }
   }]);
 
