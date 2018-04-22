@@ -5,7 +5,7 @@ require get_theme_file_path('/inc/miningRigsRoute.php');
 
 function enqueue_parent_theme_style()
 {
-    if ( is_page( 'Rig Builder' ) ) {
+    if ( is_page( 'Rig Builder' )  || is_page('Mining Rigs')) {
         
         $parentStyle = 'parent-style';
         

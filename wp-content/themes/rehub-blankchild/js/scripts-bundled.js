@@ -26622,10 +26622,16 @@ function () {
   }, {
     key: "saveBuild",
     value: function saveBuild() {
+      var rigPostIds = [];
       console.log("save build");
+
+      for (var key in this.buildResultsObjGlobal) {
+        rigPostIds.push(this.buildResultsObjGlobal[key]['post_id']);
+      }
+
       var newBuild = {
         'title': "Test Title",
-        'miningRig': this.buildResultsObjGlobal,
+        'miningRigPostIds': rigPostIds,
         'status': 'publish'
       };
       console.log(newBuild);

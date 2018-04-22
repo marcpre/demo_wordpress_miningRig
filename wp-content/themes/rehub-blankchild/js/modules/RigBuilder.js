@@ -222,12 +222,17 @@ class RigBuilder {
     }
 
     saveBuild() {
+        let rigPostIds = []
 
         console.log("save build")
 
+        for (var key in this.buildResultsObjGlobal) {
+            rigPostIds.push(this.buildResultsObjGlobal[key]['post_id'])
+        }
+                
         const newBuild = {
             'title': "Test Title",
-            'miningRig': this.buildResultsObjGlobal,
+            'miningRigPostIds': rigPostIds,
             'status': 'publish'
         }
         
