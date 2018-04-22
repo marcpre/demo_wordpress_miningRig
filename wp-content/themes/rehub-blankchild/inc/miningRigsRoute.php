@@ -7,7 +7,7 @@ function miningRigsRoutes()
         'methods' => WP_REST_SERVER::CREATABLE,
         'callback' => 'createMiningRig',
     ));
-    
+
     register_rest_route('miningRigs/v1', 'allRigs', array(
         'methods' => WP_REST_SERVER::READABLE,
         'callback' => 'allMiningRigs',
@@ -17,46 +17,80 @@ function miningRigsRoutes()
 function createMiningRig($data)
 {
     //santitize array input
-    $rig = json_encode(array_map( 'esc_attr',$data['miningRigPostIds']));
-    
+    $rig = json_encode(array_map('esc_attr', $data['miningRigPostIds']));
+
     //if ($data['miningRig']->count() > 0) {
-        return wp_insert_post(array(
-            'post_type' => 'Mining-Rig',
-            'post_status' => 'publish',
-            'post_title' => $data['title'],
-            'meta_input' => array(
-                'miningRig' => $rig,
-            ),
-        ));
-    //} 
+    return wp_insert_post(array(
+        'post_type' => 'Mining-Rig',
+        'post_status' => 'publish',
+        'post_title' => $data['title'],
+        'meta_input' => array(
+            'miningRig' => $rig,
+        ),
+    ));
+    //}
 }
 
-function allMiningRigs() {
-    $mainQuery = new WP_Query(array(
+function allMiningRigs()
+{
+    $miningRigsQuery = new WP_Query(array(
         'posts_per_page' => -1,
         'post_type' => 'Mining-Rig',
     ));
 
     $results = array(
-        'allRigs' => array(),
+        'generalInfo' => array(),
+        'rigHardware' => array(),
     );
 
-    while ($mainQuery->have_posts()) {
-        $mainQuery->the_post();
+    while ($miningRigsQuery->have_posts()) {
+        $miningRigsQuery->the_post();
+
+        $miningRigPostIds = json_decode(get_post_meta(get_the_ID(), 'miningRig', true));
+
+        $computerHardwareQuery = new WP_Query(array(
+            'posts_per_page' => -1,
+            'post_type' => 'Computer-Hardware',
+            'post__in' => $miningRigPostIds,
+        ));
 
         //get post meta
-        $miningRig = json_decode(get_post_meta(get_the_ID(), 'miningRig', true));
+        // $miningRig = json_decode(get_post_meta(get_the_ID(), 'miningRig', true));
         //$keys = array_keys($amazon); // convert associative arrays to index array
-
-//        if (get_post_type() == 'post' or get_post_type() == 'page') {
-        array_push($results['allRigs'], array(
+        // if (get_post_type() == 'post' or get_post_type() == 'page') {
+        array_push($results['generalInfo'], array(
             'post_id' => get_the_ID(),
             'title' => get_the_title(),
             'permalink' => get_the_permalink(),
-            'miningRig' => $miningRig,
             'category' => get_the_category(),
         ));
-//        }
+
+        foreach ($computerHardwareQuery->posts as $item) {
+            // get content-egg data
+            $amazon = get_post_meta($item->ID, '_cegg_data_Amazon', true);
+            $keys = array_keys($amazon);
+            
+            // get post category
+            // $category = wp_get_post_categories($item->ID);
+              
+            array_push($results['rigHardware'], array(
+                'partCategory' => 'x',
+                'partTitle' => $item->post_title,
+                //'price' => $amazon[$keys[0]]['price'],
+                'post_id' => $item->ID,
+                'unique_id' => $amazon[$keys[0]]['unique_id'],
+                'manufacturer' => $amazon[$keys[0]]['manufacturer'],
+                'img' => $amazon[$keys[0]]['img'],
+                'currency' => $amazon[$keys[0]]['currency'],
+                'price' => $amazon[$keys[0]]['price'],
+                'availability' => $amazon[$keys[0]]['extra']['availability'],
+                'tellAFriend' => $amazon[$keys[0]]['extra']['itemLinks'][4]['URL'],
+                'affiliateLink' => $amazon[$keys[0]]['url'],
+                //'all' => $computerHardwareQuery,
+
+                // 'amazon' => $amazon[$keys],
+            ));
+        }
     }
     return $results;
 }
