@@ -167,10 +167,6 @@ class RigBuilder {
         const itemIndex = parseInt(addButton.data('item-index'))
         const item = this.resultsGlobal.generalInfo[itemIndex]
 
-        console.log("item")
-        console.log(item)
-        console.log(typeof (item))
-
         let targetButton = $(".btn.btn-primary.btn-sm." + item.category["0"].slug)
 
         if (targetButton.length > 0) {
@@ -210,7 +206,7 @@ class RigBuilder {
 
             // add hardware item from global array
             this.buildResultsObjGlobal[this.identifier] = item
-            
+
             // calculate price
             this.calculatePrice()
         }
@@ -220,7 +216,6 @@ class RigBuilder {
         console.log("calculate Price")
         this.overallPrice = 0.0
         for (var key in this.buildResultsObjGlobal) {
-            console.log(this.buildResultsObjGlobal[key]['price'])
             this.overallPrice += parseFloat(this.buildResultsObjGlobal[key]['price'])
         }
         $(".total").text(this.overallPrice.toFixed(2))
@@ -231,42 +226,28 @@ class RigBuilder {
         console.log("save build")
 
         const newBuild = {
-            'title': x,
-            'content': x,
+            'title': "Test Title",
+            'content': "x",
+            //'miningRig': this.buildResultsObjGlobal,
             'status': 'publish'
         }
-        /*
-                $.ajax({
-                    beforeSend: (xhr) => {
-                        xhr.setRequestHeader('X-WP-Nonce', universityData.nonce);
-                    },
-                    url: universityData.root_url + '/wp-json/wp/v2/note/',
-                    type: 'POST',
-                    data: ourNewPost,
-                    success: (response) => {
-                        $(".new-note-title, .new-note-body").val('');
-                        $(`
-                        <li data-id="${response.id}">
-                          <input readonly class="note-title-field" value="${response.title.raw}">
-                          <span class="edit-note"><i class="fa fa-pencil" aria-hidden="true"></i> Edit</span>
-                          <span class="delete-note"><i class="fa fa-trash-o" aria-hidden="true"></i> Delete</span>
-                          <textarea readonly class="note-body-field">${response.content.raw}</textarea>
-                          <span class="update-note btn btn--blue btn--small"><i class="fa fa-arrow-right" aria-hidden="true"></i> Save</span>
-                        </li>
-                        `).prependTo("#my-notes").hide().slideDown();
-
-                        console.log("Congrats");
-                        console.log(response);
-                    },
-                    error: (response) => {
-                        if (response.responseText == "You have reached your note limit.") {
-                            $(".note-limit-message").addClass("active");
-                        }
-                        console.log("Sorry");
-                        console.log(response);
-                    }
-                });
-                */
+        
+        $.ajax({
+            beforeSend: (xhr) => {
+                xhr.setRequestHeader('X-WP-Nonce', miningRigData.nonce);
+            },
+            url: miningRigData.root_url + '/wp-json/miningRigs/v1/createRig',
+            type: 'POST',
+            data: newBuild,
+            success: (response) => {
+                console.log("Congrats");
+                console.log(response);
+            },
+            error: (response) => {
+                console.log("Sorry");
+                console.log(response);
+            }
+        })
     }
 }
 export default RigBuilder;

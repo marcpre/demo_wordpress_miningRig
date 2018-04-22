@@ -1,6 +1,7 @@
 <?php
 
 require get_theme_file_path('/inc/computerHardwareRoute.php');
+require get_theme_file_path('/inc/miningRigsRoute.php');
 
 function enqueue_parent_theme_style()
 {
