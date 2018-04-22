@@ -26598,50 +26598,32 @@ function () {
       if (targetButton.length > 0) {
         console.log("if part");
         var targetButtonParent = targetButton[0].parentElement.parentElement;
-        targetButtonParent.insertAdjacentHTML('afterend', "\n                <tr>\n                    <td></td>\n                    <td>\n                        <img src=\"".concat(item.img, "\" alt=\"").concat(item.title, "\" height=\"42\" width=\"42\">\n                        <a href=\"").concat(item.affiliateLink, "\" data-post=\"").concat(item.post_id, "\" data-identifier=\"").concat(++this.identifier, "\">\n                            ").concat(item.title, "\n                        </a>\n                    </td>\n                    <td class=\"price\">").concat(item.currency, "<span class=\"priceComputerHardware\">").concat(item.price, "</span></td>\n                    <td class=\"buyMe\">\n                        <a class=\"btn btn-primary btn-sm\" href=\"").concat(item.affiliateLink, "\" target=\"_blank\" role=\"button\">\n                            Buy\n                        </a>\n                    </td>\n                    <td class=\"deleteMe\">\n                        <button type=\"button\" class=\"btn btn-danger btn-sm deleteMe\">x</button>\n                    </td>\n                </tr>\n            ")); //remove btn if they are not graphic card, other parts
+        targetButtonParent.insertAdjacentHTML('afterend', "\n                <tr>\n                    <td></td>\n                    <td>\n                        <img src=\"".concat(item.img, "\" alt=\"").concat(item.title, "\" height=\"42\" width=\"42\">\n                        <a href=\"").concat(item.affiliateLink, "\" data-post=\"").concat(item.post_id, "\" data-identifier=\"").concat(++this.identifier, "\">\n                            ").concat(item.title, "\n                        </a>\n                    </td>\n                    <td class=\"price\">").concat(item.currency, "<span class=\"priceComputerHardware\">").concat(item.price, "</span></td>\n                    <td class=\"buyMe\">\n                        <a class=\"btn btn-primary btn-sm\" href=\"").concat(item.affiliateLink, "\" target=\"_blank\" role=\"button\">\n                            Buy\n                        </a>\n                    </td>\n                    <td class=\"deleteMe\">\n                        <button type=\"button\" class=\"btn btn-danger btn-sm deleteMe\">x</button>\n                    </td>\n                </tr>\n            ")); // remove btn if they are not graphic card, other parts
 
         if (item.category["0"].slug !== 'graphic-card' && item.category["0"].slug != 'more-parts') {
           targetButton.attr("disabled", true);
         } // close modal window
 
 
-        (0, _jquery.default)('#exampleModal').modal('hide');
-        this.calculatePrice(); //add hardware item from global array
+        (0, _jquery.default)('#exampleModal').modal('hide'); // add hardware item from global array
 
-        console.log("identifier: " + this.identifier);
-        this.buildResultsObjGlobal[this.identifier] = item;
-        console.log("buildResultsGlobal");
-        console.log(this.buildResultsObjGlobal);
+        this.buildResultsObjGlobal[this.identifier] = item; // calculate price
+
+        this.calculatePrice();
       }
     }
   }, {
     key: "calculatePrice",
     value: function calculatePrice() {
-      var _this2 = this;
-
-      //TODO
-      // Calculate the price from the result Array!
       console.log("calculate Price");
-      var price = 0.0;
       this.overallPrice = 0.0;
-      (0, _jquery.default)(".priceComputerHardware").each(function () {
-        price = parseFloat((0, _jquery.default)(".priceComputerHardware").text().replace("$", "")); // console.log("Price12: " + price)
 
-        if (price !== 'NaN') {
-          //    console.log("Price: " + price)
-          _this2.overallPrice += parseFloat(price);
-        } // console.log("overall: " + this.overallPrice)
+      for (var key in this.buildResultsObjGlobal) {
+        console.log(this.buildResultsObjGlobal[key]['price']);
+        this.overallPrice += parseFloat(this.buildResultsObjGlobal[key]['price']);
+      }
 
-      });
-      /*        
-              if(!($(".priceComputerHardware").length > 0)) {
-                  console.log("overallPrice is " + this.overallPrice)
-                  console.log("price is " + price)
-                  this.overallPrice = 0.0
-                  price = 0.0
-              }*/
-
-      (0, _jquery.default)(".total").text(this.overallPrice);
+      (0, _jquery.default)(".total").text(this.overallPrice.toFixed(2));
     }
   }, {
     key: "saveBuild",

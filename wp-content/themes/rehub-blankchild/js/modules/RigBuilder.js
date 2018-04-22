@@ -59,7 +59,7 @@ class RigBuilder {
         console.log("Deleted elemId with number: " + elemId)
         // delete this.buildResultsObjGlobal.elemId
         delete this.buildResultsObjGlobal[elemId]
-        console.log("buildResultsObjGlobal")       
+        console.log("buildResultsObjGlobal")
         console.log(this.buildResultsObjGlobal)
         //delete row
         deleteBtn.closest('tr').remove()
@@ -169,10 +169,10 @@ class RigBuilder {
 
         console.log("item")
         console.log(item)
-        console.log(typeof(item))
-        
+        console.log(typeof (item))
+
         let targetButton = $(".btn.btn-primary.btn-sm." + item.category["0"].slug)
-        
+
         if (targetButton.length > 0) {
             console.log("if part")
 
@@ -199,7 +199,7 @@ class RigBuilder {
                 </tr>
             `)
 
-            //remove btn if they are not graphic card, other parts
+            // remove btn if they are not graphic card, other parts
             if (item.category["0"].slug !== 'graphic-card' &&
                 item.category["0"].slug != 'more-parts') {
                 targetButton.attr("disabled", true);
@@ -207,42 +207,23 @@ class RigBuilder {
 
             // close modal window
             $('#exampleModal').modal('hide');
-            this.calculatePrice()
 
-            //add hardware item from global array
-            console.log("identifier: " + this.identifier)
+            // add hardware item from global array
             this.buildResultsObjGlobal[this.identifier] = item
-            console.log("buildResultsGlobal")
-            console.log(this.buildResultsObjGlobal)
+            
+            // calculate price
+            this.calculatePrice()
         }
     }
 
     calculatePrice() {
-        
-        //TODO
-        // Calculate the price from the result Array!
         console.log("calculate Price")
-        
-        let price = 0.0
         this.overallPrice = 0.0
-                
-        $(".priceComputerHardware").each(() => {
-            price = parseFloat($(".priceComputerHardware").text().replace("$", ""))
-            // console.log("Price12: " + price)
-            if (price !== 'NaN') {
-            //    console.log("Price: " + price)
-                this.overallPrice += parseFloat(price)
-            }
-            // console.log("overall: " + this.overallPrice)
-        });
-/*        
-        if(!($(".priceComputerHardware").length > 0)) {
-            console.log("overallPrice is " + this.overallPrice)
-            console.log("price is " + price)
-            this.overallPrice = 0.0
-            price = 0.0
-        }*/        
-        $(".total").text(this.overallPrice)
+        for (var key in this.buildResultsObjGlobal) {
+            console.log(this.buildResultsObjGlobal[key]['price'])
+            this.overallPrice += parseFloat(this.buildResultsObjGlobal[key]['price'])
+        }
+        $(".total").text(this.overallPrice.toFixed(2))
     }
 
     saveBuild() {
