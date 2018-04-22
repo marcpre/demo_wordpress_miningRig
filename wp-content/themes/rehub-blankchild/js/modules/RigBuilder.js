@@ -167,7 +167,7 @@ class RigBuilder {
                             ${item.title}
                         </a>
                     </td>
-                    <td>${item.currency}${item.price}</td>
+                    <td class="price">${item.currency}${item.price}</td>
                     <td class="buyMe">
                         <a class="btn btn-primary btn-sm" href="${item.affiliateLink}" target="_blank" role="button">
                             Buy

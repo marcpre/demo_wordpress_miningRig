@@ -96,6 +96,11 @@ if ($products->have_posts()) {?>
                                         </button>
                                     </td>
                                 </tr>
+                                <tr>
+                                    <td></td>
+                                    <td></td>
+                                    <td align="right">Total: $<span id="total" class="total"></span></td>
+                                </tr>
                             </tbody>
                         </table>
 

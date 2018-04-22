@@ -3,10 +3,10 @@
 function miningRigBuilder_post_types()
 {
 
-    // Like Post Type
+    // Mining-Rig Post Type
     register_post_type('Mining-Rig', array(
         'supports' => array('title', 'editor', 'thumbnail'),
-        'public' => false,
+        'public' => true,
         'show_ui' => true,
         'labels' => array(
             'name' => 'Mining Rigs',
