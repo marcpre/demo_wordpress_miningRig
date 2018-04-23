@@ -26712,11 +26712,12 @@ function () {
         console.log(results); //transform data set
 
         var dataSet = results.generalInfo.map(function (item, i) {
-          return [i + 1, "<img src=\"".concat(item.miningHardware.img, "\" alt=\"").concat(item.miningHardware.title, "\" height=\"42\" width=\"42\">\n                 <a href=\"<?php the_permalink();?>\">\n                     ").concat(item.title, "\n                 </a>"), "$".concat(item.totalPrice.toFixed(2)), "Test", "Test", "<a class=\"btn btn-primary\" href=\"".concat(item.miningHardware.affiliateLink, "\" target=\"_blank\" role=\"button\">\n                    Buy\n                </a>"), "Test"];
+          return [i + 1, "<img src=\"".concat(item.miningHardware.img, "\" alt=\"").concat(item.miningHardware.title, "\" height=\"42\" width=\"42\">\n                 <a href=\"<?php the_permalink();?>\">\n                     ").concat(item.title, "\n                 </a>"), "$".concat(item.totalPrice.toFixed(2)), "Insert Upvote Plugin"];
         });
         (0, _jquery.default)('#allMiningRigs').DataTable({
           data: dataSet,
           destroy: true,
+          iDisplayLength: 100,
           columns: [{
             title: "#"
           }, {
@@ -26724,11 +26725,7 @@ function () {
           }, {
             title: "Total Price"
           }, {
-            title: "Price Alerts"
-          }, {
             title: "Upvotes"
-          }, {
-            title: "Where"
           }]
         });
       });

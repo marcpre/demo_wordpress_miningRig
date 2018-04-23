@@ -26,18 +26,15 @@ class MiningRigs {
                      ${item.title}
                  </a>`,
                 `$${item.totalPrice.toFixed(2)}`,
-                `Test`,
-                `Test`,
-                `<a class="btn btn-primary" href="${item.miningHardware.affiliateLink}" target="_blank" role="button">
-                    Buy
-                </a>`,
-                `Test`
+                `Insert Upvote Plugin`
             ])
 
             $('#allMiningRigs').DataTable({
                 data: dataSet,
                 destroy: true,
-                columns: [{
+                iDisplayLength: 100,
+                columns: [
+                    {
                         title: "#"
                     },
                     {
@@ -47,13 +44,7 @@ class MiningRigs {
                         title: "Total Price"
                     },
                     {
-                        title: "Price Alerts"
-                    },
-                    {
                         title: "Upvotes"
-                    },
-                                        {
-                        title: "Where"
                     }
                 ]
             });

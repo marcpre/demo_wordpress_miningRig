@@ -64,7 +64,7 @@ function allMiningRigs()
             'permalink' => get_the_permalink(),
             'category' => get_the_category(),
             'totalPrice' => getTotalPrice($computerHardwareQuery),
-            'miningHardware' => getHardware($computerHardwareQuery)
+            'miningHardware' => getHardware($computerHardwareQuery),
         ));
 
 
@@ -73,7 +73,7 @@ function allMiningRigs()
 }
 
 function getHardware($computerHardwareQuery){
-            $results = array();
+        $results = array();
         
         foreach ($computerHardwareQuery->posts as $item) {
             // get content-egg data
