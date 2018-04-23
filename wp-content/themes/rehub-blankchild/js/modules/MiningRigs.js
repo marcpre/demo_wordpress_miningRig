@@ -4,13 +4,13 @@ import dt from 'datatables.net';
 class MiningRigs {
 
     constructor() {
-//        this.events()
+        //        this.events()
         this.allMiningRigs()
     } // end constructor
 
-/*    events() {
+    /*    events() {
 
-    } */
+        } */
 
     allMiningRigs() {
 
@@ -21,9 +21,8 @@ class MiningRigs {
             //transform data set
             let dataSet = results.generalInfo.map((item, i) => [
                 i + 1,
-                `<img src="${item.miningHardware.img}" alt="${item.miningHardware.title}" height="42" width="42">
-                 <a href="<?php the_permalink();?>">
-                     ${item.title}
+                `<a href="${item.permalink}">
+                    ${item.title}
                  </a>`,
                 `$${item.totalPrice.toFixed(2)}`,
                 `Insert Upvote Plugin`
@@ -33,8 +32,7 @@ class MiningRigs {
                 data: dataSet,
                 destroy: true,
                 iDisplayLength: 100,
-                columns: [
-                    {
+                columns: [{
                         title: "#"
                     },
                     {

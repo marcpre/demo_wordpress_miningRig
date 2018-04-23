@@ -26,4 +26,4 @@ function enqueue_parent_theme_style()
     }
 }
 
-add_action('wp_enqueue_scripts', 'enqueue_parent_theme_style', 1);
+add_action('wp_enqueue_scripts', 'enqueue_parent_theme_style');

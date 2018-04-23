@@ -26699,8 +26699,7 @@ function () {
   } // end constructor
 
   /*    events() {
-  
-      } */
+        } */
 
 
   _createClass(MiningRigs, [{
@@ -26712,7 +26711,7 @@ function () {
         console.log(results); //transform data set
 
         var dataSet = results.generalInfo.map(function (item, i) {
-          return [i + 1, "<img src=\"".concat(item.miningHardware.img, "\" alt=\"").concat(item.miningHardware.title, "\" height=\"42\" width=\"42\">\n                 <a href=\"<?php the_permalink();?>\">\n                     ").concat(item.title, "\n                 </a>"), "$".concat(item.totalPrice.toFixed(2)), "Insert Upvote Plugin"];
+          return [i + 1, "<a href=\"".concat(item.permalink, "\">\n                    ").concat(item.title, "\n                 </a>"), "$".concat(item.totalPrice.toFixed(2)), "Insert Upvote Plugin"];
         });
         (0, _jquery.default)('#allMiningRigs').DataTable({
           data: dataSet,
