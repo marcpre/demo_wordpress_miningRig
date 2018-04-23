@@ -25,18 +25,15 @@ class MiningRigs {
                  <a href="<?php the_permalink();?>">
                      ${item.title}
                  </a>`,
-                item.manufacturer,
-                `<div>${item.miningHardware.currency}${item.miningHardware.price}</div>`,
-                item.availability,
-                `<button class="addButton" type="button" data-item-index="${i}">
-                    Add
-                </button>`,
+                `$${item.totalPrice.toFixed(2)}`,
+                `Test`,
+                `Test`,
                 `<a class="btn btn-primary" href="${item.miningHardware.affiliateLink}" target="_blank" role="button">
                     Buy
-                </a>`
+                </a>`,
+                `Test`
             ])
 
-  
             $('#allMiningRigs').DataTable({
                 data: dataSet,
                 destroy: true,
@@ -54,6 +51,9 @@ class MiningRigs {
                     },
                     {
                         title: "Upvotes"
+                    },
+                                        {
+                        title: "Where"
                     }
                 ]
             });

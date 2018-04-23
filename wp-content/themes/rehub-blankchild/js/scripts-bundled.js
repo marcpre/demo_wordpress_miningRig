@@ -26712,7 +26712,7 @@ function () {
         console.log(results); //transform data set
 
         var dataSet = results.generalInfo.map(function (item, i) {
-          return [i + 1, "<img src=\"".concat(item.miningHardware.img, "\" alt=\"").concat(item.miningHardware.title, "\" height=\"42\" width=\"42\">\n                 <a href=\"<?php the_permalink();?>\">\n                     ").concat(item.title, "\n                 </a>"), item.manufacturer, "<div>".concat(item.miningHardware.currency).concat(item.miningHardware.price, "</div>"), item.availability, "<button class=\"addButton\" type=\"button\" data-item-index=\"".concat(i, "\">\n                    Add\n                </button>"), "<a class=\"btn btn-primary\" href=\"".concat(item.miningHardware.affiliateLink, "\" target=\"_blank\" role=\"button\">\n                    Buy\n                </a>")];
+          return [i + 1, "<img src=\"".concat(item.miningHardware.img, "\" alt=\"").concat(item.miningHardware.title, "\" height=\"42\" width=\"42\">\n                 <a href=\"<?php the_permalink();?>\">\n                     ").concat(item.title, "\n                 </a>"), "$".concat(item.totalPrice.toFixed(2)), "Test", "Test", "<a class=\"btn btn-primary\" href=\"".concat(item.miningHardware.affiliateLink, "\" target=\"_blank\" role=\"button\">\n                    Buy\n                </a>"), "Test"];
         });
         (0, _jquery.default)('#allMiningRigs').DataTable({
           data: dataSet,
@@ -26727,6 +26727,8 @@ function () {
             title: "Price Alerts"
           }, {
             title: "Upvotes"
+          }, {
+            title: "Where"
           }]
         });
       });
