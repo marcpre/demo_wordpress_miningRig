@@ -63,7 +63,7 @@ function allMiningRigs()
             'title' => get_the_title(),
             'permalink' => get_the_permalink(),
             'category' => get_the_category(),
-            'hardware' => get_hardware($computerHardwareQuery)
+            'miningHardware' => get_hardware($computerHardwareQuery)
         ));
 
 
@@ -72,9 +72,7 @@ function allMiningRigs()
 }
 
 function get_hardware($computerHardwareQuery){
-            $results = array(
-                'rigHardware' => array(),
-            );
+            $results = array();
         
         foreach ($computerHardwareQuery->posts as $item) {
             // get content-egg data
@@ -84,7 +82,7 @@ function get_hardware($computerHardwareQuery){
             // get post category
             // $category = wp_get_post_categories($item->ID);
               
-            array_push($results['rigHardware'], array(
+            array_push($results, array(
                 'partCategory' => 'x',
                 'partTitle' => $item->post_title,
                 //'price' => $amazon[$keys[0]]['price'],
