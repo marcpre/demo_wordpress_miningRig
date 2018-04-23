@@ -5,6 +5,8 @@
 The following URL can be used to access the REST API:
 
 `http://localhost/demo_wordpress_rig-builder/wp-json/rigHardware/v1/manageRigHardware?term=motherboard`
+`/wp-json/miningRigs/v1/allRigs`
+
 
 **term:**
 1. motherboard
