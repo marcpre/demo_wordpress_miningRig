@@ -63,8 +63,18 @@ function allMiningRigs()
             'title' => get_the_title(),
             'permalink' => get_the_permalink(),
             'category' => get_the_category(),
+            'totalPrice' => getTotalPrice($computerHardwareQuery),
+            'miningHardware' => getHardware($computerHardwareQuery)
         ));
 
+
+    }
+    return $results;
+}
+
+function getHardware($computerHardwareQuery){
+            $results = array();
+        
         foreach ($computerHardwareQuery->posts as $item) {
             // get content-egg data
             $amazon = get_post_meta($item->ID, '_cegg_data_Amazon', true);
@@ -73,7 +83,7 @@ function allMiningRigs()
             // get post category
             // $category = wp_get_post_categories($item->ID);
               
-            array_push($results['rigHardware'], array(
+            array_push($results, array(
                 'partCategory' => 'x',
                 'partTitle' => $item->post_title,
                 //'price' => $amazon[$keys[0]]['price'],
@@ -91,6 +101,17 @@ function allMiningRigs()
                 // 'amazon' => $amazon[$keys],
             ));
         }
-    }
-    return $results;
+        return $results;
+}
+
+function getTotalPrice($computerHardwareQuery){
+        $totalPrice = 0;
+        
+        foreach ($computerHardwareQuery->posts as $item) {
+            // get content-egg data
+            $amazon = get_post_meta($item->ID, '_cegg_data_Amazon', true);
+            $keys = array_keys($amazon);
+            $totalPrice += (float) $amazon[$keys[0]]['price'];
+        }
+        return $totalPrice;
 }

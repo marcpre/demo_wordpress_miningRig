@@ -8,8 +8,10 @@ import Util from './modules/util';
 import Modal from './modules/Modal';
 import DataTable from './modules/DataTable'
 import RigBuilder from './modules/RigBuilder'
+import MiningRigs from './modules/MiningRigs'
 
 // Instantiate a new object using our modules/classes
+var miningRigs = new MiningRigs();
 var rigBuilder = new RigBuilder();
 var dataTable = new DataTable();
 // var test = new Test(); // Test Message

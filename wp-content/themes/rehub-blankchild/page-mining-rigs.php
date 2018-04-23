@@ -24,7 +24,8 @@
                     <?php wp_link_pages(array('before' => '<div class="page-link">' . __('Pages:', 'rehub_framework'), 'after' => '</div>'));?>
                     <?php endwhile;endif;?>
 
-                    <?php /*
+ <!-- START -->
+  <?php
 $products = new WP_Query(array(
     'posts_per_page' => -1,
     //'post_type' => 'post',
@@ -32,9 +33,16 @@ $products = new WP_Query(array(
     //'meta_key'        => '_cegg_data_Amazon',
     // 'meta_value'    => 'Melbourne'
 ));
-*/
-?>
 
+// var_dump($products->posts);
+
+if ($products->have_posts()) {?>
+
+                        <table id="allMiningRigs" style="float: left;" class="table table-bordered"></table>
+                        <?php 
+                        };
+                        wp_reset_postdata();
+                        ?>
                         <!-- END -->
                 </article>
             </div>

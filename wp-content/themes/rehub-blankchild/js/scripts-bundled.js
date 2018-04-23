@@ -25749,12 +25749,15 @@ var _DataTable = _interopRequireDefault(__webpack_require__(5));
 
 var _RigBuilder = _interopRequireDefault(__webpack_require__(6));
 
+var _MiningRigs = _interopRequireDefault(__webpack_require__(7));
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 // 3rd party packages from NPM
 // Our modules / classes
 // import Test from './modules/Test';
 // Instantiate a new object using our modules/classes
+var miningRigs = new _MiningRigs.default();
 var rigBuilder = new _RigBuilder.default();
 var dataTable = new _DataTable.default(); // var test = new Test(); // Test Message
 
@@ -26659,6 +26662,83 @@ function () {
 }();
 
 var _default = RigBuilder;
+exports.default = _default;
+
+/***/ }),
+/* 7 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+var _jquery = _interopRequireDefault(__webpack_require__(0));
+
+var _datatables = _interopRequireDefault(__webpack_require__(1));
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+var MiningRigs =
+/*#__PURE__*/
+function () {
+  function MiningRigs() {
+    _classCallCheck(this, MiningRigs);
+
+    //        this.events()
+    this.allMiningRigs();
+  } // end constructor
+
+  /*    events() {
+  
+      } */
+
+
+  _createClass(MiningRigs, [{
+    key: "allMiningRigs",
+    value: function allMiningRigs() {
+      console.log("allMiningRigs clicked");
+
+      _jquery.default.getJSON(miningRigData.root_url + '/wp-json/miningRigs/v1/allRigs', function (results) {
+        console.log(results); //transform data set
+
+        var dataSet = results.generalInfo.map(function (item, i) {
+          return [i + 1, "<img src=\"".concat(item.miningHardware.img, "\" alt=\"").concat(item.miningHardware.title, "\" height=\"42\" width=\"42\">\n                 <a href=\"<?php the_permalink();?>\">\n                     ").concat(item.title, "\n                 </a>"), "$".concat(item.totalPrice.toFixed(2)), "Test", "Test", "<a class=\"btn btn-primary\" href=\"".concat(item.miningHardware.affiliateLink, "\" target=\"_blank\" role=\"button\">\n                    Buy\n                </a>"), "Test"];
+        });
+        (0, _jquery.default)('#allMiningRigs').DataTable({
+          data: dataSet,
+          destroy: true,
+          columns: [{
+            title: "#"
+          }, {
+            title: "Title"
+          }, {
+            title: "Total Price"
+          }, {
+            title: "Price Alerts"
+          }, {
+            title: "Upvotes"
+          }, {
+            title: "Where"
+          }]
+        });
+      });
+    }
+  }]);
+
+  return MiningRigs;
+}();
+
+var _default = MiningRigs;
 exports.default = _default;
 
 /***/ })
