@@ -183,11 +183,7 @@ class RigBuilder {
                             ${item.title}
                         </a>
                     </td>
-<<<<<<< HEAD
-                    <td class="price">${item.currency}${item.price}</td>
-=======
                     <td class="price">${item.currency}<span class="priceComputerHardware">${item.price}</span></td>
->>>>>>> 2d5e06bdd957874afe651f988f6e3d1047901e4b
                     <td class="buyMe">
                         <a class="btn btn-primary btn-sm" href="${item.affiliateLink}" target="_blank" role="button">
                             Buy
