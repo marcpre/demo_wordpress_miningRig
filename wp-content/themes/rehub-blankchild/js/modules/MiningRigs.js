@@ -27,7 +27,6 @@ class MiningRigs {
                 )
                 .join('\n');
 
-
             //transform data set
             let dataSet = results.generalInfo.map((item, i) => [
                 i + 1,

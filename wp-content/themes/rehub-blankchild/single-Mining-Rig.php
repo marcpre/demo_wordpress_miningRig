@@ -63,7 +63,6 @@
     <?php include(rh_locate_template('inc/post_layout/single-default.php')); ?>                               
 <?php endif;?>
 
-LOLONATOR
 
 <!-- FOOTER -->
 <?php get_footer(); ?>

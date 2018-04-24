@@ -26634,6 +26634,7 @@ function () {
 
       var newBuild = {
         'title': "Test Title",
+        'content': "[content-egg module=Amazon template=custom/list]",
         'miningRigPostIds': rigPostIds,
         'status': 'publish'
       };

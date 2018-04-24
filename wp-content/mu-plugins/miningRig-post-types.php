@@ -5,7 +5,7 @@ function miningRigBuilder_post_types()
 
     // Mining-Rig Post Type
     register_post_type('Mining-Rig', array(
-        'supports' => array('title', 'editor', 'thumbnail'),
+        'supports' => array('title', 'editor', 'thumbnail', 'custom-fields'),
         'public' => true,
         'show_ui' => true,
         'labels' => array(
@@ -20,7 +20,7 @@ function miningRigBuilder_post_types()
 
     // Computer Hardware Post Type
     register_post_type('Computer-Hardware', array(
-        'supports' => array('title', 'editor', 'thumbnail'),
+        'supports' => array('title', 'editor', 'thumbnail', 'custom-fields'),
         'public' => true,
         'exclude_from_search' => true,
         'publicly_queryable' => true,
