@@ -40,7 +40,6 @@ function allMiningRigs()
 
     $results = array(
         'generalInfo' => array(),
-        'rigHardware' => array(),
     );
 
     while ($miningRigsQuery->have_posts()) {

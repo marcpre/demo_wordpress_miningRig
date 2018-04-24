@@ -26699,7 +26699,7 @@ function () {
   } // end constructor
 
   /*    events() {
-        } */
+       } */
 
 
   _createClass(MiningRigs, [{
@@ -26708,10 +26708,17 @@ function () {
       console.log("allMiningRigs clicked");
 
       _jquery.default.getJSON(miningRigData.root_url + '/wp-json/miningRigs/v1/allRigs', function (results) {
-        console.log(results); //transform data set
+        console.log(results); //get the 3 images
+
+        var getImages = function getImages(miningHardware) {
+          return miningHardware.slice(0, 3).map(function (h) {
+            return "<img src=\"".concat(h.amzImg, "\" alt=\"").concat(h.partTitle, "\" height=\"42\" width=\"42\">");
+          }).join('\n');
+        }; //transform data set
+
 
         var dataSet = results.generalInfo.map(function (item, i) {
-          return [i + 1, "<a href=\"".concat(item.permalink, "\">\n                    ").concat(item.title, "\n                 </a>"), "$".concat(item.totalPrice.toFixed(2)), "Insert Upvote Plugin"];
+          return [i + 1, "\n                ".concat(getImages(item.miningHardware), "\n                <a href=\"").concat(item.permalink, "\">\n                    ").concat(item.title, "\n                 </a>"), "$".concat(item.totalPrice.toFixed(2)), "Test item -> Upvote here!"];
         });
         (0, _jquery.default)('#allMiningRigs').DataTable({
           data: dataSet,
