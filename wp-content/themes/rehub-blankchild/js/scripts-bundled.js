@@ -26699,7 +26699,7 @@ function () {
   } // end constructor
 
   /*    events() {
-       } */
+        } */
 
 
   _createClass(MiningRigs, [{
