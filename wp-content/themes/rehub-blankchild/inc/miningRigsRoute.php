@@ -16,6 +16,7 @@ function miningRigsRoutes()
 
 function createMiningRig($data)
 {
+    
     //santitize array input
     $rig = json_encode(array_map('esc_attr', $data['miningRigPostIds']));
 
@@ -28,9 +29,17 @@ function createMiningRig($data)
             'miningRig' => $rig,
         ),
     ));
-    //}
+    
+    // return setCustomFieldContentEgg($postId, $data);
 }
-
+/*
+function setCustomFieldContentEgg($postId, $data) 
+{
+    echo("<script>console.log('PHP: ".$data."');</script>");
+    
+    update_post_meta( $postId, '_cegg_data_Amazon', $meta_value ); 
+}
+*/
 function allMiningRigs()
 {
     $miningRigsQuery = new WP_Query(array(

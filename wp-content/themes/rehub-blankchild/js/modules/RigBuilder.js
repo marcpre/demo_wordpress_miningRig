@@ -230,8 +230,10 @@ class RigBuilder {
             rigPostIds.push(this.buildResultsObjGlobal[key]['post_id'])
         }
                 
+        const postTitle = $("#miningrigtitle").attr('value')
+                
         const newBuild = {
-            'title': "Test Title",
+            'title': postTitle,
             'miningRigPostIds': rigPostIds,
             'status': 'publish'
         }

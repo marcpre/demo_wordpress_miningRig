@@ -26632,8 +26632,9 @@ function () {
         rigPostIds.push(this.buildResultsObjGlobal[key]['post_id']);
       }
 
+      var postTitle = (0, _jquery.default)("#miningrigtitle").attr('value');
       var newBuild = {
-        'title': "Test Title",
+        'title': postTitle,
         'miningRigPostIds': rigPostIds,
         'status': 'publish'
       };
