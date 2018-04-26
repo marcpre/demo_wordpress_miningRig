@@ -26632,9 +26632,14 @@ function () {
         rigPostIds.push(this.buildResultsObjGlobal[key]['post_id']);
       }
 
+      var postTitle = (0, _jquery.default)("#miningrigtitle").attr('value');
       var newBuild = {
+<<<<<<< HEAD
         'title': "Test Title",
         'content': "[content-egg module=Amazon template=custom/list]",
+=======
+        'title': postTitle,
+>>>>>>> 29673ee0e3fd8ed1823359fd7a0136b65a9f480e
         'miningRigPostIds': rigPostIds,
         'status': 'publish'
       };
