@@ -248,10 +248,12 @@ class RigBuilder {
             type: 'POST',
             data: newBuild,
             success: (response) => {
+                swal("Good job!", "success")
                 console.log("Congrats");
                 console.log(response);
             },
             error: (response) => {
+                swal("An error occured. Please try again!", "danger")
                 console.log("Sorry");
                 console.log(response);
             }
