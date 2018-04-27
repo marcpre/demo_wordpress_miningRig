@@ -26648,6 +26648,7 @@ function () {
         type: 'POST',
         data: newBuild,
         success: function success(response) {
+          swal("Good job!", "You clicked the button!", "success");
           console.log("Congrats");
           console.log(response);
         },

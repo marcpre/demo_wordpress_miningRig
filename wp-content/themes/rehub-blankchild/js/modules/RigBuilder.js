@@ -248,6 +248,8 @@ class RigBuilder {
             type: 'POST',
             data: newBuild,
             success: (response) => {
+                
+                swal("Good job!", "You clicked the button!", "success")
                 console.log("Congrats");
                 console.log(response);
             },
