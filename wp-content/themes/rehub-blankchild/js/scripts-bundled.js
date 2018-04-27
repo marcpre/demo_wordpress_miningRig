@@ -26648,11 +26648,12 @@ function () {
         type: 'POST',
         data: newBuild,
         success: function success(response) {
-          swal("Good job!", "You clicked the button!", "success");
+          swal("Good job!", "success");
           console.log("Congrats");
           console.log(response);
         },
         error: function error(response) {
+          swal("An error occured. Please try again!", "danger");
           console.log("Sorry");
           console.log(response);
         }
