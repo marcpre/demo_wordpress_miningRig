@@ -21,11 +21,11 @@ function createMiningRig($data)
     $rigHardwareArray = json_encode(array_map('esc_attr', $data['miningRigPostIds']));
 
     
-    setCustomFieldContentEgg();
+    // setCustomFieldContentEgg();
     
     
     //if ($data['miningRig']->count() > 0) {
-    return wp_insert_post(array(
+    $miningRigsId = wp_insert_post(array(
         'post_type' => 'Mining-Rig',
         'post_status' => 'publish',
         'post_title' => $data['title'],
@@ -34,34 +34,33 @@ function createMiningRig($data)
         ),
     ));
     
-    // return setCustomFieldContentEgg($miningRigsId, $data);
+    return setCustomFieldContentEgg($miningRigsId, $rigHardwareArray);
 }
 
-function setCustomFieldContentEgg()//$miningRigsId, $rigHardwareArray) 
+function setCustomFieldContentEgg($miningRigsId, $rigHardwareArray) 
 {
-    $miningRigsId = 100; //Mining Rig Post
-    $rigHardwareArray = ["71","59","71","59"];
+    // $miningRigsId = 112; //Mining Rig Post
+    // $rigHardwareArray = ["71","59","71","59", "67"];
     
     // $cfContentEgg = get_post_meta($miningRigsId, '_cegg_data_Amazon', true);
-
+    // $lolonator = get_post_meta($miningRigsId, '_cegg_data_Amazon', true);    
+    
     $results = array();
         
     foreach ($rigHardwareArray as $computerHardwareId) {
         $id = intval($computerHardwareId);
-        
+
+        /*
         $mainQuery = new WP_Query(array(
             'posts_per_page' => -1,
             'post_type' => 'Computer-Hardware',
             'p' => $id,
         ));
+        */
         
         $cfContentEgg = get_post_meta($id, '_cegg_data_Amazon', true);
 
         $results  = array_merge($results, $cfContentEgg);
-        
-        //merge object
-        // $merged = (object) array_merge((array) $merged, (array) $cfContentEgg);
-
     }
     
     update_post_meta( $miningRigsId, '_cegg_data_Amazon', $results ); 
