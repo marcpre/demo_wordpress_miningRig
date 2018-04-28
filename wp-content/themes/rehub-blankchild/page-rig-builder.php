@@ -109,10 +109,10 @@ if ($products->have_posts()) {?>
                             </tbody>
                         </table>
                         <div align="left">
-                            <a href=""><i class="fas fa-link"></i>Link</a>
+                            <!-- <a href=""><i class="fas fa-link"></i>Link</a> -->
                             <a class="sn-reddit" href=""><i class="fab fa-reddit-alien"></i>Reddit</a>
-                            <a href=""><i class="fas fa-users"></i>vBCode</a>
-                            <a href=""><i class="fab fa-twitch"></i>Twitch</a>
+                            <a class="sn-vBCode" href=""><i class="fas fa-users"></i>vBCode</a>
+                            <a class="sn-twitch" href=""><i class="fab fa-twitch"></i>Twitch</a>
                         </div>
                         <div align="right">
                             Total: <i class="fas fa-dollar-sign"></i>
@@ -157,6 +157,9 @@ wp_reset_postdata();
                         <!-- END -->
                         <!-- MODALS START -->
                         <?php get_template_part('template-parts/modal-reddit');?>
+                        <?php get_template_part('template-parts/modal-twitch');?>
+                        <?php get_template_part('template-parts/modal-vBCode');?>
+                        
                         <!-- MODALS END -->
                 </article>
             </div>
