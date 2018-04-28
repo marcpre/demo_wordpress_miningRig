@@ -11,9 +11,7 @@ class Social {
         
     }
     
-    modalWithTextBox(text) {
-        
-    }
+
 }
 
 export default Social;

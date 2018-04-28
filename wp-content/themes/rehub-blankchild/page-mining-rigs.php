@@ -24,8 +24,8 @@
                     <?php wp_link_pages(array('before' => '<div class="page-link">' . __('Pages:', 'rehub_framework'), 'after' => '</div>'));?>
                     <?php endwhile;endif;?>
 
- <!-- START -->
-  <?php
+<!-- START -->
+<?php
 $products = new WP_Query(array(
     'posts_per_page' => -1,
     //'post_type' => 'post',

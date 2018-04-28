@@ -20,9 +20,9 @@
                 </div>
                 <article class="post" id="page-<?php the_ID();?>">
                     <?php if (have_posts()): while (have_posts()): the_post();?>
-                    <?php the_content();?>
-                    <?php wp_link_pages(array('before' => '<div class="page-link">' . __('Pages:', 'rehub_framework'), 'after' => '</div>'));?>
-                    <?php endwhile;endif;?>
+		                    <?php the_content();?>
+		                    <?php wp_link_pages(array('before' => '<div class="page-link">' . __('Pages:', 'rehub_framework'), 'after' => '</div>'));?>
+		                    <?php endwhile;endif;?>
 
                     <?php
 $products = new WP_Query(array(
@@ -109,10 +109,10 @@ if ($products->have_posts()) {?>
                             </tbody>
                         </table>
                         <div align="left">
-                            <i class="fas fa-link"></i>Link
-                            <i class="fab fa-reddit-alien"></i>Reddit
-                            <i class="fas fa-users"></i>vBCode
-                            <i class="fab fa-twitch"></i>Twitch
+                            <a href=""><i class="fas fa-link"></i>Link</a>
+                            <a class="sn-reddit" href=""><i class="fab fa-reddit-alien"></i>Reddit</a>
+                            <a href=""><i class="fas fa-users"></i>vBCode</a>
+                            <a href=""><i class="fab fa-twitch"></i>Twitch</a>
                         </div>
                         <div align="right">
                             Total: <i class="fas fa-dollar-sign"></i>
@@ -128,10 +128,11 @@ if ($products->have_posts()) {?>
                                 Save List
                             </button>
                         </div>
-                        <?php 
-                        };
-                        wp_reset_postdata();
-                        ?>
+                        <?php
+}
+;
+wp_reset_postdata();
+?>
 
                         <!-- Modal -->
                         <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -154,6 +155,9 @@ if ($products->have_posts()) {?>
                             </div>
                         </div>
                         <!-- END -->
+                        <!-- MODALS START -->
+                        <?php get_template_part('template-parts/modal-reddit');?>
+                        <!-- MODALS END -->
                 </article>
             </div>
 
@@ -161,8 +165,6 @@ if ($products->have_posts()) {?>
         </div>
     </div>
     <!-- /CONTENT -->
-    <!-- MODAL START -->
 
-    <!-- MODAL END -->
     <!-- FOOTER -->
     <?php get_footer();?>
