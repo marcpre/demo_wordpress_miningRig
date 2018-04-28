@@ -48,7 +48,7 @@ function setCustomFieldContentEgg($miningRigsId, $rigHardwareArray)
         $results  = array_merge($results, $cfContentEgg);
     }
     
-    return update_post_meta( $miningRigsId, '_cegg_data_Amazon', $results ); 
+    return serialize(update_post_meta( $miningRigsId, '_cegg_data_Amazon', $results )); 
 }
 
 function allMiningRigs()
@@ -65,7 +65,7 @@ function allMiningRigs()
     while ($miningRigsQuery->have_posts()) {
         $miningRigsQuery->the_post();
 
-        $miningRigPostIds = json_decode(get_post_meta(get_the_ID(), 'miningRig', true));
+        $miningRigPostIds = get_post_meta(get_the_ID(), 'miningRig', true);
 
         $computerHardwareQuery = new WP_Query(array(
             'posts_per_page' => -1,
@@ -78,6 +78,7 @@ function allMiningRigs()
         //$keys = array_keys($amazon); // convert associative arrays to index array
         // if (get_post_type() == 'post' or get_post_type() == 'page') {
         array_push($results['generalInfo'], array(
+            'test' => $test,
             'post_id' => get_the_ID(),
             'title' => get_the_title(),
             'permalink' => get_the_permalink(),
@@ -85,8 +86,6 @@ function allMiningRigs()
             'totalPrice' => getTotalPrice($computerHardwareQuery),
             'miningHardware' => getHardware($computerHardwareQuery),
         ));
-
-
     }
     return $results;
 }

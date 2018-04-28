@@ -7,11 +7,6 @@ function computerHardwareRoutes()
         'methods' => WP_REST_SERVER::READABLE,
         'callback' => 'allRigHardware',
     ));
-    
-    register_rest_route('rigHardware/v1', 'unfilteredQuery', array(
-        'methods' => WP_REST_SERVER::READABLE,
-        'callback' => 'unfilteredQuery',
-    ));
 }
 
 /**
@@ -63,41 +58,3 @@ function allRigHardware($data)
     }
     return $results;
 }
-
-/**
- * TODO: DELETE BELOW API FUNCTION AFTER FINISH!!!
- */
-/**
-function unfilteredQuery($data)
-{
-    $mainQuery = new WP_Query(array(
-        'posts_per_page' => -1,
-        'post_type' => 'Computer-Hardware',
-        'tax_query' => array(
-            array(
-                'taxonomy' => 'category',
-                'field' => 'slug',
-                'terms' => sanitize_text_field($data['term']),
-            ),
-        ),
-    ));
-
-    $results = array(
-        'lolonator' => array(),
-    );
-
-    while ($mainQuery->have_posts()) {
-        $mainQuery->the_post();
-
-        //get post meta
-        $amazon = get_post_meta(get_the_ID(), '_cegg_data_Amazon', true);
-        $keys = array_keys($amazon); // convert associative arrays to index array
-
-        array_push($results['lolonator'], array(
-            'amzArray' => $amazon,
-            '$amazon[$keys[0]]' => $amazon[$keys[0]]
-        ));
-    }
-    return $results;
-}
- **/
