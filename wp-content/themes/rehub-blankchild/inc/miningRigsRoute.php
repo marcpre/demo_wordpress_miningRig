@@ -16,6 +16,15 @@ function miningRigsRoutes()
 
 function createMiningRig($data)
 {  
+    // Validation
+    if($data['title'] < 3) {
+        die("Your title has to be longer than 3 characters.");
+    }
+    
+    if(sizeof($rigHardwareArray) == 0) {
+        die("Please add hardware parts to your built.");
+    }
+    
     //santitize array input
     $rigHardwareArray = array_map('esc_attr', $data['miningRigPostIds']);
     
@@ -24,7 +33,7 @@ function createMiningRig($data)
         'post_type' => 'Mining-Rig',
         'post_status' => 'publish',
         'post_content' => '[content-egg module=Amazon template=list]',
-        'post_title' => $data['title'],
+        'post_title' => sanitize_textarea_field($data['title']),
         'meta_input' => array(
             'miningRig' => $rigHardwareArray,
         ),

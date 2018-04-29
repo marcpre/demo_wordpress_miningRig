@@ -26656,12 +26656,39 @@ function () {
           console.log(response);
         },
         error: function error(response) {
-          swal("An error occured. Please try again!", "danger");
+          (0, _jquery.default)(".errors").append("<div class=\"alert alert-danger active alert-dismissable\">\n                    <a href=\"#\" class=\"close\" data-dismiss=\"alert\" aria-label=\"close\">&times;</a>\n                    <strong>Error!</strong> ".concat(response.responseText, "\n                </div>")); // swal("An error occured. Please try again!", "danger")
+
           console.log("Sorry");
           console.log(response);
         }
       });
     }
+    /*
+    validationTitle(postTitle) {
+        console.log("postTitle")
+        console.log(postTitle)
+        if (postTitle.length === 0) {
+            $(".errors").append(
+                `<div class="alert alert-danger">
+                <a href="#" class="close" data-dismiss="alert">&times;</a>
+                <strong>Error!</strong> Please insert a post title.
+            </div>`
+            );
+            return false
+        }
+          if (postTitle.length < 3) {
+            $(".errors").append(
+                `<div class="alert alert-danger">
+                <a href="#" class="close" data-dismiss="alert">&times;</a>
+                <strong>Error!</strong> Your post title has to be longer than 3 characters.
+            </div>`
+            );
+            return false
+        }
+        return true
+    }
+    */
+
   }, {
     key: "redditCode",
     value: function redditCode(e) {

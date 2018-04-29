@@ -254,13 +254,46 @@ class RigBuilder {
                 console.log(response);
             },
             error: (response) => {
-                swal("An error occured. Please try again!", "danger")
+                $(".errors").append(
+                    `<div class="alert alert-danger active alert-dismissable">
+                    <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                    <strong>Error!</strong> ${response.responseText}
+                </div>`
+                );
+                // swal("An error occured. Please try again!", "danger")
                 console.log("Sorry");
                 console.log(response);
             }
         })
     }
 
+    /*
+    validationTitle(postTitle) {
+        console.log("postTitle")
+        console.log(postTitle)
+        if (postTitle.length === 0) {
+            $(".errors").append(
+                `<div class="alert alert-danger">
+                <a href="#" class="close" data-dismiss="alert">&times;</a>
+                <strong>Error!</strong> Please insert a post title.
+            </div>`
+            );
+            return false
+        }
+
+        if (postTitle.length < 3) {
+            $(".errors").append(
+                `<div class="alert alert-danger">
+                <a href="#" class="close" data-dismiss="alert">&times;</a>
+                <strong>Error!</strong> Your post title has to be longer than 3 characters.
+            </div>`
+            );
+            return false
+        }
+        return true
+    }
+*/
+    
     redditCode(e) {
         e.preventDefault()
         let result = {}

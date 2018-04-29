@@ -20,9 +20,9 @@
                 </div>
                 <article class="post" id="page-<?php the_ID();?>">
                     <?php if (have_posts()): while (have_posts()): the_post();?>
-		                    <?php the_content();?>
-		                    <?php wp_link_pages(array('before' => '<div class="page-link">' . __('Pages:', 'rehub_framework'), 'after' => '</div>'));?>
-		                    <?php endwhile;endif;?>
+                    <?php the_content();?>
+                    <?php wp_link_pages(array('before' => '<div class="page-link">' . __('Pages:', 'rehub_framework'), 'after' => '</div>'));?>
+                    <?php endwhile;endif;?>
 
                     <?php
 $products = new WP_Query(array(
@@ -36,11 +36,12 @@ $products = new WP_Query(array(
 // var_dump($products->posts);
 
 if ($products->have_posts()) {?>
+                        <div class="errors"></div>
                         <div class="form-group row">
-                          <label for="example-text-input" class="col-2 col-form-label">Titel</label>
-                          <div class="col-10">
-                            <input class="form-control" type="text" value="My awesome mining rig" id="miningrigtitle">
-                          </div>
+                            <label for="example-text-input" class="col-2 col-form-label">Titel</label>
+                            <div class="col-10">
+                                <input class="form-control" type="text" value="My awesome mining rig" id="miningrigtitle">
+                            </div>
                         </div>
                         <table id="miningRigTable" style="float: left;" class="table table-bordered">
                             <thead>
@@ -104,18 +105,24 @@ if ($products->have_posts()) {?>
                                 <tr>
                                     <td></td>
                                     <td></td>
-                                    <td align="right">Total: $<span id="total" class="total"></span></td>
+                                    <td align="right">Total: $
+                                        <span id="total" class="total"></span>
+                                    </td>
                                 </tr>
                             </tbody>
                         </table>
                         <div align="left">
                             <!-- <a href=""><i class="fas fa-link"></i>Link</a> -->
-                            <a class="sn-reddit" href=""><i class="fab fa-reddit-alien"></i>Reddit</a>
-                            <a class="sn-vBCode" href=""><i class="fas fa-users"></i>vBCode</a>
-                            <a class="sn-twitch" href=""><i class="fab fa-twitch"></i>Twitch</a>
+                            <a class="sn-reddit" href="">
+                                <i class="fab fa-reddit-alien"></i>Reddit</a>
+                            <a class="sn-vBCode" href="">
+                                <i class="fas fa-users"></i>vBCode</a>
+                            <a class="sn-twitch" href="">
+                                <i class="fab fa-twitch"></i>Twitch</a>
                         </div>
                         <div align="right">
-                            Total: <i class="fas fa-dollar-sign"></i>
+                            Total:
+                            <i class="fas fa-dollar-sign"></i>
                             <span id="total" class="total"></span>
                         </div>
                         <div align="right">
@@ -159,7 +166,7 @@ wp_reset_postdata();
                         <?php get_template_part('template-parts/modal-reddit');?>
                         <?php get_template_part('template-parts/modal-twitch');?>
                         <?php get_template_part('template-parts/modal-vBCode');?>
-                        
+
                         <!-- MODALS END -->
                 </article>
             </div>
