@@ -16,16 +16,18 @@ function miningRigsRoutes()
 
 function createMiningRig($data)
 {  
+    strlen($data['title']);
+    
     // Validation
-    if($data['title'] < 3) {
+    if(strlen($data['title']) < 4) {
         die("Your title has to be longer than 3 characters.");
     }
     
-    if(sizeof($rigHardwareArray) == 0) {
+    if(sizeof($data['miningRigPostIds']) == 0) {
         die("Please add hardware parts to your built.");
     }
     
-    //santitize array input
+    // Santitize array input
     $rigHardwareArray = array_map('esc_attr', $data['miningRigPostIds']);
     
     //if ($data['miningRig']->count() > 0) {

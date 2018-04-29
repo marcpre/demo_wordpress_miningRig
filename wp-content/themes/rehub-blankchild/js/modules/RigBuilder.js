@@ -231,7 +231,7 @@ class RigBuilder {
             rigPostIds.push(this.buildResultsObjGlobal[key]['post_id'])
         }
 
-        const postTitle = $("#miningrigtitle").attr('value')
+        let postTitle = $(".form-control.posttitle").val()
 
         const newBuild = {
             'title': postTitle,
