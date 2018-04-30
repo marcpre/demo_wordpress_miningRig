@@ -26460,9 +26460,12 @@ function () {
     var resultsGlobal = [];
     this.buildResultsObjGlobal = {};
     this.overallPrice = 0;
+    this.overallWatt = 0;
     this.identifier = 1; //calculate Price
 
-    this.calculatePrice();
+    this.calculatePrice(); //calculate Watt
+
+    this.calculateWatt();
     this.events();
   } // end constructor
 
@@ -26513,6 +26516,7 @@ function () {
       deleteBtn.closest('tr').remove();
       (0, _jquery.default)(".btn.btn-primary.btn-sm").attr("disabled", false);
       this.calculatePrice();
+      this.calculateWatt();
     }
   }, {
     key: "ourClickDispatcher",
@@ -26610,13 +26614,15 @@ function () {
 
         this.buildResultsObjGlobal[this.identifier] = item; // calculate price
 
-        this.calculatePrice();
+        this.calculatePrice(); // calculate watt
+
+        this.calculateWatt();
       }
     }
   }, {
     key: "calculatePrice",
     value: function calculatePrice() {
-      console.log("calculate Price");
+      console.log("calculate Watt");
       this.overallPrice = 0.0;
 
       for (var key in this.buildResultsObjGlobal) {
@@ -26624,6 +26630,25 @@ function () {
       }
 
       (0, _jquery.default)(".total").text(this.overallPrice.toFixed(2));
+    }
+  }, {
+    key: "calculateWatt",
+    value: function calculateWatt() {
+      console.log("calculate Watt");
+      this.overallWatt = 0.0;
+
+      for (var key in this.buildResultsObjGlobal) {
+        console.log("watt");
+        console.log(this.buildResultsObjGlobal[key]['watt']);
+
+        if (this.buildResultsObjGlobal[key]['watt'] == NaN || this.buildResultsObjGlobal[key]['watt'] == "") {
+          this.overallWatt += 0;
+        } else {
+          this.overallWatt += parseFloat(this.buildResultsObjGlobal[key]['watt']);
+        }
+      }
+
+      (0, _jquery.default)(".wattage").text(this.overallWatt.toFixed(2));
     }
   }, {
     key: "saveBuild",
@@ -26664,29 +26689,29 @@ function () {
       });
     }
     /*
-    validationTitle(postTitle) {
-        console.log("postTitle")
-        console.log(postTitle)
-        if (postTitle.length === 0) {
-            $(".errors").append(
-                `<div class="alert alert-danger">
-                <a href="#" class="close" data-dismiss="alert">&times;</a>
-                <strong>Error!</strong> Please insert a post title.
-            </div>`
-            );
-            return false
+        validationTitle(postTitle) {
+            console.log("postTitle")
+            console.log(postTitle)
+            if (postTitle.length === 0) {
+                $(".errors").append(
+                    `<div class="alert alert-danger">
+                    <a href="#" class="close" data-dismiss="alert">&times;</a>
+                    <strong>Error!</strong> Please insert a post title.
+                </div>`
+                );
+                return false
+            }
+              if (postTitle.length < 3) {
+                $(".errors").append(
+                    `<div class="alert alert-danger">
+                    <a href="#" class="close" data-dismiss="alert">&times;</a>
+                    <strong>Error!</strong> Your post title has to be longer than 3 characters.
+                </div>`
+                );
+                return false
+            }
+            return true
         }
-          if (postTitle.length < 3) {
-            $(".errors").append(
-                `<div class="alert alert-danger">
-                <a href="#" class="close" data-dismiss="alert">&times;</a>
-                <strong>Error!</strong> Your post title has to be longer than 3 characters.
-            </div>`
-            );
-            return false
-        }
-        return true
-    }
     */
 
   }, {

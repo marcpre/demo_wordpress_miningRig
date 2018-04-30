@@ -8,9 +8,12 @@ class RigBuilder {
         let resultsGlobal = []
         this.buildResultsObjGlobal = {}
         this.overallPrice = 0
+        this.overallWatt = 0
         this.identifier = 1
         //calculate Price
         this.calculatePrice()
+        //calculate Watt
+        this.calculateWatt()
         this.events()
     } // end constructor
 
@@ -66,7 +69,7 @@ class RigBuilder {
         deleteBtn.closest('tr').remove()
         $(".btn.btn-primary.btn-sm").attr("disabled", false);
         this.calculatePrice()
-
+        this.calculateWatt()
     }
 
     ourClickDispatcher(e) {
@@ -210,16 +213,33 @@ class RigBuilder {
 
             // calculate price
             this.calculatePrice()
+            // calculate watt
+            this.calculateWatt()
         }
     }
 
     calculatePrice() {
-        console.log("calculate Price")
+        console.log("calculate Watt")
         this.overallPrice = 0.0
         for (var key in this.buildResultsObjGlobal) {
             this.overallPrice += parseFloat(this.buildResultsObjGlobal[key]['price'])
         }
         $(".total").text(this.overallPrice.toFixed(2))
+    }
+
+    calculateWatt() {
+        console.log("calculate Watt")
+        this.overallWatt = 0.0
+        for (var key in this.buildResultsObjGlobal) {
+            console.log("watt")
+            console.log(this.buildResultsObjGlobal[key]['watt'])
+            if (this.buildResultsObjGlobal[key]['watt'] == NaN || this.buildResultsObjGlobal[key]['watt'] == "") {
+                this.overallWatt += 0
+            } else {
+                this.overallWatt += parseFloat(this.buildResultsObjGlobal[key]['watt'])
+            }
+        }
+        $(".wattage").text(this.overallWatt.toFixed(2))
     }
 
     saveBuild() {
@@ -268,32 +288,32 @@ class RigBuilder {
     }
 
     /*
-    validationTitle(postTitle) {
-        console.log("postTitle")
-        console.log(postTitle)
-        if (postTitle.length === 0) {
-            $(".errors").append(
-                `<div class="alert alert-danger">
-                <a href="#" class="close" data-dismiss="alert">&times;</a>
-                <strong>Error!</strong> Please insert a post title.
-            </div>`
-            );
-            return false
-        }
+        validationTitle(postTitle) {
+            console.log("postTitle")
+            console.log(postTitle)
+            if (postTitle.length === 0) {
+                $(".errors").append(
+                    `<div class="alert alert-danger">
+                    <a href="#" class="close" data-dismiss="alert">&times;</a>
+                    <strong>Error!</strong> Please insert a post title.
+                </div>`
+                );
+                return false
+            }
 
-        if (postTitle.length < 3) {
-            $(".errors").append(
-                `<div class="alert alert-danger">
-                <a href="#" class="close" data-dismiss="alert">&times;</a>
-                <strong>Error!</strong> Your post title has to be longer than 3 characters.
-            </div>`
-            );
-            return false
+            if (postTitle.length < 3) {
+                $(".errors").append(
+                    `<div class="alert alert-danger">
+                    <a href="#" class="close" data-dismiss="alert">&times;</a>
+                    <strong>Error!</strong> Your post title has to be longer than 3 characters.
+                </div>`
+                );
+                return false
+            }
+            return true
         }
-        return true
-    }
-*/
-    
+    */
+
     redditCode(e) {
         e.preventDefault()
         let result = {}

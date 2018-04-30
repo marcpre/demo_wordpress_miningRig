@@ -50,6 +50,7 @@ function allRigHardware($data)
             'img' => $amazon[$keys[0]]['img'],
             'currency' => $amazon[$keys[0]]['currency'],
             'price' => $amazon[$keys[0]]['price'],
+            'watt' => get_field('watt_estimate', get_the_ID()),
             'availability' => $amazon[$keys[0]]['extra']['availability'],
             'tellAFriend' => $amazon[$keys[0]]['extra']['itemLinks'][4]['URL'],
             'affiliateLink' => $amazon[$keys[0]]['url'],
