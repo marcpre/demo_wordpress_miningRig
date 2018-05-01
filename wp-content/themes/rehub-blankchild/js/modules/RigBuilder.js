@@ -110,10 +110,17 @@ class RigBuilder {
     }
 
     loadMiningHardware(part) {
+        //insert spinner before element
+        $(".errors").before("<div class='loading'>Loading&#8230;</div>")
 
         console.log(`loadMiningHardware ${part} clicked`)
         $.getJSON(miningRigData.root_url + '/wp-json/rigHardware/v1/manageRigHardware?term=' + part, (results) => {
             console.log(results)
+
+            //remove spinner
+            $(".loading").remove()
+
+            // show modal
             $('#exampleModal').modal('show');
 
             //transform data set
@@ -243,6 +250,8 @@ class RigBuilder {
     }
 
     saveBuild() {
+        //insert spinner before element
+        $(".errors").before("<div class='loading'>Loading&#8230;</div>")
         let rigPostIds = []
 
         console.log("save build")
@@ -269,18 +278,22 @@ class RigBuilder {
             type: 'POST',
             data: newBuild,
             success: (response) => {
+                //remove spinner
+                $(".loading").remove()
                 swal("Good job!", "success")
                 console.log("Congrats");
                 console.log(response);
             },
             error: (response) => {
+                //remove spinner
+                $(".loading").remove()
                 $(".errors").append(
                     `<div class="alert alert-danger active alert-dismissable">
                     <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
                     <strong>Error!</strong> ${response.responseText}
                 </div>`
                 );
-                // swal("An error occured. Please try again!", "danger")
+                swal("An error occured. Please try again!", "danger")
                 console.log("Sorry");
                 console.log(response);
             }

@@ -26560,10 +26560,15 @@ function () {
     value: function loadMiningHardware(part) {
       var _this = this;
 
+      //insert spinner before element
+      (0, _jquery.default)(".errors").before("<div class='loading'>Loading&#8230;</div>");
       console.log("loadMiningHardware ".concat(part, " clicked"));
 
       _jquery.default.getJSON(miningRigData.root_url + '/wp-json/rigHardware/v1/manageRigHardware?term=' + part, function (results) {
-        console.log(results);
+        console.log(results); //remove spinner
+
+        (0, _jquery.default)(".loading").remove(); // show modal
+
         (0, _jquery.default)('#exampleModal').modal('show'); //transform data set
 
         var dataSet = results.generalInfo.map(function (item, i) {
@@ -26653,6 +26658,8 @@ function () {
   }, {
     key: "saveBuild",
     value: function saveBuild() {
+      //insert spinner before element
+      (0, _jquery.default)(".errors").before("<div class='loading'>Loading&#8230;</div>");
       var rigPostIds = [];
       console.log("save build");
 
@@ -26676,13 +26683,17 @@ function () {
         type: 'POST',
         data: newBuild,
         success: function success(response) {
+          //remove spinner
+          (0, _jquery.default)(".loading").remove();
           swal("Good job!", "success");
           console.log("Congrats");
           console.log(response);
         },
         error: function error(response) {
-          (0, _jquery.default)(".errors").append("<div class=\"alert alert-danger active alert-dismissable\">\n                    <a href=\"#\" class=\"close\" data-dismiss=\"alert\" aria-label=\"close\">&times;</a>\n                    <strong>Error!</strong> ".concat(response.responseText, "\n                </div>")); // swal("An error occured. Please try again!", "danger")
-
+          //remove spinner
+          (0, _jquery.default)(".loading").remove();
+          (0, _jquery.default)(".errors").append("<div class=\"alert alert-danger active alert-dismissable\">\n                    <a href=\"#\" class=\"close\" data-dismiss=\"alert\" aria-label=\"close\">&times;</a>\n                    <strong>Error!</strong> ".concat(response.responseText, "\n                </div>"));
+          swal("An error occured. Please try again!", "danger");
           console.log("Sorry");
           console.log(response);
         }
