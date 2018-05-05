@@ -29,6 +29,8 @@ class RigBuilder {
         $(".sn-reddit").on("click", this.redditCode.bind(this))
         $(".sn-twitch").on("click", this.twitchCode.bind(this))
         $(".sn-vBCode").on("click", this.vBCodeCode.bind(this))
+        // miningRig Description characters
+        $(".form-control.description").keyup(this.countCharacters.bind(this))
         //remove content when modal is closed
         this.clearModals()
     }
@@ -422,6 +424,11 @@ ${items.replace(/\n$/, "")}
         $("#vBCodeModal").on("hidden.bs.modal", () => {
             $('.socialnetworkcontent').html('')
         });
+    }
+    
+    countCharacters() {
+        let len = $(".form-control.miningRigDescription").val().length
+        $(".typedChar" ).html(len + " characters");
     }
 }
 export default RigBuilder;

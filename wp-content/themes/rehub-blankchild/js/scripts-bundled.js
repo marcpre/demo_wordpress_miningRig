@@ -26483,7 +26483,9 @@ function () {
 
       (0, _jquery.default)(".sn-reddit").on("click", this.redditCode.bind(this));
       (0, _jquery.default)(".sn-twitch").on("click", this.twitchCode.bind(this));
-      (0, _jquery.default)(".sn-vBCode").on("click", this.vBCodeCode.bind(this)); //remove content when modal is closed
+      (0, _jquery.default)(".sn-vBCode").on("click", this.vBCodeCode.bind(this)); // miningRig Description characters
+
+      (0, _jquery.default)(".form-control.description").keyup(this.countCharacters.bind(this)); //remove content when modal is closed
 
       this.clearModals();
     } // methods
@@ -26799,6 +26801,12 @@ function () {
       (0, _jquery.default)("#vBCodeModal").on("hidden.bs.modal", function () {
         (0, _jquery.default)('.socialnetworkcontent').html('');
       });
+    }
+  }, {
+    key: "countCharacters",
+    value: function countCharacters() {
+      var len = (0, _jquery.default)(".form-control.miningRigDescription").val().length;
+      (0, _jquery.default)(".typedChar").html(len + " characters");
     }
   }]);
 

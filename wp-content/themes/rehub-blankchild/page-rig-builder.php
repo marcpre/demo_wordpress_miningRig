@@ -140,7 +140,8 @@ if ($products->have_posts()) {?>
                         </div>
                         <div class="form-group row" align="left">
                             <div class="col-7">
-                                <textarea class="form-control miningRigDescription" rows="4" id="comment" placeholder="Describe your mining rig briefly. E.g.: For which coins can it be used?"></textarea>
+                                <textarea class="form-control description miningRigDescription" rows="4" id="comment" placeholder="Describe your mining rig briefly. E.g.: For which coins can it be used?"></textarea>
+                                <span class='typedChar'></span>
                             </div>
                         </div>
                         <div align="right">
