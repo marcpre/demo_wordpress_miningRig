@@ -26535,6 +26535,11 @@ function () {
         this.loadMiningHardware('motherboard');
       }
 
+      if (this.pressedButton.data('exists') == 'memory') {
+        console.log("memory clicked");
+        this.loadMiningHardware('memory');
+      }
+
       if (this.pressedButton.data('exists') == 'graphic-card') {
         console.log("graphic-card clicked");
         this.loadMiningHardware('graphic-card');
@@ -26610,7 +26615,7 @@ function () {
         var targetButtonParent = targetButton[0].parentElement.parentElement;
         targetButtonParent.insertAdjacentHTML('afterend', "\n                <tr>\n                    <td></td>\n                    <td>\n                        <img src=\"".concat(item.img, "\" alt=\"").concat(item.title, "\" height=\"42\" width=\"42\">\n                        <a href=\"").concat(item.affiliateLink, "\" data-post=\"").concat(item.post_id, "\" data-identifier=\"").concat(++this.identifier, "\">\n                            ").concat(item.title, "\n                        </a>\n                    </td>\n                    <td class=\"price\">").concat(item.currency, "<span class=\"priceComputerHardware\">").concat(item.price, "</span></td>\n                    <td class=\"buyMe\">\n                        <a class=\"btn btn-primary btn-sm\" href=\"").concat(item.affiliateLink, "\" target=\"_blank\" role=\"button\">\n                            Buy\n                        </a>\n                    </td>\n                    <td class=\"deleteMe\">\n                        <button type=\"button\" class=\"btn btn-danger btn-sm deleteMe\">x</button>\n                    </td>\n                </tr>\n            ")); // remove btn if they are not graphic card, other parts
 
-        if (item.category["0"].slug !== 'graphic-card' && item.category["0"].slug != 'more-parts') {
+        if (item.category["0"].slug !== 'graphic-card' && item.category["0"].slug != 'more-parts' && item.category["0"].slug != 'memory') {
           targetButton.attr("disabled", true);
         } // close modal window
 

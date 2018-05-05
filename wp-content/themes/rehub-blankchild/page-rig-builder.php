@@ -70,6 +70,14 @@ if ($products->have_posts()) {?>
                                     </td>
                                 </tr>
                                 <tr>
+                                    <td>Memory</td>
+                                    <td>
+                                        <button type="button" data-exists="memory" class="btn btn-primary btn-sm memory">
+                                            Add Memory
+                                        </button>
+                                    </td>
+                                </tr>
+                                <tr>
                                     <td>Graphic Card</td>
                                     <td>
                                         <button type="button" data-exists="graphic-card" class="btn btn-primary btn-sm graphic-card">

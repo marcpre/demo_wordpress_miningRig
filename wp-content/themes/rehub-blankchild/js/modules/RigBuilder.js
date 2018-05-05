@@ -87,6 +87,11 @@ class RigBuilder {
             console.log("motherboard clicked")
             this.loadMiningHardware('motherboard')
         }
+        
+        if (this.pressedButton.data('exists') == 'memory') {
+            console.log("memory clicked")
+            this.loadMiningHardware('memory')
+        }
 
         if (this.pressedButton.data('exists') == 'graphic-card') {
             console.log("graphic-card clicked")
@@ -206,9 +211,10 @@ class RigBuilder {
                 </tr>
             `)
 
-            // remove btn if they are not graphic card, other parts
+            // remove btn if they are not graphic card, other parts, memory
             if (item.category["0"].slug !== 'graphic-card' &&
-                item.category["0"].slug != 'more-parts') {
+                item.category["0"].slug != 'more-parts' &&
+                item.category["0"].slug != 'memory') {
                 targetButton.attr("disabled", true);
             }
 
