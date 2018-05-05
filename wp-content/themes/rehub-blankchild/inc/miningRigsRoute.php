@@ -26,8 +26,8 @@ function createMiningRig($data)
         die("Please add hardware parts to your built.");
     }
     
-    if(strlen($data['content']) < 50) {
-        die("Your mining rig descriptions has to be longer than 50 characters.");
+    if(strlen($data['content']) < 80) {
+        die("Your mining rig descriptions has to be longer than 80 characters.");
     }
     
     // Santitize array input
