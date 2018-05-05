@@ -26613,7 +26613,7 @@ function () {
       if (targetButton.length > 0) {
         console.log("if part");
         var targetButtonParent = targetButton[0].parentElement.parentElement;
-        targetButtonParent.insertAdjacentHTML('afterend', "\n                <tr>\n                    <td></td>\n                    <td>\n                        <img src=\"".concat(item.img, "\" alt=\"").concat(item.title, "\" height=\"42\" width=\"42\">\n                        <a href=\"").concat(item.affiliateLink, "\" data-post=\"").concat(item.post_id, "\" data-identifier=\"").concat(++this.identifier, "\">\n                            ").concat(item.title, "\n                        </a>\n                    </td>\n                    <td class=\"price\">").concat(item.currency, "<span class=\"priceComputerHardware\">").concat(item.price, "</span></td>\n                    <td class=\"buyMe\">\n                        <a class=\"btn btn-primary btn-sm\" href=\"").concat(item.affiliateLink, "\" target=\"_blank\" role=\"button\">\n                            Buy\n                        </a>\n                    </td>\n                    <td class=\"deleteMe\">\n                        <button type=\"button\" class=\"btn btn-danger btn-sm deleteMe\">x</button>\n                    </td>\n                </tr>\n            ")); // remove btn if they are not graphic card, other parts
+        targetButtonParent.insertAdjacentHTML('afterend', "\n                <tr>\n                    <td></td>\n                    <td>\n                        <img src=\"".concat(item.img, "\" alt=\"").concat(item.title, "\" height=\"42\" width=\"42\">\n                        <a href=\"").concat(item.affiliateLink, "\" data-post=\"").concat(item.post_id, "\" data-identifier=\"").concat(++this.identifier, "\">\n                            ").concat(item.title, "\n                        </a>\n                    </td>\n                    <td class=\"price\">").concat(item.currency, "<span class=\"priceComputerHardware\">").concat(item.price, "</span></td>\n                    <td class=\"buyMe\">\n                        <a class=\"btn btn-primary btn-sm\" href=\"").concat(item.affiliateLink, "\" target=\"_blank\" role=\"button\">\n                            Buy\n                        </a>\n                    </td>\n                    <td class=\"deleteMe\">\n                        <button type=\"button\" class=\"btn btn-danger btn-sm deleteMe\">x</button>\n                    </td>\n                </tr>\n            ")); // remove btn if they are not graphic card, other parts, memory
 
         if (item.category["0"].slug !== 'graphic-card' && item.category["0"].slug != 'more-parts' && item.category["0"].slug != 'memory') {
           targetButton.attr("disabled", true);
@@ -26673,8 +26673,10 @@ function () {
       }
 
       var postTitle = (0, _jquery.default)(".form-control.posttitle").val();
+      var miningRigDescription = (0, _jquery.default)(".form-control.miningRigDescription").val();
       var newBuild = {
         'title': postTitle,
+        'content': miningRigDescription,
         'miningRigPostIds': rigPostIds,
         'status': 'publish'
       };
@@ -26697,7 +26699,11 @@ function () {
         error: function error(response) {
           //remove spinner
           (0, _jquery.default)(".loading").remove();
-          (0, _jquery.default)(".errors").append("<div class=\"alert alert-danger active alert-dismissable\">\n                    <a href=\"#\" class=\"close\" data-dismiss=\"alert\" aria-label=\"close\">&times;</a>\n                    <strong>Error!</strong> ".concat(response.responseText, "\n                </div>"));
+          (0, _jquery.default)(".errors").append("<div class=\"alert alert-danger active alert-dismissable\">\n                    <a href=\"#\" class=\"close\" data-dismiss=\"alert\" aria-label=\"close\">&times;</a>\n                    <strong>Error!</strong> ".concat(response.responseText, "\n                </div>")); //scroll to the top of the page
+
+          (0, _jquery.default)('html, body').animate({
+            scrollTop: 0
+          }, 'fast');
           swal("An error occured. Please try again!", "danger");
           console.log("Sorry");
           console.log(response);

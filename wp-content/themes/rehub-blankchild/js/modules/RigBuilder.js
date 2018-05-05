@@ -267,9 +267,11 @@ class RigBuilder {
         }
 
         let postTitle = $(".form-control.posttitle").val()
+        let miningRigDescription = $(".form-control.miningRigDescription").val()
 
         const newBuild = {
             'title': postTitle,
+            'content': miningRigDescription,
             'miningRigPostIds': rigPostIds,
             'status': 'publish'
         }
@@ -299,6 +301,8 @@ class RigBuilder {
                     <strong>Error!</strong> ${response.responseText}
                 </div>`
                 );
+                //scroll to the top of the page
+                $('html, body').animate({ scrollTop: 0 }, 'fast');
                 swal("An error occured. Please try again!", "danger")
                 console.log("Sorry");
                 console.log(response);

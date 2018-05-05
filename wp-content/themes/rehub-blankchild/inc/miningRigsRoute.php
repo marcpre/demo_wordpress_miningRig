@@ -16,8 +16,7 @@ function miningRigsRoutes()
 
 function createMiningRig($data)
 {  
-    strlen($data['title']);
-    
+   
     // Validation
     if(strlen($data['title']) < 4) {
         die("Your title has to be longer than 3 characters.");
@@ -27,14 +26,21 @@ function createMiningRig($data)
         die("Please add hardware parts to your built.");
     }
     
+    if(strlen($data['content']) < 50) {
+        die("Your mining rig descriptions has to be longer than 50 characters.");
+    }
+    
     // Santitize array input
     $rigHardwareArray = array_map('esc_attr', $data['miningRigPostIds']);
+
+    // content field
+    $dataContent = sanitize_textarea_field($data['content']); 
+    $rigDescription = $dataContent . "\n\n" . '[content-egg module=Amazon template=list]';
     
-    //if ($data['miningRig']->count() > 0) {
     $miningRigsId = wp_insert_post(array(
         'post_type' => 'Mining-Rig',
         'post_status' => 'publish',
-        'post_content' => '[content-egg module=Amazon template=list]',
+        'post_content' => $rigDescription,
         'post_title' => sanitize_textarea_field($data['title']),
         'meta_input' => array(
             'miningRig' => $rigHardwareArray,

@@ -138,9 +138,14 @@ if ($products->have_posts()) {?>
                             <i class="fas fa-bolt"></i>
                             <span id="wattage" class="wattage" aria-hidden="true"></span>W
                         </div>
+                        <div class="form-group row" align="left">
+                            <div class="col-7">
+                                <textarea class="form-control miningRigDescription" rows="4" id="comment" placeholder="Describe your mining rig briefly. E.g.: For which coins can it be used?"></textarea>
+                            </div>
+                        </div>
                         <div align="right">
                             <button type="button" class="btn btn-primary btn-lg save-list">
-                                Save List
+                                Save Mining Rig
                             </button>
                         </div>
                         <?php
