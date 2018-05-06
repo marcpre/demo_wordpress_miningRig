@@ -35,8 +35,7 @@ class MiningRigs {
                 <a href="${item.permalink}">
                     ${item.title}
                  </a>`,
-                `$${item.totalPrice.toFixed(2)}`,
-                `Test item -> Upvote here!`
+                `$${item.totalPrice.toFixed(2)}`
             ])
 
             $('#allMiningRigs').DataTable({
@@ -51,9 +50,6 @@ class MiningRigs {
                     },
                     {
                         title: "Total Price"
-                    },
-                    {
-                        title: "Upvotes"
                     }
                 ]
             });

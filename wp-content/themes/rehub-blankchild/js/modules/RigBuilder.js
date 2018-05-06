@@ -52,8 +52,6 @@ class RigBuilder {
                         </td>
                     </tr>
                 `)
-                console.log("Button DISABLED")
-                // plusButton.prop("disabled", true);
             }
         }
     }
@@ -63,10 +61,7 @@ class RigBuilder {
         let deleteBtn = $(e.target).closest(".deleteMe");
         //delete element from result build
         const elemId = deleteBtn.closest('tr').find("a[data-identifier]").data('identifier')
-        console.log("Deleted elemId with number: " + elemId)
         delete this.buildResultsObjGlobal[elemId]
-        console.log("buildResultsObjGlobal")
-        console.log(this.buildResultsObjGlobal)
         //delete row
         deleteBtn.closest('tr').remove()
         $(".btn.btn-primary.btn-sm").attr("disabled", false);
@@ -77,8 +72,6 @@ class RigBuilder {
     ourClickDispatcher(e) {
         console.log("ourClickDispatcher")
         this.pressedButton = $(e.target).closest(".btn.btn-primary.btn-sm");
-
-        console.log(this.pressedButton.length)
 
         if (this.pressedButton.data('exists') == 'cpu') {
             console.log("cpu clicked")
@@ -188,7 +181,6 @@ class RigBuilder {
         let targetButton = $(".btn.btn-primary.btn-sm." + item.category["0"].slug)
 
         if (targetButton.length > 0) {
-            console.log("if part")
 
             let targetButtonParent = targetButton[0].parentElement.parentElement
 
@@ -246,8 +238,6 @@ class RigBuilder {
         console.log("calculate Watt")
         this.overallWatt = 0.0
         for (var key in this.buildResultsObjGlobal) {
-            console.log("watt")
-            console.log(this.buildResultsObjGlobal[key]['watt'])
             if (this.buildResultsObjGlobal[key]['watt'] == NaN || this.buildResultsObjGlobal[key]['watt'] == "") {
                 this.overallWatt += 0
             } else {
@@ -292,7 +282,7 @@ class RigBuilder {
                 $(".loading").remove()
                 swal("Good job!", "success")
                 console.log("Congrats");
-                console.log(response);
+                // console.log(response);
             },
             error: (response) => {
                 //remove spinner
@@ -307,37 +297,10 @@ class RigBuilder {
                 $('html, body').animate({ scrollTop: 0 }, 'fast');
                 swal("An error occured. Please try again!", "danger")
                 console.log("Sorry");
-                console.log(response);
+                // console.log(response);
             }
         })
     }
-
-    /*
-        validationTitle(postTitle) {
-            console.log("postTitle")
-            console.log(postTitle)
-            if (postTitle.length === 0) {
-                $(".errors").append(
-                    `<div class="alert alert-danger">
-                    <a href="#" class="close" data-dismiss="alert">&times;</a>
-                    <strong>Error!</strong> Please insert a post title.
-                </div>`
-                );
-                return false
-            }
-
-            if (postTitle.length < 3) {
-                $(".errors").append(
-                    `<div class="alert alert-danger">
-                    <a href="#" class="close" data-dismiss="alert">&times;</a>
-                    <strong>Error!</strong> Your post title has to be longer than 3 characters.
-                </div>`
-                );
-                return false
-            }
-            return true
-        }
-    */
 
     redditCode(e) {
         e.preventDefault()

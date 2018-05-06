@@ -26870,7 +26870,7 @@ function () {
 
 
         var dataSet = results.generalInfo.map(function (item, i) {
-          return [i + 1, "\n                ".concat(getImages(item.miningHardware), "\n                <a href=\"").concat(item.permalink, "\">\n                    ").concat(item.title, "\n                 </a>"), "$".concat(item.totalPrice.toFixed(2)), "Test item -> Upvote here!"];
+          return [i + 1, "\n                ".concat(getImages(item.miningHardware), "\n                <a href=\"").concat(item.permalink, "\">\n                    ").concat(item.title, "\n                 </a>"), "$".concat(item.totalPrice.toFixed(2))];
         });
         (0, _jquery.default)('#allMiningRigs').DataTable({
           data: dataSet,
@@ -26882,8 +26882,6 @@ function () {
             title: "Title"
           }, {
             title: "Total Price"
-          }, {
-            title: "Upvotes"
           }]
         });
       });
