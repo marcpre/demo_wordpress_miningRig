@@ -26499,7 +26499,6 @@ function () {
       if (plusButton.hasClass("graphic-card")) {
         if ((0, _jquery.default)(plusButtonParent).children('td').length == 3) {
           plusButtonParent.insertAdjacentHTML('afterend', "\n                    <tr>\n                        <td></td>\n                        <td>\n                            <button type=\"button\" data-exists=\"graphic-card\" class=\"btn btn-primary btn-sm graphic-card\" >\n                                Add Graphic Card\n                            </button>\n                        </td>\n                    </tr>\n                ");
-          console.log("Button DISABLED"); // plusButton.prop("disabled", true);
         }
       }
     }
@@ -26510,10 +26509,7 @@ function () {
       var deleteBtn = (0, _jquery.default)(e.target).closest(".deleteMe"); //delete element from result build
 
       var elemId = deleteBtn.closest('tr').find("a[data-identifier]").data('identifier');
-      console.log("Deleted elemId with number: " + elemId);
-      delete this.buildResultsObjGlobal[elemId];
-      console.log("buildResultsObjGlobal");
-      console.log(this.buildResultsObjGlobal); //delete row
+      delete this.buildResultsObjGlobal[elemId]; //delete row
 
       deleteBtn.closest('tr').remove();
       (0, _jquery.default)(".btn.btn-primary.btn-sm").attr("disabled", false);
@@ -26525,7 +26521,6 @@ function () {
     value: function ourClickDispatcher(e) {
       console.log("ourClickDispatcher");
       this.pressedButton = (0, _jquery.default)(e.target).closest(".btn.btn-primary.btn-sm");
-      console.log(this.pressedButton.length);
 
       if (this.pressedButton.data('exists') == 'cpu') {
         console.log("cpu clicked");
@@ -26613,7 +26608,6 @@ function () {
       var targetButton = (0, _jquery.default)(".btn.btn-primary.btn-sm." + item.category["0"].slug);
 
       if (targetButton.length > 0) {
-        console.log("if part");
         var targetButtonParent = targetButton[0].parentElement.parentElement;
         targetButtonParent.insertAdjacentHTML('afterend', "\n                <tr>\n                    <td></td>\n                    <td>\n                        <img src=\"".concat(item.img, "\" alt=\"").concat(item.title, "\" height=\"42\" width=\"42\">\n                        <a href=\"").concat(item.affiliateLink, "\" data-post=\"").concat(item.post_id, "\" data-identifier=\"").concat(++this.identifier, "\">\n                            ").concat(item.title, "\n                        </a>\n                    </td>\n                    <td class=\"price\">").concat(item.currency, "<span class=\"priceComputerHardware\">").concat(item.price, "</span></td>\n                    <td class=\"buyMe\">\n                        <a class=\"btn btn-primary btn-sm\" href=\"").concat(item.affiliateLink, "\" target=\"_blank\" role=\"button\">\n                            Buy\n                        </a>\n                    </td>\n                    <td class=\"deleteMe\">\n                        <button type=\"button\" class=\"btn btn-danger btn-sm deleteMe\">x</button>\n                    </td>\n                </tr>\n            ")); // remove btn if they are not graphic card, other parts, memory
 
@@ -26650,9 +26644,6 @@ function () {
       this.overallWatt = 0.0;
 
       for (var key in this.buildResultsObjGlobal) {
-        console.log("watt");
-        console.log(this.buildResultsObjGlobal[key]['watt']);
-
         if (this.buildResultsObjGlobal[key]['watt'] == NaN || this.buildResultsObjGlobal[key]['watt'] == "") {
           this.overallWatt += 0;
         } else {
@@ -26695,8 +26686,7 @@ function () {
           //remove spinner
           (0, _jquery.default)(".loading").remove();
           swal("Good job!", "success");
-          console.log("Congrats");
-          console.log(response);
+          console.log("Congrats"); // console.log(response);
         },
         error: function error(response) {
           //remove spinner
@@ -26707,37 +26697,10 @@ function () {
             scrollTop: 0
           }, 'fast');
           swal("An error occured. Please try again!", "danger");
-          console.log("Sorry");
-          console.log(response);
+          console.log("Sorry"); // console.log(response);
         }
       });
     }
-    /*
-        validationTitle(postTitle) {
-            console.log("postTitle")
-            console.log(postTitle)
-            if (postTitle.length === 0) {
-                $(".errors").append(
-                    `<div class="alert alert-danger">
-                    <a href="#" class="close" data-dismiss="alert">&times;</a>
-                    <strong>Error!</strong> Please insert a post title.
-                </div>`
-                );
-                return false
-            }
-              if (postTitle.length < 3) {
-                $(".errors").append(
-                    `<div class="alert alert-danger">
-                    <a href="#" class="close" data-dismiss="alert">&times;</a>
-                    <strong>Error!</strong> Your post title has to be longer than 3 characters.
-                </div>`
-                );
-                return false
-            }
-            return true
-        }
-    */
-
   }, {
     key: "redditCode",
     value: function redditCode(e) {

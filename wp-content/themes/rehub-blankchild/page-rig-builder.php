@@ -38,7 +38,7 @@ $products = new WP_Query(array(
 if ($products->have_posts()) {?>
                         <div class="errors"></div>
                         <div class="form-group row">
-                            <label for="example-text-input" class="col-2 col-form-label">Titel</label>
+                            <label for="example-text-input" class="col-2 col-form-label"><b>Titel</b></label>
                             <div class="col-10">
                                 <input class="form-control posttitle" type="text" placeholder="My awesome mining rig" id="miningrigtitle">
                             </div>
@@ -46,10 +46,10 @@ if ($products->have_posts()) {?>
                         <table id="miningRigTable" style="float: left;" class="table table-bordered">
                             <thead>
                                 <tr>
-                                    <th>Component</th>
-                                    <th>Selection</th>
-                                    <th>Price</th>
-                                    <th>Where</th>
+                                    <th><b>Component</b></th>
+                                    <th><b>Selection</b></th>
+                                    <th><b>Price</b></th>
+                                    <th><b>Where</b></th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -129,12 +129,12 @@ if ($products->have_posts()) {?>
                                 <i class="fab fa-twitch"></i>Twitch</a>
                         </div>
                         <div align="right">
-                            Total:
+                            <b>Total:</b>
                             <i class="fas fa-dollar-sign"></i>
                             <span id="total" class="total"></span>
                         </div>
                         <div align="right">
-                            Wattage Estimate:
+                            <b>Wattage Estimate:</b>
                             <i class="fas fa-bolt"></i>
                             <span id="wattage" class="wattage" aria-hidden="true"></span>W
                         </div>
