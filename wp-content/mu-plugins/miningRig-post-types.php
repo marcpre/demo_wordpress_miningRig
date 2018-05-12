@@ -5,7 +5,7 @@ function miningRigBuilder_post_types()
 
     // Mining-Rig Post Type
     register_post_type('Mining-Rig', array(
-        'supports' => array('title', 'editor', 'thumbnail', 'custom-fields'),
+        'supports' => array('title', 'editor', 'thumbnail', 'custom-fields', 'excerpt','comments','revisions'),
         'public' => true,
         'show_ui' => true,
         'labels' => array(

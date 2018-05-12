@@ -127,7 +127,7 @@ class RigBuilder {
             let dataSet = results.generalInfo.map((item, i) => [
                 i + 1,
                 `<img src="${item.img}" alt="${item.title}" height="42" width="42">
-                 <a href="<?php the_permalink();?>">
+                 <a href="${item.affiliateLink}">
                      ${item.title}
                  </a>`,
                 item.manufacturer,

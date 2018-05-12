@@ -26574,7 +26574,7 @@ function () {
         (0, _jquery.default)('#exampleModal').modal('show'); //transform data set
 
         var dataSet = results.generalInfo.map(function (item, i) {
-          return [i + 1, "<img src=\"".concat(item.img, "\" alt=\"").concat(item.title, "\" height=\"42\" width=\"42\">\n                 <a href=\"<?php the_permalink();?>\">\n                     ").concat(item.title, "\n                 </a>"), item.manufacturer, "<div>".concat(item.currency).concat(item.price, "</div>"), item.availability, "<button class=\"addButton\" type=\"button\" data-item-index=\"".concat(i, "\">\n                    Add\n                </button>"), "<a class=\"btn btn-primary\" href=\"".concat(item.affiliateLink, "\" target=\"_blank\" role=\"button\">\n                    Buy\n                </a>")];
+          return [i + 1, "<img src=\"".concat(item.img, "\" alt=\"").concat(item.title, "\" height=\"42\" width=\"42\">\n                 <a href=\"").concat(item.affiliateLink, "\">\n                     ").concat(item.title, "\n                 </a>"), item.manufacturer, "<div>".concat(item.currency).concat(item.price, "</div>"), item.availability, "<button class=\"addButton\" type=\"button\" data-item-index=\"".concat(i, "\">\n                    Add\n                </button>"), "<a class=\"btn btn-primary\" href=\"".concat(item.affiliateLink, "\" target=\"_blank\" role=\"button\">\n                    Buy\n                </a>")];
         });
         _this.resultsGlobal = results; //assign to global variable
 
@@ -26825,17 +26825,18 @@ function () {
       console.log("allMiningRigs clicked");
 
       _jquery.default.getJSON(miningRigData.root_url + '/wp-json/miningRigs/v1/allRigs', function (results) {
+        console.log("lolonator");
         console.log(results); //get the 3 images
 
         var getImages = function getImages(miningHardware) {
-          return miningHardware.slice(0, 3).map(function (h) {
-            return "<img src=\"".concat(h.amzImg, "\" alt=\"").concat(h.partTitle, "\" height=\"42\" width=\"42\">");
+          return miningHardware.slice(0, 20).map(function (h) {
+            return "<a href=\"".concat(h.affiliateLink, "\" target=\"_blank\"><img src=\"").concat(h.amzImg, "\" alt=\"").concat(h.partTitle, "\" height=\"80\" width=\"80\"></a>");
           }).join('\n');
         }; //transform data set
 
 
         var dataSet = results.generalInfo.map(function (item, i) {
-          return [i + 1, "\n                ".concat(getImages(item.miningHardware), "\n                <a href=\"").concat(item.permalink, "\" target=\"_blank\">\n                    ").concat(item.title, "\n                 </a>"), "$".concat(item.totalPrice.toFixed(2))];
+          return [i + 1, "".concat(getImages(item.miningHardware)), "<a href=\"".concat(item.permalink, "\" target=\"_blank\">\n                    ").concat(item.title, "\n                 </a>"), "$".concat(item.totalPrice.toFixed(2))];
         });
         (0, _jquery.default)('#allMiningRigs').DataTable({
           data: dataSet,
@@ -26844,9 +26845,11 @@ function () {
           columns: [{
             title: "#"
           }, {
+            title: "Single Parts"
+          }, {
             title: "Title"
           }, {
-            title: "Total Price"
+            title: "Total Price (Single parts)"
           }]
         });
       });
@@ -26854,7 +26857,7 @@ function () {
   }, {
     key: "redirectToMiningRigBuilder",
     value: function redirectToMiningRigBuilder() {
-      var link = miningRigData.root_url + '/';
+      var link = miningRigData.root_url + '/rig-builder';
       console.log("link: " + link);
       window.open(link, '_blank');
     }

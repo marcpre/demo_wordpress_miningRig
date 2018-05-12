@@ -27,7 +27,7 @@
 <!-- START -->
                         <div align="right">
                             <button type="button" class="btn btn-primary btn-lg createRig">
-                                Create your Mining Rig
+                                Create your own Mining Rig
                             </button>
                         </div>
                         <br/>
