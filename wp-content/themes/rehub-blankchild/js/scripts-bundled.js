@@ -26829,7 +26829,7 @@ function () {
         console.log(results); //get the 3 images
 
         var getImages = function getImages(miningHardware) {
-          return miningHardware.slice(0, 20).map(function (h) {
+          return miningHardware.slice(0, 15).map(function (h) {
             return "<a href=\"".concat(h.affiliateLink, "\" target=\"_blank\"><img src=\"").concat(h.amzImg, "\" alt=\"").concat(h.partTitle, "\" height=\"80\" width=\"80\"></a>");
           }).join('\n');
         }; //transform data set
@@ -26849,7 +26849,7 @@ function () {
           }, {
             title: "Title"
           }, {
-            title: "Total Price (Single parts)"
+            title: "Total Price"
           }]
         });
       });

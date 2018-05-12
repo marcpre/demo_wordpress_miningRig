@@ -22,7 +22,7 @@ class MiningRigs {
             //get the 3 images
             const getImages = miningHardware =>
                 miningHardware
-                .slice(0, 20)
+                .slice(0, 15)
                 .map(
                     h => `<a href="${h.affiliateLink}" target="_blank"><img src="${h.amzImg}" alt="${h.partTitle}" height="80" width="80"></a>`
                 )
