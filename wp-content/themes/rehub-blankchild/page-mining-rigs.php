@@ -25,24 +25,14 @@
                     <?php endwhile;endif;?>
 
 <!-- START -->
-<?php
-$products = new WP_Query(array(
-    'posts_per_page' => -1,
-    //'post_type' => 'post',
-    'post_type' => 'Computer-Hardware',
-    //'meta_key'        => '_cegg_data_Amazon',
-    // 'meta_value'    => 'Melbourne'
-));
-
-// var_dump($products->posts);
-
-if ($products->have_posts()) {?>
+                        <div align="right">
+                            <button type="button" class="btn btn-primary btn-lg createRig">
+                                Create your Mining Rig
+                            </button>
+                        </div>
+                        <br/>
 
                         <table id="allMiningRigs" style="float: left;" class="table table-bordered"></table>
-                        <?php 
-                        };
-                        wp_reset_postdata();
-                        ?>
                         <!-- END -->
                 </article>
             </div>

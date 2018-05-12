@@ -26809,15 +26809,17 @@ function () {
   function MiningRigs() {
     _classCallCheck(this, MiningRigs);
 
-    //        this.events()
+    this.events();
     this.allMiningRigs();
   } // end constructor
 
-  /*    events() {
-        } */
-
 
   _createClass(MiningRigs, [{
+    key: "events",
+    value: function events() {
+      (0, _jquery.default)(".btn.btn-primary.btn-lg.createRig").on("click", this.redirectToMiningRigBuilder.bind(this));
+    }
+  }, {
     key: "allMiningRigs",
     value: function allMiningRigs() {
       console.log("allMiningRigs clicked");
@@ -26833,7 +26835,7 @@ function () {
 
 
         var dataSet = results.generalInfo.map(function (item, i) {
-          return [i + 1, "\n                ".concat(getImages(item.miningHardware), "\n                <a href=\"").concat(item.permalink, "\">\n                    ").concat(item.title, "\n                 </a>"), "$".concat(item.totalPrice.toFixed(2))];
+          return [i + 1, "\n                ".concat(getImages(item.miningHardware), "\n                <a href=\"").concat(item.permalink, "\" target=\"_blank\">\n                    ").concat(item.title, "\n                 </a>"), "$".concat(item.totalPrice.toFixed(2))];
         });
         (0, _jquery.default)('#allMiningRigs').DataTable({
           data: dataSet,
@@ -26848,6 +26850,13 @@ function () {
           }]
         });
       });
+    }
+  }, {
+    key: "redirectToMiningRigBuilder",
+    value: function redirectToMiningRigBuilder() {
+      var link = miningRigData.root_url + '/';
+      console.log("link: " + link);
+      window.open(link, '_blank');
     }
   }]);
 

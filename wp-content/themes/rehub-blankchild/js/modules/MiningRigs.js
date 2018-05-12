@@ -4,13 +4,13 @@ import dt from 'datatables.net';
 class MiningRigs {
 
     constructor() {
-        //        this.events()
+        this.events()
         this.allMiningRigs()
     } // end constructor
 
-    /*    events() {
-
-        } */
+    events() {
+        $(".btn.btn-primary.btn-lg.createRig").on("click", this.redirectToMiningRigBuilder.bind(this))
+    }
 
     allMiningRigs() {
 
@@ -32,7 +32,7 @@ class MiningRigs {
                 i + 1,
                 `
                 ${ getImages(item.miningHardware) }
-                <a href="${item.permalink}">
+                <a href="${item.permalink}" target="_blank">
                     ${item.title}
                  </a>`,
                 `$${item.totalPrice.toFixed(2)}`
@@ -54,6 +54,12 @@ class MiningRigs {
                 ]
             });
         });
+    }
+
+    redirectToMiningRigBuilder() {
+        let link = miningRigData.root_url + '/'
+        console.log("link: " + link)
+        window.open(link, '_blank'); 
     }
 }
 
