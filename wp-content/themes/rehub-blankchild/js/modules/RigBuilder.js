@@ -7,6 +7,7 @@ class RigBuilder {
         var pressedButton = null
         let resultsGlobal = []
         this.buildResultsObjGlobal = {}
+        var globalPart = null // currently selected part
         this.overallPrice = 0
         this.overallWatt = 0
         this.identifier = 1
@@ -33,6 +34,8 @@ class RigBuilder {
         $(".form-control.description").keyup(this.countCharacters.bind(this))
         //remove content when modal is closed
         this.clearModals()
+        //remove selected part when modal is closed
+        this.deleteSelectedPart()
     }
 
     // methods
@@ -82,7 +85,7 @@ class RigBuilder {
             console.log("motherboard clicked")
             this.loadMiningHardware('motherboard')
         }
-        
+
         if (this.pressedButton.data('exists') == 'memory') {
             console.log("memory clicked")
             this.loadMiningHardware('memory')
@@ -112,7 +115,9 @@ class RigBuilder {
     loadMiningHardware(part) {
         //insert spinner before element
         $(".errors").before("<div class='loading'>Loading&#8230;</div>")
-
+        //global Part
+        this.globalPart = part
+        
         console.log(`loadMiningHardware ${part} clicked`)
         $.getJSON(miningRigData.root_url + '/wp-json/rigHardware/v1/manageRigHardware?term=' + part, (results) => {
             console.log(results)
@@ -122,6 +127,9 @@ class RigBuilder {
 
             // show modal
             $('#exampleModal').modal('show');
+
+            // mark the correct part as selected
+            $(".part-node.ib.part-node-unselected." + part).addClass('part-node-selected').removeClass('part-node-unselected')
 
             //transform data set
             let dataSet = results.generalInfo.map((item, i) => [
@@ -294,7 +302,9 @@ class RigBuilder {
                 </div>`
                 );
                 //scroll to the top of the page
-                $('html, body').animate({ scrollTop: 0 }, 'fast');
+                $('html, body').animate({
+                    scrollTop: 0
+                }, 'fast');
                 swal("An error occured. Please try again!", "danger")
                 console.log("Sorry");
                 // console.log(response);
@@ -388,10 +398,18 @@ ${items.replace(/\n$/, "")}
             $('.socialnetworkcontent').html('')
         });
     }
-    
+
+    deleteSelectedPart() {
+        $("#exampleModal").on("hidden.bs.modal", () => {
+            let part = this.globalPart
+            // mark the correct part as selected
+            $(".part-node.ib.part-node-selected." + part).addClass('part-node-unselected').removeClass('part-node-selected')
+        })
+    }
+
     countCharacters() {
         let len = $(".form-control.miningRigDescription").val().length
-        $(".typedChar" ).html(len + " characters");
+        $(".typedChar").html(len + " characters");
     }
 }
 export default RigBuilder;

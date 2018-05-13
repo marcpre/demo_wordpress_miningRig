@@ -16,7 +16,6 @@ class MiningRigs {
 
         console.log(`allMiningRigs clicked`)
         $.getJSON(miningRigData.root_url + '/wp-json/miningRigs/v1/allRigs', (results) => {
-            console.log("lolonator")
             console.log(results)
 
             //get the 3 images

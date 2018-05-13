@@ -38,7 +38,9 @@ $products = new WP_Query(array(
 if ($products->have_posts()) {?>
                         <div class="errors"></div>
                         <div class="form-group row">
-                            <label for="example-text-input" class="col-2 col-form-label"><b>Titel</b></label>
+                            <label for="example-text-input" class="col-2 col-form-label">
+                                <b>Titel</b>
+                            </label>
                             <div class="col-10">
                                 <input class="form-control posttitle" type="text" placeholder="My awesome mining rig" id="miningrigtitle">
                             </div>
@@ -46,10 +48,18 @@ if ($products->have_posts()) {?>
                         <table id="miningRigTable" style="float: left;" class="table table-bordered">
                             <thead>
                                 <tr>
-                                    <th><b>Component</b></th>
-                                    <th><b>Selection</b></th>
-                                    <th><b>Price</b></th>
-                                    <th><b>Where</b></th>
+                                    <th>
+                                        <b>Component</b>
+                                    </th>
+                                    <th>
+                                        <b>Selection</b>
+                                    </th>
+                                    <th>
+                                        <b>Price</b>
+                                    </th>
+                                    <th>
+                                        <b>Where</b>
+                                    </th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -160,12 +170,23 @@ wp_reset_postdata();
                             <div class="modal-dialog modal-lg" role="document">
                                 <div class="modal-content">
                                     <div class="modal-header">
-                                        <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                                        <h5 class="modal-title" id="exampleModalLabel">Mining Rig Parts</h5>
                                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                             <span aria-hidden="true">&times;</span>
                                         </button>
                                     </div>
                                     <div class="modal-body">
+                                        <div>
+                                            <div class="part-node ib part-node-unselected cpu ">CPU </div>
+                                            <div class="part-node ib part-node-unselected motherboard">Motherboard</div>
+                                            <div class="part-node ib part-node-unselected memory">Memory</div>
+                                            <div class="part-node ib part-node-unselected graphic-card">Graphic Card</div>
+                                            <div class="part-node ib part-node-unselected power-supply">Power Supply</div>
+                                            <div class="part-node ib part-node-unselected rig-frame">Rig Frame</div>
+                                            <div class="part-node ib part-node-unselected more-parts">More Parts</div>
+                                        </div>
+                                        <br/>
+                                        <br/>
                                         <table id="table_id" class="display" style="width:100%"></table>
                                     </div>
                                     <div class="modal-footer">

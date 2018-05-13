@@ -26459,6 +26459,8 @@ function () {
     var pressedButton = null;
     var resultsGlobal = [];
     this.buildResultsObjGlobal = {};
+    var globalPart = null; // currently selected part
+
     this.overallPrice = 0;
     this.overallWatt = 0;
     this.identifier = 1; //calculate Price
@@ -26487,7 +26489,9 @@ function () {
 
       (0, _jquery.default)(".form-control.description").keyup(this.countCharacters.bind(this)); //remove content when modal is closed
 
-      this.clearModals();
+      this.clearModals(); //remove selected part when modal is closed
+
+      this.deleteSelectedPart();
     } // methods
 
   }, {
@@ -26563,7 +26567,9 @@ function () {
       var _this = this;
 
       //insert spinner before element
-      (0, _jquery.default)(".errors").before("<div class='loading'>Loading&#8230;</div>");
+      (0, _jquery.default)(".errors").before("<div class='loading'>Loading&#8230;</div>"); //global Part
+
+      this.globalPart = part;
       console.log("loadMiningHardware ".concat(part, " clicked"));
 
       _jquery.default.getJSON(miningRigData.root_url + '/wp-json/rigHardware/v1/manageRigHardware?term=' + part, function (results) {
@@ -26571,7 +26577,9 @@ function () {
 
         (0, _jquery.default)(".loading").remove(); // show modal
 
-        (0, _jquery.default)('#exampleModal').modal('show'); //transform data set
+        (0, _jquery.default)('#exampleModal').modal('show'); // mark the correct part as selected
+
+        (0, _jquery.default)(".part-node.ib.part-node-unselected." + part).addClass('part-node-selected').removeClass('part-node-unselected'); //transform data set
 
         var dataSet = results.generalInfo.map(function (item, i) {
           return [i + 1, "<img src=\"".concat(item.img, "\" alt=\"").concat(item.title, "\" height=\"42\" width=\"42\">\n                 <a href=\"").concat(item.affiliateLink, "\">\n                     ").concat(item.title, "\n                 </a>"), item.manufacturer, "<div>".concat(item.currency).concat(item.price, "</div>"), item.availability, "<button class=\"addButton\" type=\"button\" data-item-index=\"".concat(i, "\">\n                    Add\n                </button>"), "<a class=\"btn btn-primary\" href=\"".concat(item.affiliateLink, "\" target=\"_blank\" role=\"button\">\n                    Buy\n                </a>")];
@@ -26766,6 +26774,20 @@ function () {
       });
     }
   }, {
+    key: "deleteSelectedPart",
+    value: function deleteSelectedPart() {
+      var _this2 = this;
+
+      (0, _jquery.default)("#exampleModal").on("hidden.bs.modal", function () {
+        var part = _this2.globalPart;
+        console.log("test test ste stesteset setes");
+        console.log(part);
+        console.log(".part-node.ib.part-node-selected." + part); // mark the correct part as selected
+
+        (0, _jquery.default)(".part-node.ib.part-node-selected." + part).addClass('part-node-unselected').removeClass('part-node-selected');
+      });
+    }
+  }, {
     key: "countCharacters",
     value: function countCharacters() {
       var len = (0, _jquery.default)(".form-control.miningRigDescription").val().length;
@@ -26825,7 +26847,6 @@ function () {
       console.log("allMiningRigs clicked");
 
       _jquery.default.getJSON(miningRigData.root_url + '/wp-json/miningRigs/v1/allRigs', function (results) {
-        console.log("lolonator");
         console.log(results); //get the 3 images
 
         var getImages = function getImages(miningHardware) {
