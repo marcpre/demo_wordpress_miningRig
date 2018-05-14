@@ -29,6 +29,8 @@ class RigBuilder {
         $(".sn-reddit").on("click", this.redditCode.bind(this))
         $(".sn-twitch").on("click", this.twitchCode.bind(this))
         $(".sn-vBCode").on("click", this.vBCodeCode.bind(this))
+        // miningRig Description characters
+        $(".form-control.description").keyup(this.countCharacters.bind(this))
         //remove content when modal is closed
         this.clearModals()
     }
@@ -50,8 +52,6 @@ class RigBuilder {
                         </td>
                     </tr>
                 `)
-                console.log("Button DISABLED")
-                // plusButton.prop("disabled", true);
             }
         }
     }
@@ -61,10 +61,7 @@ class RigBuilder {
         let deleteBtn = $(e.target).closest(".deleteMe");
         //delete element from result build
         const elemId = deleteBtn.closest('tr').find("a[data-identifier]").data('identifier')
-        console.log("Deleted elemId with number: " + elemId)
         delete this.buildResultsObjGlobal[elemId]
-        console.log("buildResultsObjGlobal")
-        console.log(this.buildResultsObjGlobal)
         //delete row
         deleteBtn.closest('tr').remove()
         $(".btn.btn-primary.btn-sm").attr("disabled", false);
@@ -76,8 +73,6 @@ class RigBuilder {
         console.log("ourClickDispatcher")
         this.pressedButton = $(e.target).closest(".btn.btn-primary.btn-sm");
 
-        console.log(this.pressedButton.length)
-
         if (this.pressedButton.data('exists') == 'cpu') {
             console.log("cpu clicked")
             this.loadMiningHardware('cpu')
@@ -86,6 +81,11 @@ class RigBuilder {
         if (this.pressedButton.data('exists') == 'motherboard') {
             console.log("motherboard clicked")
             this.loadMiningHardware('motherboard')
+        }
+        
+        if (this.pressedButton.data('exists') == 'memory') {
+            console.log("memory clicked")
+            this.loadMiningHardware('memory')
         }
 
         if (this.pressedButton.data('exists') == 'graphic-card') {
@@ -127,7 +127,7 @@ class RigBuilder {
             let dataSet = results.generalInfo.map((item, i) => [
                 i + 1,
                 `<img src="${item.img}" alt="${item.title}" height="42" width="42">
-                 <a href="<?php the_permalink();?>">
+                 <a href="${item.affiliateLink}">
                      ${item.title}
                  </a>`,
                 item.manufacturer,
@@ -181,7 +181,6 @@ class RigBuilder {
         let targetButton = $(".btn.btn-primary.btn-sm." + item.category["0"].slug)
 
         if (targetButton.length > 0) {
-            console.log("if part")
 
             let targetButtonParent = targetButton[0].parentElement.parentElement
 
@@ -206,9 +205,10 @@ class RigBuilder {
                 </tr>
             `)
 
-            // remove btn if they are not graphic card, other parts
+            // remove btn if they are not graphic card, other parts, memory
             if (item.category["0"].slug !== 'graphic-card' &&
-                item.category["0"].slug != 'more-parts') {
+                item.category["0"].slug != 'more-parts' &&
+                item.category["0"].slug != 'memory') {
                 targetButton.attr("disabled", true);
             }
 
@@ -238,8 +238,6 @@ class RigBuilder {
         console.log("calculate Watt")
         this.overallWatt = 0.0
         for (var key in this.buildResultsObjGlobal) {
-            console.log("watt")
-            console.log(this.buildResultsObjGlobal[key]['watt'])
             if (this.buildResultsObjGlobal[key]['watt'] == NaN || this.buildResultsObjGlobal[key]['watt'] == "") {
                 this.overallWatt += 0
             } else {
@@ -261,9 +259,11 @@ class RigBuilder {
         }
 
         let postTitle = $(".form-control.posttitle").val()
+        let miningRigDescription = $(".form-control.miningRigDescription").val()
 
         const newBuild = {
             'title': postTitle,
+            'content': miningRigDescription,
             'miningRigPostIds': rigPostIds,
             'status': 'publish'
         }
@@ -282,7 +282,7 @@ class RigBuilder {
                 $(".loading").remove()
                 swal("Good job!", "success")
                 console.log("Congrats");
-                console.log(response);
+                // console.log(response);
             },
             error: (response) => {
                 //remove spinner
@@ -293,39 +293,14 @@ class RigBuilder {
                     <strong>Error!</strong> ${response.responseText}
                 </div>`
                 );
+                //scroll to the top of the page
+                $('html, body').animate({ scrollTop: 0 }, 'fast');
                 swal("An error occured. Please try again!", "danger")
                 console.log("Sorry");
-                console.log(response);
+                // console.log(response);
             }
         })
     }
-
-    /*
-        validationTitle(postTitle) {
-            console.log("postTitle")
-            console.log(postTitle)
-            if (postTitle.length === 0) {
-                $(".errors").append(
-                    `<div class="alert alert-danger">
-                    <a href="#" class="close" data-dismiss="alert">&times;</a>
-                    <strong>Error!</strong> Please insert a post title.
-                </div>`
-                );
-                return false
-            }
-
-            if (postTitle.length < 3) {
-                $(".errors").append(
-                    `<div class="alert alert-danger">
-                    <a href="#" class="close" data-dismiss="alert">&times;</a>
-                    <strong>Error!</strong> Your post title has to be longer than 3 characters.
-                </div>`
-                );
-                return false
-            }
-            return true
-        }
-    */
 
     redditCode(e) {
         e.preventDefault()
@@ -412,6 +387,11 @@ ${items.replace(/\n$/, "")}
         $("#vBCodeModal").on("hidden.bs.modal", () => {
             $('.socialnetworkcontent').html('')
         });
+    }
+    
+    countCharacters() {
+        let len = $(".form-control.miningRigDescription").val().length
+        $(".typedChar" ).html(len + " characters");
     }
 }
 export default RigBuilder;

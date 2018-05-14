@@ -4,39 +4,38 @@ import dt from 'datatables.net';
 class MiningRigs {
 
     constructor() {
-        //        this.events()
+        this.events()
         this.allMiningRigs()
     } // end constructor
 
-    /*    events() {
-
-        } */
+    events() {
+        $(".btn.btn-primary.btn-lg.createRig").on("click", this.redirectToMiningRigBuilder.bind(this))
+    }
 
     allMiningRigs() {
 
         console.log(`allMiningRigs clicked`)
         $.getJSON(miningRigData.root_url + '/wp-json/miningRigs/v1/allRigs', (results) => {
+            console.log("lolonator")
             console.log(results)
 
             //get the 3 images
             const getImages = miningHardware =>
                 miningHardware
-                .slice(0, 3)
+                .slice(0, 20)
                 .map(
-                    h => `<img src="${h.amzImg}" alt="${h.partTitle}" height="42" width="42">`
+                    h => `<a href="${h.affiliateLink}" target="_blank"><img src="${h.amzImg}" alt="${h.partTitle}" height="80" width="80"></a>`
                 )
                 .join('\n');
 
             //transform data set
             let dataSet = results.generalInfo.map((item, i) => [
                 i + 1,
-                `
-                ${ getImages(item.miningHardware) }
-                <a href="${item.permalink}">
+                `${ getImages(item.miningHardware) }`,
+                `<a href="${item.permalink}" target="_blank">
                     ${item.title}
                  </a>`,
-                `$${item.totalPrice.toFixed(2)}`,
-                `Test item -> Upvote here!`
+                `$${item.totalPrice.toFixed(2)}`
             ])
 
             $('#allMiningRigs').DataTable({
@@ -47,17 +46,23 @@ class MiningRigs {
                         title: "#"
                     },
                     {
+                        title: "Single Parts"
+                    },
+                    {
                         title: "Title"
                     },
                     {
                         title: "Total Price"
-                    },
-                    {
-                        title: "Upvotes"
                     }
                 ]
             });
         });
+    }
+
+    redirectToMiningRigBuilder() {
+        let link = miningRigData.root_url + '/rig-builder'
+        console.log("link: " + link)
+        window.open(link, '_blank'); 
     }
 }
 
