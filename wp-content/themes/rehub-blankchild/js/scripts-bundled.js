@@ -26712,7 +26712,7 @@ function () {
                 );
                 return false
             }
-              if (postTitle.length < 3) {
+             if (postTitle.length < 3) {
                 $(".errors").append(
                     `<div class="alert alert-danger">
                     <a href="#" class="close" data-dismiss="alert">&times;</a>
@@ -26832,7 +26832,7 @@ function () {
   } // end constructor
 
   /*    events() {
-        } */
+       } */
 
 
   _createClass(MiningRigs, [{
