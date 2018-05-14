@@ -110,7 +110,7 @@ class RigBuilder {
             console.log("more-parts clicked")
             this.loadMiningHardware('more-parts')
         }
-    }
+    } 
 
     loadMiningHardware(part) {
         //insert spinner before element
