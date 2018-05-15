@@ -37,6 +37,11 @@ function createMiningRig($data)
     $dataContent = sanitize_textarea_field($data['content']); 
     $rigDescription = $dataContent . "\n\n" . '[content-egg module=Amazon template=list]';
     
+    // sharing fields
+    $redditSharing = sanitize_textarea_field($data['reddit_sharing']);
+    $twitchSharing = sanitize_textarea_field($data['twitch_sharing']);
+    $vbcodeSharing = sanitize_textarea_field($data['vbcode_sharing']);
+    
     $miningRigsId = wp_insert_post(array(
         'post_type' => 'Mining-Rig',
         'post_status' => 'publish',
@@ -44,6 +49,9 @@ function createMiningRig($data)
         'post_title' => sanitize_textarea_field($data['title']),
         'meta_input' => array(
             'miningRig' => json_encode($rigHardwareArray),
+            'reddit_sharing' => json_encode($redditSharing),
+            'twitch_sharing' => json_encode($twitchSharing),
+            'vbcode_sharing' => json_encode($vbcodeSharing),
         ),
     ));
     
