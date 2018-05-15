@@ -10,7 +10,7 @@
             </div>
             <div class="modal-body">
                 <div class="">
-                    <textarea class="socialnetworkcontent form-control" style="min-width: 100%"></textarea>
+                    <textarea class="socialnetworkcontent form-control reddit" rows="13" style="min-width: 100%"></textarea>
                 </div>
             </div>
             <div class="modal-footer">
