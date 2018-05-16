@@ -29,6 +29,7 @@ function enqueue_parent_theme_style()
         wp_enqueue_style('bootstrap-4.0.0', get_stylesheet_directory_uri() . '/css/bootstrap.min.css', array($parentStyle));
         wp_enqueue_style('dataTables', '//cdn.datatables.net/1.10.16/css/jquery.dataTables.min.css', array($parentStyle));
         wp_enqueue_style('dataTables-1.10.16', get_stylesheet_directory_uri() . '/css/dataTables.bootstrap4.min.css', array($parentStyle));
+        // wp_enqueue_style('responsive.dataTables-2.2.1', get_stylesheet_directory_uri() . '/css/responsive.dataTables.min.css', array($parentStyle));
         wp_enqueue_style('sweetalert', get_stylesheet_directory_uri() . '/css/sweetalert.css', array($parentStyle));
         wp_enqueue_style('style', get_stylesheet_directory_uri() . '/style.css', array($parentStyle));
 

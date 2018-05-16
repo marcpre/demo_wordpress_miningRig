@@ -21,12 +21,21 @@ class MiningRigs {
             //get the 3 images
             const getImages = miningHardware =>
                 miningHardware
-                .slice(0, 15)
+                .slice(0, 12)
                 .map(
                     h => `<a href="${h.affiliateLink}" target="_blank"><img src="${h.amzImg}" alt="${h.partTitle}" height="80" width="80"></a>`
                 )
                 .join('\n');
 
+            //get the shopping list
+            const getShoppingList = miningHardware =>
+                miningHardware
+            //    .slice(0, 12)
+                .map(
+                    h => `<li><a href="${h.affiliateLink}" target="_blank">${h.partTitle}</a></li>`
+                )
+                .join('\n');    
+                
             //transform data set
             let dataSet = results.generalInfo.map((item, i) => [
                 i + 1,
@@ -34,6 +43,9 @@ class MiningRigs {
                 `<a href="${item.permalink}" target="_blank">
                     ${item.title}
                  </a>`,
+                 `<ul>
+                    ${getShoppingList(item.miningHardware)}
+                  </ul>`,
                 `$${item.totalPrice.toFixed(2)}`
             ])
 
@@ -41,6 +53,7 @@ class MiningRigs {
                 data: dataSet,
                 destroy: true,
                 iDisplayLength: 100,
+                responsive: true,
                 columns: [{
                         title: "#"
                     },
@@ -49,6 +62,9 @@ class MiningRigs {
                     },
                     {
                         title: "Title"
+                    },
+                    {
+                        title: "Shopping List"
                     },
                     {
                         title: "Total Price"

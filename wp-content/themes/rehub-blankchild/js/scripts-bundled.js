@@ -26589,6 +26589,7 @@ function () {
         (0, _jquery.default)('#table_id').DataTable({
           data: dataSet,
           destroy: true,
+          responsive: true,
           columns: [{
             title: "#"
           }, {
@@ -26873,25 +26874,36 @@ function () {
         console.log(results); //get the 3 images
 
         var getImages = function getImages(miningHardware) {
-          return miningHardware.slice(0, 15).map(function (h) {
+          return miningHardware.slice(0, 12).map(function (h) {
             return "<a href=\"".concat(h.affiliateLink, "\" target=\"_blank\"><img src=\"").concat(h.amzImg, "\" alt=\"").concat(h.partTitle, "\" height=\"80\" width=\"80\"></a>");
+          }).join('\n');
+        }; //get the shopping list
+
+
+        var getShoppingList = function getShoppingList(miningHardware) {
+          return miningHardware //    .slice(0, 12)
+          .map(function (h) {
+            return "<li><a href=\"".concat(h.affiliateLink, "\" target=\"_blank\">").concat(h.partTitle, "</a></li>");
           }).join('\n');
         }; //transform data set
 
 
         var dataSet = results.generalInfo.map(function (item, i) {
-          return [i + 1, "".concat(getImages(item.miningHardware)), "<a href=\"".concat(item.permalink, "\" target=\"_blank\">\n                    ").concat(item.title, "\n                 </a>"), "$".concat(item.totalPrice.toFixed(2))];
+          return [i + 1, "".concat(getImages(item.miningHardware)), "<a href=\"".concat(item.permalink, "\" target=\"_blank\">\n                    ").concat(item.title, "\n                 </a>"), "<ul>\n                    ".concat(getShoppingList(item.miningHardware), "\n                  </ul>"), "$".concat(item.totalPrice.toFixed(2))];
         });
         (0, _jquery.default)('#allMiningRigs').DataTable({
           data: dataSet,
           destroy: true,
           iDisplayLength: 100,
+          responsive: true,
           columns: [{
             title: "#"
           }, {
             title: "Single Parts"
           }, {
             title: "Title"
+          }, {
+            title: "Shopping List"
           }, {
             title: "Total Price"
           }]

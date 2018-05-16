@@ -154,6 +154,7 @@ class RigBuilder {
             $('#table_id').DataTable({
                 data: dataSet,
                 destroy: true,
+                responsive: true,
                 columns: [{
                         title: "#"
                     },
