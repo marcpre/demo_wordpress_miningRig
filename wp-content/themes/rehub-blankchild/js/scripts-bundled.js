@@ -26546,6 +26546,11 @@ function () {
         this.loadMiningHardware('graphic-card');
       }
 
+      if (this.pressedButton.data('exists') == 'pci-e') {
+        console.log("pci-e clicked");
+        this.loadMiningHardware('pci-e');
+      }
+
       if (this.pressedButton.data('exists') == 'power-supply') {
         console.log("power-supply clicked");
         this.loadMiningHardware('power-supply');

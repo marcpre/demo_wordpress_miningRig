@@ -97,6 +97,14 @@ if ($products->have_posts()) {?>
                                     </td>
                                 </tr>
                                 <tr>
+                                    <td>PCI-E Riser</td>
+                                    <td>
+                                        <button type="button" data-exists="pci-e" class="btn btn-primary btn-sm pci-e">
+                                            Add PCI-E Riser
+                                        </button>
+                                    </td>
+                                </tr>
+                                <tr>
                                     <td>Power Supply&nbsp;</td>
                                     <td>
                                         <button type="button" data-exists="power-supply" class="btn btn-primary btn-sm power-supply">
@@ -181,6 +189,7 @@ wp_reset_postdata();
                                             <div class="part-node ib part-node-unselected motherboard">Motherboard</div>
                                             <div class="part-node ib part-node-unselected memory">Memory</div>
                                             <div class="part-node ib part-node-unselected graphic-card">Graphic Card</div>
+                                            <div class="part-node ib part-node-unselected pci-e">PCI-E Riser</div>
                                             <div class="part-node ib part-node-unselected power-supply">Power Supply</div>
                                             <div class="part-node ib part-node-unselected rig-frame">Rig Frame</div>
                                             <div class="part-node ib part-node-unselected more-parts">More Parts</div>
