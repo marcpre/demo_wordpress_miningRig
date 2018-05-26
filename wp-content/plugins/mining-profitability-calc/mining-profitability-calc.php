@@ -19,7 +19,7 @@ require_once 'vendor/autoload.php';
  */
 class Mining_Profitability_Calculator {
 
-      /**
+     /**
      * Constructor.
      */
     public function __construct() {
@@ -37,31 +37,22 @@ class Mining_Profitability_Calculator {
 	 */
 	public function activate() {
         $this->includes();
+        $this->runCronJobs();
 		$this->create_tables();
-		//MinProfCalc_CPT::register_post_types();
-		flush_rewrite_rules();
-	}
-    /**
-     * Textdomain.
-     */
-    // public function load_plugin_textdomain() {
-    //    load_plugin_textdomain( 'MinProfCalc', false, dirname( plugin_basename( __FILE__ ) ) . '/languages/' );
-    // }
+
+        flush_rewrite_rules();
+    }
     /**
      * Includes.
      */
     public function includes() {
-        // include_once( MinProfCalc_DIR . 'includes/class-MinProfCalc-cpt.php' );
-        // include_once( MinProfCalc_DIR . 'includes/class-MinProfCalc-suggestion.php' );
-        // include_once( MinProfCalc_DIR . 'includes/class-MinProfCalc-diff-viewer.php' );
-		// include_once( MinProfCalc_DIR . 'includes/class-MinProfCalc-edit-form.php' );
-		// include_once( MinProfCalc_DIR . 'includes/class-MinProfCalc-submit-form.php' );
-		// include_once( MinProfCalc_DIR . 'includes/class-MinProfCalc-notices.php' );
-		// include_once( MinProfCalc_DIR . 'includes/class-MinProfCalc-content.php' );
-		// include_once( MinProfCalc_DIR . 'includes/class-MinProfCalc-shortcodes.php' );
-        // include_once( MinProfCalc_DIR . 'includes/class-MinProfCalc-history.php' );
         include_once( MinProfCalc_DIR . 'includes/WhatToMineAPI.php' );
-        // include_once( MinProfCalc_DIR . 'includes/MinProfCalc-core-functions.php' );
+    }
+    /**
+     * Cron Jobs.
+     */
+    public function runCronJobs() {
+        WhatToMineAPI::setupCronJob('twicedaily');
     }
 	/**
 	 * Create tables.
