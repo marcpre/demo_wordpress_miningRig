@@ -31,7 +31,5 @@ class WhatToMineAPI {
         $response = $client->request('GET', $whatToMineURL);
             
     }
-    
-    
 }
 new WhatToMineAPI();

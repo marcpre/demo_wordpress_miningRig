@@ -95,7 +95,7 @@ class RigBuilder {
             console.log("graphic-card clicked")
             this.loadMiningHardware('graphic-card')
         }
-        
+
         if (this.pressedButton.data('exists') == 'pci-e') {
             console.log("pci-e clicked")
             this.loadMiningHardware('pci-e')
@@ -183,6 +183,10 @@ class RigBuilder {
                     }
                 ]
             });
+
+            // $('#table_id').DataTable()
+            //    .columns.adjust()
+            //    .responsive.recalc();
         });
     }
 
@@ -254,8 +258,7 @@ class RigBuilder {
         for (var key in this.buildResultsObjGlobal) {
             if (this.buildResultsObjGlobal[key]['watt'] == NaN || this.buildResultsObjGlobal[key]['watt'] == "") {
                 this.overallWatt += 0
-            }
-            else {
+            } else {
                 this.overallWatt += parseFloat(this.buildResultsObjGlobal[key]['watt'])
             }
         }

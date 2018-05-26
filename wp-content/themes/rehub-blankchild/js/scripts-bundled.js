@@ -26611,6 +26611,7 @@ function () {
             title: ""
           }]
         });
+        (0, _jquery.default)('#table_id').DataTable().columns.adjust().responsive.recalc();
       });
     }
   }, {

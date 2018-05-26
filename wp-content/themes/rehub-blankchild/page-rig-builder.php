@@ -45,98 +45,100 @@ if ($products->have_posts()) {?>
                                 <input class="form-control posttitle" type="text" placeholder="My awesome mining rig" id="miningrigtitle">
                             </div>
                         </div>
-                        <table id="miningRigTable" style="float: left;" class="table table-bordered">
-                            <thead>
-                                <tr>
-                                    <th>
-                                        <b>Component</b>
-                                    </th>
-                                    <th>
-                                        <b>Selection</b>
-                                    </th>
-                                    <th>
-                                        <b>Price</b>
-                                    </th>
-                                    <th>
-                                        <b>Where</b>
-                                    </th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td>CPU</td>
-                                    <td>
-                                        <button type="button" data-exists="cpu" class="btn btn-primary btn-sm cpu">
-                                            Add CPU
-                                        </button>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>Motherboard</td>
-                                    <td>
-                                        <button type="button" data-exists="motherboard" class="btn btn-primary btn-sm motherboard">
-                                            Add Motherboard
-                                        </button>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>Memory</td>
-                                    <td>
-                                        <button type="button" data-exists="memory" class="btn btn-primary btn-sm memory">
-                                            Add Memory
-                                        </button>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>Graphic Card</td>
-                                    <td>
-                                        <button type="button" data-exists="graphic-card" class="btn btn-primary btn-sm graphic-card">
-                                            Add Graphic Card
-                                        </button>
-                                        <!-- <button type="button" class="btn btn-dark btn-sm graphic-card" disabled>+</button> -->
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>PCI-E Riser</td>
-                                    <td>
-                                        <button type="button" data-exists="pci-e" class="btn btn-primary btn-sm pci-e">
-                                            Add PCI-E Riser
-                                        </button>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>Power Supply&nbsp;</td>
-                                    <td>
-                                        <button type="button" data-exists="power-supply" class="btn btn-primary btn-sm power-supply">
-                                            Add Power Supply
-                                        </button>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>Rig Frame&nbsp;</td>
-                                    <td>
-                                        <button type="button" data-exists="rig-frame" class="btn btn-primary btn-sm rig-frame">
-                                            Add Rig Frame
-                                        </button>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>More Parts&nbsp;</td>
-                                    <td>
-                                        <button type="button" data-exists="more-parts" class="btn btn-primary btn-sm more-parts">
-                                            Add More Parts
-                                        </button>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td></td>
-                                    <td></td>
-                                    <td align="right">Total: $
-                                        <span id="total" class="total"></span>
-                                    </td>
-                                </tr>
-                            </tbody>
-                        </table>
+                        <div class="table-responsive overflow-x:auto;">
+                            <table id="miningRigTable" style="float: left;" class="table table-bordered">
+                                <thead>
+                                    <tr>
+                                        <th>
+                                            <b>Component</b>
+                                        </th>
+                                        <th>
+                                            <b>Selection</b>
+                                        </th>
+                                        <th>
+                                            <b>Price</b>
+                                        </th>
+                                        <th>
+                                            <b>Where</b>
+                                        </th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>CPU</td>
+                                        <td>
+                                            <button type="button" data-exists="cpu" class="btn btn-primary btn-sm cpu">
+                                                Add CPU
+                                            </button>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>Motherboard</td>
+                                        <td>
+                                            <button type="button" data-exists="motherboard" class="btn btn-primary btn-sm motherboard">
+                                                Add Motherboard
+                                            </button>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>Memory</td>
+                                        <td>
+                                            <button type="button" data-exists="memory" class="btn btn-primary btn-sm memory">
+                                                Add Memory
+                                            </button>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>Graphic Card</td>
+                                        <td>
+                                            <button type="button" data-exists="graphic-card" class="btn btn-primary btn-sm graphic-card">
+                                                Add Graphic Card
+                                            </button>
+                                            <!-- <button type="button" class="btn btn-dark btn-sm graphic-card" disabled>+</button> -->
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>PCI-E Riser</td>
+                                        <td>
+                                            <button type="button" data-exists="pci-e" class="btn btn-primary btn-sm pci-e">
+                                                Add PCI-E Riser
+                                            </button>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>Power Supply&nbsp;</td>
+                                        <td>
+                                            <button type="button" data-exists="power-supply" class="btn btn-primary btn-sm power-supply">
+                                                Add Power Supply
+                                            </button>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>Rig Frame&nbsp;</td>
+                                        <td>
+                                            <button type="button" data-exists="rig-frame" class="btn btn-primary btn-sm rig-frame">
+                                                Add Rig Frame
+                                            </button>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>More Parts&nbsp;</td>
+                                        <td>
+                                            <button type="button" data-exists="more-parts" class="btn btn-primary btn-sm more-parts">
+                                                Add More Parts
+                                            </button>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td></td>
+                                        <td></td>
+                                        <td align="right">Total: $
+                                            <span id="total" class="total"></span>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
                         <div align="left">
                             <!-- <a href=""><i class="fas fa-link"></i>Link</a> -->
                             <a class="sn-reddit" href="">
@@ -196,7 +198,9 @@ wp_reset_postdata();
                                         </div>
                                         <br/>
                                         <br/>
-                                        <table id="table_id" class="display" style="width:100%"></table>
+                                        <div class="table-responsive overflow-x:auto;">
+                                            <table id="table_id" class="display" style="width:100%" width="100%"></table>
+                                        </div>
                                     </div>
                                     <div class="modal-footer">
                                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
