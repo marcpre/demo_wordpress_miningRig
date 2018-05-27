@@ -106,7 +106,9 @@ profitability DECIMAL NOT NULL,
 profitability24 DECIMAL NOT NULL,
 lagging BOOL NULL, 
 timestamp datetime NOT NULL,
-PRIMARY KEY  (id)
+created_at datetime NULL,
+updated_at datetime NULL,
+PRIMARY KEY (id)
 ) $collate;
 		";
 		return $tables;

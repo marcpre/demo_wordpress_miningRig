@@ -24,7 +24,7 @@ class WhatToMineAPI {
         global $wpdb;
         
         foreach ($obj->coins as $key => $value) {
-            // $res = array();
+            $res = array();
             $res = array(
                 'coin' => $key,
                 'id_WhatToMine' => $value->id,
@@ -49,7 +49,7 @@ class WhatToMineAPI {
                 'profitability' => floatval($value->profitability),
                 'profitability24' => floatval($value->profitability24),
                 'lagging' => $value->lagging,
-                'timestamp' => date('Y-m-d H:i:s', $value->timestamp)
+                'timestamp' => date('Y-m-d H:i:s', $value->timestamp),       
             );
             
             // show db errors
@@ -60,20 +60,31 @@ class WhatToMineAPI {
             $recordExists = $wpdb->get_var(
                 $wpdb->prepare(
                     "SELECT * FROM {$wpdb->prefix}whatToMine_API
-                     WHERE timestamp = %d 
-                        AND btc_revenue = %d 
+                     WHERE 
+                        coin = %s
+                        AND btc_revenue = %s 
+                        AND estimated_rewards = %s 
                      LIMIT 1",
-                    $value->timestamp, $value->btc_revenue
+                     $key, $value->btc_revenue, $value->estimated_rewards
                 )
             );
 
             if ( $recordExists == 0 || $recordExists == null ) {
                 try {
+                    $res['created_at'] = date('Y-m-d H:i:s');
+                    $res['updated_at'] = date('Y-m-d H:i:s');
                     $wpdb->insert("{$wpdb->prefix}whatToMine_API", $res);
                 } catch (\Exception $ex) {
                   // ...  
                 }
-            } 
+            } else {
+                try {
+                    $res['updated_at'] = date('Y-m-d H:i:s');
+                    $wpdb->update("{$wpdb->prefix}whatToMine_API", $res, array('id' => $recordExists));
+                } catch (\Exception $ex) {
+                  // ...  
+                }
+            }
         }    
     }
     
