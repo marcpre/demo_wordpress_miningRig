@@ -104,7 +104,7 @@ btc_revenue longtext NOT NULL,
 btc_revenue24 longtext NOT NULL,
 profitability DECIMAL NOT NULL,
 profitability24 DECIMAL NOT NULL,
-lagging BOOLEAN NOT NULL, 
+lagging BOOL NULL, 
 timestamp datetime NOT NULL,
 PRIMARY KEY  (id)
 ) $collate;
