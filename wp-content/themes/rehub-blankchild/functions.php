@@ -11,6 +11,7 @@ if (defined('RH_GRANDCHILD_DIR')) {
 
 require get_theme_file_path('/inc/computerHardwareRoute.php');
 require get_theme_file_path('/inc/miningRigsRoute.php');
+require get_theme_file_path('/inc/miningProfRoute.php');
 
 add_action('wp_enqueue_scripts', 'enqueue_parent_theme_style');
 function enqueue_parent_theme_style()
