@@ -40,8 +40,8 @@ class Mining_Profitability_Calculator {
 	*/
 	public function activate() {
         $this->includes();
-        $this->runCronJobs();
 		$this->create_tables();
+        $this->runCronJobs();
 
         flush_rewrite_rules();
     }
@@ -82,6 +82,7 @@ class Mining_Profitability_Calculator {
 		$tables = "
 CREATE TABLE {$wpdb->prefix}whatToMine_API (
 id bigint(20) NOT NULL AUTO_INCREMENT,
+coin longtext NOT NULL,
 id_WhatToMine bigint(20) NOT NULL,
 tag longtext NOT NULL,
 algorithm longtext NOT NULL,
