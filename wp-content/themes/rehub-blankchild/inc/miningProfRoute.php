@@ -22,7 +22,7 @@ function allMiningProfitability()
     $wpdb->show_errors(true);
     $wpdb->print_error();
     
-    $mainQuery = $wpdb->get_row( "SELECT * 
+    $mainQuery = $wpdb->get_results( "SELECT * 
                                   FROM wp_whatToMine_API
                                   WHERE id IN( 
                                       SELECT MAX(id) 
@@ -37,7 +37,7 @@ function allMiningProfitability()
                                 
     foreach ($mainQuery as $key => $value) {
         array_push($results['miningProfitability'], array(
-            'coin' => $value['coin'],
+            'coin' => $value->coin
         ));
     }
     
