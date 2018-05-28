@@ -152,8 +152,7 @@ if ($products->have_posts()) {?>
                             <b>Total:</b>
                             <i class="fas fa-dollar-sign"></i>
                             <span id="total" class="total"></span>
-                        </div>
-                        <div align="right">
+                            <br>
                             <b>Wattage Estimate:</b>
                             <i class="fas fa-bolt"></i>
                             <span id="wattage" class="wattage" aria-hidden="true"></span>W
@@ -165,9 +164,40 @@ if ($products->have_posts()) {?>
                             </div>
                         </div>
                         <div align="right">
+                            <button type="button" class="btn btn-warning btn-lg">
+                                Calculate Profitability
+                            </button>
                             <button type="button" class="btn btn-primary btn-lg save-list">
                                 Save Mining Rig
                             </button>
+                        </div>
+                        <div align="right">
+                        <!-- -->
+                            <br>
+                            <table style="float: left;" class="table table-bordered">
+                                <thead class="thead-inverse">
+                                    <tr>
+                                        <th><b>Price</b></th>
+                                        <th><b>Hash Rate</b></th>
+                                        <th><b>Coin</b></th>
+                                        <th><b>Monthly Minings</b></th>
+                                        <th><b>Annual Minings</b></th>
+                                        <th><b>Payback</b></th>
+                                    </tr>
+                                </thead>
+                                <tr>
+                                    <td>
+                                        <i class="fas fa-dollar-sign"></i>
+                                        <span id="total" class="total"></span>
+                                    </td>
+                                    <td>220.0 KH/s <br></td>
+                                    <td>Monero Logo</td>
+                                    <td></td>
+                                    <td> $ 101.50 k<br></td>
+                                    <td style="font-size: 23px; color: orange; font-weight: bold;"> x days </td>
+                                </tr>
+                            </table>
+                        <!-- -->
                         </div>
                         <?php
 }
