@@ -164,7 +164,7 @@ if ($products->have_posts()) {?>
                             </div>
                         </div>
                         <div align="right">
-                            <button type="button" class="btn btn-warning btn-lg">
+                            <button type="button" class="btn btn-warning btn-lg calc-prof">
                                 Calculate Profitability
                             </button>
                             <button type="button" class="btn btn-primary btn-lg save-list">
@@ -191,11 +191,11 @@ if ($products->have_posts()) {?>
                                             <i class="fas fa-dollar-sign"></i>
                                             <span id="total" class="total"></span>
                                         </td>
-                                        <td>220.0 KH/s <br></td>
-                                        <td>Monero Logo</td>
-                                        <td></td>
-                                        <td> $ 101.50 k<br></td>
-                                        <td style="font-size: 23px; color: orange; font-weight: bold;"> x days </td>
+                                        <td><span id="total" class="hashRateProf">220.0 KH/s </td>
+                                        <td><span id="total" class="coinProf">Monero Logo</td>
+                                        <td><span id="total" class="monthMinProf"></td>
+                                        <td><span id="total" class="yearMinProf"> $ 101.50 k</td>
+                                        <td style="font-size: 23px; color: orange; font-weight: bold;"><span id="total" class="paybackProf"> x days </td>
                                     </tr>
                                 </table>
                             </div>

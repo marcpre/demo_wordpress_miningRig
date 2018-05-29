@@ -26476,7 +26476,9 @@ function () {
     key: "events",
     value: function events() {
       // Save Build
-      (0, _jquery.default)(".btn.btn-primary.btn-lg.save-list").on("click", this.saveBuild.bind(this)); //DataTable
+      (0, _jquery.default)(".btn.btn-primary.btn-lg.save-list").on("click", this.saveBuild.bind(this)); // Calculate Profitability
+
+      (0, _jquery.default)(".btn.btn-warning.btn-lg.calc-prof").on("click", this.calcMiningProfitability.bind(this)); //DataTable
 
       (0, _jquery.default)('#table_id').on('click', 'button.addButton', this.addToTable.bind(this)); //Mining Rig Table
 
@@ -26610,8 +26612,9 @@ function () {
           }, {
             title: ""
           }]
-        });
-        (0, _jquery.default)('#table_id').DataTable().columns.adjust().responsive.recalc();
+        }); // $('#table_id').DataTable()
+        //    .columns.adjust()
+        //    .responsive.recalc();
       });
     }
   }, {
@@ -26667,6 +26670,15 @@ function () {
       }
 
       (0, _jquery.default)(".wattage").text(this.overallWatt.toFixed(2));
+    }
+  }, {
+    key: "calcMiningProfitability",
+    value: function calcMiningProfitability() {
+      console.log("calculate mining profitability");
+
+      _jquery.default.getJSON(miningRigData.root_url + '/wp-json/miningProf/v1/manageMiningProf', function (results) {
+        console.log(results);
+      });
     }
   }, {
     key: "saveBuild",

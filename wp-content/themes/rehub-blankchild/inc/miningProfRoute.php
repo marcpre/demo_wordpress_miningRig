@@ -37,7 +37,7 @@ function allMiningProfitability()
                                 
     foreach ($mainQuery as $key => $value) {
         array_push($results['miningProfitability'], array(
-            'id' => '',
+            'id' => $key, //artificial coin id
             'coin' => $value->coin,
             'tag' => $value->tag,
             'algorithm' => $value->algorithm,
@@ -64,5 +64,4 @@ function allMiningProfitability()
     }
     
     return $results;
-    //return $mainQuery;
 }

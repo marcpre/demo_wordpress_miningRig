@@ -21,6 +21,9 @@ class RigBuilder {
     events() {
         // Save Build
         $(".btn.btn-primary.btn-lg.save-list").on("click", this.saveBuild.bind(this))
+        // Calculate Profitability
+        $(".btn.btn-warning.btn-lg.calc-prof").on("click", this.calcMiningProfitability.bind(this))
+
         //DataTable
         $('#table_id').on('click', 'button.addButton', this.addToTable.bind(this))
         //Mining Rig Table
@@ -263,6 +266,23 @@ class RigBuilder {
             }
         }
         $(".wattage").text(this.overallWatt.toFixed(2))
+    }
+
+    calcMiningProfitability() {
+        //insert spinner before element
+        $(".errors").before("<div class='loading'>Loading&#8230;</div>")
+
+        console.log("calculate mining profitability")
+        $.getJSON(miningRigData.root_url + '/wp-json/miningProf/v1/manageMiningProf', (results) => {
+            console.log(results)
+            //remove spinner
+            $(".loading").remove()
+
+            //  calculate data
+            // https://docs.google.com/spreadsheets/d/1Floux_W1v42WR9V_IY1BPLWionKZxKBTJtaj4poeHhs/edit?usp=sharing
+            
+            // add data to table
+        });
     }
 
     saveBuild() {
