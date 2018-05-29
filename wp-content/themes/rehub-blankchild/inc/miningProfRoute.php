@@ -19,8 +19,8 @@ function allMiningProfitability()
     global $wpdb;
     
     // show db errors
-    $wpdb->show_errors(true);
-    $wpdb->print_error();
+    $wpdb->show_errors(false);
+    //$wpdb->print_error();
     
     $mainQuery = $wpdb->get_results( "SELECT * 
                                   FROM wp_whatToMine_API

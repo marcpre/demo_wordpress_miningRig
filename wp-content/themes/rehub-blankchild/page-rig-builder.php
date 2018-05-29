@@ -174,29 +174,31 @@ if ($products->have_posts()) {?>
                         <div align="right">
                         <!-- -->
                             <br>
-                            <table style="float: left;" class="table table-bordered">
-                                <thead class="thead-inverse">
+                            <div class="table-responsive overflow-x:auto;">
+                                <table style="float: left;" class="table table-bordered">
+                                    <thead class="thead-inverse">
+                                        <tr>
+                                            <th><b>Price</b></th>
+                                            <th><b>Hash Rate</b></th>
+                                            <th><b>Coin</b></th>
+                                            <th><b>Monthly Minings</b></th>
+                                            <th><b>Annual Minings</b></th>
+                                            <th><b>Payback</b></th>
+                                        </tr>
+                                    </thead>
                                     <tr>
-                                        <th><b>Price</b></th>
-                                        <th><b>Hash Rate</b></th>
-                                        <th><b>Coin</b></th>
-                                        <th><b>Monthly Minings</b></th>
-                                        <th><b>Annual Minings</b></th>
-                                        <th><b>Payback</b></th>
+                                        <td>
+                                            <i class="fas fa-dollar-sign"></i>
+                                            <span id="total" class="total"></span>
+                                        </td>
+                                        <td>220.0 KH/s <br></td>
+                                        <td>Monero Logo</td>
+                                        <td></td>
+                                        <td> $ 101.50 k<br></td>
+                                        <td style="font-size: 23px; color: orange; font-weight: bold;"> x days </td>
                                     </tr>
-                                </thead>
-                                <tr>
-                                    <td>
-                                        <i class="fas fa-dollar-sign"></i>
-                                        <span id="total" class="total"></span>
-                                    </td>
-                                    <td>220.0 KH/s <br></td>
-                                    <td>Monero Logo</td>
-                                    <td></td>
-                                    <td> $ 101.50 k<br></td>
-                                    <td style="font-size: 23px; color: orange; font-weight: bold;"> x days </td>
-                                </tr>
-                            </table>
+                                </table>
+                            </div>
                         <!-- -->
                         </div>
                         <?php
