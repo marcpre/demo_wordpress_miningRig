@@ -28,7 +28,7 @@ function allMiningProfitability()
                                       SELECT MAX(id) 
                                       FROM wp_whatToMine_API
                                       GROUP BY id ) 
-                                  ORDER BY tag 
+                                  ORDER BY profitability24 
                                   ASC;" );
                                   
     $results = array(

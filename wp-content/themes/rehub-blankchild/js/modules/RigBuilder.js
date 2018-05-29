@@ -281,6 +281,8 @@ class RigBuilder {
             //  calculate data
             // https://docs.google.com/spreadsheets/d/1Floux_W1v42WR9V_IY1BPLWionKZxKBTJtaj4poeHhs/edit?usp=sharing
             
+            let hashRate = ""
+            
             // add data to table
         });
     }

@@ -171,7 +171,7 @@ if ($products->have_posts()) {?>
                                 Save Mining Rig
                             </button>
                         </div>
-                        <div align="right">
+                        <div align="left">
                         <!-- -->
                             <br>
                             <div class="table-responsive overflow-x:auto;">
@@ -179,6 +179,7 @@ if ($products->have_posts()) {?>
                                     <thead class="thead-inverse">
                                         <tr>
                                             <th><b>Price</b></th>
+                                            <th><b>Algorithm</b></th>
                                             <th><b>Hash Rate</b></th>
                                             <th><b>Coin</b></th>
                                             <th><b>Monthly Minings</b></th>
@@ -191,13 +192,15 @@ if ($products->have_posts()) {?>
                                             <i class="fas fa-dollar-sign"></i>
                                             <span id="total" class="total"></span>
                                         </td>
-                                        <td><span id="total" class="hashRateProf">220.0 KH/s </td>
-                                        <td><span id="total" class="coinProf">Monero Logo</td>
-                                        <td><span id="total" class="monthMinProf"></td>
-                                        <td><span id="total" class="yearMinProf"> $ 101.50 k</td>
+                                        <td><span class="algorithmProf">220.0 KH/s </td>
+                                        <td><span class="hashRateProf">220.0 KH/s </td>
+                                        <td><span class="coinProf">Monero Logo</td>
+                                        <td><span class="monthMinProf"></td>
+                                        <td><span class="yearMinProf"> $ 101.50 k</td>
                                         <td style="font-size: 23px; color: orange; font-weight: bold;"><span id="total" class="paybackProf"> x days </td>
                                     </tr>
                                 </table>
+                                <input type="text" class="form-control-cost-per-kwh" placeholder="Cost per kWh ($)" style="width: 200px;"/>
                             </div>
                         <!-- -->
                         </div>
