@@ -281,23 +281,40 @@ class RigBuilder {
             //remove spinner
             $(".loading").remove()
 
-            //  calculate data
-            // https://docs.google.com/spreadsheets/d/1Floux_W1v42WR9V_IY1BPLWionKZxKBTJtaj4poeHhs/edit?usp=sharing
-
             // pick obj that are gpu related
-            let allGpuParts = _.pickBy(this.buildResultsObjGlobal, (value, key) => {
-                console.log("key")
-                console.log(key)
-                return _.startsWith(key, "graphic-card");
-            });
+            // create filter
+            const isGPU = i => _.some(i.category, v => _.isMatch(v, {
+                slug: "graphic-card"
+            }))
+            // filtering
+            let allGpuParts = _.filter(this.buildResultsObjGlobal, i => isGPU(i))
+
+            /**
+             * Calc variables
+             */
             console.log("allGpuParts")
             console.log(allGpuParts)
-
-            let hashRate = ""
+            // sum up hashRate
+            let getHashRate =
+                _(allGpuParts)
+                .groupBy('proj_mgr')
+                .map((objs, key) => ({
+                    'hashRatePerSecond': _.sumBy(objs, 'hashRatePerSecond')
+                }))
+                .value()
+            let hashRate = getHashRate["0"].hashRatePerSecond/1000000
+            
+            // calculate monthly profit
+            // TODO
+            let networkHashRate = ""
+            let userRatio = getHashRate["0"].hashRatePerSecond * 
+            
+            
+            //console.log(hashRate["0"].hashRatePerSecond)
 
             // add data to table
             $(".algorithmProf").text(76867)
-            $(".hashRateProf").text(234534)
+            $(".hashRateProf").text(hashRate + " MH/s")
             $(".coinProf").text(234)
             $(".monthMinProf").text("234")
             $(".yearMinProf").text("121")

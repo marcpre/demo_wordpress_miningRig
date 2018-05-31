@@ -192,12 +192,14 @@ if ($products->have_posts()) {?>
                                             <i class="fas fa-dollar-sign"></i>
                                             <span id="total" class="total"></span>
                                         </td>
-                                        <td><span id="algorithmProf">220.0 KH/s</span> </td>
-                                        <td><span id="hashRateProf">220.0 KH/s</span> </td>
-                                        <td><span id="coinProf">Monero Logo</span></td>
+                                        <td><span class="algorithmProf"></span></td>
+                                        <td>
+                                            <span class="hashRateProf"></span>
+                                        </td>
+                                        <td><span class="coinProf"></span></td>
                                         <td><span id="monthMinProf"></span></td>
-                                        <td><span id="yearMinProf"> $ 101.50 k</span></td>
-                                        <td style="font-size: 23px; color: orange; font-weight: bold;"><span id="paybackProf"> x days </span></td>
+                                        <td>$<span id="yearMinProf"></span></td>
+                                        <td style="font-size: 23px; color: orange; font-weight: bold;"><span id="paybackProf"></span> days</td>
                                     </tr>
                                 </table>
                                 <input type="text" class="form-control-cost-per-kwh" placeholder="Cost per kWh ($)" style="width: 200px;"/>

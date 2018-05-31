@@ -43857,25 +43857,45 @@ function () {
       _jquery.default.getJSON(miningRigData.root_url + '/wp-json/miningProf/v1/manageMiningProf', function (results) {
         console.log(results); //remove spinner
 
-        (0, _jquery.default)(".loading").remove(); //  calculate data
-        // https://docs.google.com/spreadsheets/d/1Floux_W1v42WR9V_IY1BPLWionKZxKBTJtaj4poeHhs/edit?usp=sharing
-        // pick obj that are gpu related
+        (0, _jquery.default)(".loading").remove(); // pick obj that are gpu related
+        // create filter
 
-        var allGpuParts = _lodash.default.pickBy(_this2.buildResultsObjGlobal, function (value, key) {
-          console.log("key");
-          console.log(key);
-          return _lodash.default.startsWith(key, "graphic-card");
+        var isGPU = function isGPU(i) {
+          return _lodash.default.some(i.category, function (v) {
+            return _lodash.default.isMatch(v, {
+              slug: "graphic-card"
+            });
+          });
+        }; // filtering
+
+
+        var allGpuParts = _lodash.default.filter(_this2.buildResultsObjGlobal, function (i) {
+          return isGPU(i);
         });
+        /**
+         * Calc variables
+         */
+
 
         console.log("allGpuParts");
-        console.log(allGpuParts);
-        var hashRate = ""; // add data to table
+        console.log(allGpuParts); // sum up hashRate
 
-        (0, _jquery.default)("#algorithmProf").text(76867);
-        (0, _jquery.default)("#hashRateProf").text(234534);
-        (0, _jquery.default)("#coinProf").text(234);
-        (0, _jquery.default)("#monthMinProf").text("234");
-        (0, _jquery.default)("#yearMinProf").text("121");
+        var getHashRate = (0, _lodash.default)(allGpuParts).groupBy('proj_mgr').map(function (objs, key) {
+          return {
+            'hashRatePerSecond': _lodash.default.sumBy(objs, 'hashRatePerSecond')
+          };
+        }).value();
+        var hashRate = getHashRate["0"].hashRatePerSecond / 1000000; // calculate monthly profit
+        // TODO
+
+        var networkHashRate = "";
+        var userRatio = getHashRate["0"].hashRatePerSecond * //console.log(hashRate["0"].hashRatePerSecond)
+        // add data to table
+        (0, _jquery.default)(".algorithmProf").text(76867);
+        (0, _jquery.default)(".hashRateProf").text(hashRate + " MH/s");
+        (0, _jquery.default)(".coinProf").text(234);
+        (0, _jquery.default)(".monthMinProf").text("234");
+        (0, _jquery.default)(".yearMinProf").text("121");
         (0, _jquery.default)(".paybackProf").text("34");
       });
     }
