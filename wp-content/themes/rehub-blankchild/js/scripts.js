@@ -1,6 +1,7 @@
 // 3rd party packages from NPM
 import $ from 'jquery';
 import dt from 'datatables.net';
+import _ from 'lodash';
 
 // Our modules / classes
 // import Test from './modules/Test';

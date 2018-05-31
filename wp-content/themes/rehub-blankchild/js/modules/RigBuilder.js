@@ -1,5 +1,6 @@
 import $ from 'jquery';
 import dt from 'datatables.net';
+import _ from 'lodash';
 
 class RigBuilder {
 
@@ -239,6 +240,8 @@ class RigBuilder {
             // add hardware item from global array
             this.buildResultsObjGlobal[this.identifier] = item
 
+            console.log("buildResultsObjGlobal")
+            console.log(this.buildResultsObjGlobal)
             // calculate price
             this.calculatePrice()
             // calculate watt
@@ -280,10 +283,25 @@ class RigBuilder {
 
             //  calculate data
             // https://docs.google.com/spreadsheets/d/1Floux_W1v42WR9V_IY1BPLWionKZxKBTJtaj4poeHhs/edit?usp=sharing
-            
+
+            // pick obj that are gpu related
+            let allGpuParts = _.pickBy(this.buildResultsObjGlobal, (value, key) => {
+                console.log("key")
+                console.log(key)
+                return _.startsWith(key, "graphic-card");
+            });
+            console.log("allGpuParts")
+            console.log(allGpuParts)
+
             let hashRate = ""
-            
+
             // add data to table
+            $(".algorithmProf").text(76867)
+            $(".hashRateProf").text(234534)
+            $(".coinProf").text(234)
+            $(".monthMinProf").text("234")
+            $(".yearMinProf").text("121")
+            $(".paybackProf").text("34")
         });
     }
 
