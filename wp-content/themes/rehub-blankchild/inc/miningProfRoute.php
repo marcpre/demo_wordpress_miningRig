@@ -27,7 +27,7 @@ function allMiningProfitability($data)
     $mainQuery = $wpdb->get_results( "SELECT *
     FROM wp_whatToMine_API
     WHERE id IN(
-        SELECT MAX(id)
+        SELECT max(date)
         FROM wp_whatToMine_API
         WHERE ALGORITHM = \"" . sanitize_text_field($data['algorithm']) . "\" and 
         TAG = \"" . sanitize_text_field($data['tag']) . "\"

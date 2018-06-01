@@ -4,12 +4,32 @@ use GuzzleHttp\Client;
 
 class WhatToMineAPI {
 
+    const CRON_HOOK = 'update_whatToMine_api';
+    
     /**
      * Constructor.
      */
     public function __construct() {
         // add_action( 'setupCronJob_whatToMine', 'setupCronJob');
-        add_action( 'update_whatToMine_api', 'updateWhatToMineAPI');        
+        // add_action( 'update_whatToMine_api', 'updateWhatToMineAPI'); 
+        add_action(self::CRON_HOOK, array($this, 'updateWhatToMineAPI'));
+    }
+    
+    public function setupCronJob($scheduleTime) {
+        //Use wp_next_scheduled to check if the event is already scheduled
+        $timestamp = wp_next_scheduled( self::CRON_HOOK );
+      
+        //If $timestamp == false schedule daily backups since it hasn't been done previously
+        if( $timestamp == false ){
+            //Schedule the event for right now, then to repeat twicedaily using the hook 'update_whatToMine_api'
+            wp_schedule_event( time(), $scheduleTime, self::CRON_HOOK );
+        }
+    }
+    
+    public static function unsetCronJob() {
+        // Get the timestamp for the next event.
+        $timestamp = wp_next_scheduled( self::CRON_HOOK );
+        wp_unschedule_event( $timestamp, self::CRON_HOOK );
     }
     
     public function updateWhatToMineAPI() {
@@ -35,7 +55,7 @@ class WhatToMineAPI {
                 'block_reward24' => floatval($value->block_reward24),
                 'last_block' => floatval($value->last_block),
                 'difficulty' => floatval($value->difficulty),
-                'difficulty24' => $value->difficulty24,
+                'difficulty24' => floatval($value->difficulty24),
                 'nethash' => floatval($value->nethash),
                 'exchange_rate' => floatval($value->exchange_rate),
                 'exchange_rate24' => floatval($value->exchange_rate24),
@@ -86,17 +106,6 @@ class WhatToMineAPI {
                 }
             }
         }    
-    }
-    
-    public function setupCronJob($scheduleTime) {
-        //Use wp_next_scheduled to check if the event is already scheduled
-        $timestamp = wp_next_scheduled( 'update_whatToMine_api' );
-      
-        //If $timestamp == false schedule daily backups since it hasn't been done previously
-        if( $timestamp == false ){
-            //Schedule the event for right now, then to repeat twicedaily using the hook 'update_whatToMine_api'
-            wp_schedule_event( time(), $scheduleTime, 'update_whatToMine_api' );
-        }
     }
 }
 new WhatToMineAPI();

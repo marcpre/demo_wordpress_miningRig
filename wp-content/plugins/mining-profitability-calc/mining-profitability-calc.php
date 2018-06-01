@@ -44,19 +44,27 @@ class Mining_Profitability_Calculator {
         $this->runCronJobs();
 
         flush_rewrite_rules();
-    }
-    /**
+	}
+	/**
     * Includes.
     */
     public function includes() {
         include_once( MinProfCalc_DIR . 'includes/WhatToMineAPI.php' );
     }
+	/**
+	* Called on plugin deactivation
+	*/
+	public static function deactivate() {
+		// TODO
+        WhatToMineAPI::unsetCronJob();
+    }
     /**
     * Cron Jobs.
     */
     public function runCronJobs() {
-        // WhatToMineAPI::setupCronJob('twicedaily');
-        WhatToMineAPI::updateWhatToMineAPI();
+		// TODO
+        WhatToMineAPI::setupCronJob('twicedaily');
+        // WhatToMineAPI::setupCronJob();
     }
     /**
 	* Create tables.
