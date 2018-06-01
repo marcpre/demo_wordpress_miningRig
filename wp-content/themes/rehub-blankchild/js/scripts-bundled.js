@@ -43848,6 +43848,8 @@ function () {
   }, {
     key: "calcMiningProfitability",
     value: function calcMiningProfitability() {
+      var _this2 = this;
+
       //insert spinner before element
       (0, _jquery.default)(".errors").before("<div class='loading'>Loading&#8230;</div>"); // pick obj that are gpu related
       // create filter
@@ -43866,10 +43868,12 @@ function () {
       });
 
       console.log("allGpuParts");
-      console.log(allGpuParts["0"].algorithm);
+      var algorithm = allGpuParts["0"].algorithm;
+      var coin = allGpuParts["0"].coin;
       console.log("calculate mining profitability");
 
-      _jquery.default.getJSON(miningRigData.root_url + '/wp-json/miningProf/v1/manageMiningProf', function (miningProfitability) {
+      _jquery.default.getJSON(miningRigData.root_url + '/wp-json/miningProf/v1/manageMiningProf?algorithm=' + algorithm + "&tag=ETH", function (miningProfitability) {
+        console.log("miningProfitability");
         console.log(miningProfitability); //remove spinner
 
         (0, _jquery.default)(".loading").remove();
@@ -43883,19 +43887,27 @@ function () {
             'hashRatePerSecond': _lodash.default.sumBy(objs, 'hashRatePerSecond')
           };
         }).value();
-        var hashRate = getHashRate["0"].hashRatePerSecond / 1000000; // calculate monthly profit
-        // TODO
-        // get ethash with highest profitability
+        var hashRate = getHashRate["0"].hashRatePerSecond; // calculate monthly profit
 
-        var networkHashRate = "";
-        var userRatio = getHashRate["0"].hashRatePerSecond * //console.log(hashRate["0"].hashRatePerSecond)
-        // add data to table
-        (0, _jquery.default)(".algorithmProf").text(76867);
-        (0, _jquery.default)(".hashRateProf").text(hashRate + " MH/s");
-        (0, _jquery.default)(".coinProf").text(234);
-        (0, _jquery.default)(".monthMinProf").text("234");
-        (0, _jquery.default)(".yearMinProf").text("121");
-        (0, _jquery.default)(".paybackProf").text("34");
+        var networkHashRate = miningProfitability.miningProfitability["0"].nethash;
+        var numberOfEquipment = Object.keys(allGpuParts).length;
+        var userRatio = hashRate * numberOfEquipment / networkHashRate;
+        var blockTime = miningProfitability.miningProfitability["0"].block_time;
+        var blocksPerMinute = 60 / blockTime;
+        var blockReward = miningProfitability.miningProfitability["0"].block_reward;
+        var rewardPerMinute = blocksPerMinute * blockReward;
+        var earningsPerDay = userRatio * rewardPerMinute * 60 * 24;
+        var earningsPerMonth = userRatio * rewardPerMinute * 60 * 24 * 7 * 4;
+        var earningsPerYear = earningsPerMonth * 12;
+        var payBackPeriod = _this2.overallPrice / earningsPerDay;
+        var coin = miningProfitability.miningProfitability["0"].coin; // add data to table
+
+        (0, _jquery.default)(".algorithmProf").text(algorithm);
+        (0, _jquery.default)(".hashRateProf").text(hashRate / 1000000 + " MH/s");
+        (0, _jquery.default)(".coinProf").text(coin);
+        (0, _jquery.default)(".monthMinProf").text("$" + earningsPerMonth.toFixed(2));
+        (0, _jquery.default)(".yearMinProf").text("$" + earningsPerYear.toFixed(2));
+        (0, _jquery.default)(".paybackProf").text(payBackPeriod.toFixed(2) + " days");
       });
     }
   }, {
@@ -44039,10 +44051,10 @@ function () {
   }, {
     key: "deleteSelectedPart",
     value: function deleteSelectedPart() {
-      var _this2 = this;
+      var _this3 = this;
 
       (0, _jquery.default)("#exampleModal").on("hidden.bs.modal", function () {
-        var part = _this2.globalPart; // mark the correct part as selected
+        var part = _this3.globalPart; // mark the correct part as selected
 
         (0, _jquery.default)(".part-node.ib.part-node-selected." + part).addClass('part-node-unselected').removeClass('part-node-selected');
       });

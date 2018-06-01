@@ -284,18 +284,18 @@ class RigBuilder {
         let allGpuParts = _.filter(this.buildResultsObjGlobal, i => isGPU(i))
         console.log("allGpuParts")
         let algorithm = allGpuParts["0"].algorithm
+        let coin = allGpuParts["0"].coin
 
         console.log("calculate mining profitability")
-        $.getJSON(miningRigData.root_url + '/wp-json/miningProf/v1/manageMiningProf' +  algorithm, (miningProfitability) => {
+        $.getJSON(miningRigData.root_url + '/wp-json/miningProf/v1/manageMiningProf?algorithm=' + algorithm + "&tag=ETH", (miningProfitability) => {
+            console.log("miningProfitability")
             console.log(miningProfitability)
             //remove spinner
             $(".loading").remove()
 
-
             /**
              * Calc variables
              */
-
             // sum up hashRate
             let getHashRate =
                 _(allGpuParts)
@@ -304,25 +304,33 @@ class RigBuilder {
                     'hashRatePerSecond': _.sumBy(objs, 'hashRatePerSecond')
                 }))
                 .value()
-            let hashRate = getHashRate["0"].hashRatePerSecond / 1000000
+            let hashRate = getHashRate["0"].hashRatePerSecond
 
             // calculate monthly profit
-            // TODO
-            // get ethash with highest profitability
 
-            let networkHashRate = ""
-            let userRatio = getHashRate["0"].hashRatePerSecond *
+            let networkHashRate = miningProfitability.miningProfitability["0"].nethash
+            let numberOfEquipment = Object.keys(allGpuParts).length
+            let userRatio = (hashRate * numberOfEquipment) / networkHashRate
 
+            let blockTime = miningProfitability.miningProfitability["0"].block_time
+            let blocksPerMinute = 60 / blockTime 
+            let blockReward = miningProfitability.miningProfitability["0"].block_reward
+            let rewardPerMinute = blocksPerMinute * blockReward        
 
-                //console.log(hashRate["0"].hashRatePerSecond)
+            let earningsPerDay = userRatio * rewardPerMinute * 60 * 24
+            let earningsPerMonth = userRatio * rewardPerMinute * 60 * 24 * 7 * 4
+            let earningsPerYear = earningsPerMonth * 12
 
-                // add data to table
-                $(".algorithmProf").text(76867)
-            $(".hashRateProf").text(hashRate + " MH/s")
-            $(".coinProf").text(234)
-            $(".monthMinProf").text("234")
-            $(".yearMinProf").text("121")
-            $(".paybackProf").text("34")
+            let payBackPeriod = this.overallPrice / earningsPerDay
+            let coin = miningProfitability.miningProfitability["0"].coin 
+            
+            // add data to table
+            $(".algorithmProf").text(algorithm)
+            $(".hashRateProf").text(hashRate / 1000000 + " MH/s")
+            $(".coinProf").text(coin)
+            $(".monthMinProf").text("$" + earningsPerMonth.toFixed(2))
+            $(".yearMinProf").text("$" + earningsPerYear.toFixed(2))
+            $(".paybackProf").text(payBackPeriod.toFixed(2) + " days")
         });
     }
 

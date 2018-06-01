@@ -178,12 +178,12 @@ if ($products->have_posts()) {?>
                                 <table style="float: left;" class="table table-bordered">
                                     <thead class="thead-inverse">
                                         <tr>
-                                            <th><b>Price</b></th>
+                                            <th><b>Initial Costs</b></th>
                                             <th><b>Algorithm</b></th>
                                             <th><b>Hash Rate</b></th>
                                             <th><b>Coin</b></th>
-                                            <th><b>Monthly Minings</b></th>
-                                            <th><b>Annual Minings</b></th>
+                                            <th><b>Monthly Revenue</b></th>
+                                            <th><b>Annual Revenue</b></th>
                                             <th><b>Payback</b></th>
                                         </tr>
                                     </thead>
@@ -192,14 +192,24 @@ if ($products->have_posts()) {?>
                                             <i class="fas fa-dollar-sign"></i>
                                             <span id="total" class="total"></span>
                                         </td>
-                                        <td><span class="algorithmProf"></span></td>
+                                        <td>
+                                            <span class="algorithmProf"></span>
+                                        </td>
                                         <td>
                                             <span class="hashRateProf"></span>
                                         </td>
-                                        <td><span class="coinProf"></span></td>
-                                        <td><span id="monthMinProf"></span></td>
-                                        <td>$<span id="yearMinProf"></span></td>
-                                        <td style="font-size: 23px; color: orange; font-weight: bold;"><span id="paybackProf"></span> days</td>
+                                        <td>
+                                            <span class="coinProf"></span>
+                                        </td>
+                                        <td>
+                                            <span class="monthMinProf"></span>
+                                        </td>
+                                        <td>
+                                            <span class="yearMinProf"></span>
+                                        </td>
+                                        <td style="font-size: 23px; color: orange; font-weight: bold;">
+                                            <span class="paybackProf"></span>
+                                        </td>
                                     </tr>
                                 </table>
                                 <input type="text" class="form-control-cost-per-kwh" placeholder="Cost per kWh ($)" style="width: 200px;"/>
