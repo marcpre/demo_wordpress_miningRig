@@ -43848,37 +43848,35 @@ function () {
   }, {
     key: "calcMiningProfitability",
     value: function calcMiningProfitability() {
-      var _this2 = this;
-
       //insert spinner before element
-      (0, _jquery.default)(".errors").before("<div class='loading'>Loading&#8230;</div>");
+      (0, _jquery.default)(".errors").before("<div class='loading'>Loading&#8230;</div>"); // pick obj that are gpu related
+      // create filter
+
+      var isGPU = function isGPU(i) {
+        return _lodash.default.some(i.category, function (v) {
+          return _lodash.default.isMatch(v, {
+            slug: "graphic-card"
+          });
+        });
+      }; // filtering
+
+
+      var allGpuParts = _lodash.default.filter(this.buildResultsObjGlobal, function (i) {
+        return isGPU(i);
+      });
+
+      console.log("allGpuParts");
+      console.log(allGpuParts["0"].algorithm);
       console.log("calculate mining profitability");
 
-      _jquery.default.getJSON(miningRigData.root_url + '/wp-json/miningProf/v1/manageMiningProf', function (results) {
-        console.log(results); //remove spinner
+      _jquery.default.getJSON(miningRigData.root_url + '/wp-json/miningProf/v1/manageMiningProf', function (miningProfitability) {
+        console.log(miningProfitability); //remove spinner
 
-        (0, _jquery.default)(".loading").remove(); // pick obj that are gpu related
-        // create filter
-
-        var isGPU = function isGPU(i) {
-          return _lodash.default.some(i.category, function (v) {
-            return _lodash.default.isMatch(v, {
-              slug: "graphic-card"
-            });
-          });
-        }; // filtering
-
-
-        var allGpuParts = _lodash.default.filter(_this2.buildResultsObjGlobal, function (i) {
-          return isGPU(i);
-        });
+        (0, _jquery.default)(".loading").remove();
         /**
          * Calc variables
          */
-
-
-        console.log("allGpuParts");
-        console.log(allGpuParts); // sum up hashRate
+        // sum up hashRate
 
         var getHashRate = (0, _lodash.default)(allGpuParts).groupBy('proj_mgr').map(function (objs, key) {
           return {
@@ -43887,6 +43885,7 @@ function () {
         }).value();
         var hashRate = getHashRate["0"].hashRatePerSecond / 1000000; // calculate monthly profit
         // TODO
+        // get ethash with highest profitability
 
         var networkHashRate = "";
         var userRatio = getHashRate["0"].hashRatePerSecond * //console.log(hashRate["0"].hashRatePerSecond)
@@ -44040,10 +44039,10 @@ function () {
   }, {
     key: "deleteSelectedPart",
     value: function deleteSelectedPart() {
-      var _this3 = this;
+      var _this2 = this;
 
       (0, _jquery.default)("#exampleModal").on("hidden.bs.modal", function () {
-        var part = _this3.globalPart; // mark the correct part as selected
+        var part = _this2.globalPart; // mark the correct part as selected
 
         (0, _jquery.default)(".part-node.ib.part-node-selected." + part).addClass('part-node-unselected').removeClass('part-node-selected');
       });

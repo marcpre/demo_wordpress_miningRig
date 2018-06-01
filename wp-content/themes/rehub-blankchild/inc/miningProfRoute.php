@@ -11,7 +11,7 @@ function miningProfitabilityRoutes()
 
 /**
  * Get all profitability data
- * e.g.: http://localhost/demo_wordpress_rig-builder/wp-json/miningProf/v1/manageMiningProf?term=ethash 
+ * e.g.: http://localhost/demo_wordpress_rig-builder/wp-json/miningProf/v1/manageMiningProf?algorithm=Ethash 
  */
 
 function allMiningProfitability($data)
@@ -20,7 +20,7 @@ function allMiningProfitability($data)
     
     // show db errors
     $wpdb->show_errors(false);
-    //$wpdb->print_error();
+    $wpdb->print_error();
     
     // $data['term']
     
@@ -29,9 +29,9 @@ function allMiningProfitability($data)
     WHERE id IN(
         SELECT MAX(id)
         FROM wp_whatToMine_API
-        WHERE ALGORITHM = " + $data['algorithm'] + "
+        WHERE ALGORITHM = \"" . sanitize_text_field($data['algorithm']) . "\"
         GROUP BY id)  
-    ORDER BY `wp_whatToMine_API`.`profitability`  DESC
+    ORDER BY profitability DESC
     LIMIT 1;" );
                                   
     $results = array(

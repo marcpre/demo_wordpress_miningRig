@@ -275,25 +275,27 @@ class RigBuilder {
         //insert spinner before element
         $(".errors").before("<div class='loading'>Loading&#8230;</div>")
 
+        // pick obj that are gpu related
+        // create filter
+        const isGPU = i => _.some(i.category, v => _.isMatch(v, {
+            slug: "graphic-card"
+        }))
+        // filtering
+        let allGpuParts = _.filter(this.buildResultsObjGlobal, i => isGPU(i))
+        console.log("allGpuParts")
+        let algorithm = allGpuParts["0"].algorithm
+
         console.log("calculate mining profitability")
-        $.getJSON(miningRigData.root_url + '/wp-json/miningProf/v1/manageMiningProf', (miningProfitability) => {
+        $.getJSON(miningRigData.root_url + '/wp-json/miningProf/v1/manageMiningProf' +  algorithm, (miningProfitability) => {
             console.log(miningProfitability)
             //remove spinner
             $(".loading").remove()
 
-            // pick obj that are gpu related
-            // create filter
-            const isGPU = i => _.some(i.category, v => _.isMatch(v, {
-                slug: "graphic-card"
-            }))
-            // filtering
-            let allGpuParts = _.filter(this.buildResultsObjGlobal, i => isGPU(i))
 
             /**
              * Calc variables
              */
-            console.log("allGpuParts")
-            console.log(allGpuParts)
+
             // sum up hashRate
             let getHashRate =
                 _(allGpuParts)
@@ -302,20 +304,20 @@ class RigBuilder {
                     'hashRatePerSecond': _.sumBy(objs, 'hashRatePerSecond')
                 }))
                 .value()
-            let hashRate = getHashRate["0"].hashRatePerSecond/1000000
-            
+            let hashRate = getHashRate["0"].hashRatePerSecond / 1000000
+
             // calculate monthly profit
             // TODO
             // get ethash with highest profitability
-            
-            let networkHashRate = ""
-            let userRatio = getHashRate["0"].hashRatePerSecond * 
-            
-            
-            //console.log(hashRate["0"].hashRatePerSecond)
 
-            // add data to table
-            $(".algorithmProf").text(76867)
+            let networkHashRate = ""
+            let userRatio = getHashRate["0"].hashRatePerSecond *
+
+
+                //console.log(hashRate["0"].hashRatePerSecond)
+
+                // add data to table
+                $(".algorithmProf").text(76867)
             $(".hashRateProf").text(hashRate + " MH/s")
             $(".coinProf").text(234)
             $(".monthMinProf").text("234")
