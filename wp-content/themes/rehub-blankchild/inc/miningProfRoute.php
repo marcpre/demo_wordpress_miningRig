@@ -11,7 +11,7 @@ function miningProfitabilityRoutes()
 
 /**
  * Get all profitability data
- * e.g.: http://localhost/demo_wordpress_rig-builder/wp-json/miningProf/v1/manageMiningProf?algorithm=Ethash&tag=ETH
+ * e.g.: localhost/demo_wordpress_rig-builder/wp-json/miningProf/v1/manageMiningProf?algorithm=Ethash&tag=ETH
  */
 
 function allMiningProfitability($data)
@@ -27,12 +27,12 @@ function allMiningProfitability($data)
     $mainQuery = $wpdb->get_results( "SELECT *
     FROM wp_whatToMine_API
     WHERE id IN(
-        SELECT max(date)
+        SELECT max(id)
         FROM wp_whatToMine_API
         WHERE ALGORITHM = \"" . sanitize_text_field($data['algorithm']) . "\" and 
         TAG = \"" . sanitize_text_field($data['tag']) . "\"
         GROUP BY id)  
-    ORDER BY profitability DESC
+    ORDER BY updated_at DESC
     LIMIT 1;" );
                                   
     $results = array(

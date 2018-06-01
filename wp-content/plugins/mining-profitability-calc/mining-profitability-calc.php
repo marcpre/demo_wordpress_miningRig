@@ -63,7 +63,7 @@ class Mining_Profitability_Calculator {
     */
     public function runCronJobs() {
 		// TODO
-        WhatToMineAPI::setupCronJob('twicedaily');
+        WhatToMineAPI::setupCronJob('hourly');
         // WhatToMineAPI::setupCronJob();
     }
     /**
@@ -74,13 +74,13 @@ class Mining_Profitability_Calculator {
 		$wpdb->hide_errors();
 		require_once( ABSPATH . 'wp-admin/includes/upgrade.php' );
         // TODO create new table
-        dbDelta( $this->get_schema() );
+        dbDelta( $this->getWhatToMineSchema() );
 	}
     /**
 	* Get table schema.
 	* @return string
 	*/
-	private static function get_schema() {
+	private static function getWhatToMineSchema() {
 		global $wpdb;
 		if ( $wpdb->has_cap( 'collation' ) ) {
 			$collate = $wpdb->get_charset_collate();
@@ -94,16 +94,16 @@ coin longtext NOT NULL,
 id_WhatToMine bigint(20) NOT NULL,
 tag longtext NOT NULL,
 algorithm longtext NOT NULL,
-block_time longtext NOT NULL,
-block_reward longtext NOT NULL,
+block_time DECIMAL NOT NULL,
+block_reward DECIMAL NOT NULL,
 block_reward24 DECIMAL NOT NULL,
 last_block DECIMAL NOT NULL,
-difficulty DECIMAL NOT NULL,
-difficulty24 DECIMAL NOT NULL,
+difficulty DECIMAL(20,11) NOT NULL,
+difficulty24 DECIMAL(20,11) NOT NULL,
 nethash DECIMAL NOT NULL,
 exchange_rate DECIMAL NOT NULL,
-exchange_rate24 DECIMAL NOT NULL,
-exchange_rate_vol DECIMAL NOT NULL,
+exchange_rate24 DECIMAL(25,22) NOT NULL,
+exchange_rate_vol DECIMAL(18,16) NOT NULL,
 exchange_rate_curr longtext NOT NULL,
 market_cap longtext NOT NULL,
 estimated_rewards longtext NOT NULL,

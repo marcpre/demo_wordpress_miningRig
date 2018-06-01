@@ -5,6 +5,7 @@ use GuzzleHttp\Client;
 class WhatToMineAPI {
 
     const CRON_HOOK = 'update_whatToMine_api';
+    const WHAT_TO_MINE_URL = 'http://whattomine.com/coins.json';
     
     /**
      * Constructor.
@@ -33,11 +34,10 @@ class WhatToMineAPI {
     }
     
     public function updateWhatToMineAPI() {
-        $whatToMineURL = "http://whattomine.com/coins.json";
 
         $client = new GuzzleHttp\Client();
         
-        $response = $client->request('GET', $whatToMineURL)->getBody();
+        $response = $client->request('GET', self::WHAT_TO_MINE_URL )->getBody();
         $obj = json_decode($response);
         
         // insert 
@@ -50,15 +50,15 @@ class WhatToMineAPI {
                 'id_WhatToMine' => $value->id,
                 'tag' => $value->tag,
                 'algorithm' => $value->algorithm,
-                'block_time' => $value->block_time,
-                'block_reward' => $value->block_reward,
+                'block_time' => floatval($value->block_time),
+                'block_reward' => floatval($value->block_reward),
                 'block_reward24' => floatval($value->block_reward24),
                 'last_block' => floatval($value->last_block),
                 'difficulty' => floatval($value->difficulty),
                 'difficulty24' => floatval($value->difficulty24),
                 'nethash' => floatval($value->nethash),
-                'exchange_rate' => floatval($value->exchange_rate),
-                'exchange_rate24' => floatval($value->exchange_rate24),
+                'exchange_rate' => $value->exchange_rate,
+                'exchange_rate24' => $value->exchange_rate24,
                 'exchange_rate_vol' => floatval($value->exchange_rate_vol),
                 'exchange_rate_curr' => $value->exchange_rate_curr,
                 'market_cap' => $value->market_cap,
@@ -73,7 +73,7 @@ class WhatToMineAPI {
             );
             
             // show db errors
-            $wpdb->show_errors(true);
+            $wpdb->show_errors(false);
             $wpdb->print_error();
 
             //check if record exists
