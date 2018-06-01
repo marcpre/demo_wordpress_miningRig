@@ -51,6 +51,7 @@ function allRigHardware($data)
             'currency' => $amazon[$keys[0]]['currency'],
             'price' => $amazon[$keys[0]]['price'],
             'watt' => get_field('watt_estimate', get_the_ID()),
+            'algorithm' => get_field('algorithm', get_the_ID()),
             'hashRatePerSecond' => floatval(get_field('hash_rate', get_the_ID())),
             'availability' => $amazon[$keys[0]]['extra']['availability'],
             'tellAFriend' => $amazon[$keys[0]]['extra']['itemLinks'][4]['URL'],

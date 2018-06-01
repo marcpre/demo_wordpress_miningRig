@@ -276,8 +276,8 @@ class RigBuilder {
         $(".errors").before("<div class='loading'>Loading&#8230;</div>")
 
         console.log("calculate mining profitability")
-        $.getJSON(miningRigData.root_url + '/wp-json/miningProf/v1/manageMiningProf', (results) => {
-            console.log(results)
+        $.getJSON(miningRigData.root_url + '/wp-json/miningProf/v1/manageMiningProf', (miningProfitability) => {
+            console.log(miningProfitability)
             //remove spinner
             $(".loading").remove()
 
@@ -306,6 +306,8 @@ class RigBuilder {
             
             // calculate monthly profit
             // TODO
+            // get ethash with highest profitability
+            
             let networkHashRate = ""
             let userRatio = getHashRate["0"].hashRatePerSecond * 
             
