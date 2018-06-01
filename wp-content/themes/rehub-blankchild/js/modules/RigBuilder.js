@@ -293,6 +293,9 @@ class RigBuilder {
             //remove spinner
             $(".loading").remove()
 
+            // show profit calculator
+            $('#profitCalculator').show()
+
             /**
              * Calc variables
              */
@@ -313,17 +316,17 @@ class RigBuilder {
             let userRatio = (hashRate * numberOfEquipment) / networkHashRate
 
             let blockTime = miningProfitability.miningProfitability["0"].block_time
-            let blocksPerMinute = 60 / blockTime 
+            let blocksPerMinute = 60 / blockTime
             let blockReward = miningProfitability.miningProfitability["0"].block_reward
-            let rewardPerMinute = blocksPerMinute * blockReward        
+            let rewardPerMinute = blocksPerMinute * blockReward
 
             let earningsPerDay = userRatio * rewardPerMinute * 60 * 24
             let earningsPerMonth = userRatio * rewardPerMinute * 60 * 24 * 7 * 4
             let earningsPerYear = earningsPerMonth * 12
 
             let payBackPeriod = this.overallPrice / earningsPerDay
-            let coin = miningProfitability.miningProfitability["0"].coin 
-            
+            let coin = miningProfitability.miningProfitability["0"].coin
+
             // add data to table
             $(".algorithmProf").text(algorithm)
             $(".hashRateProf").text(hashRate / 1000000 + " MH/s")

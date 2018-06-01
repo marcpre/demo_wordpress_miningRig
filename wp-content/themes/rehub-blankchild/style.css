@@ -174,3 +174,11 @@
 .part-node-selected {
 	font-weight: 600;
 }
+
+/**
+* Profit Calculator
+**/
+
+#profitCalculator {
+	display: none;
+}

@@ -43876,7 +43876,9 @@ function () {
         console.log("miningProfitability");
         console.log(miningProfitability); //remove spinner
 
-        (0, _jquery.default)(".loading").remove();
+        (0, _jquery.default)(".loading").remove(); // show profit calculator
+
+        (0, _jquery.default)('#profitCalculator').show();
         /**
          * Calc variables
          */
