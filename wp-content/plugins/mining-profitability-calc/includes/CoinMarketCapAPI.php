@@ -41,69 +41,85 @@ class CoinMarketCapAPI {
         // insert 
         global $wpdb;
         
-        foreach ($obj->coins as $key => $value) {
-            $res = array();
-            $res = array(
-                'coin' => $key,
-                'id_WhatToMine' => $value->id,
-                'tag' => $value->tag,
-                'algorithm' => $value->algorithm,
-                'block_time' => floatval($value->block_time),
-                'block_reward' => floatval($value->block_reward),
-                'block_reward24' => floatval($value->block_reward24),
-                'last_block' => floatval($value->last_block),
-                'difficulty' => floatval($value->difficulty),
-                'difficulty24' => $value->difficulty24,
-                'nethash' => $value->nethash,
-                'exchange_rate' => $value->exchange_rate,
-                'exchange_rate24' => $value->exchange_rate24,
-                'exchange_rate_vol' => floatval($value->exchange_rate_vol),
-                'exchange_rate_curr' => $value->exchange_rate_curr,
-                'market_cap' => $value->market_cap,
-                'estimated_rewards' => $value->estimated_rewards,
-                'estimated_rewards24' => $value->estimated_rewards24,
-                'btc_revenue' => $value->btc_revenue,
-                'btc_revenue24' => $value->btc_revenue24,
-                'profitability' => floatval($value->profitability),
-                'profitability24' => floatval($value->profitability24),
-                'lagging' => $value->lagging,
-                'timestamp' => date('Y-m-d H:i:s', $value->timestamp),       
-            );
+        foreach ($obj->data as $key => $value) {
             
+            //coin table
+            $resCoin = array();
+            $resCoin = array(
+                'id' => $key,
+                'id_coinMarketCap' => $value->id,
+                'name' => $value->name,
+                'symbol' => $value->symbol,
+                'website_slug' => $value->website_slug,
+                'rank' => $value->rank,
+                'circulating_supply' => floatval($value->circulating_supply),
+                'total_supply' => floatval($value->total_supply),
+                'max_supply' => floatval($value->max_supply),
+                'last_updated_coin_market_cap' => date('Y-m-d H:i:s', $value->last_updated),       
+            );
+                        
             // show db errors
-            $wpdb->show_errors(false);
+            $wpdb->show_errors(true);
             $wpdb->print_error();
 
             //check if record exists
-            $recordExists = $wpdb->get_var(
+            $recordCoinExists = $wpdb->get_results(
                 $wpdb->prepare(
-                    "SELECT * FROM {$wpdb->prefix}whatToMine_API
-                     WHERE 
-                        coin = %s
-                        AND btc_revenue = %s 
-                        AND estimated_rewards = %s 
-                     LIMIT 1",
-                     $key, $value->btc_revenue, $value->estimated_rewards
+                    "SELECT * FROM {$wpdb->prefix}coins
+                    WHERE 
+                        symbol = %s
+                        AND name = %s 
+                        AND rank = %s 
+                    LIMIT 1",
+                    $value->symbol, $value->name, $value->rank
                 )
             );
 
-            if ( $recordExists == 0 || $recordExists == null ) {
+            // if record does exist $coin_id is the existing id
+            if ( $recordCoinExists == 0 || $recordCoinExists == null ) { 
+                // new id
+                $coin_id = $value->id;
+            } else { 
+                // exisiting id from db
+                $coin_id = $recordCoinExists["0"]->id;                
+            };
+            
+            //ticker table
+            $tick = $value->quotes->USD;
+            $resTicker = array();
+            $resTicker = array(
+                'id' => $key,
+                'coin_id' => $coin_id,
+                'price' => $tick->price,
+                'volume_24h' => $tick->volume_24h,
+                'market_cap' => floatval($tick->market_cap),
+                'percent_change_1h' => floatval($tick->percent_change_1h),
+                'percent_change_24h' => floatval($tick->percent_change_24h),
+                'percent_change_7d' => floatval($tick->percent_change_7d),
+            );
+            
+            if ( $recordCoinExists == 0 || $recordCoinExists == null ) {
+                // coin does not exists
                 try {
-                    $res['created_at'] = date('Y-m-d H:i:s');
-                    $res['updated_at'] = date('Y-m-d H:i:s');
-                    $wpdb->insert("{$wpdb->prefix}whatToMine_API", $res);
+                    $resCoin['created_at'] = date('Y-m-d H:i:s');
+                    $resCoin['updated_at'] = date('Y-m-d H:i:s');
+                    $resTicker['created_at'] = date('Y-m-d H:i:s');
+                    $wpdb->insert("{$wpdb->prefix}coins", $resCoin);
+                    $wpdb->insert("{$wpdb->prefix}ticker", $resTicker);
                 } catch (\Exception $ex) {
                   // ...  
                 }
             } else {
+                // coin already exists
                 try {
-                    $res['updated_at'] = date('Y-m-d H:i:s');
-                    $wpdb->update("{$wpdb->prefix}whatToMine_API", $res, array('id' => $recordExists));
+                    $resTicker['created_at'] = date('Y-m-d H:i:s');
+                    $wpdb->update("{$wpdb->prefix}coins", $resCoin, array('id' => $coin_id));
+                    $wpdb->insert("{$wpdb->prefix}ticker", $resTicker);
                 } catch (\Exception $ex) {
                   // ...  
                 }
             }
-        }    
+        }
     }
 }
 new CoinMarketCapAPI();
