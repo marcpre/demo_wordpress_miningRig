@@ -7,10 +7,15 @@ function miningProfitabilityRoutes()
         'methods' => WP_REST_SERVER::READABLE,
         'callback' => 'allMiningProfitability',
     ));
+    
+    register_rest_route('miningProf/v1', 'getLatestQuote', array(
+        'methods' => WP_REST_SERVER::READABLE,
+        'callback' => 'getLatestCoinQuote',
+    ));
 }
 
 /**
- * Get all profitability data
+ * Get profitability data for certain algorithm and tag
  * e.g.: localhost/demo_wordpress_rig-builder/wp-json/miningProf/v1/manageMiningProf?algorithm=Ethash&tag=ETH
  */
 
@@ -70,5 +75,46 @@ function allMiningProfitability($data)
     return $results;
 }
 
+/**
+ * Get price data for certain coin
+ * e.g.: localhost/demo_wordpress_rig-builder/wp-json/miningProf/v1/getLatestQuote?symbol=ETH
+ */
+function getLatestCoinQuote($data)
+{
+    global $wpdb;
+    
+    // show db errors
+    $wpdb->show_errors(false);
+    $wpdb->print_error();
+
+    $mainQuery = $wpdb->get_results( "SELECT * 
+        FROM {$wpdb->prefix}ticker t 
+        INNER JOIN wp_coins c ON c.id = t.coin_id
+        WHERE c.symbol = \"" . sanitize_text_field($data['symbol']) . "\"
+        ORDER BY c.created_at ASC
+        LIMIT 1;");
+    
+    $results = array(
+        'coin' => array(),
+    );  
+                                
+    foreach ($mainQuery as $key => $value) {
+        array_push($results['coin'], array(
+            'id' => $key, //artificial coin id
+            'name' => $value->name,
+            'symbol' => $value->symbol,
+            'price' => floatval($value->price),
+            'circulating_supply' => floatval($value->circulating_supply),
+            'total_supply' => floatval($value->total_supply),
+            'volume_24h' => floatval($value->volume_24h),
+            'market_cap' => floatval($value->market_cap),
+            'percent_change_1h' => floatval($value->percent_change_1h),
+            'percent_change_24h' => floatval($value->percent_change_24h),
+            'percent_change_7d' => floatval($value->percent_change_7d),
+        ));
+    }
+    
+    return $results;
+}
 
 
