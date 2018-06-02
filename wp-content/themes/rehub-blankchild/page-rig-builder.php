@@ -178,7 +178,7 @@ if ($products->have_posts()) {?>
                                 <table style="float: left;" class="table table-bordered">
                                     <thead class="thead-inverse">
                                         <tr>
-                                            <th><b>Initial Costs</b></th>
+                                            <th><b>Initial Mining Rig Costs</b></th>
                                             <th><b>Algorithm</b></th>
                                             <th><b>Hash Rate</b></th>
                                             <th><b>Coin</b></th>

@@ -2,18 +2,16 @@
 
 use GuzzleHttp\Client;
 
-class WhatToMineAPI {
+class CoinMarketCapAPI {
 
-    const CRON_HOOK = 'update_whatToMine_api';
-    const WHAT_TO_MINE_URL = 'http://whattomine.com/coins.json';
+    const CRON_HOOK = 'update_coinmarketcap_api';
+    const COIN_MARKET_CAP_URL = 'https://api.coinmarketcap.com/v2/ticker/';
     
     /**
      * Constructor.
      */
     public function __construct() {
-        // add_action( 'setupCronJob_whatToMine', 'setupCronJob');
-        // add_action( 'update_whatToMine_api', 'updateWhatToMineAPI'); 
-        add_action(self::CRON_HOOK, array($this, 'updateWhatToMineAPI'));
+        add_action(self::CRON_HOOK, array($this, 'updateCoinMarketCapAPI'));
     }
     
     public function setupCronJob($scheduleTime) {
@@ -33,11 +31,11 @@ class WhatToMineAPI {
         wp_unschedule_event( $timestamp, self::CRON_HOOK );
     }
     
-    public function updateWhatToMineAPI() {
+    public function updateCoinMarketCapAPI() {
 
         $client = new GuzzleHttp\Client();
         
-        $response = $client->request('GET', self::WHAT_TO_MINE_URL )->getBody();
+        $response = $client->request('GET', self::COIN_MARKET_CAP_URL )->getBody();
         $obj = json_decode($response);
         
         // insert 
@@ -108,4 +106,4 @@ class WhatToMineAPI {
         }    
     }
 }
-new WhatToMineAPI();
+new CoinMarketCapAPI();
