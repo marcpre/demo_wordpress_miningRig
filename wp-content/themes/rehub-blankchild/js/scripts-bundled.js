@@ -43919,27 +43919,50 @@ function () {
         /**
          * Calc variables
          */
-        // sum up hashRate
+        // calculate earnings
+        // get variables
 
-        var getHashRate = (0, _lodash.default)(allGpuParts).groupBy('proj_mgr').map(function (objs, key) {
-          return {
-            'hashRatePerSecond': _lodash.default.sumBy(objs, 'hashRatePerSecond')
-          };
-        }).value();
-        var hashRate = getHashRate["0"].hashRatePerSecond; // calculate monthly profit
+        var hashRate = _lodash.default.sumBy(allGpuParts, 'hashRatePerSecond'); //let hashRate = getHashRate["0"].hashRatePerSecond
+
 
         var networkHashRate = miningProfitability.miningProfitability["0"].nethash;
         var numberOfEquipment = Object.keys(allGpuParts).length;
-        var userRatio = hashRate * numberOfEquipment / networkHashRate;
         var blockTime = miningProfitability.miningProfitability["0"].block_time;
+        var blockReward = miningProfitability.miningProfitability["0"].block_reward; // calculations
+
+        var userRatio = hashRate * numberOfEquipment / networkHashRate;
         var blocksPerMinute = 60 / blockTime;
-        var blockReward = miningProfitability.miningProfitability["0"].block_reward;
         var rewardPerMinute = blocksPerMinute * blockReward;
-        var earningsPerDay = userRatio * rewardPerMinute * 60 * 24 * _this3.selectedCoinPriceInUSD;
-        var earningsPerMonth = userRatio * rewardPerMinute * 60 * 24 * 7 * 4 * _this3.selectedCoinPriceInUSD;
-        var earningsPerYear = earningsPerMonth * 12 * _this3.selectedCoinPriceInUSD;
-        var payBackPeriod = _this3.overallPrice / earningsPerDay;
-        var minedCoin = miningProfitability.miningProfitability["0"].coin; // add data to table
+        var revenuePerDay = userRatio * rewardPerMinute * 60 * 24 * _this3.selectedCoinPriceInUSD;
+        var revenuePerWeek = userRatio * rewardPerMinute * 60 * 24 * 7 * _this3.selectedCoinPriceInUSD;
+        var revenuePerMonth = userRatio * rewardPerMinute * 60 * 24 * 7 * 4 * _this3.selectedCoinPriceInUSD;
+        var revenuePerYear = userRatio * rewardPerMinute * 60 * 24 * 7 * 4 * 12 * _this3.selectedCoinPriceInUSD;
+        var minedCoin = miningProfitability.miningProfitability["0"].coin; // calculate costs
+        // sum up watt
+
+        /*        let getWatts =
+                    _(allGpuParts)
+                    .map((objs, key) => ({
+                        'watt': _.sumBy(objs, 'watt')
+                    }))
+                    .value()
+                    let getWatts = _.sumBy(allGpuParts, 'hashRatePerSecond')
+        */
+
+        var wattofGPUs = _lodash.default.sumBy(allGpuParts, 'watt');
+
+        var energyCosts = (0, _jquery.default)(".form-control-cost-per-kwh").val();
+        if (energyCosts === "" || energyCosts === 'undefined') energyCosts = 0.1;
+        var powerCostsPerHour = wattofGPUs * numberOfEquipment / 1000 * energyCosts;
+        var powerCostsPerDay = powerCostsPerHour * 24;
+        var powerCostsPerWeek = powerCostsPerHour * 24 * 7;
+        var powerCostsPerMonth = powerCostsPerHour * 24 * 7 * 4;
+        var powerCostsPerYear = powerCostsPerHour * 24 * 7 * 4 * 12; // final results
+
+        var earningsPerDay = revenuePerDay - powerCostsPerDay;
+        var earningsPerMonth = revenuePerMonth - powerCostsPerMonth;
+        var earningsPerYear = revenuePerYear - powerCostsPerYear;
+        var payBackPeriod = _this3.overallPrice / earningsPerDay; // add data to table
 
         (0, _jquery.default)(".algorithmProf").text(algorithm);
         (0, _jquery.default)(".hashRateProf").text(hashRate / 1000000 + " MH/s");
@@ -43948,6 +43971,7 @@ function () {
         (0, _jquery.default)(".monthMinProf").text("$" + earningsPerMonth.toFixed(2));
         (0, _jquery.default)(".yearMinProf").text("$" + earningsPerYear.toFixed(2));
         (0, _jquery.default)(".paybackProf").text(payBackPeriod.toFixed(0) + " days");
+        (0, _jquery.default)(".form-control-cost-per-kwh").text(energyCosts.toFixed(2));
       });
     }
   }, {

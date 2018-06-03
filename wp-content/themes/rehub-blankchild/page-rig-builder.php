@@ -183,8 +183,8 @@ if ($products->have_posts()) {?>
                                             <th><b>Algorithm</b></th>
                                             <th><b>Hash Rate</b></th>
                                             <th><b>Coin</b></th>
-                                            <th><b>Monthly Revenue</b></th>
-                                            <th><b>Annual Revenue</b></th>
+                                            <th><b>Earnings per Month</b></th>
+                                            <th><b>Earnings per Year</b></th>
                                             <th><b>Payback</b></th>
                                         </tr>
                                     </thead>
@@ -213,7 +213,7 @@ if ($products->have_posts()) {?>
                                         </td>
                                     </tr>
                                 </table>
-                                <input type="text" class="form-control-cost-per-kwh" placeholder="Cost per kWh ($)" style="width: 200px;"/>
+                                Cost per kWh ($) <input type="text" class="form-control-cost-per-kwh" placeholder="0.1" style="width: 200px;"/>
                             </div>
                         <!-- -->
                         </div>

@@ -297,7 +297,7 @@ class RigBuilder {
 
         /**
          * Validation
-        */
+         */
         console.log("1 2 3 4 5 6 sdfas")
         if (allGpuParts === undefined || allGpuParts.length == 0) { // check if allGpuParts is defined or not
             //remove spinner
@@ -334,33 +334,55 @@ class RigBuilder {
             /**
              * Calc variables
              */
-            // sum up hashRate
-            let getHashRate =
-                _(allGpuParts)
-                .groupBy('proj_mgr')
-                .map((objs, key) => ({
-                    'hashRatePerSecond': _.sumBy(objs, 'hashRatePerSecond')
-                }))
-                .value()
-            let hashRate = getHashRate["0"].hashRatePerSecond
-
-            // calculate monthly profit
+            // calculate earnings
+            // get variables
+            let hashRate = _.sumBy(allGpuParts, 'hashRatePerSecond')
+            //let hashRate = getHashRate["0"].hashRatePerSecond
 
             let networkHashRate = miningProfitability.miningProfitability["0"].nethash
             let numberOfEquipment = Object.keys(allGpuParts).length
-            let userRatio = (hashRate * numberOfEquipment) / networkHashRate
-
             let blockTime = miningProfitability.miningProfitability["0"].block_time
-            let blocksPerMinute = 60 / blockTime
             let blockReward = miningProfitability.miningProfitability["0"].block_reward
+
+            // calculations
+            let userRatio = (hashRate * numberOfEquipment) / networkHashRate
+            let blocksPerMinute = 60 / blockTime
             let rewardPerMinute = blocksPerMinute * blockReward
 
-            let earningsPerDay = userRatio * rewardPerMinute * 60 * 24 * this.selectedCoinPriceInUSD
-            let earningsPerMonth = userRatio * rewardPerMinute * 60 * 24 * 7 * 4 * this.selectedCoinPriceInUSD
-            let earningsPerYear = earningsPerMonth * 12 * this.selectedCoinPriceInUSD
+            let revenuePerDay = userRatio * rewardPerMinute * 60 * 24 * this.selectedCoinPriceInUSD
+            let revenuePerWeek = userRatio * rewardPerMinute * 60 * 24 * 7 * this.selectedCoinPriceInUSD
+            let revenuePerMonth = userRatio * rewardPerMinute * 60 * 24 * 7 * 4 * this.selectedCoinPriceInUSD
+            let revenuePerYear = userRatio * rewardPerMinute * 60 * 24 * 7 * 4 * 12 * this.selectedCoinPriceInUSD
 
-            let payBackPeriod = this.overallPrice / earningsPerDay
             let minedCoin = miningProfitability.miningProfitability["0"].coin
+
+            // calculate costs
+            // sum up watt
+    /*        let getWatts =
+                _(allGpuParts)
+                .map((objs, key) => ({
+                    'watt': _.sumBy(objs, 'watt')
+                }))
+                .value()
+                let getWatts = _.sumBy(allGpuParts, 'hashRatePerSecond')
+    */
+                
+            let wattofGPUs = _.sumBy(allGpuParts, 'watt')
+            let energyCosts = $(".form-control-cost-per-kwh").val()
+            
+            if(energyCosts === "" || energyCosts === 'undefined') energyCosts = 0.1
+            
+            let powerCostsPerHour = ((wattofGPUs * numberOfEquipment) / 1000) * energyCosts
+            let powerCostsPerDay = powerCostsPerHour * 24
+            let powerCostsPerWeek = powerCostsPerHour * 24 * 7
+            let powerCostsPerMonth = powerCostsPerHour * 24 * 7 * 4
+            let powerCostsPerYear = powerCostsPerHour * 24 * 7 * 4 * 12            
+
+            // final results
+            let earningsPerDay = revenuePerDay - powerCostsPerDay
+            let earningsPerMonth = revenuePerMonth - powerCostsPerMonth
+            let earningsPerYear = revenuePerYear - powerCostsPerYear
+            let payBackPeriod = this.overallPrice / earningsPerDay
 
             // add data to table
             $(".algorithmProf").text(algorithm)
@@ -370,6 +392,8 @@ class RigBuilder {
             $(".monthMinProf").text("$" + earningsPerMonth.toFixed(2))
             $(".yearMinProf").text("$" + earningsPerYear.toFixed(2))
             $(".paybackProf").text(payBackPeriod.toFixed(0) + " days")
+            
+            $(".form-control-cost-per-kwh").text(energyCosts.toFixed(2))
         });
     }
 
