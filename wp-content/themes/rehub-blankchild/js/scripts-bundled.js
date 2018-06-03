@@ -43628,6 +43628,7 @@ function () {
   function RigBuilder() {
     _classCallCheck(this, RigBuilder);
 
+    var selectedCoinPriceInUSD = 0;
     var pressedButton = null;
     var resultsGlobal = [];
     this.buildResultsObjGlobal = {};
@@ -43641,6 +43642,7 @@ function () {
 
     this.calculateWatt();
     this.events();
+    this.getCoinPrice();
   } // end constructor
 
 
@@ -43818,6 +43820,19 @@ function () {
       }
     }
   }, {
+    key: "getCoinPrice",
+    value: function getCoinPrice() {
+      var _this2 = this;
+
+      var symbol = "ETH";
+
+      _jquery.default.getJSON(miningRigData.root_url + '/wp-json/miningProf/v1/getLatestQuote?symbol=' + symbol, function (coin) {
+        // console.log("coin")
+        // console.log(coin)
+        _this2.selectedCoinPriceInUSD = coin.coin["0"].price;
+      });
+    }
+  }, {
     key: "calculatePrice",
     value: function calculatePrice() {
       console.log("calculate Watt");
@@ -43848,7 +43863,7 @@ function () {
   }, {
     key: "calcMiningProfitability",
     value: function calcMiningProfitability() {
-      var _this2 = this;
+      var _this3 = this;
 
       //insert spinner before element
       (0, _jquery.default)(".errors").before("<div class='loading'>Loading&#8230;</div>"); // pick obj that are gpu related
@@ -43868,6 +43883,28 @@ function () {
       });
 
       console.log("allGpuParts");
+      /**
+       * Validation
+       */
+
+      console.log("1 2 3 4 5 6 sdfas");
+
+      if (allGpuParts === undefined || allGpuParts.length == 0) {
+        // check if allGpuParts is defined or not
+        //remove spinner
+        (0, _jquery.default)(".loading").remove();
+        (0, _jquery.default)(".errors").append("<div class=\"alert alert-danger active alert-dismissable\">\n                <a href=\"#\" class=\"close\" data-dismiss=\"alert\" aria-label=\"close\">&times;</a>\n                <strong>Error!</strong> Please add at least 1 graphic card part to your mining rig!\n            </div>"); //scroll to the top of the page
+
+        (0, _jquery.default)('html, body').animate({
+          scrollTop: 0
+        }, 'fast');
+        swal("An error occured. Please try again!", "danger");
+        return;
+      } // remove error
+
+
+      (0, _jquery.default)(".errors").remove(); // prepare request
+
       var algorithm = allGpuParts["0"].algorithm;
       var coin = allGpuParts["0"].coin;
       console.log("calculate mining profitability");
@@ -43898,18 +43935,19 @@ function () {
         var blocksPerMinute = 60 / blockTime;
         var blockReward = miningProfitability.miningProfitability["0"].block_reward;
         var rewardPerMinute = blocksPerMinute * blockReward;
-        var earningsPerDay = userRatio * rewardPerMinute * 60 * 24;
-        var earningsPerMonth = userRatio * rewardPerMinute * 60 * 24 * 7 * 4;
-        var earningsPerYear = earningsPerMonth * 12;
-        var payBackPeriod = _this2.overallPrice / earningsPerDay;
-        var coin = miningProfitability.miningProfitability["0"].coin; // add data to table
+        var earningsPerDay = userRatio * rewardPerMinute * 60 * 24 * _this3.selectedCoinPriceInUSD;
+        var earningsPerMonth = userRatio * rewardPerMinute * 60 * 24 * 7 * 4 * _this3.selectedCoinPriceInUSD;
+        var earningsPerYear = earningsPerMonth * 12 * _this3.selectedCoinPriceInUSD;
+        var payBackPeriod = _this3.overallPrice / earningsPerDay;
+        var minedCoin = miningProfitability.miningProfitability["0"].coin; // add data to table
 
         (0, _jquery.default)(".algorithmProf").text(algorithm);
         (0, _jquery.default)(".hashRateProf").text(hashRate / 1000000 + " MH/s");
-        (0, _jquery.default)(".coinProf").text(coin);
+        (0, _jquery.default)(".coinProf").text(minedCoin);
+        (0, _jquery.default)(".coinPrice").text("1 ETH = $" + _this3.selectedCoinPriceInUSD);
         (0, _jquery.default)(".monthMinProf").text("$" + earningsPerMonth.toFixed(2));
         (0, _jquery.default)(".yearMinProf").text("$" + earningsPerYear.toFixed(2));
-        (0, _jquery.default)(".paybackProf").text(payBackPeriod.toFixed(2) + " days");
+        (0, _jquery.default)(".paybackProf").text(payBackPeriod.toFixed(0) + " days");
       });
     }
   }, {
@@ -44053,10 +44091,10 @@ function () {
   }, {
     key: "deleteSelectedPart",
     value: function deleteSelectedPart() {
-      var _this3 = this;
+      var _this4 = this;
 
       (0, _jquery.default)("#exampleModal").on("hidden.bs.modal", function () {
-        var part = _this3.globalPart; // mark the correct part as selected
+        var part = _this4.globalPart; // mark the correct part as selected
 
         (0, _jquery.default)(".part-node.ib.part-node-selected." + part).addClass('part-node-unselected').removeClass('part-node-selected');
       });

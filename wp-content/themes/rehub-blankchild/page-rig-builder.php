@@ -175,6 +175,7 @@ if ($products->have_posts()) {?>
                         <!-- -->
                             <br>
                             <div id="profitCalculator" class="table-responsive overflow-x:auto;">
+                                <div><span class="coinPrice"></span></div>
                                 <table style="float: left;" class="table table-bordered">
                                     <thead class="thead-inverse">
                                         <tr>

@@ -5,6 +5,7 @@ import _ from 'lodash';
 class RigBuilder {
 
     constructor() {
+        var selectedCoinPriceInUSD = 0
         var pressedButton = null
         let resultsGlobal = []
         this.buildResultsObjGlobal = {}
@@ -17,6 +18,7 @@ class RigBuilder {
         //calculate Watt
         this.calculateWatt()
         this.events()
+        this.getCoinPrice()
     } // end constructor
 
     events() {
@@ -249,6 +251,15 @@ class RigBuilder {
         }
     }
 
+    getCoinPrice() {
+        let symbol = "ETH"
+        $.getJSON(miningRigData.root_url + '/wp-json/miningProf/v1/getLatestQuote?symbol=' + symbol, (coin) => {
+            // console.log("coin")
+            // console.log(coin)
+            this.selectedCoinPriceInUSD = coin.coin["0"].price;
+        })
+    }
+
     calculatePrice() {
         console.log("calculate Watt")
         this.overallPrice = 0.0
@@ -283,9 +294,33 @@ class RigBuilder {
         // filtering
         let allGpuParts = _.filter(this.buildResultsObjGlobal, i => isGPU(i))
         console.log("allGpuParts")
+
+        /**
+         * Validation
+        */
+        console.log("1 2 3 4 5 6 sdfas")
+        if (allGpuParts === undefined || allGpuParts.length == 0) { // check if allGpuParts is defined or not
+            //remove spinner
+            $(".loading").remove()
+            $(".errors").append(
+                `<div class="alert alert-danger active alert-dismissable">
+                <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                <strong>Error!</strong> Please add at least 1 graphic card part to your mining rig!
+            </div>`
+            );
+            //scroll to the top of the page
+            $('html, body').animate({
+                scrollTop: 0
+            }, 'fast');
+            swal("An error occured. Please try again!", "danger")
+            return;
+        }
+
+        // remove error
+        $(".errors").remove()
+        // prepare request
         let algorithm = allGpuParts["0"].algorithm
         let coin = allGpuParts["0"].coin
-
         console.log("calculate mining profitability")
         $.getJSON(miningRigData.root_url + '/wp-json/miningProf/v1/manageMiningProf?algorithm=' + algorithm + "&tag=ETH", (miningProfitability) => {
             console.log("miningProfitability")
@@ -320,20 +355,21 @@ class RigBuilder {
             let blockReward = miningProfitability.miningProfitability["0"].block_reward
             let rewardPerMinute = blocksPerMinute * blockReward
 
-            let earningsPerDay = userRatio * rewardPerMinute * 60 * 24
-            let earningsPerMonth = userRatio * rewardPerMinute * 60 * 24 * 7 * 4
-            let earningsPerYear = earningsPerMonth * 12
+            let earningsPerDay = userRatio * rewardPerMinute * 60 * 24 * this.selectedCoinPriceInUSD
+            let earningsPerMonth = userRatio * rewardPerMinute * 60 * 24 * 7 * 4 * this.selectedCoinPriceInUSD
+            let earningsPerYear = earningsPerMonth * 12 * this.selectedCoinPriceInUSD
 
             let payBackPeriod = this.overallPrice / earningsPerDay
-            let coin = miningProfitability.miningProfitability["0"].coin
+            let minedCoin = miningProfitability.miningProfitability["0"].coin
 
             // add data to table
             $(".algorithmProf").text(algorithm)
             $(".hashRateProf").text(hashRate / 1000000 + " MH/s")
-            $(".coinProf").text(coin)
+            $(".coinProf").text(minedCoin)
+            $(".coinPrice").text("1 ETH = $" + this.selectedCoinPriceInUSD)
             $(".monthMinProf").text("$" + earningsPerMonth.toFixed(2))
             $(".yearMinProf").text("$" + earningsPerYear.toFixed(2))
-            $(".paybackProf").text(payBackPeriod.toFixed(2) + " days")
+            $(".paybackProf").text(payBackPeriod.toFixed(0) + " days")
         });
     }
 
