@@ -35,6 +35,36 @@ function miningRigBuilder_post_types()
         'menu_icon' => 'dashicons-dashboard',
         'taxonomies' => array( 'category' ),
     ));
+    
+    // Coin Post Type
+    register_post_type('coin', array(
+        'supports' => array('title', 'thumbnail', 'custom-fields'),
+        'public' => false,
+        'show_ui' => true,
+        'labels' => array(
+            'name' => 'Coins',
+            'add_new_item' => 'Add New Coin',
+            'edit_item' => 'Edit Coin',
+            'all_items' => 'All Coins',
+            'singular_name' => 'Coin',
+        ),
+        'menu_icon' => 'dashicons-money',
+    ));
+
+    // Mining Pools Post Type
+    register_post_type('miningPools', array(
+        'supports' => array('title', 'thumbnail', 'custom-fields'),
+        'public' => false,
+        'show_ui' => true,
+        'labels' => array(
+            'name' => 'Mining Pools',
+            'add_new_item' => 'Add New Mining Pool',
+            'edit_item' => 'Edit Mining Pool',
+            'all_items' => 'All Mining Pools',
+            'singular_name' => 'Mining Pool',
+        ),
+        'menu_icon' => 'dashicons-networking',
+    ));    
 
 }
 

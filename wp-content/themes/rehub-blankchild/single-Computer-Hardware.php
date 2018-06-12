@@ -65,11 +65,11 @@
           <!-- Stats START -->
           <div class="row">
             <div class="col-xs-6">
-              <h2>Stats</h2>
+              <h2>Specifications</h2>
               <table class="table stats">
                 <tbody>
                   <tr>
-                    <th>Price :</th>
+                    <th>Manufacturer :</th>
                     <td class="text-primary text-right">
                       <strong>$6,754.30 USD </strong> <span class="text-red">(-0.15%) <i class="fa fa-caret-down"></i></span>
                     </td>
@@ -96,7 +96,39 @@
                     <td class=" text-right">12.6655 </td>
                   </tr>
                   <tr>
-                    <th>Current Block :</th>
+                    <th>Manufacturer</th>
+                    <td class=" text-right">527167 </td>
+                  </tr>
+                                    <tr>
+                    <th>Model:</th>
+                    <td class=" text-right">527167 </td>
+                  </tr>
+                                    <tr>
+                    <th>Size:</th>
+                    <td class=" text-right">527167 </td>
+                  </tr>
+                                    <tr>
+                    <th>Weight:</th>
+                    <td class=" text-right">527167 </td>
+                  </tr>
+                                                      <tr>
+                    <th>Noise Level:</th>
+                    <td class=" text-right">527167 </td>
+                  </tr>
+                                                      <tr>
+                    <th>Fan(s):</th>
+                    <td class=" text-right">527167 </td>
+                  </tr>
+                                                      <tr>
+                    <th>Wattage:</th>
+                    <td class=" text-right">527167 </td>
+                  </tr>
+                                                                        <tr>
+                    <th>Interface:</th>
+                    <td class=" text-right">527167 </td>
+                  </tr>
+                                                                        <tr>
+                    <th>Average Temperature:</th>
                     <td class=" text-right">527167 </td>
                   </tr>
                 </tbody>
@@ -171,6 +203,118 @@
                 </tbody>
               </table>
             </div>
+
+<div class="col-sm-12">
+   <h2>Minable coins</h2>
+   <div class="alert alert-warning">
+      <svg class="svg-inline--fa fa-exclamation-triangle fa-w-18" aria-hidden="true" data-prefix="fas" data-icon="exclamation-triangle" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512" data-fa-i2svg="">
+         <path fill="currentColor" d="M569.517 440.013C587.975 472.007 564.806 512 527.94 512H48.054c-36.937 0-59.999-40.055-41.577-71.987L246.423 23.985c18.467-32.009 64.72-31.951 83.154 0l239.94 416.028zM288 354c-25.405 0-46 20.595-46 46s20.595 46 46 46 46-20.595 46-46-20.595-46-46-46zm-43.673-165.346l7.418 136c.347 6.364 5.609 11.346 11.982 11.346h48.546c6.373 0 11.635-4.982 11.982-11.346l7.418-136c.375-6.874-5.098-12.654-11.982-12.654h-63.383c-6.884 0-12.356 5.78-11.981 12.654z"></path>
+      </svg>
+      <!-- <i class="fas fa-exclamation-triangle"></i> --> <b>Rumors: </b>Hard fork on the <b>BitcoinGold</b> 
+      network could make this device unable to mine this coin in the future.                           
+   </div>
+   <div>
+      <div style="padding:4px;float:left;">
+         <div class="image-wrap"><img class="img-responsive" src="https://res.cloudinary.com/dluwgr5op/image/upload/c_fit,f_auto,h_60,w_60/v1525359468/a6xe2co1mrdxvb8vtcjd.png" data-toggle="tooltip" data-placement="bottom" data-html="true" title="" data-original-title="<b>BitcoinGold</b> (BTG)<br/><i>Equihash</i>"></div>
+      </div>
+      <div style="padding:4px;float:left;">
+         <div class="image-wrap"><img class="img-responsive" src="https://res.cloudinary.com/dluwgr5op/image/upload/c_fit,f_auto,h_60,w_60/v1525359278/epsvwji680evuyfnu1ay.jpg" data-toggle="tooltip" data-placement="bottom" data-html="true" title="" data-original-title="<b>ZenCash</b> (ZEN)<br/><i>Equihash</i>"></div>
+      </div>
+      <div style="padding:4px;float:left;">
+         <div class="image-wrap"><img class="img-responsive" src="https://res.cloudinary.com/dluwgr5op/image/upload/c_fit,f_auto,h_60,w_60/v1520031739/vcslnfksrwcwrilo0jxk.png" data-toggle="tooltip" data-placement="bottom" data-html="true" title="" data-original-title="<b>Zcash</b> (ZEC)<br/><i>Equihash</i>"></div>
+      </div>
+      <div style="padding:4px;float:left;">
+         <div class="image-wrap"><img class="img-responsive" src="https://res.cloudinary.com/dluwgr5op/image/upload/c_fit,f_auto,h_60,w_60/v1525359676/tho1ioeo8258ekttwgtj.png" data-toggle="tooltip" data-placement="bottom" data-html="true" title="" data-original-title="<b>Hush</b> (HUSH)<br/><i>Equihash</i>"></div>
+      </div>
+   </div>
+   <div class="clearfix"></div>
+   <br> 
+</div>
+
+
+   <div class="col-sm-12">
+      <h2>Mining pools</h2>
+      <table class="table table-striped table-small">
+         <tbody>
+            <tr>
+               <td>
+                  <div class="image-wrap"><img class="img-responsive" src="https://res.cloudinary.com/dluwgr5op/image/upload/c_fit,f_auto,h_48,w_120/v1526247983/c9luvcoxznqfo8wlgclo.png"></div>
+               </td>
+               <td><b style="font-size:1.2em;"><a href="https://slushpool.com">SlushPool</a></b><br>slushpool.com</td>
+               <td class="hidden-xs hidden-sm" style="text-align:center; vertical-align:middle; ;"><b>PPLNS</b><br>2%</td>
+               <td class="text-right" style="vertical-align: middle; width:40px;">
+                  <a class="btn btn-primary" href="https://slushpool.com" target="_blank">
+                     <svg class="svg-inline--fa fa-chevron-right fa-w-10" aria-hidden="true" data-prefix="fas" data-icon="chevron-right" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512" data-fa-i2svg="">
+                        <path fill="currentColor" d="M285.476 272.971L91.132 467.314c-9.373 9.373-24.569 9.373-33.941 0l-22.667-22.667c-9.357-9.357-9.375-24.522-.04-33.901L188.505 256 34.484 101.255c-9.335-9.379-9.317-24.544.04-33.901l22.667-22.667c9.373-9.373 24.569-9.373 33.941 0L285.475 239.03c9.373 9.372 9.373 24.568.001 33.941z"></path>
+                     </svg>
+                     <!-- <i class="fas fa-chevron-right"> </i> -->
+                  </a>
+               </td>
+            </tr>
+            <tr>
+               <td>
+                  <div class="image-wrap"><img class="img-responsive" src="https://res.cloudinary.com/dluwgr5op/image/upload/c_fit,f_auto,h_48,w_120/v1526250650/toiusvqctaoc922dnfvd.png"></div>
+               </td>
+               <td><b style="font-size:1.2em;"><a href="https://www.nicehash.com">NiceHash</a></b><br>www.nicehash.com</td>
+               <td class="hidden-xs hidden-sm" style="text-align:center; vertical-align:middle; ;"><b>RESELL</b><br></td>
+               <td class="text-right" style="vertical-align: middle; width:40px;">
+                  <a class="btn btn-primary" href="https://www.nicehash.com" target="_blank">
+                     <svg class="svg-inline--fa fa-chevron-right fa-w-10" aria-hidden="true" data-prefix="fas" data-icon="chevron-right" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512" data-fa-i2svg="">
+                        <path fill="currentColor" d="M285.476 272.971L91.132 467.314c-9.373 9.373-24.569 9.373-33.941 0l-22.667-22.667c-9.357-9.357-9.375-24.522-.04-33.901L188.505 256 34.484 101.255c-9.335-9.379-9.317-24.544.04-33.901l22.667-22.667c9.373-9.373 24.569-9.373 33.941 0L285.475 239.03c9.373 9.372 9.373 24.568.001 33.941z"></path>
+                     </svg>
+                     <!-- <i class="fas fa-chevron-right"> </i> -->
+                  </a>
+               </td>
+            </tr>
+            <tr>
+               <td>
+                  <div class="image-wrap"><img class="img-responsive" src="https://res.cloudinary.com/dluwgr5op/image/upload/c_fit,f_auto,h_48,w_120/v1525041919/ddfuvfhlyzy7eodo3iei.png"></div>
+               </td>
+               <td><b style="font-size:1.2em;"><a href="https://www.antpool.com">AntPool</a></b><br>www.antpool.com</td>
+               <td class="hidden-xs hidden-sm" style="text-align:center; vertical-align:middle; ;"><b>PPLNS</b><br>0%</td>
+               <td class="text-right" style="vertical-align: middle; width:40px;">
+                  <a class="btn btn-primary" href="https://www.antpool.com" target="_blank">
+                     <svg class="svg-inline--fa fa-chevron-right fa-w-10" aria-hidden="true" data-prefix="fas" data-icon="chevron-right" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512" data-fa-i2svg="">
+                        <path fill="currentColor" d="M285.476 272.971L91.132 467.314c-9.373 9.373-24.569 9.373-33.941 0l-22.667-22.667c-9.357-9.357-9.375-24.522-.04-33.901L188.505 256 34.484 101.255c-9.335-9.379-9.317-24.544.04-33.901l22.667-22.667c9.373-9.373 24.569-9.373 33.941 0L285.475 239.03c9.373 9.372 9.373 24.568.001 33.941z"></path>
+                     </svg>
+                     <!-- <i class="fas fa-chevron-right"> </i> -->
+                  </a>
+               </td>
+            </tr>
+            <tr>
+               <td>
+                  <div class="image-wrap"><img class="img-responsive" src="https://res.cloudinary.com/dluwgr5op/image/upload/c_fit,f_auto,h_48,w_120/v1525643428/legs91aclwbpj8zkslyl.png"></div>
+               </td>
+               <td><b style="font-size:1.2em;"><a href="https://nanopool.org">NanoPool</a></b><br>nanopool.org</td>
+               <td class="hidden-xs hidden-sm" style="text-align:center; vertical-align:middle; ;"><b>PPLNS</b><br>2%</td>
+               <td class="text-right" style="vertical-align: middle; width:40px;">
+                  <a class="btn btn-primary" href="https://nanopool.org" target="_blank">
+                     <svg class="svg-inline--fa fa-chevron-right fa-w-10" aria-hidden="true" data-prefix="fas" data-icon="chevron-right" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512" data-fa-i2svg="">
+                        <path fill="currentColor" d="M285.476 272.971L91.132 467.314c-9.373 9.373-24.569 9.373-33.941 0l-22.667-22.667c-9.357-9.357-9.375-24.522-.04-33.901L188.505 256 34.484 101.255c-9.335-9.379-9.317-24.544.04-33.901l22.667-22.667c9.373-9.373 24.569-9.373 33.941 0L285.475 239.03c9.373 9.372 9.373 24.568.001 33.941z"></path>
+                     </svg>
+                     <!-- <i class="fas fa-chevron-right"> </i> -->
+                  </a>
+               </td>
+            </tr>
+            <tr>
+               <td>
+                  <div class="image-wrap"><img class="img-responsive" src="https://res.cloudinary.com/dluwgr5op/image/upload/c_fit,f_auto,h_48,w_120/v1526247393/sjkwcqbsrvawogpgz5l2.png"></div>
+               </td>
+               <td><b style="font-size:1.2em;"><a href="https://zcash.flypool.org">FlyPool</a></b><br>zcash.flypool.org</td>
+               <td class="hidden-xs hidden-sm" style="text-align:center; vertical-align:middle; ;"><b>PPLNS</b><br>1%</td>
+               <td class="text-right" style="vertical-align: middle; width:40px;">
+                  <a class="btn btn-primary" href="https://zcash.flypool.org" target="_blank">
+                     <svg class="svg-inline--fa fa-chevron-right fa-w-10" aria-hidden="true" data-prefix="fas" data-icon="chevron-right" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512" data-fa-i2svg="">
+                        <path fill="currentColor" d="M285.476 272.971L91.132 467.314c-9.373 9.373-24.569 9.373-33.941 0l-22.667-22.667c-9.357-9.357-9.375-24.522-.04-33.901L188.505 256 34.484 101.255c-9.335-9.379-9.317-24.544.04-33.901l22.667-22.667c9.373-9.373 24.569-9.373 33.941 0L285.475 239.03c9.373 9.372 9.373 24.568.001 33.941z"></path>
+                     </svg>
+                     <!-- <i class="fas fa-chevron-right"> </i> -->
+                  </a>
+               </td>
+            </tr>
+         </tbody>
+      </table>
+   </div>
+
           </div>
           <!-- Stats END -->
       </article>
