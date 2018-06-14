@@ -179,41 +179,26 @@
    <h2>Minable coins</h2>
    <div>
       <div style="padding:4px;float:left;">
-         <div class="image-wrap"><img class="img-responsive" src="https://res.cloudinary.com/dluwgr5op/image/upload/c_fit,f_auto,h_60,w_60/v1525359468/a6xe2co1mrdxvb8vtcjd.png" data-toggle="tooltip" data-placement="bottom" data-html="true" title="" data-original-title="<b>BitcoinGold</b> (BTG)<br/><i>Equihash</i>"></div>
-      </div>
-      <div style="padding:4px;float:left;">
-         <div class="image-wrap"><img class="img-responsive" src="https://res.cloudinary.com/dluwgr5op/image/upload/c_fit,f_auto,h_60,w_60/v1525359278/epsvwji680evuyfnu1ay.jpg" data-toggle="tooltip" data-placement="bottom" data-html="true" title="" data-original-title="<b>ZenCash</b> (ZEN)<br/><i>Equihash</i>"></div>
-      </div>
-      <div style="padding:4px;float:left;">
-         <div class="image-wrap"><img class="img-responsive" src="https://res.cloudinary.com/dluwgr5op/image/upload/c_fit,f_auto,h_60,w_60/v1520031739/vcslnfksrwcwrilo0jxk.png" data-toggle="tooltip" data-placement="bottom" data-html="true" title="" data-original-title="<b>Zcash</b> (ZEC)<br/><i>Equihash</i>"></div>
-      </div>
-      <div style="padding:4px;float:left;">
-         <div class="image-wrap"><img class="img-responsive" src="https://res.cloudinary.com/dluwgr5op/image/upload/c_fit,f_auto,h_60,w_60/v1525359676/tho1ioeo8258ekttwgtj.png" data-toggle="tooltip" data-placement="bottom" data-html="true" title="" data-original-title="<b>Hush</b> (HUSH)<br/><i>Equihash</i>"></div>
-      </div>
-   </div>
-   <div class="clearfix"></div>
-   <br> 
-   <!-- START -->
+         <!-- START -->
 <?php 
-
-$posts = get_field('related_coins');
-
+$posts = get_field('related_coins'); 
 if( $posts ): ?>
-    <ul>
-    <?php foreach( $posts as $post): // variable must be called $post (IMPORTANT) ?>
-        <?php setup_postdata($post); ?>
-        <li>
-            <a href="<?php the_permalink(); ?>"><?php the_title(); ?></a>
-            <span>Custom field from $post: <?php the_field('author'); ?></span>
-        </li>
-        <div style="padding:4px;float:left;">
-         <div class="image-wrap"><img class="img-responsive" src="echo get_post_meta($post->ID, 'featured_image', true);" data-toggle="tooltip" data-placement="bottom" data-html="true" title="" data-original-title="<b><?php the_title(); ?></b><br/><i><?php the_field('algorithm'); ?></i>"></div>
-      </div>
+<?php foreach( $posts as $post): // variable must be called $post (IMPORTANT) ?>
+     <?php setup_postdata($post); ?>
+        <?php if (has_post_thumbnail( $post->ID ) ): ?>
+        <?php $image = wp_get_attachment_image_src( get_post_thumbnail_id( $post->ID ), 'single-post-thumbnail' ); ?> 
+            <div style="padding:4px;float:left;">
+             <div class="image-wrap"><img style="width: 60px;height: 60px;" class="img-responsive" src="<?php echo $image[0]; ?>;" data-toggle="tooltip" data-placement="bottom" data-html="true" title="<b><?php the_title(); ?></b><br/><i><?php the_field('algorithm'); ?></i>" data-original-title="<b><?php the_title(); ?></b><br/><i><?php the_field('algorithm'); ?></i>"></div>
+            </div>
+        <?php endif; ?>
     <?php endforeach; ?>
-    </ul>
     <?php wp_reset_postdata(); // IMPORTANT - reset the $post object so the rest of the page works correctly ?>
 <?php endif; ?>   
 <!-- END -->   
+   </div>
+   <div class="clearfix"></div>
+   <br> 
+
    
 </div>
 
