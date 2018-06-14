@@ -39,7 +39,7 @@ if ($products->have_posts()) {?>
                         <div class="errors"></div>
                         <div class="form-group row">
                             <label for="example-text-input" class="col-2 col-form-label">
-                                <b>Titel</b>
+                                <b>Title</b>
                             </label>
                             <div class="col-10">
                                 <input class="form-control posttitle" type="text" placeholder="My awesome mining rig" id="miningrigtitle">

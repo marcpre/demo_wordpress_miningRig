@@ -68,68 +68,39 @@
               <h2>Specifications</h2>
               <table class="table stats">
                 <tbody>
-                  <tr>
-                    <th>Manufacturer :</th>
-                    <td class="text-primary text-right">
-                      <strong>$6,754.30 USD </strong> <span class="text-red">(-0.15%) <i class="fa fa-caret-down"></i></span>
-                    </td>
-                  </tr>
-                  <tr>
-                    <th>Difficulty :</th>
-                    <td class="text-right">
-                      <div id="difficulty-line"></div>
-                      <strong>Current :</strong> 4,940,705M <span class=" text-danger  ">(0.00%)</span>
-                      <br>
-                      <strong>24 Hour :</strong> 4,940,705M
-                    </td>
-                  </tr>
+                    <?php if( get_field('hash_rate') ): ?>
+                      <tr>
+                        <th>Hash Rate :</th>
+                        <td class=" text-right"><?php the_field('hash_rate'); ?></td>
+                      </tr>
+                    <?php endif; ?>
+                    <?php if( get_field('manufacturer') ): ?>
+                      <tr>
+                        <th>Manufacturer:</th>
+                        <td class=" text-right"><?php the_field('manufacturer'); ?></td>
+                      </tr>
+                    <?php endif; ?>
+                    <?php if( get_field('watt_estimate') ): ?>
+                      <tr>
+                        <th>Wattage:</th>
+                        <td class=" text-right"><?php the_field('watt_estimate'); ?></td>
+                      </tr>
+                    <?php endif; ?> 
+                    <?php if( get_field('watt_estimate') ): ?>
+                      <tr>
+                        <th>Algorithm:</th>
+                        <td class=" text-right"><?php the_field('algorithm'); ?></td>
+                      </tr>
+                    <?php endif; ?> 
+                    <?php if( get_field('watt_estimate') ): ?>
+                      <tr>
+                        <th>Wattage:</th>
+                        <td class=" text-right"><?php the_field('watt_estimate'); ?></td>
+                      </tr>
+                    <?php endif; ?>                     
                   <tr>
                     <th>Nethash :</th>
                     <td class=" text-right">36,713,089.80 TH/s</td>
-                  </tr>
-                  <tr>
-                    <th>Market Cap :</th>
-                    <td class=" text-right">$115,427,778,708 USD</td>
-                  </tr>
-                  <tr>
-                    <th>Block Reward :</th>
-                    <td class=" text-right">12.6655 </td>
-                  </tr>
-                  <tr>
-                    <th>Manufacturer</th>
-                    <td class=" text-right">527167 </td>
-                  </tr>
-                                    <tr>
-                    <th>Model:</th>
-                    <td class=" text-right">527167 </td>
-                  </tr>
-                                    <tr>
-                    <th>Size:</th>
-                    <td class=" text-right">527167 </td>
-                  </tr>
-                                    <tr>
-                    <th>Weight:</th>
-                    <td class=" text-right">527167 </td>
-                  </tr>
-                                                      <tr>
-                    <th>Noise Level:</th>
-                    <td class=" text-right">527167 </td>
-                  </tr>
-                                                      <tr>
-                    <th>Fan(s):</th>
-                    <td class=" text-right">527167 </td>
-                  </tr>
-                                                      <tr>
-                    <th>Wattage:</th>
-                    <td class=" text-right">527167 </td>
-                  </tr>
-                                                                        <tr>
-                    <th>Interface:</th>
-                    <td class=" text-right">527167 </td>
-                  </tr>
-                                                                        <tr>
-                    <th>Average Temperature:</th>
-                    <td class=" text-right">527167 </td>
                   </tr>
                 </tbody>
               </table>
