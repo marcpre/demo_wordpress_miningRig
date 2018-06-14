@@ -177,13 +177,6 @@
 
 <div class="col-sm-12">
    <h2>Minable coins</h2>
-   <div class="alert alert-warning">
-      <svg class="svg-inline--fa fa-exclamation-triangle fa-w-18" aria-hidden="true" data-prefix="fas" data-icon="exclamation-triangle" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512" data-fa-i2svg="">
-         <path fill="currentColor" d="M569.517 440.013C587.975 472.007 564.806 512 527.94 512H48.054c-36.937 0-59.999-40.055-41.577-71.987L246.423 23.985c18.467-32.009 64.72-31.951 83.154 0l239.94 416.028zM288 354c-25.405 0-46 20.595-46 46s20.595 46 46 46 46-20.595 46-46-20.595-46-46-46zm-43.673-165.346l7.418 136c.347 6.364 5.609 11.346 11.982 11.346h48.546c6.373 0 11.635-4.982 11.982-11.346l7.418-136c.375-6.874-5.098-12.654-11.982-12.654h-63.383c-6.884 0-12.356 5.78-11.981 12.654z"></path>
-      </svg>
-      <!-- <i class="fas fa-exclamation-triangle"></i> --> <b>Rumors: </b>Hard fork on the <b>BitcoinGold</b> 
-      network could make this device unable to mine this coin in the future.                           
-   </div>
    <div>
       <div style="padding:4px;float:left;">
          <div class="image-wrap"><img class="img-responsive" src="https://res.cloudinary.com/dluwgr5op/image/upload/c_fit,f_auto,h_60,w_60/v1525359468/a6xe2co1mrdxvb8vtcjd.png" data-toggle="tooltip" data-placement="bottom" data-html="true" title="" data-original-title="<b>BitcoinGold</b> (BTG)<br/><i>Equihash</i>"></div>
@@ -200,6 +193,28 @@
    </div>
    <div class="clearfix"></div>
    <br> 
+   <!-- START -->
+<?php 
+
+$posts = get_field('related_coins');
+
+if( $posts ): ?>
+    <ul>
+    <?php foreach( $posts as $post): // variable must be called $post (IMPORTANT) ?>
+        <?php setup_postdata($post); ?>
+        <li>
+            <a href="<?php the_permalink(); ?>"><?php the_title(); ?></a>
+            <span>Custom field from $post: <?php the_field('author'); ?></span>
+        </li>
+        <div style="padding:4px;float:left;">
+         <div class="image-wrap"><img class="img-responsive" src="echo get_post_meta($post->ID, 'featured_image', true);" data-toggle="tooltip" data-placement="bottom" data-html="true" title="" data-original-title="<b><?php the_title(); ?></b><br/><i><?php the_field('algorithm'); ?></i>"></div>
+      </div>
+    <?php endforeach; ?>
+    </ul>
+    <?php wp_reset_postdata(); // IMPORTANT - reset the $post object so the rest of the page works correctly ?>
+<?php endif; ?>   
+<!-- END -->   
+   
 </div>
 
 
