@@ -65,6 +65,21 @@ function miningRigBuilder_post_types()
         ),
         'menu_icon' => 'dashicons-networking',
     ));    
+    
+    // Mining Store Owners
+    register_post_type('miningStores', array(
+        'supports' => array('title', 'editor', 'thumbnail', 'custom-fields', 'excerpt','comments','revisions'),
+        'public' => false,
+        'show_ui' => true,
+        'labels' => array(
+            'name' => 'Mining Stores',
+            'add_new_item' => 'Add New Mining Store',
+            'edit_item' => 'Edit Mining Store',
+            'all_items' => 'All Mining Store',
+            'singular_name' => 'Mining Store',
+        ),
+        'menu_icon' => 'dashicons-store',
+    ));  
 
 }
 
