@@ -175,14 +175,15 @@
               </table>
             </div>
 
-<div class="col-sm-12">
-   <h2>Minable coins</h2>
-   <div>
-      <div style="padding:4px;float:left;">
+
          <!-- START -->
 <?php 
 $posts = get_field('related_coins'); 
 if( $posts ): ?>
+<div class="col-sm-12">
+   <h2>Minable coins</h2>
+   <div>
+      <div style="padding:4px;float:left;">
 <?php foreach( $posts as $post): // variable must be called $post (IMPORTANT) ?>
      <?php setup_postdata($post); ?>
         <?php if (has_post_thumbnail( $post->ID ) ): ?>
@@ -193,20 +194,44 @@ if( $posts ): ?>
         <?php endif; ?>
     <?php endforeach; ?>
     <?php wp_reset_postdata(); // IMPORTANT - reset the $post object so the rest of the page works correctly ?>
-<?php endif; ?>   
-<!-- END -->   
    </div>
    <div class="clearfix"></div>
    <br> 
-
-   
 </div>
+<?php endif; ?>   
+<!-- END -->   
 
-
+<!-- START -->             
+<?php 
+$posts = get_field('related_miningpools'); 
+if( $posts ): ?>
    <div class="col-sm-12">
       <h2>Mining pools</h2>
       <table class="table table-striped table-small">
          <tbody>
+<?php foreach( $posts as $post): // variable must be called $post (IMPORTANT) ?>
+     <?php setup_postdata($post); ?>
+        <?php if (has_post_thumbnail( $post->ID ) ): ?>
+        <?php $image = wp_get_attachment_image_src( get_post_thumbnail_id( $post->ID ), 'single-post-thumbnail' ); ?> 
+            <tr>
+               <td>
+                  <div class="image-wrap"><img class="img-responsive" src="<?php echo $image[0]; ?>"></div>
+               </td>
+               <td><b style="font-size:1.2em;"><a href="<?php the_field('miningpoollink'); ?>"><?php the_title(); ?></a></b><br><?php the_field('miningpoollink'); ?></td>
+               <td class="hidden-xs hidden-sm" style="text-align:center; vertical-align:middle; ;"><b>PPLNS</b><br><?php the_field('pay_per_last_n_shares'); ?></td>
+               <td class="text-right" style="vertical-align: middle; width:40px;">
+                  <a class="btn btn-primary" href="<?php the_field('miningpoollink'); ?>" target="_blank">
+                     <svg class="svg-inline--fa fa-chevron-right fa-w-10" aria-hidden="true" data-prefix="fas" data-icon="chevron-right" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512" data-fa-i2svg="">
+                        <path fill="currentColor" d="M285.476 272.971L91.132 467.314c-9.373 9.373-24.569 9.373-33.941 0l-22.667-22.667c-9.357-9.357-9.375-24.522-.04-33.901L188.505 256 34.484 101.255c-9.335-9.379-9.317-24.544.04-33.901l22.667-22.667c9.373-9.373 24.569-9.373 33.941 0L285.475 239.03c9.373 9.372 9.373 24.568.001 33.941z"></path>
+                     </svg>
+                     <!-- <i class="fas fa-chevron-right"> </i> -->
+                  </a>
+               </td>
+            </tr>
+        <?php endif; ?>
+    <?php endforeach; ?>
+    <?php wp_reset_postdata(); // IMPORTANT - reset the $post object so the rest of the page works correctly ?>
+<?php /*
             <tr>
                <td>
                   <div class="image-wrap"><img class="img-responsive" src="https://res.cloudinary.com/dluwgr5op/image/upload/c_fit,f_auto,h_48,w_120/v1526247983/c9luvcoxznqfo8wlgclo.png"></div>
@@ -237,54 +262,12 @@ if( $posts ): ?>
                   </a>
                </td>
             </tr>
-            <tr>
-               <td>
-                  <div class="image-wrap"><img class="img-responsive" src="https://res.cloudinary.com/dluwgr5op/image/upload/c_fit,f_auto,h_48,w_120/v1525041919/ddfuvfhlyzy7eodo3iei.png"></div>
-               </td>
-               <td><b style="font-size:1.2em;"><a href="https://www.antpool.com">AntPool</a></b><br>www.antpool.com</td>
-               <td class="hidden-xs hidden-sm" style="text-align:center; vertical-align:middle; ;"><b>PPLNS</b><br>0%</td>
-               <td class="text-right" style="vertical-align: middle; width:40px;">
-                  <a class="btn btn-primary" href="https://www.antpool.com" target="_blank">
-                     <svg class="svg-inline--fa fa-chevron-right fa-w-10" aria-hidden="true" data-prefix="fas" data-icon="chevron-right" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512" data-fa-i2svg="">
-                        <path fill="currentColor" d="M285.476 272.971L91.132 467.314c-9.373 9.373-24.569 9.373-33.941 0l-22.667-22.667c-9.357-9.357-9.375-24.522-.04-33.901L188.505 256 34.484 101.255c-9.335-9.379-9.317-24.544.04-33.901l22.667-22.667c9.373-9.373 24.569-9.373 33.941 0L285.475 239.03c9.373 9.372 9.373 24.568.001 33.941z"></path>
-                     </svg>
-                     <!-- <i class="fas fa-chevron-right"> </i> -->
-                  </a>
-               </td>
-            </tr>
-            <tr>
-               <td>
-                  <div class="image-wrap"><img class="img-responsive" src="https://res.cloudinary.com/dluwgr5op/image/upload/c_fit,f_auto,h_48,w_120/v1525643428/legs91aclwbpj8zkslyl.png"></div>
-               </td>
-               <td><b style="font-size:1.2em;"><a href="https://nanopool.org">NanoPool</a></b><br>nanopool.org</td>
-               <td class="hidden-xs hidden-sm" style="text-align:center; vertical-align:middle; ;"><b>PPLNS</b><br>2%</td>
-               <td class="text-right" style="vertical-align: middle; width:40px;">
-                  <a class="btn btn-primary" href="https://nanopool.org" target="_blank">
-                     <svg class="svg-inline--fa fa-chevron-right fa-w-10" aria-hidden="true" data-prefix="fas" data-icon="chevron-right" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512" data-fa-i2svg="">
-                        <path fill="currentColor" d="M285.476 272.971L91.132 467.314c-9.373 9.373-24.569 9.373-33.941 0l-22.667-22.667c-9.357-9.357-9.375-24.522-.04-33.901L188.505 256 34.484 101.255c-9.335-9.379-9.317-24.544.04-33.901l22.667-22.667c9.373-9.373 24.569-9.373 33.941 0L285.475 239.03c9.373 9.372 9.373 24.568.001 33.941z"></path>
-                     </svg>
-                     <!-- <i class="fas fa-chevron-right"> </i> -->
-                  </a>
-               </td>
-            </tr>
-            <tr>
-               <td>
-                  <div class="image-wrap"><img class="img-responsive" src="https://res.cloudinary.com/dluwgr5op/image/upload/c_fit,f_auto,h_48,w_120/v1526247393/sjkwcqbsrvawogpgz5l2.png"></div>
-               </td>
-               <td><b style="font-size:1.2em;"><a href="https://zcash.flypool.org">FlyPool</a></b><br>zcash.flypool.org</td>
-               <td class="hidden-xs hidden-sm" style="text-align:center; vertical-align:middle; ;"><b>PPLNS</b><br>1%</td>
-               <td class="text-right" style="vertical-align: middle; width:40px;">
-                  <a class="btn btn-primary" href="https://zcash.flypool.org" target="_blank">
-                     <svg class="svg-inline--fa fa-chevron-right fa-w-10" aria-hidden="true" data-prefix="fas" data-icon="chevron-right" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512" data-fa-i2svg="">
-                        <path fill="currentColor" d="M285.476 272.971L91.132 467.314c-9.373 9.373-24.569 9.373-33.941 0l-22.667-22.667c-9.357-9.357-9.375-24.522-.04-33.901L188.505 256 34.484 101.255c-9.335-9.379-9.317-24.544.04-33.901l22.667-22.667c9.373-9.373 24.569-9.373 33.941 0L285.475 239.03c9.373 9.372 9.373 24.568.001 33.941z"></path>
-                     </svg>
-                     <!-- <i class="fas fa-chevron-right"> </i> -->
-                  </a>
-               </td>
-            </tr>
+            */ ?>
          </tbody>
       </table>
    </div>
+<?php endif; ?>  
+<!-- END -->
 
           </div>
           <!-- Stats END -->
