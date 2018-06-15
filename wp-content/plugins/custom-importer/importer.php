@@ -1,4 +1,4 @@
- <?php
+<?php
 
 /*
 Plugin Name: Importer CoinMarketCap Data
@@ -100,8 +100,10 @@ function importAction()
         $cmcid = $coin["id"];
         // Get public ID
         $pubid = $coin["slug"];
-        echo ($cmcid);
-        echo ($pubid);
+        echo '<ul>';
+        echo ('<li>' . $cmcid . '</li>');
+        echo ('<li>' . $pubid . '</li>');
+        echo '</ul>';
         // Using the CMC ID build the link for logo
         $file_url = "https://s2.coinmarketcap.com/static/img/coins/128x128/" . $cmcid . ".png";
         // Get file logo, rename it and save
@@ -153,4 +155,4 @@ function importAction()
         }
     }
 }
-?> 
+?>

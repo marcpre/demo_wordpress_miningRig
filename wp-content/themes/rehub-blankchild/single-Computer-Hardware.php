@@ -8,7 +8,8 @@
     <!-- Main Side -->
     <div class="main-side single post-readopt full_width clearfix">
       <?php if (have_posts()) : while (have_posts()) : the_post(); ?>
-      <article class="post <?php $category = get_the_category($post->ID); if ($category) {$first_cat = $category[0]->term_id; echo 'category-'.$first_cat.'';} ?>" id="post-<?php the_ID(); ?>">
+      <article class="post <?php $category = get_the_category($post->ID); if ($category) {$first_cat = $category[0]->term_id; echo 'category-'.$first_cat.'';} ?>"
+        id="post-<?php the_ID(); ?>">
         <!-- Title area -->
         <div class="rh_post_layout_metabig">
           <div class="title_single_area">
@@ -20,7 +21,9 @@
             <?php $crumb='' ; if( function_exists( 'yoast_breadcrumb' ) ) { $crumb=yoast_breadcrumb( '<div class="breadcrumb">', '</div>', false); } if( ! is_string( $crumb ) || $crumb==='' ) { if(rehub_option( 'rehub_disable_breadcrumbs')=='1' || vp_metabox( 'rehub_post_side.disable_parts')=='1' ) {echo '';} elseif (function_exists( 'dimox_breadcrumbs')) { dimox_breadcrumbs(); } } echo $crumb; ?>
             <?php echo re_badge_create( 'labelsmall'); ?>
             <?php rh_post_header_cat( 'post', true);?>
-            <h1><?php the_title(); ?></h1>
+            <h1>
+              <?php the_title(); ?>
+            </h1>
           </div>
         </div>
         <?php if(rehub_option( 'rehub_single_after_title')) : ?>
@@ -64,40 +67,50 @@
           </div>
           <!-- Stats START -->
           <div class="row">
-            <div class="col-xs-6">
+            <div class="col-xs-4">
               <h2>Specifications</h2>
               <table class="table stats">
                 <tbody>
-                    <?php if( get_field('hash_rate') ): ?>
-                      <tr>
-                        <th>Hash Rate :</th>
-                        <td class=" text-right"><?php the_field('hash_rate'); ?></td>
-                      </tr>
-                    <?php endif; ?>
-                    <?php if( get_field('manufacturer') ): ?>
-                      <tr>
-                        <th>Manufacturer:</th>
-                        <td class=" text-right"><?php the_field('manufacturer'); ?></td>
-                      </tr>
-                    <?php endif; ?>
-                    <?php if( get_field('watt_estimate') ): ?>
-                      <tr>
-                        <th>Wattage:</th>
-                        <td class=" text-right"><?php the_field('watt_estimate'); ?></td>
-                      </tr>
-                    <?php endif; ?> 
-                    <?php if( get_field('watt_estimate') ): ?>
-                      <tr>
-                        <th>Algorithm:</th>
-                        <td class=" text-right"><?php the_field('algorithm'); ?></td>
-                      </tr>
-                    <?php endif; ?> 
-                    <?php if( get_field('watt_estimate') ): ?>
-                      <tr>
-                        <th>Wattage:</th>
-                        <td class=" text-right"><?php the_field('watt_estimate'); ?></td>
-                      </tr>
-                    <?php endif; ?>                     
+                  <?php if( get_field('hash_rate') ): ?>
+                  <tr>
+                    <th>Hash Rate :</th>
+                    <td class=" text-right">
+                      <?php the_field('hash_rate'); ?>
+                    </td>
+                  </tr>
+                  <?php endif; ?>
+                  <?php if( get_field('manufacturer') ): ?>
+                  <tr>
+                    <th>Manufacturer:</th>
+                    <td class=" text-right">
+                      <?php the_field('manufacturer'); ?>
+                    </td>
+                  </tr>
+                  <?php endif; ?>
+                  <?php if( get_field('watt_estimate') ): ?>
+                  <tr>
+                    <th>Wattage:</th>
+                    <td class=" text-right">
+                      <?php the_field('watt_estimate'); ?>
+                    </td>
+                  </tr>
+                  <?php endif; ?>
+                  <?php if( get_field('watt_estimate') ): ?>
+                  <tr>
+                    <th>Algorithm:</th>
+                    <td class=" text-right">
+                      <?php the_field('algorithm'); ?>
+                    </td>
+                  </tr>
+                  <?php endif; ?>
+                  <?php if( get_field('watt_estimate') ): ?>
+                  <tr>
+                    <th>Wattage:</th>
+                    <td class=" text-right">
+                      <?php the_field('watt_estimate'); ?>
+                    </td>
+                  </tr>
+                  <?php endif; ?>
                   <tr>
                     <th>Nethash :</th>
                     <td class=" text-right">36,713,089.80 TH/s</td>
@@ -105,7 +118,7 @@
                 </tbody>
               </table>
             </div>
-            <div class="col-xs-6">
+            <div class="col-xs-4">
               <h2>Estimate Earning</h2>
               <table class="table stats">
                 <tbody>
@@ -118,120 +131,161 @@
                   </tr>
                   <tr>
                     <td>Hour</td>
-                    <td class="text-right"><span id="coin-hour">0.0000</span>
+                    <td class="text-right">
+                      <span id="coin-hour">0.0000</span>
                     </td>
-                    <td class="text-right">$<span id="rev-hour">0.20</span>
+                    <td class="text-right">$
+                      <span id="rev-hour">0.20</span>
                     </td>
-                    <td class="text-right">$<span id="cost-hour">0.00</span>
+                    <td class="text-right">$
+                      <span id="cost-hour">0.00</span>
                     </td>
-                    <td class="text-right text-success">$<span id="earning-hour">0.20</span>
+                    <td class="text-right text-success">$
+                      <span id="earning-hour">0.20</span>
                     </td>
                   </tr>
                   <tr>
                     <td>Day</td>
-                    <td class="text-right"><span id="coin-day">0.0007</span>
+                    <td class="text-right">
+                      <span id="coin-day">0.0007</span>
                     </td>
-                    <td class="text-right">$<span id="rev-day">4.88</span>
+                    <td class="text-right">$
+                      <span id="rev-day">4.88</span>
                     </td>
-                    <td class="text-right">$<span id="cost-day">0.00</span>
+                    <td class="text-right">$
+                      <span id="cost-day">0.00</span>
                     </td>
-                    <td class="text-right text-success">$<span id="earning-day">4.88</span>
+                    <td class="text-right text-success">$
+                      <span id="earning-day">4.88</span>
                     </td>
                   </tr>
                   <tr>
                     <td>Week</td>
-                    <td class="text-right"><span id="coin-week">0.0051</span>
+                    <td class="text-right">
+                      <span id="coin-week">0.0051</span>
                     </td>
-                    <td class="text-right">$<span id="rev-week">34.13</span>
+                    <td class="text-right">$
+                      <span id="rev-week">34.13</span>
                     </td>
-                    <td class="text-right">$<span id="cost-week">0.00</span>
+                    <td class="text-right">$
+                      <span id="cost-week">0.00</span>
                     </td>
-                    <td class="text-right text-success">$<span id="earning-week">34.13</span>
+                    <td class="text-right text-success">$
+                      <span id="earning-week">34.13</span>
                     </td>
                   </tr>
                   <tr>
                     <td>Month</td>
-                    <td class="text-right"><span id="coin-month">0.0217</span>
+                    <td class="text-right">
+                      <span id="coin-month">0.0217</span>
                     </td>
-                    <td class="text-right">$<span id="rev-month">146.29</span>
+                    <td class="text-right">$
+                      <span id="rev-month">146.29</span>
                     </td>
-                    <td class="text-right">$<span id="cost-month">0.00</span>
+                    <td class="text-right">$
+                      <span id="cost-month">0.00</span>
                     </td>
-                    <td class="text-right text-success">$<span id="earning-month">146.29</span>
+                    <td class="text-right text-success">$
+                      <span id="earning-month">146.29</span>
                     </td>
                   </tr>
                   <tr>
                     <td>Year</td>
-                    <td class="text-right"><span id="coin-year">0.2635</span>
+                    <td class="text-right">
+                      <span id="coin-year">0.2635</span>
                     </td>
-                    <td class="text-right">$<span id="rev-year">1,779.87</span>
+                    <td class="text-right">$
+                      <span id="rev-year">1,779.87</span>
                     </td>
-                    <td class="text-right">$<span id="cost-year">0.00</span>
+                    <td class="text-right">$
+                      <span id="cost-year">0.00</span>
                     </td>
-                    <td class="text-right text-success">$<span id="earning-year">1,779.87</span>
+                    <td class="text-right text-success">$
+                      <span id="earning-year">1,779.87</span>
                     </td>
                   </tr>
                 </tbody>
               </table>
             </div>
+            <div class="col-xs-4">
+              <p>Test Column</p>
+            </div>
+          </div>
 
-
-         <!-- START -->
-<?php 
+          <!-- START -->
+          <?php 
 $posts = get_field('related_coins'); 
 if( $posts ): ?>
-<div class="col-sm-12">
-   <h2>Minable coins</h2>
-   <div>
-      <div style="padding:4px;float:left;">
-<?php foreach( $posts as $post): // variable must be called $post (IMPORTANT) ?>
-     <?php setup_postdata($post); ?>
-        <?php if (has_post_thumbnail( $post->ID ) ): ?>
-        <?php $image = wp_get_attachment_image_src( get_post_thumbnail_id( $post->ID ), 'single-post-thumbnail' ); ?> 
-            <div style="padding:4px;float:left;">
-             <div class="image-wrap"><img style="width: 60px;height: 60px;" class="img-responsive" src="<?php echo $image[0]; ?>;" data-toggle="tooltip" data-placement="bottom" data-html="true" title="<b><?php the_title(); ?></b><br/><i><?php the_field('algorithm'); ?></i>" data-original-title="<b><?php the_title(); ?></b><br/><i><?php the_field('algorithm'); ?></i>"></div>
+          <div class="col-sm-12">
+            <h2>Minable coins</h2>
+            <div>
+              <div style="padding:4px;float:left;">
+                <?php foreach( $posts as $post): // variable must be called $post (IMPORTANT) ?>
+                <?php setup_postdata($post); ?>
+                <?php if (has_post_thumbnail( $post->ID ) ): ?>
+                <?php $image = wp_get_attachment_image_src( get_post_thumbnail_id( $post->ID ), 'single-post-thumbnail' ); ?>
+                <div style="padding:4px;float:left;">
+                  <div class="image-wrap">
+                    <img style="width: 60px;height: 60px;" class="img-responsive" src="<?php echo $image[0]; ?>;" data-toggle="tooltip" data-placement="bottom"
+                      data-html="true" title="<?php the_title(); ?>" data-original-title="<?php the_title(); ?>">
+                  </div>
+                </div>
+                <?php endif; ?>
+                <?php endforeach; ?>
+                <?php wp_reset_postdata(); // IMPORTANT - reset the $post object so the rest of the page works correctly ?>
+              </div>
+              <div class="clearfix"></div>
+              <br>
             </div>
-        <?php endif; ?>
-    <?php endforeach; ?>
-    <?php wp_reset_postdata(); // IMPORTANT - reset the $post object so the rest of the page works correctly ?>
-   </div>
-   <div class="clearfix"></div>
-   <br> 
-</div>
-<?php endif; ?>   
-<!-- END -->   
+            <?php endif; ?>
+            <!-- END -->
 
-<!-- START -->             
-<?php 
+            <!-- START -->
+            <?php 
 $posts = get_field('related_miningpools'); 
 if( $posts ): ?>
-   <div class="col-sm-12">
-      <h2>Mining pools</h2>
-      <table class="table table-striped table-small">
-         <tbody>
-<?php foreach( $posts as $post): // variable must be called $post (IMPORTANT) ?>
-     <?php setup_postdata($post); ?>
-        <?php if (has_post_thumbnail( $post->ID ) ): ?>
-        <?php $image = wp_get_attachment_image_src( get_post_thumbnail_id( $post->ID ), 'single-post-thumbnail' ); ?> 
-            <tr>
-               <td>
-                  <div class="image-wrap"><img class="img-responsive" src="<?php echo $image[0]; ?>"></div>
-               </td>
-               <td><b style="font-size:1.2em;"><a href="<?php the_field('miningpoollink'); ?>"><?php the_title(); ?></a></b><br><?php the_field('miningpoollink'); ?></td>
-               <td class="hidden-xs hidden-sm" style="text-align:center; vertical-align:middle; ;"><b>PPLNS</b><br><?php the_field('pay_per_last_n_shares'); ?></td>
-               <td class="text-right" style="vertical-align: middle; width:40px;">
-                  <a class="btn btn-primary" href="<?php the_field('miningpoollink'); ?>" target="_blank">
-                     <svg class="svg-inline--fa fa-chevron-right fa-w-10" aria-hidden="true" data-prefix="fas" data-icon="chevron-right" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512" data-fa-i2svg="">
-                        <path fill="currentColor" d="M285.476 272.971L91.132 467.314c-9.373 9.373-24.569 9.373-33.941 0l-22.667-22.667c-9.357-9.357-9.375-24.522-.04-33.901L188.505 256 34.484 101.255c-9.335-9.379-9.317-24.544.04-33.901l22.667-22.667c9.373-9.373 24.569-9.373 33.941 0L285.475 239.03c9.373 9.372 9.373 24.568.001 33.941z"></path>
-                     </svg>
-                     <!-- <i class="fas fa-chevron-right"> </i> -->
-                  </a>
-               </td>
-            </tr>
-        <?php endif; ?>
-    <?php endforeach; ?>
-    <?php wp_reset_postdata(); // IMPORTANT - reset the $post object so the rest of the page works correctly ?>
-<?php /*
+            <div class="col-sm-12">
+              <h2>Mining pools</h2>
+              <table class="table table-striped table-small">
+                <tbody>
+                  <?php foreach( $posts as $post): // variable must be called $post (IMPORTANT) ?>
+                  <?php setup_postdata($post); ?>
+                  <?php if (has_post_thumbnail( $post->ID ) ): ?>
+                  <?php $image = wp_get_attachment_image_src( get_post_thumbnail_id( $post->ID ), 'single-post-thumbnail' ); ?>
+                  <tr>
+                    <td>
+                      <div class="image-wrap">
+                        <img class="img-responsive" src="<?php echo $image[0]; ?>">
+                      </div>
+                    </td>
+                    <td>
+                      <b style="font-size:1.2em;">
+                        <a href="<?php the_field('miningpoollink'); ?>">
+                          <?php the_title(); ?>
+                        </a>
+                      </b>
+                      <br>
+                      <?php the_field('miningpoollink'); ?>
+                    </td>
+                    <td class="hidden-xs hidden-sm" style="text-align:center; vertical-align:middle; ;">
+                      <b>PPLNS</b>
+                      <br>
+                      <?php the_field('pay_per_last_n_shares'); ?>
+                    </td>
+                    <td class="text-right" style="vertical-align: middle; width:40px;">
+                      <a class="btn btn-primary" href="<?php the_field('miningpoollink'); ?>" target="_blank">
+                        <svg class="svg-inline--fa fa-chevron-right fa-w-10" aria-hidden="true" data-prefix="fas" data-icon="chevron-right" role="img"
+                          xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512" data-fa-i2svg="">
+                          <path fill="currentColor" d="M285.476 272.971L91.132 467.314c-9.373 9.373-24.569 9.373-33.941 0l-22.667-22.667c-9.357-9.357-9.375-24.522-.04-33.901L188.505 256 34.484 101.255c-9.335-9.379-9.317-24.544.04-33.901l22.667-22.667c9.373-9.373 24.569-9.373 33.941 0L285.475 239.03c9.373 9.372 9.373 24.568.001 33.941z"></path>
+                        </svg>
+                        <!-- <i class="fas fa-chevron-right"> </i> -->
+                      </a>
+                    </td>
+                  </tr>
+                  <?php endif; ?>
+                  <?php endforeach; ?>
+                  <?php wp_reset_postdata(); // IMPORTANT - reset the $post object so the rest of the page works correctly ?>
+                  <?php /*
             <tr>
                <td>
                   <div class="image-wrap"><img class="img-responsive" src="https://res.cloudinary.com/dluwgr5op/image/upload/c_fit,f_auto,h_48,w_120/v1526247983/c9luvcoxznqfo8wlgclo.png"></div>
@@ -263,11 +317,11 @@ if( $posts ): ?>
                </td>
             </tr>
             */ ?>
-         </tbody>
-      </table>
-   </div>
-<?php endif; ?>  
-<!-- END -->
+                </tbody>
+              </table>
+            </div>
+            <?php endif; ?>
+            <!-- END -->
 
           </div>
           <!-- Stats END -->
@@ -275,13 +329,15 @@ if( $posts ): ?>
       <div class="clearfix"></div>
       <?php include(rh_locate_template( 'inc/post_layout/single-common-footer.php')); ?>
       <?php endwhile; endif; ?>
-      <?php comments_template(); ?>
       </div>
-      <!-- /Main Side -->
+
+      <?php comments_template(); ?>
     </div>
+    <!-- /Main Side -->
   </div>
-  <!-- /CONTENT -->
+</div>
+<!-- /CONTENT -->
 
 
-  <!-- FOOTER -->
-  <?php get_footer(); ?>
+<!-- FOOTER -->
+<?php get_footer(); ?>
