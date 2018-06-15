@@ -67,7 +67,7 @@
           </div>
           <!-- Stats START -->
           <div class="row">
-            <div class="col-xs-4">
+            <div class="col-xs-6">
               <h2>Specifications</h2>
               <table class="table stats">
                 <tbody>
@@ -118,7 +118,7 @@
                 </tbody>
               </table>
             </div>
-            <div class="col-xs-4">
+            <div class="col-xs-6">
               <h2>Estimate Earning</h2>
               <table class="table stats">
                 <tbody>
@@ -207,9 +207,11 @@
                 </tbody>
               </table>
             </div>
-            <div class="col-xs-4">
-              <p>Test Column</p>
-            </div>
+          </div>
+          
+          <div class="col-sm-12">
+              <h2>Mining Profitability</h2>
+              <div id="miningProfChart" style="height: 250px;"></div>
           </div>
 
           <!-- START -->

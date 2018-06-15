@@ -25590,7 +25590,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*! DataTables 1
   var undefined;
 
   /** Used as the semantic version number. */
-  var VERSION = '4.17.5';
+  var VERSION = '4.17.10';
 
   /** Used as the size to enable large array optimizations. */
   var LARGE_ARRAY_SIZE = 200;
@@ -26014,6 +26014,14 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*! DataTables 1
   /** Used to access faster Node.js helpers. */
   var nodeUtil = (function() {
     try {
+      // Use `util.types` for Node.js 10+.
+      var types = freeModule && freeModule.require && freeModule.require('util').types;
+
+      if (types) {
+        return types;
+      }
+
+      // Legacy `process.binding('util')` for Node.js < 10.
       return freeProcess && freeProcess.binding && freeProcess.binding('util');
     } catch (e) {}
   }());
@@ -42858,12 +42866,15 @@ var _RigBuilder = _interopRequireDefault(__webpack_require__(9));
 
 var _MiningRigs = _interopRequireDefault(__webpack_require__(10));
 
+var _ComputerHardwareTemplate = _interopRequireDefault(__webpack_require__(11));
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 // 3rd party packages from NPM
 // Our modules / classes
 // import Test from './modules/Test';
 // Instantiate a new object using our modules/classes
+var compHardware = new _ComputerHardwareTemplate.default();
 var miningRigs = new _MiningRigs.default();
 var rigBuilder = new _RigBuilder.default();
 var dataTable = new _DataTable.default(); // var test = new Test(); // Test Message
@@ -44227,6 +44238,66 @@ function () {
 }();
 
 var _default = MiningRigs;
+exports.default = _default;
+
+/***/ }),
+/* 11 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+var _jquery = _interopRequireDefault(__webpack_require__(0));
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+// import raphael from 'raphael';
+// import morris from 'morris-js-module'
+var ComputerHardwareTemplate = function ComputerHardwareTemplate() {
+  _classCallCheck(this, ComputerHardwareTemplate);
+
+  // alert("Lolonator")
+  console.log("it is loaded correctly");
+  new Morris.Line({
+    // ID of the element in which to draw the chart.
+    element: 'miningProfChart',
+    // Chart data records -- each entry in this array corresponds to a point on
+    // the chart.
+    data: [{
+      year: '2008',
+      value: 20
+    }, {
+      year: '2009',
+      value: 10
+    }, {
+      year: '2010',
+      value: 5
+    }, {
+      year: '2011',
+      value: 5
+    }, {
+      year: '2012',
+      value: 20
+    }],
+    // The name of the data record attribute that contains x-values.
+    xkey: 'year',
+    // A list of names of data record attributes that contain y-values.
+    ykeys: ['value'],
+    // Labels for the ykeys -- will be displayed when you hover over the
+    // chart.
+    labels: ['Value']
+  });
+} // end constructor
+;
+
+var _default = ComputerHardwareTemplate;
 exports.default = _default;
 
 /***/ })
