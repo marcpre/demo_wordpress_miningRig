@@ -81,9 +81,10 @@ class Mining_Profitability_Calculator {
 		$wpdb->hide_errors();
 		require_once( ABSPATH . 'wp-admin/includes/upgrade.php' );
         // TODO create new table
-		dbDelta( $this->getWhatToMineSchema() );
+		dbDelta($this->getWhatToMineSchema() );
 		dbDelta($this->getCoinSchema());
 		dbDelta($this->getTickSchema());
+		dbDelta($this->getProfitabilitySchema());
 	}
     /**
 	* Get table schema.
@@ -185,6 +186,36 @@ created_at datetime NULL,
 updated_at datetime NULL,
 PRIMARY KEY (id),
 FOREIGN KEY (coin_id) REFERENCES {$wpdb->prefix}coins(id)
+) $collate;
+		";
+		return $tables;
+	}
+	/**
+	* Get table schema.
+	* @return string
+	*/
+	private static function getProfitabilitySchema() {
+		global $wpdb;
+		if ( $wpdb->has_cap( 'collation' ) ) {
+			$collate = $wpdb->get_charset_collate();
+		} else {
+			$collate = '';
+		}
+		$tables = "
+CREATE TABLE {$wpdb->prefix}miningProfitability (
+    id BIGINT(20) NOT NULL AUTO_INCREMENT,
+    post_id BIGINT(20) UNSIGNED,
+    coin_id BIGINT(20) NOT NULL,
+    whatToMine_id BIGINT(20) NOT NULL,
+    daily_netProfit DECIMAL NOT NULL,
+    daily_grossProfit DECIMAL NOT NULL,
+    daily_costs DECIMAL NOT NULL,
+    created_at DATETIME NULL,
+    updated_at DATETIME NULL,
+	PRIMARY KEY (id),
+	FOREIGN KEY (post_id) REFERENCES wp_posts(ID),
+	FOREIGN KEY (coin_id) REFERENCES {$wpdb->prefix}coins(id),
+	FOREIGN KEY (whatToMine_id) REFERENCES {$wpdb->prefix}whatToMine_API(id)
 ) $collate;
 		";
 		return $tables;

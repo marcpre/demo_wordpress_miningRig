@@ -4,9 +4,7 @@ import $ from 'jquery';
 
 class ComputerHardwareTemplate {
   constructor() {
-    // alert("Lolonator")
-    console.log("it is loaded correctly")
-    
+    // alert("Lolonator")   
     new Morris.Line({
       // ID of the element in which to draw the chart.
       element: 'miningProfChart',

@@ -3,7 +3,6 @@
 class CalculateProfitability {
 
     const CRON_HOOK = 'update_profitability_compHardware';
-    const COIN_MARKET_CAP_URL = 'https://api.coinmarketcap.com/v2/ticker/';
     
     /**
      * Constructor.
@@ -31,8 +30,58 @@ class CalculateProfitability {
     
     public function updateProfitabilityCompHardware() {
 
-        // 1. get all gpu && asic parts
-        // 2. calculate profitability and save to db
+        // show db errors
+        $wpdb->show_errors(false);
+        $wpdb->print_error();
+        
+        /**
+         * Get Data
+         */
+        $compHardware = new WP_Query(array(
+            'posts_per_page' => -1,
+            'post_type' => 'Computer-Hardware',
+            'tax_query' => array(
+                array(
+                    'taxonomy' => 'category',
+                    'field' => 'slug',
+                    'terms' => array('graphic-card', 'asic'),
+                ),
+            ),
+        ));
+        
+        var_dump($compHardware);
+        
+        while ($compHardware->have_posts()) {
+            $compHardware->the_post();
+            $postId = get_the_ID();
+                        
+            $algorithmRes = $wpdb->get_results( "SELECT *
+                FROM wp_whatToMine_API
+                WHERE id IN(
+                    SELECT max(id)
+                    FROM wp_whatToMine_API
+                    WHERE ALGORITHM = \"" . sanitize_text_field(get_field('algorithm', $postId)) . "\" and 
+                    TAG = \"" . sanitize_text_field(get_field('tag', $postId)) . "\"
+                    GROUP BY id)  
+                ORDER BY updated_at DESC
+                LIMIT 1;" );
+            
+            $coinValueRes = $wpdb->get_results( "SELECT * 
+                FROM {$wpdb->prefix}ticker t 
+                INNER JOIN wp_coins c ON c.id = t.coin_id
+                WHERE c.symbol = \"" . sanitize_text_field($get_field('symbol', $postId)) . "\"
+                ORDER BY c.created_at ASC
+                LIMIT 1;");
+            
+            var_dump($algorithmRes);
+            var_dump($coinValueRes);
+
+                
+            // Get GPU & ASIC Parts
+            
+            // 1. get all gpu && asic parts
+            // 2. calculate profitability and save to db
+        }
         
     }
 }
