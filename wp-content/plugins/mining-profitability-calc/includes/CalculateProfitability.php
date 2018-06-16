@@ -82,7 +82,6 @@ class CalculateProfitability {
             // 1. get all gpu && asic parts
             // 2. calculate profitability and save to db
         }
-        
     }
 }
 new CalculateProfitability();
