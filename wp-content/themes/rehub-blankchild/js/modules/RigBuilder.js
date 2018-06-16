@@ -337,7 +337,6 @@ class RigBuilder {
             // calculate earnings
             // get variables
             let hashRate = _.sumBy(allGpuParts, 'hashRatePerSecond')
-            //let hashRate = getHashRate["0"].hashRatePerSecond
 
             let networkHashRate = miningProfitability.miningProfitability["0"].nethash
             let numberOfEquipment = Object.keys(allGpuParts).length
