@@ -30,8 +30,10 @@ class CalculateProfitability {
     
     public function updateProfitabilityCompHardware() {
 
+        global $wpdb;
+
         // show db errors
-        $wpdb->show_errors(false);
+        $wpdb->show_errors(true);
         $wpdb->print_error();
         
         /**
@@ -50,7 +52,7 @@ class CalculateProfitability {
         ));
         
         var_dump($compHardware);
-        
+         
         while ($compHardware->have_posts()) {
             $compHardware->the_post();
             $postId = get_the_ID();
@@ -61,7 +63,7 @@ class CalculateProfitability {
                     SELECT max(id)
                     FROM wp_whatToMine_API
                     WHERE ALGORITHM = \"" . sanitize_text_field(get_field('algorithm', $postId)) . "\" and 
-                    TAG = \"" . sanitize_text_field(get_field('tag', $postId)) . "\"
+                    TAG = \"" . "ETH" . "\"
                     GROUP BY id)  
                 ORDER BY updated_at DESC
                 LIMIT 1;" );
@@ -69,7 +71,7 @@ class CalculateProfitability {
             $coinValueRes = $wpdb->get_results( "SELECT * 
                 FROM {$wpdb->prefix}ticker t 
                 INNER JOIN wp_coins c ON c.id = t.coin_id
-                WHERE c.symbol = \"" . sanitize_text_field($get_field('symbol', $postId)) . "\"
+                WHERE c.symbol = \"" . sanitize_text_field('ETH') . "\"
                 ORDER BY c.created_at ASC
                 LIMIT 1;");
             

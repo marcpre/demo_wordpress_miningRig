@@ -95,15 +95,13 @@ function importAction()
     $outputdecoded = json_decode($output, true);
     
     $i = 0;
+    echo '<ul>';
     foreach ($outputdecoded as $coin) {
         // Get CMC ID
         $cmcid = $coin["id"];
         // Get public ID
         $pubid = $coin["slug"];
-        echo '<ul>';
-        echo ('<li>' . $cmcid . '</li>');
         echo ('<li>' . $pubid . '</li>');
-        echo '</ul>';
         // Using the CMC ID build the link for logo
         $file_url = "https://s2.coinmarketcap.com/static/img/coins/128x128/" . $cmcid . ".png";
         // Get file logo, rename it and save
@@ -123,7 +121,11 @@ function importAction()
             $postId = wp_insert_post(array(
                 'post_type' => 'coin',
                 'post_status' => 'publish',
-                'post_title' => sanitize_textarea_field($coin['name'])
+                'post_title' => sanitize_textarea_field($coin['name']),
+                'post_name' => sanitize_textarea_field($coin['slug']),
+                'meta_input' => array(
+                    'symbol' => sanitize_textarea_field($coin['symbol']),
+                ),
             ));
             
             
@@ -150,9 +152,10 @@ function importAction()
             set_post_thumbnail($postId, $thumbnail_id);
             
             
-            if (++$i > 3)
+            if (++$i > 5)
                 break;
         }
     }
+    echo '</ul>';
 }
 ?>
