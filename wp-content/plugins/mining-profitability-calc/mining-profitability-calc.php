@@ -51,6 +51,7 @@ class Mining_Profitability_Calculator {
     public function includes() {
 		include_once( MinProfCalc_DIR . 'includes/WhatToMineAPI.php' );
 		include_once( MinProfCalc_DIR . 'includes/CoinMarketCapAPI.php' );
+		include_once( MinProfCalc_DIR . 'includes/CalculateProfitability.php' );
     }
 	/**
 	* Called on plugin deactivation
@@ -59,14 +60,18 @@ class Mining_Profitability_Calculator {
 		// TODO
 		WhatToMineAPI::unsetCronJob();
 		CoinMarketCapAPI::unsetCronJob();
+		CalculateProfitability::unsetCronJob();
     }
     /**
     * Cron Jobs.
     */
     public function runCronJobs() {
 		// TODO
+		// get data via APIs
 		WhatToMineAPI::setupCronJob('hourly');
 		CoinMarketCapAPI::setupCronJob('hourly');
+		// internal profitability
+		CalculateProfitability::setupCronJob('daily');
     }
     /**
 	* Create tables.
