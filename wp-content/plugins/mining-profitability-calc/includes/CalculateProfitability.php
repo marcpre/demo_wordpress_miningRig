@@ -88,7 +88,7 @@ class CalculateProfitability {
             $numberOfEquipment = 1;
             $blockTime = floatval($whatToMineRes[0]->block_time);
             $blockReward = floatval($whatToMineRes[0]->block_reward);
-            $wattofGPUs = get_field('watt_estimate', $postId)[0];
+            $wattofGPUs = floatval(get_field('watt_estimate', $postId));
             $energyCosts = 0.1;
             
             // calculate revenue
