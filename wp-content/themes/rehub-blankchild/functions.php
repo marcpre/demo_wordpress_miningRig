@@ -47,7 +47,7 @@ function enqueue_parent_theme_style()
     }
     
     if (is_singular('computer-hardware')) {
-
+       
         //css
         wp_enqueue_style('bootstrap-4.0.0', get_stylesheet_directory_uri() . '/css/bootstrap.min.css', array($parentStyle));
         wp_enqueue_style('morris', '//cdnjs.cloudflare.com/ajax/libs/morris.js/0.5.1/morris.css', array($parentStyle));
@@ -60,8 +60,8 @@ function enqueue_parent_theme_style()
         wp_enqueue_script('raphael', '//cdnjs.cloudflare.com/ajax/libs/raphael/2.1.0/raphael-min.js', null, '1.0', true);        
         wp_enqueue_script('morris', '//cdnjs.cloudflare.com/ajax/libs/morris.js/0.5.1/morris.min.js', null, '1.0', true);        
         wp_enqueue_script('computerHardwareChart', get_theme_file_uri('/js/charts/ComputerHardwareTemplate.js'), null, '1.0', true);
-        
-        wp_localize_script('main-mining-rig-js', 'miningRigData', array(
+
+        wp_localize_script('computerHardwareChart', 'miningRigData', array(
             'root_url' => get_site_url(),
             'nonce' => wp_create_nonce('wp_rest'),
         ));

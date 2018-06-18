@@ -150,8 +150,8 @@ function getProfitability($data)
     foreach ($mainQuery as $key => $value) {
         array_push($results['profitabilityCompHardware'], array(
             'id' => $key, //artificial coin id 
-            'daily_netProfit' => floatval($value->daily_netProfit),
-            'daily_grossProfit' => floatval($value->daily_grossProfit),
+            'daily_netProfit' => (float) number_format(floatval($value->daily_netProfit),4),
+            'daily_grossProfit' => (float) number_format(floatval($value->daily_grossProfit),4),
             'daily_costs' => floatval($value->daily_costs),
             'created_at' => date('Y-m-d', strtotime($value->created_at)),
         ));
