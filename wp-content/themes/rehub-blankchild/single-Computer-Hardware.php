@@ -211,7 +211,7 @@
           
           <div class="col-sm-12">
               <h2>Mining Profitability</h2>
-              <div id="miningProfChart" style="height: 250px;"></div>
+              <div id="miningProfChart" style="height: 250px;" class="<?php echo $post->ID ?>"></div>
           </div>
 
           <!-- START -->

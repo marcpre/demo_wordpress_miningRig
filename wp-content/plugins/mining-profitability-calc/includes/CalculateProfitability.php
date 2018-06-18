@@ -33,7 +33,7 @@ class CalculateProfitability {
         global $wpdb;
 
         // show db errors
-        $wpdb->show_errors(true);
+        $wpdb->show_errors(false);
         $wpdb->print_error();
         
         /**

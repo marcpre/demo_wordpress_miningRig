@@ -12,6 +12,11 @@ function miningProfitabilityRoutes()
         'methods' => WP_REST_SERVER::READABLE,
         'callback' => 'getLatestCoinQuote',
     ));
+    
+    register_rest_route('miningProf/v1', 'getProfitability', array(
+        'methods' => WP_REST_SERVER::READABLE,
+        'callback' => 'getProfitability',
+    ));
 }
 
 /**
@@ -117,4 +122,40 @@ function getLatestCoinQuote($data)
     return $results;
 }
 
+/**
+ * Get profitability data for certain algorithm and tag
+ * e.g.: localhost/demo_wordpress_rig-builder/wp-json/miningProf/v1/getProfitability?post_id=391
+ */
 
+function getProfitability($data)
+{
+    global $wpdb;
+    
+    // show db errors
+    $wpdb->show_errors(false);
+    $wpdb->print_error();
+        
+    $mainQuery = $wpdb->get_results( "SELECT *
+    FROM 
+        {$wpdb->prefix}miningprofitability
+    WHERE 
+        post_id = \"" . sanitize_text_field($data['post_id']) . "\"
+    ORDER BY created_at DESC
+    LIMIT 30;" );// LIMIT are the days to display, in this query 30 days
+                                  
+    $results = array(
+            'profitabilityCompHardware' => array(),
+    );  
+                                
+    foreach ($mainQuery as $key => $value) {
+        array_push($results['profitabilityCompHardware'], array(
+            'id' => $key, //artificial coin id 
+            'daily_netProfit' => floatval($value->daily_netProfit),
+            'daily_grossProfit' => floatval($value->daily_grossProfit),
+            'daily_costs' => floatval($value->daily_costs),
+            'created_at' => date('Y-m-d', strtotime($value->created_at)),
+        ));
+    }
+        
+    return $results;
+}

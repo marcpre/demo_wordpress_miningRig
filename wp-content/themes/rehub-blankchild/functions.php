@@ -56,6 +56,7 @@ function enqueue_parent_theme_style()
         wp_enqueue_script('font-awesome', 'https://use.fontawesome.com/releases/v5.0.10/js/all.js', null, '1.0', true);
         wp_enqueue_script('popper-1.12.9', 'https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js', null, '1.0', true);
         wp_enqueue_script('bootstrap-4.0.0', 'https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js', null, '1.0', true);
+        wp_enqueue_script('jquery', '//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js', null, '1.0', true);        
         wp_enqueue_script('raphael', '//cdnjs.cloudflare.com/ajax/libs/raphael/2.1.0/raphael-min.js', null, '1.0', true);        
         wp_enqueue_script('morris', '//cdnjs.cloudflare.com/ajax/libs/morris.js/0.5.1/morris.min.js', null, '1.0', true);        
         wp_enqueue_script('computerHardwareChart', get_theme_file_uri('/js/charts/ComputerHardwareTemplate.js'), null, '1.0', true);
