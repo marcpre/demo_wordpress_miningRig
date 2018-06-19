@@ -24,7 +24,7 @@ function enqueue_parent_theme_style()
 
     wp_enqueue_style($parentStyle, get_template_directory_uri() . '/style.css');
 
-    if (is_page('Rig Builder') || is_page('Mining Rigs') || is_page('Hardware Overview')) {
+    if (is_page('Rig Builder') || is_page('Mining Rigs')) {
 
         //css
         wp_enqueue_style('bootstrap-4.0.0', get_stylesheet_directory_uri() . '/css/bootstrap.min.css', array($parentStyle));
@@ -62,6 +62,25 @@ function enqueue_parent_theme_style()
         wp_enqueue_script('computerHardwareChart', get_theme_file_uri('/js/charts/ComputerHardwareTemplate.js'), null, '1.0', true);
 
         wp_localize_script('computerHardwareChart', 'miningRigData', array(
+            'root_url' => get_site_url(),
+            'nonce' => wp_create_nonce('wp_rest'),
+        ));
+    }
+    
+    if (is_page('Hardware Overview')) {
+
+        //css
+        wp_enqueue_style('bootstrap-4.0.0', get_stylesheet_directory_uri() . '/css/bootstrap.min.css', array($parentStyle));
+        wp_enqueue_style('dataTables', '//cdn.datatables.net/1.10.16/css/jquery.dataTables.min.css', array($parentStyle));
+        wp_enqueue_style('dataTables-1.10.16', get_stylesheet_directory_uri() . '/css/dataTables.bootstrap4.min.css', array($parentStyle));
+        wp_enqueue_style('style', get_stylesheet_directory_uri() . '/style.css', array($parentStyle));
+        
+        //js
+        wp_enqueue_script('font-awesome', 'https://use.fontawesome.com/releases/v5.0.10/js/all.js', null, '1.0', true);
+        wp_enqueue_script('bootstrap-4.0.0', 'https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js', null, '1.0', true);
+        wp_enqueue_script('main-mining-rig-js', get_theme_file_uri('/js/scripts-bundled.js'), null, '1.0', true);
+
+        wp_localize_script('main-mining-rig-js', 'miningRigData', array(
             'root_url' => get_site_url(),
             'nonce' => wp_create_nonce('wp_rest'),
         ));

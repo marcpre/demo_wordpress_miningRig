@@ -11,14 +11,11 @@ class HardwareOverview {
     events() {
         // Add spinner
         $(".allHardwareOverview").before("<div class='loading'>Loading&#8230;</div>")
-        //$(".btn.btn-primary.btn-lg.createRig").on("click", this.redirectToMiningRigBuilder.bind(this))
     }
 
     allProfitableMiningRigs() {
 
-        console.log(`Hardware Overview clicked`)
         $.getJSON(miningRigData.root_url + '/wp-json/rigHardware/v1/allProfitableRigHardware?term=graphic-card ', (results) => {
-            console.log(results)
 
             //remove spinner
             $(".loading").remove()
@@ -48,6 +45,7 @@ class HardwareOverview {
                 destroy: true,
                 iDisplayLength: 100,
                 responsive: true,
+                "bInfo" : false,
                 "order": [
                     [4, 'desc']
                 ],

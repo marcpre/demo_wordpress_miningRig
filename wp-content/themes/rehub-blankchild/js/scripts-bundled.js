@@ -44280,16 +44280,13 @@ function () {
     key: "events",
     value: function events() {
       // Add spinner
-      (0, _jquery.default)(".allHardwareOverview").before("<div class='loading'>Loading&#8230;</div>"); //$(".btn.btn-primary.btn-lg.createRig").on("click", this.redirectToMiningRigBuilder.bind(this))
+      (0, _jquery.default)(".allHardwareOverview").before("<div class='loading'>Loading&#8230;</div>");
     }
   }, {
     key: "allProfitableMiningRigs",
     value: function allProfitableMiningRigs() {
-      console.log("Hardware Overview clicked");
-
       _jquery.default.getJSON(miningRigData.root_url + '/wp-json/rigHardware/v1/allProfitableRigHardware?term=graphic-card ', function (results) {
-        console.log(results); //remove spinner
-
+        //remove spinner
         (0, _jquery.default)(".loading").remove();
 
         var rentabilityHtml = function rentabilityHtml(daily_netProfit) {
@@ -44309,6 +44306,7 @@ function () {
           destroy: true,
           iDisplayLength: 100,
           responsive: true,
+          "bInfo": false,
           "order": [[4, 'desc']],
           columns: [{
             title: "Model"
