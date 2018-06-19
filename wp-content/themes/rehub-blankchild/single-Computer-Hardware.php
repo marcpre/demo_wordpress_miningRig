@@ -68,56 +68,60 @@
             <?php the_content(); ?>
           </div>
           <!-- Stats START -->
-          <div class="row">
-            <div class="col-xs-6">
-              <h2>Specifications</h2>
-              <table class="table stats">
-                <tbody>
-                  <?php if( get_field('hash_rate') ): ?>
-                  <tr>
-                    <th>Hash Rate :</th>
-                    <td class=" text-right">
-                      <?php the_field('hash_rate'); ?>
-                    </td>
-                  </tr>
-                  <?php endif; ?>
-                  <?php if( get_field('manufacturer') ): ?>
-                  <tr>
-                    <th>Manufacturer:</th>
-                    <td class=" text-right">
-                      <?php the_field('manufacturer'); ?>
-                    </td>
-                  </tr>
-                  <?php endif; ?>
-                  <?php if( get_field('watt_estimate') ): ?>
-                  <tr>
-                    <th>Wattage:</th>
-                    <td class=" text-right">
-                      <?php the_field('watt_estimate'); ?>
-                    </td>
-                  </tr>
-                  <?php endif; ?>
-                  <?php if( get_field('watt_estimate') ): ?>
-                  <tr>
-                    <th>Algorithm:</th>
-                    <td class=" text-right">
-                      <?php the_field('algorithm'); ?>
-                    </td>
-                  </tr>
-                  <?php endif; ?>
-                  <?php if( get_field('watt_estimate') ): ?>
-                  <tr>
-                    <th>Wattage:</th>
-                    <td class=" text-right">
-                      <?php the_field('watt_estimate'); ?>
-                    </td>
-                  </tr>
-                  <?php endif; ?>
-                </tbody>
-              </table>
-            </div>
-            <div class="col-xs-6">
-              <?php
+          <div class="container-fluid">
+            <div class="row">
+              <div class="col-6">
+                <div class="pr-1">
+                  <h2>Specifications</h2>
+                  <table class="table stats">
+                    <tbody>
+                      <?php if( get_field('hash_rate') ): ?>
+                      <tr>
+                        <th>Hash Rate :</th>
+                        <td class=" text-right">
+                          <?php the_field('hash_rate'); ?>
+                        </td>
+                      </tr>
+                      <?php endif; ?>
+                      <?php if( get_field('manufacturer') ): ?>
+                      <tr>
+                        <th>Manufacturer:</th>
+                        <td class=" text-right">
+                          <?php the_field('manufacturer'); ?>
+                        </td>
+                      </tr>
+                      <?php endif; ?>
+                      <?php if( get_field('watt_estimate') ): ?>
+                      <tr>
+                        <th>Wattage:</th>
+                        <td class=" text-right">
+                          <?php the_field('watt_estimate'); ?>
+                        </td>
+                      </tr>
+                      <?php endif; ?>
+                      <?php if( get_field('watt_estimate') ): ?>
+                      <tr>
+                        <th>Algorithm:</th>
+                        <td class=" text-right">
+                          <?php the_field('algorithm'); ?>
+                        </td>
+                      </tr>
+                      <?php endif; ?>
+                      <?php if( get_field('watt_estimate') ): ?>
+                      <tr>
+                        <th>Wattage:</th>
+                        <td class=" text-right">
+                          <?php the_field('watt_estimate'); ?>
+                        </td>
+                      </tr>
+                      <?php endif; ?>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+              <div class="col-6">
+                <div class="pr-1">
+                  <?php
     global $wpdb;
     
     // show db errors
@@ -154,114 +158,119 @@
     $yearly_grossProfit = $daily_grossProfit * 7 * 4 * 12;
     $yearly_costs = $daily_costs * 7 * 4 * 12;
 ?>
-                <h2>Estimate Earning</h2>
-                <table class="table stats">
-                  <tbody>
-                    <thead>
-                      <th>Period</th>
-                      <th class="text-right">Rev</th>
-                      <th class="text-right">Cost</th>
-                      <th class="text-right">Profit</th>
-                    </thead>
-                    <tr>
-                      <td>Hour</td>
-                      <td class="text-right text-info">$
-                        <span id="rev-hour">
-                          <?php echo number_format($hourly_grossProfit,3); ?>
-                        </span>
-                      </td>
-                      <td class="text-right text-danger">$
-                        <span id="cost-hour">
-                          <?php echo number_format($hourly_costs,3); ?>
-                        </span>
-                      </td>
-                      <td class="text-right text-success">$
-                        <span id="earning-hour">
-                          <?php echo number_format($hourly_netProfit,3); ?>
-                        </span>
-                      </td>
-                    </tr>
-                    <tr>
-                      <td>Day</td>
-                      <td class="text-right text-info">$
-                        <span id="rev-day">
-                          <?php echo number_format($daily_grossProfit,2); ?>
-                        </span>
-                      </td>
-                      <td class="text-right text-danger">$
-                        <span id="cost-day">
-                          <?php echo number_format($daily_costs,2); ?>
-                        </span>
-                      </td>
-                      <td class="text-right text-success">$
-                        <span id="earning-day">
-                          <?php echo number_format($daily_netProfit,2); ?>
-                        </span>
-                      </td>
-                    </tr>
-                    <tr>
-                      <td>Week</td>
-                      <td class="text-right text-info">$
-                        <span id="rev-week">
-                          <?php echo number_format($weekly_grossProfit,2); ?>
-                        </span>
-                      </td>
-                      <td class="text-right text-danger">$
-                        <span id="cost-week">
-                          <?php echo number_format($weekly_costs,2); ?>
-                        </span>
-                      </td>
-                      <td class="text-right text-success">$
-                        <span id="earning-week">
-                          <?php echo number_format($weekly_netProfit,2); ?>
-                        </span>
-                      </td>
-                    </tr>
-                    <tr>
-                      <td>Month</td>
-                      <td class="text-right text-info">$
-                        <span id="rev-month">
-                          <?php echo number_format($monthly_grossProfit,2); ?>
-                        </span>
-                      </td>
-                      <td class="text-right text-danger">$
-                        <span id="cost-month">
-                          <?php echo number_format($monthly_costs,2); ?>
-                        </span>
-                      </td>
-                      <td class="text-right text-success">$
-                        <span id="earning-month">
-                          <?php echo number_format($monthly_netProfit,2); ?>
-                        </span>
-                      </td>
-                    </tr>
-                    <tr>
-                      <td>Year</td>
-                      <td class="text-right text-info">$
-                        <span id="rev-year">
-                          <?php echo number_format($yearly_grossProfit,2); ?>
-                        </span>
-                      </td>
-                      <td class="text-right text-danger">$
-                        <span id="cost-year">
-                          <?php echo number_format($yearly_costs,2); ?>
-                        </span>
-                      </td>
-                      <td class="text-right text-success">$
-                        <span id="earning-year">
-                          <?php echo number_format($yearly_netProfit,2); ?>
-                        </span>
-                      </td>
-                    </tr>
-                  </tbody>
-                </table>
-                The calculations are based on real time prices, where 1 <?php echo $mainQuery[0]->tag; ?> = $<?php echo $mainQuery[0]->price; ?>.
+                    <h2>Estimate Earning</h2>
+                    <table class="table stats">
+                      <tbody>
+                        <thead>
+                          <th>Period</th>
+                          <th class="text-right">Rev</th>
+                          <th class="text-right">Cost</th>
+                          <th class="text-right">Profit</th>
+                        </thead>
+                        <tr>
+                          <td>Hour</td>
+                          <td class="text-right text-info">$
+                            <span id="rev-hour">
+                              <?php echo number_format($hourly_grossProfit,3); ?>
+                            </span>
+                          </td>
+                          <td class="text-right text-danger">$
+                            <span id="cost-hour">
+                              <?php echo number_format($hourly_costs,3); ?>
+                            </span>
+                          </td>
+                          <td class="text-right text-success">$
+                            <span id="earning-hour">
+                              <?php echo number_format($hourly_netProfit,3); ?>
+                            </span>
+                          </td>
+                        </tr>
+                        <tr>
+                          <td>Day</td>
+                          <td class="text-right text-info">$
+                            <span id="rev-day">
+                              <?php echo number_format($daily_grossProfit,2); ?>
+                            </span>
+                          </td>
+                          <td class="text-right text-danger">$
+                            <span id="cost-day">
+                              <?php echo number_format($daily_costs,2); ?>
+                            </span>
+                          </td>
+                          <td class="text-right text-success">$
+                            <span id="earning-day">
+                              <?php echo number_format($daily_netProfit,2); ?>
+                            </span>
+                          </td>
+                        </tr>
+                        <tr>
+                          <td>Week</td>
+                          <td class="text-right text-info">$
+                            <span id="rev-week">
+                              <?php echo number_format($weekly_grossProfit,2); ?>
+                            </span>
+                          </td>
+                          <td class="text-right text-danger">$
+                            <span id="cost-week">
+                              <?php echo number_format($weekly_costs,2); ?>
+                            </span>
+                          </td>
+                          <td class="text-right text-success">$
+                            <span id="earning-week">
+                              <?php echo number_format($weekly_netProfit,2); ?>
+                            </span>
+                          </td>
+                        </tr>
+                        <tr>
+                          <td>Month</td>
+                          <td class="text-right text-info">$
+                            <span id="rev-month">
+                              <?php echo number_format($monthly_grossProfit,2); ?>
+                            </span>
+                          </td>
+                          <td class="text-right text-danger">$
+                            <span id="cost-month">
+                              <?php echo number_format($monthly_costs,2); ?>
+                            </span>
+                          </td>
+                          <td class="text-right text-success">$
+                            <span id="earning-month">
+                              <?php echo number_format($monthly_netProfit,2); ?>
+                            </span>
+                          </td>
+                        </tr>
+                        <tr>
+                          <td>Year</td>
+                          <td class="text-right text-info">$
+                            <span id="rev-year">
+                              <?php echo number_format($yearly_grossProfit,2); ?>
+                            </span>
+                          </td>
+                          <td class="text-right text-danger">$
+                            <span id="cost-year">
+                              <?php echo number_format($yearly_costs,2); ?>
+                            </span>
+                          </td>
+                          <td class="text-right text-success">$
+                            <span id="earning-year">
+                              <?php echo number_format($yearly_netProfit,2); ?>
+                            </span>
+                          </td>
+                        </tr>
+                      </tbody>
+                    </table>
+                    The calculations are based on real time prices, where 1
+                    <?php echo $mainQuery[0]->tag; ?> = $
+                    <?php echo $mainQuery[0]->price; ?>.
+                </div>
+              </div>
             </div>
           </div>
 
           <div class="col-sm-12">
             <h2>Mining Profitability</h2>
-            <div id="miningProfChart" style="height: 250px;" class="<?php echo $post->ID ?>"></div>
+            <div id="miningProfChart" style="height: 250px;" class="<?php echo $post->ID ?>">
+            </div>
           </div>
 
           <!-- START -->
@@ -289,76 +298,76 @@ if( $posts ): ?>
               <div class="clearfix"></div>
               <br>
             </div>
-            <?php endif; ?>
-            <!-- END -->
+          </div>
+          <?php endif; ?>
+          <!-- END -->
 
-            <!-- START -->
-            <?php 
+          <!-- START -->
+          <?php 
 $posts = get_field('related_miningpools'); 
 if( $posts ): ?>
-            <div class="col-sm-12">
-              <h2>Mining pools</h2>
-              <table class="table table-striped table-small">
-                <tbody>
-                  <?php foreach( $posts as $post): // variable must be called $post (IMPORTANT) ?>
-                  <?php setup_postdata($post); ?>
-                  <?php if (has_post_thumbnail( $post->ID ) ): ?>
-                  <?php $image = wp_get_attachment_image_src( get_post_thumbnail_id( $post->ID ), 'single-post-thumbnail' ); ?>
-                  <tr>
-                    <td>
-                      <div class="image-wrap">
-                        <img class="img-responsive" src="<?php echo $image[0]; ?>">
-                      </div>
-                    </td>
-                    <td>
-                      <b style="font-size:1.2em;">
-                        <a href="<?php the_field('miningpoollink'); ?>">
-                          <?php the_title(); ?>
-                        </a>
-                      </b>
-                      <br>
-                      <?php the_field('miningpoollink'); ?>
-                    </td>
-                    <td class="hidden-xs hidden-sm" style="text-align:center; vertical-align:middle; ;">
-                      <b>PPLNS</b>
-                      <br>
-                      <?php the_field('pay_per_last_n_shares'); ?>
-                    </td>
-                    <td class="text-right" style="vertical-align: middle; width:40px;">
-                      <a class="btn btn-primary" href="<?php the_field('miningpoollink'); ?>" target="_blank">
-                        <svg class="svg-inline--fa fa-chevron-right fa-w-10" aria-hidden="true" data-prefix="fas" data-icon="chevron-right" role="img"
-                          xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512" data-fa-i2svg="">
-                          <path fill="currentColor" d="M285.476 272.971L91.132 467.314c-9.373 9.373-24.569 9.373-33.941 0l-22.667-22.667c-9.357-9.357-9.375-24.522-.04-33.901L188.505 256 34.484 101.255c-9.335-9.379-9.317-24.544.04-33.901l22.667-22.667c9.373-9.373 24.569-9.373 33.941 0L285.475 239.03c9.373 9.372 9.373 24.568.001 33.941z"></path>
-                        </svg>
-                        <!-- <i class="fas fa-chevron-right"> </i> -->
+          <div class="col-sm-12">
+            <h2>Mining pools</h2>
+            <table class="table table-striped table-small">
+              <tbody>
+                <?php foreach( $posts as $post): // variable must be called $post (IMPORTANT) ?>
+                <?php setup_postdata($post); ?>
+                <?php if (has_post_thumbnail( $post->ID ) ): ?>
+                <?php $image = wp_get_attachment_image_src( get_post_thumbnail_id( $post->ID ), 'single-post-thumbnail' ); ?>
+                <tr>
+                  <td>
+                    <div class="image-wrap">
+                      <img class="img-responsive" src="<?php echo $image[0]; ?>">
+                    </div>
+                  </td>
+                  <td>
+                    <b style="font-size:1.2em;">
+                      <a href="<?php the_field('miningpoollink'); ?>">
+                        <?php the_title(); ?>
                       </a>
-                    </td>
-                  </tr>
-                  <?php endif; ?>
-                  <?php endforeach; ?>
-                  <?php wp_reset_postdata(); // IMPORTANT - reset the $post object so the rest of the page works correctly ?>
-                </tbody>
-              </table>
-            </div>
-            <?php endif; ?>
-            <!-- END -->
-
+                    </b>
+                    <br>
+                    <?php the_field('miningpoollink'); ?>
+                  </td>
+                  <td class="hidden-xs hidden-sm" style="text-align:center; vertical-align:middle; ;">
+                    <b>PPLNS</b>
+                    <br>
+                    <?php the_field('pay_per_last_n_shares'); ?>
+                  </td>
+                  <td class="text-right" style="vertical-align: middle; width:40px;">
+                    <a class="btn btn-primary" href="<?php the_field('miningpoollink'); ?>" target="_blank">
+                      <svg class="svg-inline--fa fa-chevron-right fa-w-10" aria-hidden="true" data-prefix="fas" data-icon="chevron-right" role="img"
+                        xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512" data-fa-i2svg="">
+                        <path fill="currentColor" d="M285.476 272.971L91.132 467.314c-9.373 9.373-24.569 9.373-33.941 0l-22.667-22.667c-9.357-9.357-9.375-24.522-.04-33.901L188.505 256 34.484 101.255c-9.335-9.379-9.317-24.544.04-33.901l22.667-22.667c9.373-9.373 24.569-9.373 33.941 0L285.475 239.03c9.373 9.372 9.373 24.568.001 33.941z"></path>
+                      </svg>
+                      <!-- <i class="fas fa-chevron-right"> </i> -->
+                    </a>
+                  </td>
+                </tr>
+                <?php endif; ?>
+                <?php endforeach; ?>
+                <?php wp_reset_postdata(); // IMPORTANT - reset the $post object so the rest of the page works correctly ?>
+              </tbody>
+            </table>
           </div>
-          <!-- Stats END -->
+          <?php endif; ?>
+          <!-- END -->
+        </div>
+        <!-- Stats END -->
       </article>
       <div class="clearfix"></div>
       <?php include(rh_locate_template( 'inc/post_layout/single-common-footer.php')); ?>
       <?php endwhile; endif; ?>
-      </div>
-
-<div>
-<?php echo do_shortcode('[rwp_box id="-1" template="compHardware_Review_Box"]'); ?>
-</div>
-
-      <?php comments_template(); ?>
     </div>
-    <!-- /Main Side -->
+
+    <div>
+      <?php echo do_shortcode('[rwp_box id="-1" template="compHardware_Review_Box"]'); ?>
+    </div>
+
+    <?php comments_template(); ?>
   </div>
+  <!-- /Main Side -->
+</div>
 </div>
 <!-- /CONTENT -->
 

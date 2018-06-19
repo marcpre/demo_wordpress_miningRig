@@ -14,7 +14,11 @@ class HardwareOverview {
 
     allMiningRigs() {
 
-        console.log(`allMiningRigs clicked`)
+        /*
+        TODO HERE
+        */
+        
+        console.log(`Hardware Overview clicked`)
         $.getJSON(miningRigData.root_url + '/wp-json/miningRigs/v1/allRigs', (results) => {
             console.log(results)
 
