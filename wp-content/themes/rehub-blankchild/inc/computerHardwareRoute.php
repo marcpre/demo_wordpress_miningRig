@@ -7,15 +7,21 @@ function computerHardwareRoutes()
         'methods' => WP_REST_SERVER::READABLE,
         'callback' => 'allRigHardware',
     ));
+    
+    register_rest_route('rigHardware/v1', 'allProfitableRigHardware', array(
+        'methods' => WP_REST_SERVER::READABLE,
+        'callback' => 'allRigHardwareWithProfitability',
+    ));
 }
 
 /**
  * Get all Hardware that is needed for a rig
- * e.g.: http://localhost/demo_wordpress_rig-builder/wp-json/rigHardware/v1/manageRigHardware?term=cpu 
+ * e.g.: http://localhost/demo_wordpress_rig-builder/wp-json/rigHardware/v1/manageRigHardware?term=cpu
  */
 
 function allRigHardware($data)
 {
+   
     $mainQuery = new WP_Query(array(
         'posts_per_page' => -1,
         'post_type' => 'Computer-Hardware',
@@ -58,6 +64,61 @@ function allRigHardware($data)
             'affiliateLink' => $amazon[$keys[0]]['url'],
         ));
 //        }
+    }
+    return $results;
+}
+
+/**
+ * Get all Hardware that is needed for a rig
+ * e.g.: http://localhost/demo_wordpress_rig-builder/wp-json/rigHardware/v1/allProfitableRigHardware?term=graphic-card  
+ */
+
+function allRigHardwareWithProfitability($data)
+{
+    
+    global $wpdb;
+    
+    // show db errors
+    $wpdb->show_errors(false);
+    $wpdb->print_error();
+        
+    $mainQuery = $wpdb->get_results( "SELECT *
+        FROM
+        {$wpdb->prefix}posts p
+        INNER JOIN {$wpdb->prefix}miningprofitability m ON
+            m.post_id = p.ID
+        ORDER BY
+            m.daily_grossProfit
+        DESC;" );
+
+    $results = array(
+        'profRigHardware' => array(),
+    );
+                            
+    foreach ($mainQuery as $key => $value) {
+        
+        $post_id = $mainQuery[$key]->ID;
+        
+        //get post meta
+        $amazon = get_post_meta($post_id, '_cegg_data_Amazon', true);
+        $keys = array_keys($amazon); // convert associative arrays to index array
+        
+        array_push($results['profRigHardware'], array(
+            'unique_id' => $amazon[$keys[0]]['unique_id'],
+            'title' => get_the_title($post_id),
+            'permalink' => get_the_permalink($post_id),
+            'manufacturer' => $amazon[$keys[0]]['manufacturer'],
+            'category' => get_the_category($post_id),
+            'smallImg' => get_the_post_thumbnail_url($post_id, 'thumbnail'),
+            // 'smallImg' => $amazon[$keys[0]]['extra']['smallImage'], 
+            'currency' => $amazon[$keys[0]]['currency'],
+            'price' => $amazon[$keys[0]]['price'],
+            'watt' => floatval(get_field('watt_estimate', $post_id)),
+            'algorithm' => get_field('algorithm', $post_id),
+            'hashRatePerSecond' => floatval(get_field('hash_rate', $post_id)) / 1000000,
+            'affiliateLink' => $amazon[$keys[0]]['url'],
+            'daily_netProfit' => number_format( (float) $mainQuery[$key]->daily_netProfit, 2),
+        ));
     }
     return $results;
 }

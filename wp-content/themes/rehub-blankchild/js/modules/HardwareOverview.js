@@ -5,75 +5,71 @@ class HardwareOverview {
 
     constructor() {
         this.events()
-        this.allMiningRigs()
+        this.allProfitableMiningRigs()
     } // end constructor
 
     events() {
+        // Add spinner
+        $(".allHardwareOverview").before("<div class='loading'>Loading&#8230;</div>")
         //$(".btn.btn-primary.btn-lg.createRig").on("click", this.redirectToMiningRigBuilder.bind(this))
     }
 
-    allMiningRigs() {
+    allProfitableMiningRigs() {
 
-        /*
-        TODO HERE
-        */
-        
         console.log(`Hardware Overview clicked`)
-        $.getJSON(miningRigData.root_url + '/wp-json/miningRigs/v1/allRigs', (results) => {
+        $.getJSON(miningRigData.root_url + '/wp-json/rigHardware/v1/allProfitableRigHardware?term=graphic-card ', (results) => {
             console.log(results)
 
-            //get the 3 images
-            const getImages = miningHardware =>
-                miningHardware
-                .slice(0, 12)
-                .map(
-                    h => `<a href="${h.affiliateLink}" target="_blank"><img src="${h.amzImg}" alt="${h.partTitle}" height="80" width="80"></a>`
-                )
-                .join('\n');
+            //remove spinner
+            $(".loading").remove()
 
-            //get the shopping list
-            const getShoppingList = miningHardware =>
-                miningHardware
-            //    .slice(0, 12)
-                .map(
-                    h => `<li><a href="${h.affiliateLink}" target="_blank">${h.partTitle}</a></li>`
-                )
-                .join('\n');    
-                
+            const rentabilityHtml = function (daily_netProfit) {
+                if (daily_netProfit < 0) {
+                    return `<div style="color:red;"><b>$${daily_netProfit}/day</b></div>`
+                } else {
+                    return `<div style="color:green;"><b>$${daily_netProfit}/day</b></div>`
+                }
+            }
+
             //transform data set
-            let dataSet = results.generalInfo.map((item, i) => [
-                i + 1,
-                `${ getImages(item.miningHardware) }`,
-                `<a href="${item.permalink}" target="_blank">
+            let dataSet = results.profRigHardware.map((item, i) => [
+                `<img src="${ item.smallImg }" alt="${ item.title }" height="42" width="42"> 
+                 <a href="${item.permalink}" target="_blank">
                     ${item.title}
                  </a>`,
-                 `<ul>
-                    ${getShoppingList(item.miningHardware)}
-                  </ul>`,
-                `$${item.totalPrice.toFixed(2)}`
+                `${ item.manufacturer }`,
+                `${ item.hashRatePerSecond } MH/s`,
+                `${ item.watt }W`,
+                `${ rentabilityHtml(parseFloat(item.daily_netProfit)) }`,
             ])
 
-            $('#allMiningRigs').DataTable({
+            $('#allHardwareOverview').DataTable({
                 data: dataSet,
                 destroy: true,
                 iDisplayLength: 100,
                 responsive: true,
+                "order": [
+                    [4, 'desc']
+                ],
                 columns: [{
-                        title: "#"
+                        title: "Model"
                     },
                     {
-                        title: "Single Parts"
+                        title: "Manufacturer"
                     },
                     {
-                        title: "Title"
+                        title: "Hashrate"
                     },
                     {
-                        title: "Shopping List"
+                        title: "Watt Estimate"
                     },
                     {
-                        title: "Total Price"
+                        title: "Profitability"
                     }
-                ]
+                ],
+                "initComplete": function (settings, json) {
+                    $('#datatablediv').css('opacity', 1);
+                }
             });
         });
     }

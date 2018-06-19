@@ -34,7 +34,6 @@
                     <br/>
 
                     <table id="allHardwareOverview" style="float: left;" class="table table-bordered"></table>
-                    lolonator
                     <!-- END -->
                 </article>
             </div>
