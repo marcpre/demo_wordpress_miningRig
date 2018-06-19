@@ -54,7 +54,9 @@
             <div class="clearfix"></div>
             <?php endif; ?>
             <!--    </div> -->
-            <?php include(rh_locate_template( 'inc/parts/top_image.php')); ?>
+            <?php /* ?>
+            <?php  include(rh_locate_template( 'inc/parts/top_image.php')); ?>
+            <?php */ ?>
           </div>
           <?php if(rehub_option( 'rehub_single_before_post') && vp_metabox( 'rehub_post_side.show_banner_ads') !='1' ) : ?>
           <div class="mediad mediad_before_content">
@@ -163,12 +165,12 @@
                     </thead>
                     <tr>
                       <td>Hour</td>
-                      <td class="text-right">$
+                      <td class="text-right text-info">$
                         <span id="rev-hour">
                           <?php echo number_format($hourly_grossProfit,3); ?>
                         </span>
                       </td>
-                      <td class="text-right">$
+                      <td class="text-right text-danger">$
                         <span id="cost-hour">
                           <?php echo number_format($hourly_costs,3); ?>
                         </span>
@@ -181,12 +183,12 @@
                     </tr>
                     <tr>
                       <td>Day</td>
-                      <td class="text-right">$
+                      <td class="text-right text-info">$
                         <span id="rev-day">
                           <?php echo number_format($daily_grossProfit,2); ?>
                         </span>
                       </td>
-                      <td class="text-right">$
+                      <td class="text-right text-danger">$
                         <span id="cost-day">
                           <?php echo number_format($daily_costs,2); ?>
                         </span>
@@ -199,12 +201,12 @@
                     </tr>
                     <tr>
                       <td>Week</td>
-                      <td class="text-right">$
+                      <td class="text-right text-info">$
                         <span id="rev-week">
                           <?php echo number_format($weekly_grossProfit,2); ?>
                         </span>
                       </td>
-                      <td class="text-right">$
+                      <td class="text-right text-danger">$
                         <span id="cost-week">
                           <?php echo number_format($weekly_costs,2); ?>
                         </span>
@@ -217,12 +219,12 @@
                     </tr>
                     <tr>
                       <td>Month</td>
-                      <td class="text-right">$
+                      <td class="text-right text-info">$
                         <span id="rev-month">
                           <?php echo number_format($monthly_grossProfit,2); ?>
                         </span>
                       </td>
-                      <td class="text-right">$
+                      <td class="text-right text-danger">$
                         <span id="cost-month">
                           <?php echo number_format($monthly_costs,2); ?>
                         </span>
@@ -235,12 +237,12 @@
                     </tr>
                     <tr>
                       <td>Year</td>
-                      <td class="text-right">$
+                      <td class="text-right text-info">$
                         <span id="rev-year">
                           <?php echo number_format($yearly_grossProfit,2); ?>
                         </span>
                       </td>
-                      <td class="text-right">$
+                      <td class="text-right text-danger">$
                         <span id="cost-year">
                           <?php echo number_format($yearly_costs,2); ?>
                         </span>
@@ -253,7 +255,7 @@
                     </tr>
                   </tbody>
                 </table>
-                The calculations are based on real time prices, where <?php echo $mainQuery[0]->tag; ?> = <?php echo $mainQuery[0]->price; ?>.
+                The calculations are based on real time prices, where 1 <?php echo $mainQuery[0]->tag; ?> = $<?php echo $mainQuery[0]->price; ?>.
             </div>
           </div>
 
@@ -335,38 +337,6 @@ if( $posts ): ?>
                   <?php endif; ?>
                   <?php endforeach; ?>
                   <?php wp_reset_postdata(); // IMPORTANT - reset the $post object so the rest of the page works correctly ?>
-                  <?php /*
-            <tr>
-               <td>
-                  <div class="image-wrap"><img class="img-responsive" src="https://res.cloudinary.com/dluwgr5op/image/upload/c_fit,f_auto,h_48,w_120/v1526247983/c9luvcoxznqfo8wlgclo.png"></div>
-               </td>
-               <td><b style="font-size:1.2em;"><a href="https://slushpool.com">SlushPool</a></b><br>slushpool.com</td>
-               <td class="hidden-xs hidden-sm" style="text-align:center; vertical-align:middle; ;"><b>PPLNS</b><br>2%</td>
-               <td class="text-right" style="vertical-align: middle; width:40px;">
-                  <a class="btn btn-primary" href="https://slushpool.com" target="_blank">
-                     <svg class="svg-inline--fa fa-chevron-right fa-w-10" aria-hidden="true" data-prefix="fas" data-icon="chevron-right" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512" data-fa-i2svg="">
-                        <path fill="currentColor" d="M285.476 272.971L91.132 467.314c-9.373 9.373-24.569 9.373-33.941 0l-22.667-22.667c-9.357-9.357-9.375-24.522-.04-33.901L188.505 256 34.484 101.255c-9.335-9.379-9.317-24.544.04-33.901l22.667-22.667c9.373-9.373 24.569-9.373 33.941 0L285.475 239.03c9.373 9.372 9.373 24.568.001 33.941z"></path>
-                     </svg>
-                     <!-- <i class="fas fa-chevron-right"> </i> -->
-                  </a>
-               </td>
-            </tr>
-            <tr>
-               <td>
-                  <div class="image-wrap"><img class="img-responsive" src="https://res.cloudinary.com/dluwgr5op/image/upload/c_fit,f_auto,h_48,w_120/v1526250650/toiusvqctaoc922dnfvd.png"></div>
-               </td>
-               <td><b style="font-size:1.2em;"><a href="https://www.nicehash.com">NiceHash</a></b><br>www.nicehash.com</td>
-               <td class="hidden-xs hidden-sm" style="text-align:center; vertical-align:middle; ;"><b>RESELL</b><br></td>
-               <td class="text-right" style="vertical-align: middle; width:40px;">
-                  <a class="btn btn-primary" href="https://www.nicehash.com" target="_blank">
-                     <svg class="svg-inline--fa fa-chevron-right fa-w-10" aria-hidden="true" data-prefix="fas" data-icon="chevron-right" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512" data-fa-i2svg="">
-                        <path fill="currentColor" d="M285.476 272.971L91.132 467.314c-9.373 9.373-24.569 9.373-33.941 0l-22.667-22.667c-9.357-9.357-9.375-24.522-.04-33.901L188.505 256 34.484 101.255c-9.335-9.379-9.317-24.544.04-33.901l22.667-22.667c9.373-9.373 24.569-9.373 33.941 0L285.475 239.03c9.373 9.372 9.373 24.568.001 33.941z"></path>
-                     </svg>
-                     <!-- <i class="fas fa-chevron-right"> </i> -->
-                  </a>
-               </td>
-            </tr>
-            */ ?>
                 </tbody>
               </table>
             </div>
@@ -380,6 +350,10 @@ if( $posts ): ?>
       <?php include(rh_locate_template( 'inc/post_layout/single-common-footer.php')); ?>
       <?php endwhile; endif; ?>
       </div>
+
+<div>
+<?php echo do_shortcode('[rwp_box id="-1" template="compHardware_Review_Box"]'); ?>
+</div>
 
       <?php comments_template(); ?>
     </div>
