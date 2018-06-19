@@ -55,7 +55,9 @@ jQuery(document).ready(function ($) {
       ykeys: ['daily_netProfit', 'daily_grossProfit', 'daily_costs'],
       // Labels for the ykeys -- will be displayed when you hover over the
       // chart.
-      labels: ['Daily Net Profit', 'Daily Gross Profit', 'Daily Costs']
+      labels: ['Daily Net Profit', 'Daily Gross Profit', 'Daily Costs'],
+      lineColors: ['blue', 'green', 'red' ],
+      hideHover: 'auto'
     });
   })
 });

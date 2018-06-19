@@ -111,107 +111,155 @@
                     </td>
                   </tr>
                   <?php endif; ?>
-                  <tr>
-                    <th>Nethash :</th>
-                    <td class=" text-right">36,713,089.80 TH/s</td>
-                  </tr>
                 </tbody>
               </table>
             </div>
             <div class="col-xs-6">
-              <h2>Estimate Earning</h2>
-              <table class="table stats">
-                <tbody>
-                  <tr>
-                    <th>Period</th>
-                    <th class="text-right">BTC</th>
-                    <th class="text-right">Rev</th>
-                    <th class="text-right">Cost</th>
-                    <th class="text-right">Profit</th>
-                  </tr>
-                  <tr>
-                    <td>Hour</td>
-                    <td class="text-right">
-                      <span id="coin-hour">0.0000</span>
-                    </td>
-                    <td class="text-right">$
-                      <span id="rev-hour">0.20</span>
-                    </td>
-                    <td class="text-right">$
-                      <span id="cost-hour">0.00</span>
-                    </td>
-                    <td class="text-right text-success">$
-                      <span id="earning-hour">0.20</span>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>Day</td>
-                    <td class="text-right">
-                      <span id="coin-day">0.0007</span>
-                    </td>
-                    <td class="text-right">$
-                      <span id="rev-day">4.88</span>
-                    </td>
-                    <td class="text-right">$
-                      <span id="cost-day">0.00</span>
-                    </td>
-                    <td class="text-right text-success">$
-                      <span id="earning-day">4.88</span>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>Week</td>
-                    <td class="text-right">
-                      <span id="coin-week">0.0051</span>
-                    </td>
-                    <td class="text-right">$
-                      <span id="rev-week">34.13</span>
-                    </td>
-                    <td class="text-right">$
-                      <span id="cost-week">0.00</span>
-                    </td>
-                    <td class="text-right text-success">$
-                      <span id="earning-week">34.13</span>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>Month</td>
-                    <td class="text-right">
-                      <span id="coin-month">0.0217</span>
-                    </td>
-                    <td class="text-right">$
-                      <span id="rev-month">146.29</span>
-                    </td>
-                    <td class="text-right">$
-                      <span id="cost-month">0.00</span>
-                    </td>
-                    <td class="text-right text-success">$
-                      <span id="earning-month">146.29</span>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>Year</td>
-                    <td class="text-right">
-                      <span id="coin-year">0.2635</span>
-                    </td>
-                    <td class="text-right">$
-                      <span id="rev-year">1,779.87</span>
-                    </td>
-                    <td class="text-right">$
-                      <span id="cost-year">0.00</span>
-                    </td>
-                    <td class="text-right text-success">$
-                      <span id="earning-year">1,779.87</span>
-                    </td>
-                  </tr>
-                </tbody>
-              </table>
+              <?php
+    global $wpdb;
+    
+    // show db errors
+    $wpdb->show_errors(false);
+    $wpdb->print_error();
+        
+    $mainQuery = $wpdb->get_results( "SELECT *
+      FROM 
+          {$wpdb->prefix}miningprofitability m
+      INNER JOIN {$wpdb->prefix}whattomine_api wh ON
+          m.whatToMine_id = wh.id
+      INNER JOIN {$wpdb->prefix}coins c ON
+          m.coin_id = c.id
+      INNER JOIN {$wpdb->prefix}ticker t ON
+          c.id = t.id
+      WHERE 
+          m.post_id = \"" . $post->ID . "\"
+      ORDER BY m.created_at DESC
+      LIMIT 1;" );
+    
+    $daily_netProfit = (float) $mainQuery[0]->daily_netProfit;
+    $daily_grossProfit = (float) $mainQuery[0]->daily_grossProfit;
+    $daily_costs = (float) $mainQuery[0]->daily_costs;
+    $hourly_netProfit = $daily_netProfit / 60;
+    $hourly_grossProfit = $daily_grossProfit / 60;
+    $hourly_costs = $daily_costs / 60;
+    $weekly_netProfit = $daily_netProfit * 7;
+    $weekly_grossProfit = $daily_grossProfit * 7;
+    $weekly_costs = $daily_costs * 7;
+    $monthly_netProfit = $daily_netProfit * 7 * 4;
+    $monthly_grossProfit = $daily_grossProfit * 7 * 4;
+    $monthly_costs =  $daily_costs * 7 * 4;
+    $yearly_netProfit = $daily_netProfit * 7 * 4 * 12;
+    $yearly_grossProfit = $daily_grossProfit * 7 * 4 * 12;
+    $yearly_costs = $daily_costs * 7 * 4 * 12;
+?>
+                <h2>Estimate Earning</h2>
+                <table class="table stats">
+                  <tbody>
+                    <thead>
+                      <th>Period</th>
+                      <th class="text-right">Rev</th>
+                      <th class="text-right">Cost</th>
+                      <th class="text-right">Profit</th>
+                    </thead>
+                    <tr>
+                      <td>Hour</td>
+                      <td class="text-right">$
+                        <span id="rev-hour">
+                          <?php echo number_format($hourly_grossProfit,3); ?>
+                        </span>
+                      </td>
+                      <td class="text-right">$
+                        <span id="cost-hour">
+                          <?php echo number_format($hourly_costs,3); ?>
+                        </span>
+                      </td>
+                      <td class="text-right text-success">$
+                        <span id="earning-hour">
+                          <?php echo number_format($hourly_netProfit,3); ?>
+                        </span>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>Day</td>
+                      <td class="text-right">$
+                        <span id="rev-day">
+                          <?php echo number_format($daily_grossProfit,2); ?>
+                        </span>
+                      </td>
+                      <td class="text-right">$
+                        <span id="cost-day">
+                          <?php echo number_format($daily_costs,2); ?>
+                        </span>
+                      </td>
+                      <td class="text-right text-success">$
+                        <span id="earning-day">
+                          <?php echo number_format($daily_netProfit,2); ?>
+                        </span>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>Week</td>
+                      <td class="text-right">$
+                        <span id="rev-week">
+                          <?php echo number_format($weekly_grossProfit,2); ?>
+                        </span>
+                      </td>
+                      <td class="text-right">$
+                        <span id="cost-week">
+                          <?php echo number_format($weekly_costs,2); ?>
+                        </span>
+                      </td>
+                      <td class="text-right text-success">$
+                        <span id="earning-week">
+                          <?php echo number_format($weekly_netProfit,2); ?>
+                        </span>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>Month</td>
+                      <td class="text-right">$
+                        <span id="rev-month">
+                          <?php echo number_format($monthly_grossProfit,2); ?>
+                        </span>
+                      </td>
+                      <td class="text-right">$
+                        <span id="cost-month">
+                          <?php echo number_format($monthly_costs,2); ?>
+                        </span>
+                      </td>
+                      <td class="text-right text-success">$
+                        <span id="earning-month">
+                          <?php echo number_format($monthly_netProfit,2); ?>
+                        </span>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>Year</td>
+                      <td class="text-right">$
+                        <span id="rev-year">
+                          <?php echo number_format($yearly_grossProfit,2); ?>
+                        </span>
+                      </td>
+                      <td class="text-right">$
+                        <span id="cost-year">
+                          <?php echo number_format($yearly_costs,2); ?>
+                        </span>
+                      </td>
+                      <td class="text-right text-success">$
+                        <span id="earning-year">
+                          <?php echo number_format($yearly_netProfit,2); ?>
+                        </span>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+                The calculations are based on real time prices, where <?php echo $mainQuery[0]->tag; ?> = <?php echo $mainQuery[0]->price; ?>.
             </div>
           </div>
-          
+
           <div class="col-sm-12">
-              <h2>Mining Profitability</h2>
-              <div id="miningProfChart" style="height: 250px;" class="<?php echo $post->ID ?>"></div>
+            <h2>Mining Profitability</h2>
+            <div id="miningProfChart" style="height: 250px;" class="<?php echo $post->ID ?>"></div>
           </div>
 
           <!-- START -->
