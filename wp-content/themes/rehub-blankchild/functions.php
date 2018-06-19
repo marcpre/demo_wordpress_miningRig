@@ -24,7 +24,7 @@ function enqueue_parent_theme_style()
 
     wp_enqueue_style($parentStyle, get_template_directory_uri() . '/style.css');
 
-    if (is_page('Rig Builder') || is_page('Mining Rigs')) {
+    if (is_page('Rig Builder') || is_page('Mining Rigs') || is_page('Hardware Overview')) {
 
         //css
         wp_enqueue_style('bootstrap-4.0.0', get_stylesheet_directory_uri() . '/css/bootstrap.min.css', array($parentStyle));
