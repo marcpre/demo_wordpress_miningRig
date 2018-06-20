@@ -57,7 +57,10 @@ function createMiningRig($data)
         ),
     ));
     
-    return setCustomFieldContentEgg($miningRigsId, $rigHardwareArray);
+    setCustomFieldContentEgg($miningRigsId, $rigHardwareArray);
+    $permalink = get_permalink($miningRigsId); 
+
+    return $permalink;
 }
 
 function setCustomFieldContentEgg($miningRigsId, $rigHardwareArray) 

@@ -44018,22 +44018,33 @@ function () {
         type: 'POST',
         data: newBuild,
         success: function success(response) {
-          //remove spinner
-          (0, _jquery.default)(".loading").remove();
-          swal("Good job!", "You clicked the button!", "success");
-          console.log("Congrats"); // console.log(response);
-        },
-        error: function error(response) {
-          console.log("error response: ");
+          console.log("lolonator");
           console.log(response); //remove spinner
 
           (0, _jquery.default)(".loading").remove();
+          swal({
+            title: "Good job!",
+            text: "😍Share the link below!😍",
+            content: {
+              element: "input",
+              attributes: {
+                type: "text",
+                value: "".concat(response)
+              }
+            },
+            icon: "success"
+          });
+          console.log("Congrats"); // console.log(response);
+        },
+        error: function error(response) {
           (0, _jquery.default)(".errors").append("<div class=\"alert alert-danger active alert-dismissable\">\n                    <a href=\"#\" class=\"close\" data-dismiss=\"alert\" aria-label=\"close\">&times;</a>\n                    <strong>Error!</strong> ".concat(response.responseText, "\n                </div>")); //scroll to the top of the page
 
           (0, _jquery.default)('html, body').animate({
             scrollTop: 0
-          }, 'fast');
-          swal("Sorry!", "An error occured. Please try again!", "danger");
+          }, 'fast'); //remove spinner
+
+          (0, _jquery.default)(".loading").remove();
+          swal("Sorry!", "An error occured. Please try again!", "error");
           console.log("Sorry"); // console.log(response);
         }
       });

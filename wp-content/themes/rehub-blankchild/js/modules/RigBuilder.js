@@ -356,25 +356,25 @@ class RigBuilder {
 
             // calculate costs
             // sum up watt
-    /*        let getWatts =
-                _(allGpuParts)
-                .map((objs, key) => ({
-                    'watt': _.sumBy(objs, 'watt')
-                }))
-                .value()
-                let getWatts = _.sumBy(allGpuParts, 'hashRatePerSecond')
-    */
-                
+            /*        let getWatts =
+                        _(allGpuParts)
+                        .map((objs, key) => ({
+                            'watt': _.sumBy(objs, 'watt')
+                        }))
+                        .value()
+                        let getWatts = _.sumBy(allGpuParts, 'hashRatePerSecond')
+            */
+
             let wattofGPUs = _.sumBy(allGpuParts, 'watt')
             let energyCosts = $(".form-control-cost-per-kwh").val()
-            
-            if(energyCosts === "" || energyCosts === 'undefined') energyCosts = 0.1
-            
+
+            if (energyCosts === "" || energyCosts === 'undefined') energyCosts = 0.1
+
             let powerCostsPerHour = ((wattofGPUs * numberOfEquipment) / 1000) * energyCosts
             let powerCostsPerDay = powerCostsPerHour * 24
             let powerCostsPerWeek = powerCostsPerHour * 24 * 7
             let powerCostsPerMonth = powerCostsPerHour * 24 * 7 * 4
-            let powerCostsPerYear = powerCostsPerHour * 24 * 7 * 4 * 12            
+            let powerCostsPerYear = powerCostsPerHour * 24 * 7 * 4 * 12
 
             // final results
             let earningsPerDay = revenuePerDay - powerCostsPerDay
@@ -390,7 +390,7 @@ class RigBuilder {
             $(".monthMinProf").text("$" + earningsPerMonth.toFixed(2))
             $(".yearMinProf").text("$" + earningsPerYear.toFixed(2))
             $(".paybackProf").text(payBackPeriod.toFixed(0) + " days")
-            
+
             $(".form-control-cost-per-kwh").text(energyCosts.toFixed(2))
         });
     }
@@ -439,17 +439,28 @@ class RigBuilder {
             type: 'POST',
             data: newBuild,
             success: (response) => {
+                console.log("lolonator")
+                console.log(response)
+
                 //remove spinner
                 $(".loading").remove()
-                swal("Good job!", "You clicked the button!", "success")
+                swal({
+                    title: "Good job! 👍",
+                    text: "👑Share the 🔗link below!😍😍😍",
+                    content: {
+                        element: "input",
+                        attributes: {
+                            type: "text",
+                            value: `${response}`
+                        },
+                    },
+                    icon: "success",
+                })
                 console.log("Congrats");
                 // console.log(response);
             },
             error: (response) => {
-                console.log("error response: ")
-                console.log(response)
-                //remove spinner
-                $(".loading").remove()
+
                 $(".errors").append(
                     `<div class="alert alert-danger active alert-dismissable">
                     <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
@@ -457,10 +468,15 @@ class RigBuilder {
                 </div>`
                 );
                 //scroll to the top of the page
+
                 $('html, body').animate({
                     scrollTop: 0
                 }, 'fast');
-                swal("Sorry!", "An error occured. Please try again!", "danger")
+
+                //remove spinner
+                $(".loading").remove()
+
+                swal("Sorry!", "An error occured. Please try again!", "error")
                 console.log("Sorry");
                 // console.log(response);
             }
