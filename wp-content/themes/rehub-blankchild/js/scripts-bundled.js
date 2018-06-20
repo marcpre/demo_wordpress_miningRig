@@ -43892,8 +43892,6 @@ function () {
        * Validation
        */
 
-      console.log("1 2 3 4 5 6 sdfas");
-
       if (allGpuParts === undefined || allGpuParts.length == 0) {
         // check if allGpuParts is defined or not
         //remove spinner
@@ -44003,6 +44001,7 @@ function () {
       var newBuild = {
         'title': postTitle,
         'content': miningRigDescription,
+        // currently commented out
         'miningRigPostIds': rigPostIds,
         'reddit_sharing': redditSharing,
         'twitch_sharing': twitchSharing,
@@ -44021,18 +44020,20 @@ function () {
         success: function success(response) {
           //remove spinner
           (0, _jquery.default)(".loading").remove();
-          swal("Good job!", "success");
+          swal("Good job!", "You clicked the button!", "success");
           console.log("Congrats"); // console.log(response);
         },
         error: function error(response) {
-          //remove spinner
+          console.log("error response: ");
+          console.log(response); //remove spinner
+
           (0, _jquery.default)(".loading").remove();
           (0, _jquery.default)(".errors").append("<div class=\"alert alert-danger active alert-dismissable\">\n                    <a href=\"#\" class=\"close\" data-dismiss=\"alert\" aria-label=\"close\">&times;</a>\n                    <strong>Error!</strong> ".concat(response.responseText, "\n                </div>")); //scroll to the top of the page
 
           (0, _jquery.default)('html, body').animate({
             scrollTop: 0
           }, 'fast');
-          swal("An error occured. Please try again!", "danger");
+          swal("Sorry!", "An error occured. Please try again!", "danger");
           console.log("Sorry"); // console.log(response);
         }
       });

@@ -26,9 +26,11 @@ function createMiningRig($data)
         die("Please add hardware parts to your built.");
     }
     
-    if(strlen($data['content']) < 80) {
+    
+    // TODO validation for content is removed
+    /* if(strlen($data['content']) < 80) {
         die("Your mining rig descriptions has to be longer than 80 characters.");
-    }
+    } */
     
     // Santitize array input
     $rigHardwareArray = array_map('esc_attr', $data['miningRigPostIds']);

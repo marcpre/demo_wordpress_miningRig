@@ -298,7 +298,6 @@ class RigBuilder {
         /**
          * Validation
          */
-        console.log("1 2 3 4 5 6 sdfas")
         if (allGpuParts === undefined || allGpuParts.length == 0) { // check if allGpuParts is defined or not
             //remove spinner
             $(".loading").remove()
@@ -422,7 +421,7 @@ class RigBuilder {
 
         const newBuild = {
             'title': postTitle,
-            'content': miningRigDescription,
+            'content': miningRigDescription, // currently commented out
             'miningRigPostIds': rigPostIds,
             'reddit_sharing': redditSharing,
             'twitch_sharing': twitchSharing,
@@ -442,11 +441,13 @@ class RigBuilder {
             success: (response) => {
                 //remove spinner
                 $(".loading").remove()
-                swal("Good job!", "success")
+                swal("Good job!", "You clicked the button!", "success")
                 console.log("Congrats");
                 // console.log(response);
             },
             error: (response) => {
+                console.log("error response: ")
+                console.log(response)
                 //remove spinner
                 $(".loading").remove()
                 $(".errors").append(
@@ -459,7 +460,7 @@ class RigBuilder {
                 $('html, body').animate({
                     scrollTop: 0
                 }, 'fast');
-                swal("An error occured. Please try again!", "danger")
+                swal("Sorry!", "An error occured. Please try again!", "danger")
                 console.log("Sorry");
                 // console.log(response);
             }

@@ -157,12 +157,14 @@ if ($products->have_posts()) {?>
                             <i class="fas fa-bolt"></i>
                             <span id="wattage" class="wattage" aria-hidden="true"></span>W
                         </div>
+                        <!--
                         <div class="form-group row" align="left">
                             <div class="col-7">
                                 <textarea class="form-control description miningRigDescription" rows="8" id="comment" placeholder="Describe your mining rig briefly. E.g.: For which coins can it be used?"></textarea>
                                 <span class='typedChar'></span>
                             </div>
-                        </div>
+                        </div> -->
+                        </br>
                         <div align="right">
                             <button type="button" class="btn btn-warning btn-lg calc-prof">
                                 Calculate Profitability
