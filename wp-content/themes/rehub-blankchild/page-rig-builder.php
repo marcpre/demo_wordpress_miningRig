@@ -147,6 +147,8 @@ if ($products->have_posts()) {?>
                                 <i class="fas fa-users"></i>vBCode</a>
                             <a class="sn-twitch" href="">
                                 <i class="fab fa-twitch"></i>Twitch</a>
+                            <a class="sn-youtube" href="">
+                                <i class="fab fa-youtube"></i>Youtube</a>
                         </div>
                         <div align="right">
                             <b>Total:</b>
@@ -264,6 +266,7 @@ wp_reset_postdata();
                         <?php get_template_part('template-parts/modal-reddit');?>
                         <?php get_template_part('template-parts/modal-twitch');?>
                         <?php get_template_part('template-parts/modal-vBCode');?>
+                        <?php get_template_part('template-parts/modal-youtube');?>
 
                         <!-- MODALS END -->
                 </article>
