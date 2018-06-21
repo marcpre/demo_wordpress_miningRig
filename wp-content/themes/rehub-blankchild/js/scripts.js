@@ -2,8 +2,6 @@
 import $ from 'jquery';
 import dt from 'datatables.net';
 import _ from 'lodash';
-import markdown from 'markdown-table';
-
 
 // Our modules / classes
 // import Test from './modules/Test';

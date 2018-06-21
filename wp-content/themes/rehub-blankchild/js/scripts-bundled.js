@@ -60,7 +60,7 @@
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 5);
+/******/ 	return __webpack_require__(__webpack_require__.s = 4);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -42683,268 +42683,10 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*! DataTables 1
   }
 }.call(this));
 
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(6), __webpack_require__(7)(module)))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(5), __webpack_require__(6)(module)))
 
 /***/ }),
 /* 3 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-/* Expose. */
-module.exports = markdownTable
-
-/* Expressions. */
-var EXPRESSION_DOT = /\./
-var EXPRESSION_LAST_DOT = /\.[^.]*$/
-
-/* Allowed alignment values. */
-var LEFT = 'l'
-var RIGHT = 'r'
-var CENTER = 'c'
-var DOT = '.'
-var NULL = ''
-
-var ALLIGNMENT = [LEFT, RIGHT, CENTER, DOT, NULL]
-var MIN_CELL_SIZE = 3
-
-/* Characters. */
-var COLON = ':'
-var DASH = '-'
-var PIPE = '|'
-var SPACE = ' '
-var NEW_LINE = '\n'
-
-/* Create a table from a matrix of strings. */
-function markdownTable(table, options) {
-  var settings = options || {}
-  var delimiter = settings.delimiter
-  var start = settings.start
-  var end = settings.end
-  var alignment = settings.align
-  var calculateStringLength = settings.stringLength || lengthNoop
-  var cellCount = 0
-  var rowIndex = -1
-  var rowLength = table.length
-  var sizes = []
-  var align
-  var rule
-  var rows
-  var row
-  var cells
-  var index
-  var position
-  var size
-  var value
-  var spacing
-  var before
-  var after
-
-  alignment = alignment ? alignment.concat() : []
-
-  if (delimiter === null || delimiter === undefined) {
-    delimiter = SPACE + PIPE + SPACE
-  }
-
-  if (start === null || start === undefined) {
-    start = PIPE + SPACE
-  }
-
-  if (end === null || end === undefined) {
-    end = SPACE + PIPE
-  }
-
-  while (++rowIndex < rowLength) {
-    row = table[rowIndex]
-
-    index = -1
-
-    if (row.length > cellCount) {
-      cellCount = row.length
-    }
-
-    while (++index < cellCount) {
-      position = row[index] ? dotindex(row[index]) : null
-
-      if (!sizes[index]) {
-        sizes[index] = MIN_CELL_SIZE
-      }
-
-      if (position > sizes[index]) {
-        sizes[index] = position
-      }
-    }
-  }
-
-  if (typeof alignment === 'string') {
-    alignment = pad(cellCount, alignment).split('')
-  }
-
-  /* Make sure only valid alignments are used. */
-  index = -1
-
-  while (++index < cellCount) {
-    align = alignment[index]
-
-    if (typeof align === 'string') {
-      align = align.charAt(0).toLowerCase()
-    }
-
-    if (ALLIGNMENT.indexOf(align) === -1) {
-      align = NULL
-    }
-
-    alignment[index] = align
-  }
-
-  rowIndex = -1
-  rows = []
-
-  while (++rowIndex < rowLength) {
-    row = table[rowIndex]
-
-    index = -1
-    cells = []
-
-    while (++index < cellCount) {
-      value = row[index]
-
-      value = stringify(value)
-
-      if (alignment[index] === DOT) {
-        position = dotindex(value)
-
-        size =
-          sizes[index] +
-          (EXPRESSION_DOT.test(value) ? 0 : 1) -
-          (calculateStringLength(value) - position)
-
-        cells[index] = value + pad(size - 1)
-      } else {
-        cells[index] = value
-      }
-    }
-
-    rows[rowIndex] = cells
-  }
-
-  sizes = []
-  rowIndex = -1
-
-  while (++rowIndex < rowLength) {
-    cells = rows[rowIndex]
-
-    index = -1
-
-    while (++index < cellCount) {
-      value = cells[index]
-
-      if (!sizes[index]) {
-        sizes[index] = MIN_CELL_SIZE
-      }
-
-      size = calculateStringLength(value)
-
-      if (size > sizes[index]) {
-        sizes[index] = size
-      }
-    }
-  }
-
-  rowIndex = -1
-
-  while (++rowIndex < rowLength) {
-    cells = rows[rowIndex]
-
-    index = -1
-
-    if (settings.pad !== false) {
-      while (++index < cellCount) {
-        value = cells[index]
-
-        position = sizes[index] - (calculateStringLength(value) || 0)
-        spacing = pad(position)
-
-        if (alignment[index] === RIGHT || alignment[index] === DOT) {
-          value = spacing + value
-        } else if (alignment[index] === CENTER) {
-          position /= 2
-
-          if (position % 1 === 0) {
-            before = position
-            after = position
-          } else {
-            before = position + 0.5
-            after = position - 0.5
-          }
-
-          value = pad(before) + value + pad(after)
-        } else {
-          value += spacing
-        }
-
-        cells[index] = value
-      }
-    }
-
-    rows[rowIndex] = cells.join(delimiter)
-  }
-
-  if (settings.rule !== false) {
-    index = -1
-    rule = []
-
-    while (++index < cellCount) {
-      /* When `pad` is false, make the rule the same size as the first row. */
-      if (settings.pad === false) {
-        value = table[0][index]
-        spacing = calculateStringLength(stringify(value))
-        spacing = spacing > MIN_CELL_SIZE ? spacing : MIN_CELL_SIZE
-      } else {
-        spacing = sizes[index]
-      }
-
-      align = alignment[index]
-
-      /* When `align` is left, don't add colons. */
-      value = align === RIGHT || align === NULL ? DASH : COLON
-      value += pad(spacing - 2, DASH)
-      value += align !== LEFT && align !== NULL ? COLON : DASH
-
-      rule[index] = value
-    }
-
-    rows.splice(1, 0, rule.join(delimiter))
-  }
-
-  return start + rows.join(end + NEW_LINE + start) + end
-}
-
-function stringify(value) {
-  return value === null || value === undefined ? '' : String(value)
-}
-
-/* Get the length of `value`. */
-function lengthNoop(value) {
-  return String(value).length
-}
-
-/* Get a string consisting of `length` `character`s. */
-function pad(length, character) {
-  return new Array(length + 1).join(character || SPACE)
-}
-
-/* Get the position of the last dot in `value`. */
-function dotindex(value) {
-  var match = EXPRESSION_LAST_DOT.exec(value)
-
-  return match ? match.index + 1 : value.length
-}
-
-
-/***/ }),
-/* 4 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -43102,7 +42844,7 @@ var _default = Util;
 exports.default = _default;
 
 /***/ }),
-/* 5 */
+/* 4 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -43114,19 +42856,17 @@ var _datatables = _interopRequireDefault(__webpack_require__(1));
 
 var _lodash = _interopRequireDefault(__webpack_require__(2));
 
-var _markdownTable = _interopRequireDefault(__webpack_require__(3));
+var _util = _interopRequireDefault(__webpack_require__(3));
 
-var _util = _interopRequireDefault(__webpack_require__(4));
+var _Modal = _interopRequireDefault(__webpack_require__(7));
 
-var _Modal = _interopRequireDefault(__webpack_require__(8));
+var _DataTable = _interopRequireDefault(__webpack_require__(8));
 
-var _DataTable = _interopRequireDefault(__webpack_require__(9));
+var _RigBuilder = _interopRequireDefault(__webpack_require__(9));
 
-var _RigBuilder = _interopRequireDefault(__webpack_require__(10));
+var _MiningRigs = _interopRequireDefault(__webpack_require__(10));
 
-var _MiningRigs = _interopRequireDefault(__webpack_require__(11));
-
-var _HardwareOverview = _interopRequireDefault(__webpack_require__(12));
+var _HardwareOverview = _interopRequireDefault(__webpack_require__(11));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -43145,7 +42885,7 @@ var util = new _util.default();
 var modal = new _Modal.default();
 
 /***/ }),
-/* 6 */
+/* 5 */
 /***/ (function(module, exports) {
 
 var g;
@@ -43172,7 +42912,7 @@ module.exports = g;
 
 
 /***/ }),
-/* 7 */
+/* 6 */
 /***/ (function(module, exports) {
 
 module.exports = function(module) {
@@ -43200,7 +42940,7 @@ module.exports = function(module) {
 
 
 /***/ }),
-/* 8 */
+/* 7 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -43213,7 +42953,7 @@ exports.default = void 0;
 
 var _jquery = _interopRequireDefault(__webpack_require__(0));
 
-var _util = _interopRequireDefault(__webpack_require__(4));
+var _util = _interopRequireDefault(__webpack_require__(3));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -43830,7 +43570,7 @@ var _default = Modal;
 exports.default = _default;
 
 /***/ }),
-/* 9 */
+/* 8 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -43862,7 +43602,7 @@ var _default = DataTable;
 exports.default = _default;
 
 /***/ }),
-/* 10 */
+/* 9 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -43879,9 +43619,11 @@ var _datatables = _interopRequireDefault(__webpack_require__(1));
 
 var _lodash = _interopRequireDefault(__webpack_require__(2));
 
-var _markdownTable = _interopRequireDefault(__webpack_require__(3));
-
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _sliceIterator(arr, i) { var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
+
+function _slicedToArray(arr, i) { if (Array.isArray(arr)) { return arr; } else if (Symbol.iterator in Object(arr)) { return _sliceIterator(arr, i); } else { throw new TypeError("Invalid attempt to destructure non-iterable instance"); } }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
@@ -44389,15 +44131,44 @@ function () {
     key: "youtubeSharingCode",
     value: function youtubeSharingCode() {
       var result = {};
-      result = this.buildResultsObjGlobal;
+      result = this.buildResultsObjGlobal; // format date
+
+      var options = {
+        year: 'numeric',
+        month: 'long',
+        day: 'numeric'
+      };
+      var now = new Date();
+      var today = now.toLocaleDateString("en-US", options);
+      var url = miningRigData.root_url.replace("http://", "");
       var items = "";
+      var categories = Object.create(null);
+      Object.values(result).forEach(function (_ref) {
+        var title = _ref.title,
+            category = _ref.category,
+            price = _ref.price;
+        return category.forEach(function (_ref2) {
+          var cat_name = _ref2.cat_name;
+          return (categories[cat_name] = categories[cat_name] || []).push({
+            title: title,
+            price: price,
+            cat_name: cat_name
+          });
+        });
+      });
+      Object.entries(categories).forEach(function (_ref3) {
+        var _ref4 = _slicedToArray(_ref3, 2),
+            category = _ref4[0],
+            products = _ref4[1];
 
-      for (var key in result) {
-        items += "[b]".concat(result[key].category["0"].cat_name, ":[/b] [url=").concat(result[key].affiliateLink, "]").concat(result[key].title, "[/url]  ($").concat(result[key].price, ")") + "\n";
-      }
-
-      items = items.replace(/\n$/, "");
-      (0, _jquery.default)(".socialnetworkcontent.form-control").append("[url=".concat(miningRigData.root_url, "]Mining Rig Builder[/url]\n\n").concat(items.replace(/\n$/, ""), "\n[b]Total:[/b] $").concat(this.overallPrice, "\n[i]Price may include shipping, rebates, promotions, and tax[/i]\n[i]Generated by [url=").concat(miningRigData.root_url, "]Mining Rig Builder[/url][/i]"));
+        items += "*".concat(category, "* :\n");
+        products.forEach(function (_ref5) {
+          var title = _ref5.title,
+              price = _ref5.price;
+          return items += "-> _".concat(title, "_ ($").concat(price, ")\n");
+        });
+      });
+      (0, _jquery.default)(".socialnetworkcontent.form-control").val("".concat(url, " - *Mining Rig Builder* \n").concat(items, "\n*Current Total:* $").concat(this.overallPrice, "\n\nGenerated by ").concat(url, " on ").concat(today));
     }
   }, {
     key: "clearModals",
@@ -44412,6 +44183,10 @@ function () {
       }); // vBCode
 
       (0, _jquery.default)("#vBCodeModal").on("hidden.bs.modal", function () {
+        (0, _jquery.default)('.socialnetworkcontent').html('');
+      }); // youtube
+
+      (0, _jquery.default)("#youtubeModal").on("hidden.bs.modal", function () {
         (0, _jquery.default)('.socialnetworkcontent').html('');
       });
     }
@@ -44441,7 +44216,7 @@ var _default = RigBuilder;
 exports.default = _default;
 
 /***/ }),
-/* 11 */
+/* 10 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -44541,7 +44316,7 @@ var _default = MiningRigs;
 exports.default = _default;
 
 /***/ }),
-/* 12 */
+/* 11 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
