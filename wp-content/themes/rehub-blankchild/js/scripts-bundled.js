@@ -42864,19 +42864,18 @@ var _DataTable = _interopRequireDefault(__webpack_require__(8));
 
 var _RigBuilder = _interopRequireDefault(__webpack_require__(9));
 
-var _MiningRigs = _interopRequireDefault(__webpack_require__(10));
-
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 // 3rd party packages from NPM
 // Our modules / classes
 // import Test from './modules/Test';
-//import HardwareOverview from './modules/HardwareOverview'
+// import MiningRigs from './modules/MiningRigs'
+// import HardwareOverview from './modules/HardwareOverview'
 // import ComputerHardware from './modules/ComputerHardwareTemplate'
 // Instantiate a new object using our modules/classes
 // var compHardware = new ComputerHardware()
-//var hardwareOverview = new HardwareOverview();
-var miningRigs = new _MiningRigs.default();
+// var hardwareOverview = new HardwareOverview();
+// var miningRigs = new MiningRigs();
 var rigBuilder = new _RigBuilder.default();
 var dataTable = new _DataTable.default(); // var test = new Test(); // Test Message
 
@@ -44212,106 +44211,6 @@ function () {
 }();
 
 var _default = RigBuilder;
-exports.default = _default;
-
-/***/ }),
-/* 10 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.default = void 0;
-
-var _jquery = _interopRequireDefault(__webpack_require__(0));
-
-var _datatables = _interopRequireDefault(__webpack_require__(1));
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
-
-function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
-
-var MiningRigs =
-/*#__PURE__*/
-function () {
-  function MiningRigs() {
-    _classCallCheck(this, MiningRigs);
-
-    this.events();
-    this.allMiningRigs();
-  } // end constructor
-
-
-  _createClass(MiningRigs, [{
-    key: "events",
-    value: function events() {
-      (0, _jquery.default)(".btn.btn-primary.btn-lg.createRig").on("click", this.redirectToMiningRigBuilder.bind(this));
-    }
-  }, {
-    key: "allMiningRigs",
-    value: function allMiningRigs() {
-      console.log("allMiningRigs clicked");
-
-      _jquery.default.getJSON(miningRigData.root_url + '/wp-json/miningRigs/v1/allRigs', function (results) {
-        console.log(results); //get the 3 images
-
-        var getImages = function getImages(miningHardware) {
-          return miningHardware.slice(0, 12).map(function (h) {
-            return "<a href=\"".concat(h.affiliateLink, "\" target=\"_blank\"><img src=\"").concat(h.amzImg, "\" alt=\"").concat(h.partTitle, "\" height=\"80\" width=\"80\"></a>");
-          }).join('\n');
-        }; //get the shopping list
-
-
-        var getShoppingList = function getShoppingList(miningHardware) {
-          return miningHardware //    .slice(0, 12)
-          .map(function (h) {
-            return "<li><a href=\"".concat(h.affiliateLink, "\" target=\"_blank\">").concat(h.partTitle, "</a></li>");
-          }).join('\n');
-        }; //transform data set
-
-
-        var dataSet = results.generalInfo.map(function (item, i) {
-          return [i + 1, "".concat(getImages(item.miningHardware)), "<a href=\"".concat(item.permalink, "\" target=\"_blank\">\n                    ").concat(item.title, "\n                 </a>"), "<ul>\n                    ".concat(getShoppingList(item.miningHardware), "\n                  </ul>"), "$".concat(item.totalPrice.toFixed(2))];
-        });
-        (0, _jquery.default)('#allMiningRigs').DataTable({
-          data: dataSet,
-          destroy: true,
-          iDisplayLength: 100,
-          responsive: true,
-          columns: [{
-            title: "#"
-          }, {
-            title: "Single Parts"
-          }, {
-            title: "Title"
-          }, {
-            title: "Shopping List"
-          }, {
-            title: "Total Price"
-          }]
-        });
-      });
-    }
-  }, {
-    key: "redirectToMiningRigBuilder",
-    value: function redirectToMiningRigBuilder() {
-      var link = miningRigData.root_url + '/rig-builder';
-      console.log("link: " + link);
-      window.open(link, '_blank');
-    }
-  }]);
-
-  return MiningRigs;
-}();
-
-var _default = MiningRigs;
 exports.default = _default;
 
 /***/ })
