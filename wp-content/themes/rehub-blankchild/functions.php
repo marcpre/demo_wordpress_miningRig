@@ -73,14 +73,17 @@ function enqueue_parent_theme_style()
         wp_enqueue_style('bootstrap-4.0.0', get_stylesheet_directory_uri() . '/css/bootstrap.min.css', array($parentStyle));
         wp_enqueue_style('dataTables', '//cdn.datatables.net/1.10.16/css/jquery.dataTables.min.css', array($parentStyle));
         wp_enqueue_style('dataTables-1.10.16', get_stylesheet_directory_uri() . '/css/dataTables.bootstrap4.min.css', array($parentStyle));
+        wp_enqueue_script('jquery', '//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js', null, '1.0', true);        
         wp_enqueue_style('style', get_stylesheet_directory_uri() . '/style.css', array($parentStyle));
         
         //js
         wp_enqueue_script('font-awesome', 'https://use.fontawesome.com/releases/v5.0.10/js/all.js', null, '1.0', true);
         wp_enqueue_script('bootstrap-4.0.0', 'https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js', null, '1.0', true);
-        wp_enqueue_script('main-mining-rig-js', get_theme_file_uri('/js/scripts-bundled.js'), null, '1.0', true);
+        wp_enqueue_script('jquery', '//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js', null, '1.0', true);        
+        wp_enqueue_script('dataTables', '//cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js', null, '1.0', true);                
+        wp_enqueue_script('hardware-overview', get_theme_file_uri('/js/overview/HardwareOverview.js'), null, '1.0', true);
 
-        wp_localize_script('main-mining-rig-js', 'miningRigData', array(
+        wp_localize_script('hardware-overview', 'miningRigData', array(
             'root_url' => get_site_url(),
             'nonce' => wp_create_nonce('wp_rest'),
         ));

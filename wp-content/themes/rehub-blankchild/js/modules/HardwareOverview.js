@@ -45,7 +45,7 @@ class HardwareOverview {
                 destroy: true,
                 iDisplayLength: 100,
                 responsive: true,
-                "bInfo" : false,
+                "bInfo": false,
                 "order": [
                     [4, 'desc']
                 ],
@@ -71,14 +71,6 @@ class HardwareOverview {
             });
         });
     }
-
-    /*
-    redirectToMiningRigBuilder() {
-        let link = miningRigData.root_url + '/rig-builder'
-        console.log("link: " + link)
-        window.open(link, '_blank'); 
-    }
-    */
 }
 
 export default HardwareOverview;

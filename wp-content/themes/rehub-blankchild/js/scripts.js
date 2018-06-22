@@ -10,13 +10,13 @@ import Modal from './modules/Modal';
 import DataTable from './modules/DataTable'
 import RigBuilder from './modules/RigBuilder'
 import MiningRigs from './modules/MiningRigs'
-import HardwareOverview from './modules/HardwareOverview'
+//import HardwareOverview from './modules/HardwareOverview'
 
 // import ComputerHardware from './modules/ComputerHardwareTemplate'
 
 // Instantiate a new object using our modules/classes
 // var compHardware = new ComputerHardware()
-var hardwareOverview = new HardwareOverview();
+//var hardwareOverview = new HardwareOverview();
 var miningRigs = new MiningRigs();
 var rigBuilder = new RigBuilder();
 var dataTable = new DataTable();
