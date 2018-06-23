@@ -83,7 +83,9 @@ function allRigHardwareWithProfitability($data)
     $wpdb->print_error();
     
     /*
-    // This query works, BUT is slower --> HOWEVER, it can be better explained!
+    // ############################################################################
+    // # This query works, BUT is slower --> HOWEVER, it can be better explained! #
+    // ############################################################################
     $mainQuery = $wpdb->get_results( "SELECT *
         FROM
         {$wpdb->prefix}posts p
