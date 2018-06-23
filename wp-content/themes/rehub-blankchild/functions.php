@@ -117,3 +117,30 @@ function rehubchild_lang_setup()
 {
     load_child_theme_textdomain('rehubchild', get_stylesheet_directory() . '/lang');
 }
+
+//////////////////////////////////////////////////////////////////
+// Advanced Custom Fields Filters
+//////////////////////////////////////////////////////////////////
+/* function acf_load_coin_algorithm_field_choices( $field ) {
+    
+    // reset choices
+    $field['choices'] = array();
+    
+    // get the textarea value from options page without any formatting
+    $choices = get_field('coin_algorithm', 'option', false);
+    // explode the value so that each line is a new array piece
+    $choices = explode("\n", $choices);
+    // remove any unwanted white space
+    $choices = array_map('trim', $choices);
+    // loop through array and add to field 'choices'
+    if( is_array($choices) ) {   
+        foreach( $choices as $choice ) { 
+            $field['choices'][ $choice ] = $choice;
+        }
+        
+    }
+    return $field;
+}
+
+add_filter('acf/load_field/name=coin_algorithm', 'acf_load_coin_algorithm_field_choices');
+*/
