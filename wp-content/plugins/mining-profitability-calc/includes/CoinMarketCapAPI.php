@@ -35,13 +35,14 @@ class CoinMarketCapAPI {
 
         $client = new GuzzleHttp\Client();
         
+        // get coinmarketcap data
         $response = $client->request('GET', self::COIN_MARKET_CAP_URL )->getBody();
-        $obj = json_decode($response);
-        
+        $objCoinMarketCap = json_decode($response);
+               
         // insert 
         global $wpdb;
         
-        foreach ($obj->data as $key => $value) {
+        foreach ($objCoinMarketCap->data as $key => $value) {
             
             //coin table
             $resCoin = array();
