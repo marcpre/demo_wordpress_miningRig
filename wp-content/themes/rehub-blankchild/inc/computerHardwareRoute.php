@@ -81,16 +81,31 @@ function allRigHardwareWithProfitability($data)
     // show db errors
     $wpdb->show_errors(false);
     $wpdb->print_error();
-        
+    
+    /*
+    // This query works, BUT is slower --> HOWEVER, it can be better explained!
     $mainQuery = $wpdb->get_results( "SELECT *
         FROM
         {$wpdb->prefix}posts p
         INNER JOIN {$wpdb->prefix}miningprofitability m ON
             m.post_id = p.ID
+        WHERE m.created_at = (
+            SELECT max(u.created_at)
+            FROM wp_miningprofitability u
+        )
         ORDER BY
             m.daily_grossProfit
         DESC;" );
-
+    */
+    $mainQuery = $wpdb->get_results("SELECT *
+        FROM {$wpdb->prefix}posts t
+        INNER JOIN (
+            SELECT post_id, daily_netProfit, daily_grossProfit, daily_costs, max(created_at) AS MaxDate
+            FROM {$wpdb->prefix}miningprofitability 
+            GROUP BY post_id
+        ) tm ON t.ID  = tm.post_id  
+        ORDER BY tm.daily_netProfit DESC;");
+    
     $results = array(
         'profRigHardware' => array(),
     );
