@@ -36,7 +36,7 @@ wp-content/*
 wp-content/plugins/*
 !wp-content/mu-plugins
 !wp-content/plugins/mining-profitability-calc
-!wp-content/plugins/custom-importer
+!wp-content/plugins/importer-cmc-wtm
 # !wp-content/plugins/my-directory-plugin/
 
 # Ignore everything in the "themes" directory, except the themes you
