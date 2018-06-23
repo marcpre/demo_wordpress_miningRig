@@ -1,10 +1,9 @@
-jQuery(document).ready(function($) {
+jQuery(document).ready(($) => {
 
     // Add spinner
-    $(".allHardwareOverview").before("<div class='loading'>Loading&#8230;</div>")
+    $(".hardwareOverviewSpinner").before("<div class='loading'>Loading&#8230;</div>")
     $.getJSON(miningRigData.root_url + '/wp-json/rigHardware/v1/allProfitableRigHardware?term=graphic-card ', (results) => {
-        //remove spinner
-        $(".loading").remove()
+
         const rentabilityHtml = function(daily_netProfit) {
             if (daily_netProfit < 0) {
                 return `<div style="color:red;"><b>$${daily_netProfit}/day</b></div>`
@@ -23,6 +22,9 @@ jQuery(document).ready(function($) {
             `${ item.watt }W`,
             `${ rentabilityHtml(parseFloat(item.daily_netProfit)) }`,
         ])
+        
+        //remove spinner
+        //$(".loading").remove()
 
         $('#allHardwareOverview').DataTable({
             data: dataSet,

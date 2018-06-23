@@ -24,7 +24,7 @@
                 <?php the_content();?>
                 <?php wp_link_pages(array('before' => '<div class="page-link">' . __('Pages:', 'rehub_framework'), 'after' => '</div>'));?>
                 <?php endwhile;endif;?>
-
+                <div class="hardwareOverviewSpinner"></div>
                 <!-- START -->
                 <!--
                     <div align="right">

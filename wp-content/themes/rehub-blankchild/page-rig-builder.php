@@ -33,8 +33,6 @@ $products = new WP_Query(array(
     // 'meta_value'    => 'Melbourne'
 ));
 
-// var_dump($products->posts);
-
 if ($products->have_posts()) {?>
                         <div class="errors"></div>
                         <div class="form-group row">
