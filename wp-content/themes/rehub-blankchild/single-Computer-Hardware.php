@@ -70,7 +70,7 @@
           <!-- Stats START -->
           <div class="container-fluid">
             <div class="row">
-              <div class="col-6">
+              <div class="col-md-6 col-sm-12">
                 <div class="pr-1">
                   <h2>Specifications</h2>
                   <table class="table stats">
@@ -119,7 +119,7 @@
                   </table>
                 </div>
               </div>
-              <div class="col-6">
+              <div class="col-md-6 col-sm-12">
                 <div class="pr-1">
                   <?php
     global $wpdb;

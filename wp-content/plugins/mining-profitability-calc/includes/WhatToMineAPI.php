@@ -81,11 +81,11 @@ class WhatToMineAPI {
                 $wpdb->prepare(
                     "SELECT * FROM {$wpdb->prefix}whattomine_api
                      WHERE 
-                        coin = %s
+                        algorithm = %s
                         AND btc_revenue = %s 
                         AND estimated_rewards = %s 
                      LIMIT 1",
-                     $key, $value->btc_revenue, $value->estimated_rewards
+                     $value->algorithm, $value->btc_revenue, $value->estimated_rewards
                 )
             );
             
