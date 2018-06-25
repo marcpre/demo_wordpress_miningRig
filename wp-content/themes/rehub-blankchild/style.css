@@ -182,3 +182,29 @@
 #profitCalculator {
 	display: none;
 }
+
+/**
+* Mining List
+*/
+.boxilistpage {
+    width: 100%;
+    border: 1px solid #000;
+    height: 100%;
+    padding: 5px;
+}
+.twocol-one, .threecol-one, .threecol-two, .fourcol-one, .fourcol-two, .fourcol-three, .fivecol-one, .fivecol-two, .fivecol-three, .fivecol-four, .sixcol-one, .sixcol-two, .sixcol-three, .sixcol-four, .sixcol-five {
+    float: left;
+}
+.fourcol-one {
+    width: 25%;
+}
+ .col-md-4 {
+    position: relative;
+    min-height: 1px;
+    padding-right: 15px;
+    padding-left: 15px;
+	width: 30.33333333%;
+	float: left;
+	position: relative;
+
+}

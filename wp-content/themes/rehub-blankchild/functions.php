@@ -107,6 +107,16 @@ function enqueue_parent_theme_style()
             'nonce' => wp_create_nonce('wp_rest'),
         ));
     }
+    
+    if (is_page('Mining List')) {
+
+        //css
+        wp_enqueue_style('bootstrap-4.0.0', get_stylesheet_directory_uri() . '/css/bootstrap.min.css', array($parentStyle));
+        wp_enqueue_style('style', get_stylesheet_directory_uri() . '/style.css', array($parentStyle));
+        
+        //js
+        // ..
+    }
 }
 
 //////////////////////////////////////////////////////////////////
