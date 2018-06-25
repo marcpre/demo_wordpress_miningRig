@@ -60,10 +60,10 @@ class CalculateProfitability {
             // $postCategory[0]->slug;
                     
             $whatToMineRes = $wpdb->get_results( "SELECT *
-                FROM wp_whatToMine_API
+                FROM {$wpdb->prefix}whattomine_api
                 WHERE id IN(
                     SELECT max(id)
-                    FROM wp_whatToMine_API
+                    FROM {$wpdb->prefix}whattomine_api
                     WHERE ALGORITHM = \"" . sanitize_text_field(get_field('algorithm', $postId)) . "\" and 
                     TAG = \"" . sanitize_text_field(get_field('tag', $postId)[0]) . "\"
                     GROUP BY id)  

@@ -266,6 +266,8 @@
               </div>
             </div>
           </div>
+          <!-- Stats END -->
+
 
           <div class="col-sm-12">
             <h2>Mining Profitability</h2>

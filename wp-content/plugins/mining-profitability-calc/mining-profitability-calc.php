@@ -31,8 +31,8 @@ class Mining_Profitability_Calculator {
         // add_action( 'init', array( $this, 'load_plugin_textdomain' ) );
         add_action( 'plugins_loaded', array( $this, 'includes' ) );
         add_action( 'init', array( $this, 'maybe_update' ) );
-        //cron jobs
-        add_action( 'update_whatToMine_api', 'updateWhatToMineAPI');        
+        // cron jobs
+        // add_action( 'update_whatToMine_api', 'updateWhatToMineAPI');        
 
     }
     /**
@@ -57,7 +57,6 @@ class Mining_Profitability_Calculator {
 	* Called on plugin deactivation
 	*/
 	public static function deactivate() {
-		// TODO
 		WhatToMineAPI::unsetCronJob();
 		CoinMarketCapAPI::unsetCronJob();
 		CalculateProfitability::unsetCronJob();
@@ -66,12 +65,11 @@ class Mining_Profitability_Calculator {
     * Cron Jobs.
     */
     public function runCronJobs() {
-		// TODO
 		// get data via APIs
 		WhatToMineAPI::setupCronJob('hourly');
 		CoinMarketCapAPI::setupCronJob('hourly');
 		// internal profitability
-		CalculateProfitability::setupCronJob('daily');
+		CalculateProfitability::setupCronJob('twicedaily');
     }
     /**
 	* Create tables.
@@ -98,7 +96,7 @@ class Mining_Profitability_Calculator {
 			$collate = '';
 		}
 		$tables = "
-CREATE TABLE {$wpdb->prefix}whatToMine_API (
+CREATE TABLE {$wpdb->prefix}whattomine_api (
 id bigint(20) NOT NULL AUTO_INCREMENT,
 coin longtext NOT NULL,
 id_WhatToMine bigint(20) NOT NULL,
@@ -215,7 +213,7 @@ CREATE TABLE {$wpdb->prefix}miningProfitability (
 	PRIMARY KEY (id),
 	FOREIGN KEY (post_id) REFERENCES wp_posts(ID),
 	FOREIGN KEY (coin_id) REFERENCES {$wpdb->prefix}coins(id),
-	FOREIGN KEY (whatToMine_id) REFERENCES {$wpdb->prefix}whatToMine_API(id)
+	FOREIGN KEY (whatToMine_id) REFERENCES {$wpdb->prefix}whattomine_api(id)
 ) $collate;
 		";
 		return $tables;

@@ -60,7 +60,7 @@ class CoinMarketCapAPI {
             );
                         
             // show db errors
-            $wpdb->show_errors(true);
+            $wpdb->show_errors(false);
             $wpdb->print_error();
 
             //check if record exists

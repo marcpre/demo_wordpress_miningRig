@@ -79,7 +79,7 @@ class WhatToMineAPI {
             //check if record exists
             $recordExists = $wpdb->get_var(
                 $wpdb->prepare(
-                    "SELECT * FROM {$wpdb->prefix}whatToMine_API
+                    "SELECT * FROM {$wpdb->prefix}whattomine_api
                      WHERE 
                         coin = %s
                         AND btc_revenue = %s 
@@ -88,19 +88,19 @@ class WhatToMineAPI {
                      $key, $value->btc_revenue, $value->estimated_rewards
                 )
             );
-
+            
             if ( $recordExists == 0 || $recordExists == null ) {
                 try {
                     $res['created_at'] = date('Y-m-d H:i:s');
                     $res['updated_at'] = date('Y-m-d H:i:s');
-                    $wpdb->insert("{$wpdb->prefix}whatToMine_API", $res);
+                    $wpdb->insert("{$wpdb->prefix}whattomine_api", $res);
                 } catch (\Exception $ex) {
                   // ...  
                 }
             } else {
                 try {
                     $res['updated_at'] = date('Y-m-d H:i:s');
-                    $wpdb->update("{$wpdb->prefix}whatToMine_API", $res, array('id' => $recordExists));
+                    $wpdb->update("{$wpdb->prefix}whattomine_api", $res, array('id' => $recordExists));
                 } catch (\Exception $ex) {
                   // ...  
                 }
