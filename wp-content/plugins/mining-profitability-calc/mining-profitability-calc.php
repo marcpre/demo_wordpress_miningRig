@@ -200,7 +200,7 @@ FOREIGN KEY (coin_id) REFERENCES {$wpdb->prefix}coins(id)
 			$collate = '';
 		}
 		$tables = "
-CREATE TABLE {$wpdb->prefix}miningProfitability (
+CREATE TABLE {$wpdb->prefix}miningprofitability (
     id BIGINT(20) NOT NULL AUTO_INCREMENT,
     post_id BIGINT(20) UNSIGNED,
     coin_id BIGINT(20) NOT NULL,

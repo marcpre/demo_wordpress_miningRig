@@ -50,14 +50,16 @@ class CalculateProfitability {
                 ),
             ),
         ));
-        
-        var_dump($compHardware);
-         
+                 
         while ($compHardware->have_posts()) {
             $compHardware->the_post();
             $postId = get_the_ID();
             // $postCategory = get_the_category($postId);
             // $postCategory[0]->slug;
+            
+            if(!isset($postId)) {
+                continue; // skip current iteration within loop
+            }
                     
             $whatToMineRes = $wpdb->get_results( "SELECT *
                 FROM {$wpdb->prefix}whattomine_api
@@ -123,7 +125,7 @@ class CalculateProfitability {
             try {
                 $res['created_at'] = date('Y-m-d H:i:s');
                 $res['updated_at'] = date('Y-m-d H:i:s');
-                $wpdb->insert("{$wpdb->prefix}miningProfitability", $res);
+                $wpdb->insert("{$wpdb->prefix}miningprofitability", $res);
             } catch (\Exception $ex) {
                 // ...  
             }
