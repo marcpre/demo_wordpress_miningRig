@@ -89,6 +89,7 @@ class WhatToMineAPI {
                 )
             );
             
+            // If record does not exist insert it into the db
             if ( $recordExists == 0 || $recordExists == null ) {
                 try {
                     $res['created_at'] = date('Y-m-d H:i:s');
@@ -97,14 +98,14 @@ class WhatToMineAPI {
                 } catch (\Exception $ex) {
                   // ...  
                 }
-            } else {
+            } /* else {
                 try {
                     $res['updated_at'] = date('Y-m-d H:i:s');
                     $wpdb->update("{$wpdb->prefix}whattomine_api", $res, array('id' => $recordExists));
                 } catch (\Exception $ex) {
                   // ...  
                 }
-            }
+            } */
         }    
     }
 }
