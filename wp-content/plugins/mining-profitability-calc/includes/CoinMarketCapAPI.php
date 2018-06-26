@@ -106,13 +106,13 @@ class CoinMarketCapAPI {
                  "SELECT * FROM {$wpdb->prefix}ticker
                  WHERE 
                      price = %s
-                     AND volume_24h = %s 
+                     AND coin_id = %s 
                      AND market_cap = %s 
                  LIMIT 1",
-                 floatval($tick->price), floatval($tick->volume_24h), floatval($tick->market_cap)
+                 floatval($tick->price), $coin_id, floatval($tick->market_cap)
                 )
             );
-            
+           
             if ( $recordTickerExists == 0 || $recordTickerExists == null ) {
                 // ticker does not exists else do nothing
                 try {
@@ -122,7 +122,9 @@ class CoinMarketCapAPI {
                 } catch (\Exception $ex) {
                   // ...  
                 }
-            } 
+            } else {
+                error_log("Ticker exists! - " . $value->name . " for the following query: " . $wpdb->last_query);
+            }
         }
     }
 }
