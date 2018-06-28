@@ -46,7 +46,8 @@ class CalculateProfitability {
                 array(
                     'taxonomy' => 'category',
                     'field' => 'slug',
-                    'terms' => array('graphic-card', 'asic'),
+                    //'terms' => array('graphic-card', 'asic'), // TODO open when when you also add ASIC miners!!!
+                    'terms' => array('graphic-card'),
                 ),
             ),
         ));
@@ -78,7 +79,21 @@ class CalculateProfitability {
                 WHERE c.symbol = \"" . sanitize_text_field(get_field('tag', $postId)[0]) . "\"
                 ORDER BY c.created_at ASC
                 LIMIT 1;");
-                       
+            
+            // check it the values are null
+            if(!isset($coinValueRes[0]->id)) {
+                $coin_id = 99999999;
+            } else {
+                $coin_id = intval($coinValueRes[0]->id);
+            }  
+            
+            // check it the values are null
+             if(!isset($whatToMineRes[0]->id)) {
+                $whatToMine_id = 99999999;
+            } else {
+                $whatToMine_id = intval($whatToMineRes[0]->id);
+            } 
+                
             /**
              * Calculate Profitability
              */
@@ -114,9 +129,9 @@ class CalculateProfitability {
              */
             $res = array();
             $res = array(
-                'post_id' => $postId,
-                'coin_id' => $coinValueRes[0]->id,
-                'whatToMine_id' => $whatToMineRes[0]->id,
+                'post_id' => intval($postId),
+                'coin_id' => intval($coin_id),
+                'whatToMine_id' => intval($whatToMine_id),
                 'daily_netProfit' => number_format(floatval($earningsPerDayInUSD), 12),
                 'daily_grossProfit' => number_format(floatval($revenuePerDayInUSD), 12),
                 'daily_costs' => number_format(floatval($powerCostsPerDayInUSD), 12),

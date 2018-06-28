@@ -91,7 +91,7 @@ class CoinMarketCapAPI {
             $tick = $value->quotes->USD;
             $resTicker = array();
             $resTicker = array(
-                'coin_id' => $coin_id,
+                'coin_id' => intval($coin_id),
                 'price' => $tick->price,
                 'volume_24h' => $tick->volume_24h,
                 'market_cap' => floatval($tick->market_cap),

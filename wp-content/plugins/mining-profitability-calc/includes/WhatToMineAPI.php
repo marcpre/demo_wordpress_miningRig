@@ -77,17 +77,21 @@ class WhatToMineAPI {
             $wpdb->print_error();
 
             //check if record exists
-            $recordExists = $wpdb->get_var(
-                $wpdb->prepare(
-                    "SELECT * FROM {$wpdb->prefix}whattomine_api
-                     WHERE 
-                        algorithm = %s
-                        AND btc_revenue = %s 
-                        AND estimated_rewards = %s 
-                     LIMIT 1",
-                     $value->algorithm, $value->btc_revenue, $value->estimated_rewards
-                )
-            );
+            try {
+                $recordExists = $wpdb->get_var(
+                    $wpdb->prepare(
+                        "SELECT * FROM {$wpdb->prefix}whattomine_api
+                        WHERE 
+                            algorithm = %s
+                            AND btc_revenue = %s 
+                            AND estimated_rewards = %s 
+                        LIMIT 1",
+                        $value->algorithm, $value->btc_revenue, $value->estimated_rewards
+                    )
+                );
+            } catch (\Exception $ex) {
+                // ...  
+            }
             
             // If record does not exist insert it into the db
             if ( $recordExists == 0 || $recordExists == null ) {
