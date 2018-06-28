@@ -382,7 +382,20 @@ class RigBuilder {
             let earningsPerMonth = revenuePerMonth - powerCostsPerMonth
             let earningsPerYear = revenuePerYear - powerCostsPerYear
             let payBackPeriod = this.overallPrice / earningsPerDay
-
+            payBackPeriod = +payBackPeriod.toFixed(0) // parse number
+            
+            if(payBackPeriod < 0) { 
+                payBackPeriod = "Never"
+                $(".monthMinProf").attr('style','color: red')
+                $(".yearMinProf").attr('style','color: red')
+                $(".monthMinProf").attr('style','color: red')
+            } else {
+                payBackPeriod = payBackPeriod.toLocaleString('en') + " days"
+                $(".monthMinProf").attr('style','color: green')
+                $(".yearMinProf").attr('style','color: green')
+                $(".monthMinProf").attr('style','color: green')
+            }
+            
             // add data to table
             $(".algorithmProf").text(algorithm)
             $(".hashRateProf").text(hashRate / 1000000 + " MH/s")
@@ -390,7 +403,7 @@ class RigBuilder {
             $(".coinPrice").text("1 ETH = $" + this.selectedCoinPriceInUSD)
             $(".monthMinProf").text("$" + earningsPerMonth.toFixed(2))
             $(".yearMinProf").text("$" + earningsPerYear.toFixed(2))
-            $(".paybackProf").text(payBackPeriod.toFixed(0) + " days")
+            $(".paybackProf").text(payBackPeriod)
 
             $(".form-control-cost-per-kwh").text(energyCosts.toFixed(2))
         });

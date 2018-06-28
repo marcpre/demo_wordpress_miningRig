@@ -1,9 +1,7 @@
 <?php if (!defined('ABSPATH')) {
     exit;
 }
-// Exit if accessed directly ?>
-<?php
-
+// Exit if accessed directly
 /* Template Name: Full width */
 
 ?>
@@ -187,7 +185,7 @@ if ($products->have_posts()) {?>
                                             <th><b>Coin</b></th>
                                             <th><b>Earnings per Month</b></th>
                                             <th><b>Earnings per Year</b></th>
-                                            <th><b>Payback</b></th>
+                                            <th><b>Payback Period</b></th>
                                         </tr>
                                     </thead>
                                     <tr>

@@ -73,7 +73,7 @@ function allMiningProfitability($data)
             'btc_revenue24' => floatval($value->btc_revenue24),
             'profitability' => floatval($value->profitability),
             'profitability24' => floatval($value->profitability24),
-            'timestamp' => date('Y-m-d H:i:s', $value->timestamp),     
+            'timestamp' => date('Y-m-d H:i:s', strtotime($value->timestamp)),     
         ));
     }
     
