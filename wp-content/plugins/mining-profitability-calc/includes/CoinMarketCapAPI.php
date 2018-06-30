@@ -59,28 +59,36 @@ class CoinMarketCapAPI {
             );
                         
             // show db errors
-            $wpdb->show_errors(false);
+            $wpdb->show_errors(true);
             $wpdb->print_error();
-
-            //check if the above record exists already in the db
-            $recordCoinExists = $wpdb->get_results(
-                $wpdb->prepare(
-                    "SELECT * FROM {$wpdb->prefix}coins
-                    WHERE 
-                        symbol = %s
-                        AND name = %s 
-                        AND rank = %s 
-                    LIMIT 1",
-                    $value->symbol, $value->name, $value->rank
-                )
-            );
+            
+            try {
+                //check if the above record exists already in the db
+                $recordCoinExists = $wpdb->get_results(
+                    $wpdb->prepare(
+                        "SELECT * FROM {$wpdb->prefix}coins
+                        WHERE 
+                            symbol = %s
+                            AND name = %s 
+                            AND rank = %s 
+                        LIMIT 1",
+                        $value->symbol, $value->name, $value->rank
+                    )
+                );
+            } catch (\Exception $ex) {
+                error_log($ex); 
+            }
 
             // if record does exist $coin_id is the existing id
             if ( $recordCoinExists == 0 || $recordCoinExists == null ) { 
                 // create coin in db and return id
                 $resCoin['created_at'] = date('Y-m-d H:i:s');
                 $resCoin['updated_at'] = date('Y-m-d H:i:s');
-                $coin_id = $wpdb->insert("{$wpdb->prefix}coins", $resCoin);
+                try {
+                    $coin_id = $wpdb->insert("{$wpdb->prefix}coins", $resCoin);
+                } catch (\Exception $ex) {
+                    error_log($ex); 
+                }
             } else { 
                 // exisiting id from db
                 $coin_id = $recordCoinExists["0"]->id;                
@@ -94,24 +102,28 @@ class CoinMarketCapAPI {
                 'coin_id' => intval($coin_id),
                 'price' => $tick->price,
                 'volume_24h' => $tick->volume_24h,
-                'market_cap' => floatval($tick->market_cap),
+                'market_cap' => intval($tick->market_cap),
                 'percent_change_1h' => floatval($tick->percent_change_1h),
                 'percent_change_24h' => floatval($tick->percent_change_24h),
                 'percent_change_7d' => floatval($tick->percent_change_7d),
             );
             
-            //check if the above ticker record exists already in the db
-            $recordTickerExists = $wpdb->get_results(
-            $wpdb->prepare(
-                 "SELECT * FROM {$wpdb->prefix}ticker
-                 WHERE 
-                     price = %s
-                     AND coin_id = %s 
-                     AND market_cap = %s 
-                 LIMIT 1",
-                 floatval($tick->price), $coin_id, floatval($tick->market_cap)
-                )
-            );
+            try {
+                //check if the above ticker record exists already in the db
+                $recordTickerExists = $wpdb->get_results(
+                $wpdb->prepare(
+                    "SELECT * FROM {$wpdb->prefix}ticker
+                    WHERE 
+                        price = %s
+                        AND coin_id = %s 
+                        AND market_cap = %s 
+                    LIMIT 1",
+                    floatval($tick->price), $coin_id, floatval($tick->market_cap)
+                    )
+                );
+            } catch (\Exception $ex) {
+                error_log($ex); 
+            }
            
             if ( $recordTickerExists == 0 || $recordTickerExists == null ) {
                 // ticker does not exists else do nothing
@@ -120,7 +132,7 @@ class CoinMarketCapAPI {
                     $resTicker['updated_at'] = date('Y-m-d H:i:s');
                     $wpdb->insert("{$wpdb->prefix}ticker", $resTicker);
                 } catch (\Exception $ex) {
-                  // ...  
+                    error_log($ex); 
                 }
             } else {
                 error_log("Ticker exists! - " . $value->name . " for the following query: " . $wpdb->last_query);

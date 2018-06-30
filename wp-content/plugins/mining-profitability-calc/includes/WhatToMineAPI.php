@@ -47,7 +47,7 @@ class WhatToMineAPI {
             $res = array();
             $res = array(
                 'coin' => $key,
-                'id_WhatToMine' => $value->id,
+                'id_WhatToMine' => intval($value->id),
                 'tag' => $value->tag,
                 'algorithm' => $value->algorithm,
                 'block_time' => floatval($value->block_time),
@@ -55,10 +55,10 @@ class WhatToMineAPI {
                 'block_reward24' => floatval($value->block_reward24),
                 'last_block' => floatval($value->last_block),
                 'difficulty' => floatval($value->difficulty),
-                'difficulty24' => $value->difficulty24,
-                'nethash' => $value->nethash,
-                'exchange_rate' => $value->exchange_rate,
-                'exchange_rate24' => $value->exchange_rate24,
+                'difficulty24' => floatval($value->difficulty24),
+                'nethash' => floatval($value->nethash),
+                'exchange_rate' => floatval($value->exchange_rate),
+                'exchange_rate24' => floatval($value->exchange_rate24),
                 'exchange_rate_vol' => floatval($value->exchange_rate_vol),
                 'exchange_rate_curr' => $value->exchange_rate_curr,
                 'market_cap' => $value->market_cap,
@@ -100,16 +100,9 @@ class WhatToMineAPI {
                     $res['updated_at'] = date('Y-m-d H:i:s');
                     $wpdb->insert("{$wpdb->prefix}whattomine_api", $res);
                 } catch (\Exception $ex) {
-                  // ...  
+                    error_log($ex); 
                 }
-            } /* else {
-                try {
-                    $res['updated_at'] = date('Y-m-d H:i:s');
-                    $wpdb->update("{$wpdb->prefix}whattomine_api", $res, array('id' => $recordExists));
-                } catch (\Exception $ex) {
-                  // ...  
-                }
-            } */
+            }
         }    
     }
 }

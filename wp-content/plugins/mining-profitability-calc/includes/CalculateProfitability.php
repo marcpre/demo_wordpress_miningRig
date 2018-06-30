@@ -61,24 +61,29 @@ class CalculateProfitability {
             if(!isset($postId)) {
                 continue; // skip current iteration within loop
             }
-                    
-            $whatToMineRes = $wpdb->get_results( "SELECT *
-                FROM {$wpdb->prefix}whattomine_api
-                WHERE id IN(
-                    SELECT max(id)
+         
+            try {
+                $whatToMineRes = $wpdb->get_results( "SELECT *
                     FROM {$wpdb->prefix}whattomine_api
-                    WHERE ALGORITHM = \"" . sanitize_text_field(get_field('algorithm', $postId)) . "\" and 
-                    TAG = \"" . sanitize_text_field(get_field('tag', $postId)[0]) . "\"
-                    GROUP BY id)  
-                ORDER BY updated_at DESC
-                LIMIT 1;" );
-            
-            $coinValueRes = $wpdb->get_results( "SELECT * 
-                FROM {$wpdb->prefix}ticker t 
-                INNER JOIN wp_coins c ON c.id = t.coin_id
-                WHERE c.symbol = \"" . sanitize_text_field(get_field('tag', $postId)[0]) . "\"
-                ORDER BY c.created_at ASC
-                LIMIT 1;");
+                    WHERE id IN(
+                        SELECT max(id)
+                        FROM {$wpdb->prefix}whattomine_api
+                        WHERE ALGORITHM = \"" . sanitize_text_field(get_field('algorithm', $postId)) . "\" and 
+                        TAG = \"" . sanitize_text_field(get_field('tag', $postId)[0]) . "\"
+                        GROUP BY id)  
+                    ORDER BY updated_at DESC
+                    LIMIT 1;" );
+                
+                $coinValueRes = $wpdb->get_results( "SELECT * 
+                    FROM {$wpdb->prefix}ticker t 
+                    INNER JOIN wp_coins c ON c.id = t.coin_id
+                    WHERE c.symbol = \"" . sanitize_text_field(get_field('tag', $postId)[0]) . "\"
+                    ORDER BY c.created_at ASC
+                    LIMIT 1;");
+                
+            } catch (\Exception $ex) {
+                error_log($ex); 
+            }
             
             // check it the values are null
             if(!isset($coinValueRes[0]->id)) {
@@ -142,7 +147,7 @@ class CalculateProfitability {
                 $res['updated_at'] = date('Y-m-d H:i:s');
                 $wpdb->insert("{$wpdb->prefix}miningprofitability", $res);
             } catch (\Exception $ex) {
-                // ...  
+                error_log($ex); 
             }
         }
     }
