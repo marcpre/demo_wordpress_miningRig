@@ -32,7 +32,11 @@ jQuery(document).ready(function ($) {
       // chart.
       labels: ['Daily Net Profit', 'Daily Gross Profit', 'Daily Costs'],
       lineColors: ['blue', 'green', 'red' ],
-      hideHover: 'auto'
+      hideHover: 'auto',
+      xLabelFormat: function(x) {
+        var options = { year: 'numeric', month: 'long', day: 'numeric' };
+        return x.toLocaleDateString("en-US", options); 
+      }
     });
   })
 });
