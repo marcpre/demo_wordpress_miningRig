@@ -183,7 +183,7 @@ percent_change_7d DECIMAL(15,8) NOT NULL,
 created_at datetime NULL,
 updated_at datetime NULL,
 PRIMARY KEY (id),
-FOREIGN KEY (coin_id) REFERENCES {$wpdb->prefix}coins(id)
+FOREIGN KEY (coin_id) REFERENCES {$wpdb->prefix}coins(id) ON DELETE CASCADE
 ) $collate;
 		";
 		return $tables;
@@ -211,9 +211,9 @@ CREATE TABLE {$wpdb->prefix}miningprofitability (
     created_at DATETIME NULL,
     updated_at DATETIME NULL,
 	PRIMARY KEY (id),
-	FOREIGN KEY (post_id) REFERENCES wp_posts(ID),
-	FOREIGN KEY (coin_id) REFERENCES {$wpdb->prefix}coins(id),
-	FOREIGN KEY (whatToMine_id) REFERENCES {$wpdb->prefix}whattomine_api(id)
+	FOREIGN KEY (post_id) REFERENCES wp_posts(ID) ON DELETE CASCADE,
+	FOREIGN KEY (coin_id) REFERENCES {$wpdb->prefix}coins(id) ON DELETE CASCADE,
+	FOREIGN KEY (whatToMine_id) REFERENCES {$wpdb->prefix}whattomine_api(id) ON DELETE CASCADE
 ) $collate;
 		";
 		return $tables;
