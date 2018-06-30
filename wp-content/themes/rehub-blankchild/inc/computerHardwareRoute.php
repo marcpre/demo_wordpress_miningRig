@@ -135,6 +135,7 @@ function allRigHardwareWithProfitability($data)
             'hashRatePerSecond' => floatval(get_field('hash_rate', $post_id)) / 1000000,
             'affiliateLink' => $amazon[$keys[0]]['url'],
             'daily_netProfit' => number_format( (float) $mainQuery[$key]->daily_netProfit, 2),
+            'created_at' => date('Y-m-d H:i:s', strtotime( $mainQuery[$key]->MaxDate)),            
         ));
     }
     return $results;
