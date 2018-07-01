@@ -86,19 +86,18 @@ function allRigHardwareWithProfitability($data)
     // ############################################################################
     // # This query works, BUT is slower --> HOWEVER, it can be better explained! #
     // ############################################################################
+    */
     $mainQuery = $wpdb->get_results( "SELECT *
-        FROM
-        {$wpdb->prefix}posts p
-        INNER JOIN {$wpdb->prefix}miningprofitability m ON
-            m.post_id = p.ID
-        WHERE m.created_at = (
-            SELECT max(u.created_at)
-            FROM wp_miningprofitability u
-        )
+        FROM {$wpdb->prefix}posts p INNER JOIN 
+            {$wpdb->prefix}miningprofitability m 
+            ON m.post_id = p.ID
+        WHERE m.created_at =(SELECT MAX(pp2.created_at)
+                            FROM {$wpdb->prefix}miningprofitability pp2
+                            WHERE pp2.post_id = m.post_id)
         ORDER BY
             m.daily_grossProfit
         DESC;" );
-    */
+    /*
     $mainQuery = $wpdb->get_results("SELECT *
         FROM {$wpdb->prefix}posts t
         INNER JOIN (
@@ -107,7 +106,7 @@ function allRigHardwareWithProfitability($data)
             GROUP BY post_id
         ) tm ON t.ID  = tm.post_id  
         ORDER BY tm.daily_netProfit DESC;");
-    
+    */
     $results = array(
         'profRigHardware' => array(),
     );
@@ -135,7 +134,8 @@ function allRigHardwareWithProfitability($data)
             'hashRatePerSecond' => floatval(get_field('hash_rate', $post_id)) / 1000000,
             'affiliateLink' => $amazon[$keys[0]]['url'],
             'daily_netProfit' => number_format( (float) $mainQuery[$key]->daily_netProfit, 2),
-            'created_at' => date('Y-m-d H:i:s', strtotime( $mainQuery[$key]->MaxDate)),            
+            // 'created_at' => date('Y-m-d H:i:s', strtotime( $mainQuery[$key]->MaxDate)),
+            'created_at' => date('Y-m-d H:i:s', strtotime( $mainQuery[$key]->created_at)),              
         ));
     }
     return $results;
