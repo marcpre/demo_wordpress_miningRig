@@ -35,10 +35,32 @@
                 <div align="center">
                     <?php echo get_field('headertext'); ?>
                 </div>
-                <br/>
-                <div class="table-responsive overflow-x:auto;">
-                    <table id="allHardwareOverview" style="width:100%; float: left;" class="table table-bordered"></table>
+
+                <!-- START -->
+                <div>
+                    <ul class="nav nav-tabs" id="myTab" role="tablist">
+                        <li class="nav-item">
+                            <a class="nav-link active" id="all-tab" data-toggle="tab" href="#all" role="tab" aria-controls="all" aria-selected="true">All</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" id="asic-tab" data-toggle="tab" href="#asic" role="tab" aria-controls="asic" aria-selected="false">ASICS</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" id="gpu-tab" data-toggle="tab" href="#gpu" role="tab" aria-controls="gpu" aria-selected="false">GPU</a>
+                        </li>
+                    </ul>
+                    <div class="tab-content" id="myTabContent">
+                        <div class="tab-pane fade show active" id="all" role="tabpanel" aria-labelledby="all-tab">
+                            <div class="table-responsive overflow-x:auto;">
+                                <table id="allHardwareOverview" style="width:100%; float: left;" class="table table-bordered"></table>
+                            </div>
+                        </div>
+                        <div class="tab-pane fade" id="asic" role="tabpanel" aria-labelledby="asic-tab">...</div>
+                        <div class="tab-pane fade" id="gpu" role="tabpanel" aria-labelledby="gpu-tab">...</div>
+                    </div>
                 </div>
+                <!-- END -->
+
                 <!-- END -->
             </article>
         </div>
