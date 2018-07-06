@@ -57,6 +57,20 @@ class CalculateProfitability
                 ),
             ),
         ));
+        
+        // Get current BTC price
+        $coinSymbol = "BTC"; //Get BTC to USD price        
+        $coinValueRes = $wpdb->get_results("SELECT *
+            FROM {$wpdb->prefix}ticker t
+            INNER JOIN wp_coins c ON c.id = t.coin_id
+            WHERE c.symbol = \"" . $coinSymbol . "\"
+            ORDER BY c.created_at ASC
+            LIMIT 1;");
+            
+        if (!isset($coinValueRes)) {
+            error_log("No  BTC Price available");
+            return;
+        }
 
         while ($compHardware->have_posts()) {
             $compHardware->the_post();
@@ -87,46 +101,25 @@ class CalculateProfitability
                         GROUP BY id)
                     ORDER BY updated_at DESC
                     LIMIT 1;");
-
-                //$coinSymbol = $whatToMineRes[0]->tag;
-                $coinSymbol = "BTC"; //Get BTC to USD price   
-                    
-                $coinValueRes = $wpdb->get_results("SELECT *
-                    FROM {$wpdb->prefix}ticker t
-                    INNER JOIN wp_coins c ON c.id = t.coin_id
-                    WHERE c.symbol = \"" . $coinSymbol . "\"
-                    ORDER BY c.created_at ASC
-                    LIMIT 1;");
-
             } catch (\Exception $ex) {
                 error_log($ex);
             }
             
             // check if both values are set
-            if (!isset($whatToMinRes) || !isset($coinValueRes)) {
+            if (!isset($whatToMineRes)) {
                 continue; // skip current iteration within loop
             }
             
-            // check it the values are null
-            //if (!isset($coinValueRes[0]->id)) {
-            //    $coin_id = 99999999;
-            //} else {
             // set IDs
             $coin_id = intval($coinValueRes[0]->id);
-            //}
-
-            // check it the values are null
-            //if (!isset($whatToMineRes[0]->id)) {
-            //    $whatToMine_id = 99999999;
-            //} else {
-                $whatToMine_id = intval($whatToMineRes[0]->id);
-            //}
+            $whatToMine_id = intval($whatToMineRes[0]->id);
 
             /**
              * Calculate Profitability
              */
             // get variables
-            $selectedCoinPriceInUSD = floatval($coinValueRes[0]->price); //Bitcoin Price
+            $Exchange_Rate_24_in_BTC = $whatToMineRes[0]->exchange_rate24;
+            $BTCPriceInUSD = floatval($coinValueRes[0]->price); //Bitcoin Price
             $hashRate = floatval(get_field('hash_rate', $postId));
 
             $networkHashRate = floatval($whatToMineRes[0]->nethash);
@@ -141,8 +134,8 @@ class CalculateProfitability
             $blocksPerMinute = 60 / $blockTime;
             $rewardPerMinute = $blocksPerMinute * $blockReward;
 
-            $revenuePerDayInUSD = $userRatio * $rewardPerMinute * 60 * 24 * $selectedCoinPriceInUSD;
-
+            $revenuePerDayInBTC = $userRatio * $rewardPerMinute * 60 * 24 * $Exchange_Rate_24_in_BTC;
+            $revenuePerDayInUSD = $revenuePerDayInBTC * $BTCPriceInUSD;
             // calculate costs
             if ($energyCosts === "" || $energyCosts === null || isset($energyCosts)) {
                 $energyCosts = 0.1;
