@@ -89,7 +89,8 @@ function importAction()
     // Decode json data to use as a php array
     $outputdecodedWTM = json_decode($outputWTM, true);
     
-    $i = 0;
+    // $i = 0;
+    echo '<b>Start import</b>';
     echo '<ul>';
     // iterate over what to mine coin
     foreach ($outputdecodedWTM['coins'] as $key => $wtm) {
@@ -97,15 +98,16 @@ function importAction()
 
         foreach ($outputdecoded as $coin) {
             if($wtm['tag'] == $coin['symbol']){
-                // Get CMC ID
-                $cmcid = $coin["id"];
-                // Get public ID
-                $pubid = $coin["slug"];
-                // Using the CMC ID build the link for logo
-                $file_url = "https://s2.coinmarketcap.com/static/img/coins/128x128/" . $cmcid . ".png";
                 
                 // Check if the post already exists
                 if (!post_exists($coin['name'])) {
+                    // Get CMC ID
+                    $cmcid = $coin["id"];
+                    // Get public ID
+                    $pubid = $coin["slug"];
+                    // Using the CMC ID build the link for logo
+                    $file_url = "https://s2.coinmarketcap.com/static/img/coins/128x128/" . $cmcid . ".png";
+
                     // insert the post
                     echo ('<li>' . $pubid . '</li>');
                      
@@ -143,13 +145,15 @@ function importAction()
                     set_post_thumbnail($postId, $thumbnail_id);
                     
                     // LIMIT THE LOOP
-                    if (++$i > 19)
-                        break;
+                    // if (++$i > 19)
+                    //    break;
                 }
             }
         }
     }
-    
+    echo '</ul>';
+    echo '<b>End import</b>';
+
 /*    
     foreach ($outputdecoded as $coin) {
         // Get CMC ID
@@ -215,6 +219,5 @@ function importAction()
         }
     }
     */
-    echo '</ul>';
 }
 ?>
