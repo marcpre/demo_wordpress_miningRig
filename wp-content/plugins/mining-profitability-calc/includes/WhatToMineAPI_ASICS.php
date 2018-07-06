@@ -2,10 +2,10 @@
 
 use GuzzleHttp\Client;
 
-class WhatToMineAPI {
+class WhatToMineAPI_ASICS {
 
-    const CRON_HOOK = 'update_whatToMine_api';
-    const WHAT_TO_MINE_URL = 'http://whattomine.com/coins.json';
+    const CRON_HOOK = 'update_whatToMine_ASICS_api';
+    const WHAT_TO_MINE_URL = 'http://whattomine.com/asic.json';
     
     /**
      * Constructor.
@@ -13,7 +13,7 @@ class WhatToMineAPI {
     public function __construct() {
         // add_action( 'setupCronJob_whatToMine', 'setupCronJob');
         // add_action( 'update_whatToMine_api', 'updateWhatToMineAPI'); 
-        add_action(self::CRON_HOOK, array($this, 'updateWhatToMineAPI'));
+        add_action(self::CRON_HOOK, array($this, 'updateWhatToMineAPI_Asics'));
     }
     
     public function setupCronJob($scheduleTime) {
@@ -33,7 +33,7 @@ class WhatToMineAPI {
         wp_unschedule_event( $timestamp, self::CRON_HOOK );
     }
     
-    public function updateWhatToMineAPI() {
+    public function updateWhatToMineAPI_Asics() {
 
         $client = new GuzzleHttp\Client();
         
@@ -106,4 +106,4 @@ class WhatToMineAPI {
         }    
     }
 }
-new WhatToMineAPI();
+new WhatToMineAPI_ASICS();

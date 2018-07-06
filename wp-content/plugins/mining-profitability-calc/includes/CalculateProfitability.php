@@ -67,60 +67,66 @@ class CalculateProfitability
             }
 
             // get meta coin information
-            $posts = get_field('related_coins', $postId);
+            //$posts = get_field('related_coins', $postId);
 
-            if ($posts):
-                // foreach ($posts as $post): // variable must be called $post (IMPORTANT)
-                // setup_postdata($post);
-//returns FIRST listed coin symbol!!!!
-                $coinSymbol = get_field('symbol', $posts['0']->ID);
-                $coinAlgorithm = get_field('coin_algorithm', $posts['0']->ID);
-                // endforeach;
-                // wp_reset_postdata(); // IMPORTANT - reset the $post object so the rest of the page works correctly
-            endif;
+            //if ($posts):
+                //returns FIRST listed coin symbol!!!!
+                // $coinSymbol = get_field('symbol', $posts['0']->ID); // is for what to mine the TAG
+                // $coinAlgorithm = get_field('coin_algorithm', $posts['0']->ID);
+            // endif;
 
+            $compHardwareAlgorithm = get_field('algorithm', $postId);
+            
             try {
                 $whatToMineRes = $wpdb->get_results("SELECT *
                     FROM {$wpdb->prefix}whattomine_api
                     WHERE id IN(
                         SELECT max(id)
                         FROM {$wpdb->prefix}whattomine_api
-                        WHERE ALGORITHM = \"" . sanitize_text_field(get_field('algorithm', $postId)) . "\" and
-                        TAG = \"" . sanitize_text_field(get_field('tag', $postId)[0]) . "\"
+                        WHERE ALGORITHM = \"" . $compHardwareAlgorithm . "\"" . "
                         GROUP BY id)
                     ORDER BY updated_at DESC
                     LIMIT 1;");
 
+                //$coinSymbol = $whatToMineRes[0]->tag;
+                $coinSymbol = "BTC"; //Get BTC to USD price   
+                    
                 $coinValueRes = $wpdb->get_results("SELECT *
                     FROM {$wpdb->prefix}ticker t
                     INNER JOIN wp_coins c ON c.id = t.coin_id
-                    WHERE c.symbol = \"" . sanitize_text_field(get_field('tag', $postId)[0]) . "\"
+                    WHERE c.symbol = \"" . $coinSymbol . "\"
                     ORDER BY c.created_at ASC
                     LIMIT 1;");
 
             } catch (\Exception $ex) {
                 error_log($ex);
             }
-
-            // check it the values are null
-            if (!isset($coinValueRes[0]->id)) {
-                $coin_id = 99999999;
-            } else {
-                $coin_id = intval($coinValueRes[0]->id);
+            
+            // check if both values are set
+            if (!isset($whatToMinRes) || !isset($coinValueRes)) {
+                continue; // skip current iteration within loop
             }
+            
+            // check it the values are null
+            //if (!isset($coinValueRes[0]->id)) {
+            //    $coin_id = 99999999;
+            //} else {
+            // set IDs
+            $coin_id = intval($coinValueRes[0]->id);
+            //}
 
             // check it the values are null
-            if (!isset($whatToMineRes[0]->id)) {
-                $whatToMine_id = 99999999;
-            } else {
+            //if (!isset($whatToMineRes[0]->id)) {
+            //    $whatToMine_id = 99999999;
+            //} else {
                 $whatToMine_id = intval($whatToMineRes[0]->id);
-            }
+            //}
 
             /**
              * Calculate Profitability
              */
             // get variables
-            $selectedCoinPriceInUSD = floatval($coinValueRes[0]->price);
+            $selectedCoinPriceInUSD = floatval($coinValueRes[0]->price); //Bitcoin Price
             $hashRate = floatval(get_field('hash_rate', $postId));
 
             $networkHashRate = floatval($whatToMineRes[0]->nethash);
