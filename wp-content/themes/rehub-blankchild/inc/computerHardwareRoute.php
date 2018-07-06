@@ -69,7 +69,7 @@ function allRigHardware($data)
 }
 
 /**
- * Get all Hardware that is needed for a rig
+ * Hardware Overview - Get all Hardware that is needed for a rig
  * e.g.: http://localhost/demo_wordpress_rig-builder/wp-json/rigHardware/v1/allProfitableRigHardware?term=graphic-card  
  */
 
