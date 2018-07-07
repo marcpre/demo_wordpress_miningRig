@@ -52,8 +52,8 @@ class CalculateProfitability
                     'taxonomy' => 'category',
                     'field' => 'slug',
                     //'terms' => array('graphic-card', 'asic'), // TODO open when when you also add ASIC miners!!!
-                    'terms' => array('asic'),
-                    //'terms' => array('graphic-card', 'asic'),
+                    //'terms' => array('asic'),
+                    'terms' => array('graphic-card', 'asic'),
                 ),
             ),
         ));

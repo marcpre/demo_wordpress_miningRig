@@ -83,12 +83,12 @@ function allRigHardwareWithProfitability($data)
     $wpdb->print_error();
     
     $slug = "";
-    if(isset($data['cat1'])) {
-        $slug .= " OR t.slug LIKE '" . sanitize_text_field($data['cat1']) . "' ";
+    if(isset($data['cat1']) && !isset($data['cat2'])) {
+        $slug .= " AND t.slug LIKE '" . sanitize_text_field($data['cat1']) . "' ";
     }
     
-    if(isset($data['cat2'])) {
-        $slug .= " OR t.slug LIKE '" . sanitize_text_field($data['cat2']) . "' ";
+    if(isset($data['cat2']) && !isset($data['cat1'])) {
+        $slug .= " AND t.slug LIKE '" . sanitize_text_field($data['cat2']) . "' ";
     }
     
     /*
@@ -110,6 +110,8 @@ function allRigHardwareWithProfitability($data)
         ORDER BY
             m.daily_grossProfit
         DESC;" );
+        
+    $wpdb->flush();
     /*
     $mainQuery = $wpdb->get_results("SELECT *
         FROM {$wpdb->prefix}posts t

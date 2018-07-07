@@ -39,13 +39,13 @@
                 <!-- START -->
                 <div>
                     <ul class="nav nav-tabs" id="myTab" role="tablist">
-                        <li class="nav-item">
+                        <li class="nav-item" style="list-style: none;">
                             <a class="nav-link active" id="all-tab" data-toggle="tab" href="#all" role="tab" aria-controls="all" aria-selected="true">All</a>
                         </li>
-                        <li class="nav-item">
+                        <li class="nav-item" style="list-style: none;">
                             <a class="nav-link" id="asic-tab" data-toggle="tab" href="#asic" role="tab" aria-controls="asic" aria-selected="false">ASICS</a>
                         </li>
-                        <li class="nav-item">
+                        <li class="nav-item" style="list-style: none;">
                             <a class="nav-link" id="gpu-tab" data-toggle="tab" href="#gpu" role="tab" aria-controls="gpu" aria-selected="false">GPU</a>
                         </li>
                     </ul>
@@ -55,8 +55,16 @@
                                 <table id="allHardwareOverview" style="width:100%; float: left;" class="table table-bordered"></table>
                             </div>
                         </div>
-                        <div class="tab-pane fade" id="asic" role="tabpanel" aria-labelledby="asic-tab">...</div>
-                        <div class="tab-pane fade" id="gpu" role="tabpanel" aria-labelledby="gpu-tab">...</div>
+                        <div class="tab-pane fade" id="asic" role="tabpanel" aria-labelledby="asic-tab">
+                            <div class="table-responsive overflow-x:auto;">
+                                <table id="allHardwareOverviewasic" style="width:100%; float: left;" class="table table-bordered"></table>
+                            </div>
+                        </div>
+                        <div class="tab-pane fade" id="gpu" role="tabpanel" aria-labelledby="gpu-tab">
+                            <div class="table-responsive overflow-x:auto;">
+                                <table id="allHardwareOverviewgpu" style="width:100%; float: left;" class="table table-bordered"></table>
+                            </div>
+                        </div>
                     </div>
                 </div>
                 <!-- END -->

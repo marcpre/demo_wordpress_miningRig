@@ -75,9 +75,9 @@ function enqueue_parent_theme_style()
         wp_enqueue_style('style', get_stylesheet_directory_uri() . '/style.css', array($parentStyle));
         
         //js
-        wp_enqueue_script('font-awesome', get_theme_file_uri('/js/libs/fontawesome-all.js'), null, '1.0', true);
-        wp_enqueue_script('bootstrap-4.0.0', get_theme_file_uri('/js/libs/bootstrap.min.js'), null, '1.0', true);
+        //wp_enqueue_script('font-awesome', get_theme_file_uri('/js/libs/fontawesome-all.js'), null, '1.0', true);
         wp_enqueue_script('jquery', get_theme_file_uri('/js/libs/jquery.min.js'), null, '1.0', true);        
+        wp_enqueue_script('bootstrap-4.0.0', get_theme_file_uri('/js/libs/bootstrap.min.js'), null, '1.0', true);
         wp_enqueue_script('dataTables', get_theme_file_uri('/js/libs/jquery.dataTables.min.js'), null, '1.0', true);                
         wp_enqueue_script('hardware-overview', get_theme_file_uri('/js/overview/HardwareOverview.js'), null, '1.0', true);
 
