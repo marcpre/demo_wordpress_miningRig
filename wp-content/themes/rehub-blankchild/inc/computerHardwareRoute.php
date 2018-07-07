@@ -70,7 +70,7 @@ function allRigHardware($data)
 
 /**
  * Hardware Overview - Get all Hardware that is needed for a rig
- * e.g.: http://localhost/demo_wordpress_rig-builder/wp-json/rigHardware/v1/allProfitableRigHardware?term=graphic-card  
+ * e.g.: http://localhost/demo_wordpress_rig-builder/wp-json/rigHardware/v1/allProfitableRigHardware?cat1=graphic-card&cat2=asic 
  */
 
 function allRigHardwareWithProfitability($data)
@@ -82,6 +82,15 @@ function allRigHardwareWithProfitability($data)
     $wpdb->show_errors(false);
     $wpdb->print_error();
     
+    $slug = "";
+    if(isset($data['cat1'])) {
+        $slug .= " OR t.slug LIKE '" . sanitize_text_field($data['cat1']) . "' ";
+    }
+    
+    if(isset($data['cat2'])) {
+        $slug .= " OR t.slug LIKE '" . sanitize_text_field($data['cat2']) . "' ";
+    }
+    
     /*
     // ############################################################################
     // # This query works, BUT is slower --> HOWEVER, it can be better explained! #
@@ -91,9 +100,13 @@ function allRigHardwareWithProfitability($data)
         FROM {$wpdb->prefix}posts p INNER JOIN 
             {$wpdb->prefix}miningprofitability m 
             ON m.post_id = p.ID
+            LEFT JOIN wp_term_relationships rel ON rel.object_id = p.ID
+            LEFT JOIN wp_term_taxonomy tax ON (tax.term_taxonomy_id = rel.term_taxonomy_id AND tax.taxonomy='category')
+            LEFT JOIN wp_terms t ON (t.term_id = tax.term_id AND t.name!='uncategorized')
         WHERE m.created_at =(SELECT MAX(pp2.created_at)
                             FROM {$wpdb->prefix}miningprofitability pp2
-                            WHERE pp2.post_id = m.post_id)
+                            WHERE pp2.post_id = m.post_id) ". 
+                            $slug . " 
         ORDER BY
             m.daily_grossProfit
         DESC;" );
@@ -114,28 +127,31 @@ function allRigHardwareWithProfitability($data)
     foreach ($mainQuery as $key => $value) {
         
         $post_id = $mainQuery[$key]->ID;
-        
+
         //get post meta
         $amazon = get_post_meta($post_id, '_cegg_data_Amazon', true);
-        $keys = array_keys($amazon); // convert associative arrays to index array
+        $keys = key($amazon); // get key 
         
         array_push($results['profRigHardware'], array(
-            'unique_id' => $amazon[$keys[0]]['unique_id'],
+            //'array_lolonator' => print_r($amazon),
+            
+            'unique_id' => $amazon[$keys]['unique_id'],
             'title' => get_the_title($post_id),
             'permalink' => get_the_permalink($post_id),
-            'manufacturer' => $amazon[$keys[0]]['manufacturer'],
+            'manufacturer' => $amazon[$keys]['manufacturer'],
             'category' => get_the_category($post_id),
             'smallImg' => get_the_post_thumbnail_url($post_id, 'thumbnail'),
             // 'smallImg' => $amazon[$keys[0]]['extra']['smallImage'], 
-            'currency' => $amazon[$keys[0]]['currency'],
-            'price' => $amazon[$keys[0]]['price'],
+            'currency' => $amazon[$keys]['currency'],
+            'price' => $amazon[$keys]['price'],
             'watt' => floatval(get_field('watt_estimate', $post_id)),
             'algorithm' => get_field('algorithm', $post_id),
             'hashRatePerSecond' => floatval(get_field('hash_rate', $post_id)) / 1000000,
-            'affiliateLink' => $amazon[$keys[0]]['url'],
+            'affiliateLink' => $amazon[$keys]['url'],
             'daily_netProfit' => number_format( (float) $mainQuery[$key]->daily_netProfit, 2),
             // 'created_at' => date('Y-m-d H:i:s', strtotime( $mainQuery[$key]->MaxDate)),
             'created_at' => date('Y-m-d H:i:s', strtotime( $mainQuery[$key]->created_at)),              
+            
         ));
     }
     return $results;

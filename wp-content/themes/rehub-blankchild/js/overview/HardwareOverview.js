@@ -2,7 +2,7 @@ jQuery(document).ready(($) => {
 
     // Add spinner
     $(".hardwareOverviewSpinner").before("<div class='loading'>Loading&#8230;</div>")
-    $.getJSON(miningRigData.root_url + '/wp-json/rigHardware/v1/allProfitableRigHardware?term=graphic-card ', (results) => {
+    $.getJSON(miningRigData.root_url + '/wp-json/rigHardware/v1/allProfitableRigHardware?cat1=graphic-card&cat2=asic ', (results) => {
         console.log("get hardware overview")
         const rentabilityHtml = function(daily_netProfit) {
             if (daily_netProfit < 0) {
