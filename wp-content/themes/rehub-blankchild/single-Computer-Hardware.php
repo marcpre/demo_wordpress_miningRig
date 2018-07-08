@@ -79,7 +79,7 @@
                       <tr>
                         <th>Hash Rate :</th>
                         <td class=" text-right">
-                          <?php the_field('hash_rate'); ?>
+                          <?php echo number_format(get_field('hash_rate')); ?>
                         </td>
                       </tr>
                       <?php endif; ?>
@@ -95,7 +95,7 @@
                       <tr>
                         <th>Wattage:</th>
                         <td class=" text-right">
-                          <?php the_field('watt_estimate'); ?>
+                          <?php the_field('watt_estimate'); ?>W
                         </td>
                       </tr>
                       <?php endif; ?>
@@ -104,14 +104,6 @@
                         <th>Algorithm:</th>
                         <td class=" text-right">
                           <?php the_field('algorithm'); ?>
-                        </td>
-                      </tr>
-                      <?php endif; ?>
-                      <?php if( get_field('watt_estimate') ): ?>
-                      <tr>
-                        <th>Wattage:</th>
-                        <td class=" text-right">
-                          <?php the_field('watt_estimate'); ?>
                         </td>
                       </tr>
                       <?php endif; ?>
