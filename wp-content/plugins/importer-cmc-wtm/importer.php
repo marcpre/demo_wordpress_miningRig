@@ -125,6 +125,7 @@ function importAction()
                     // get image
                     $uploaddir  = wp_upload_dir();
                     $filename = $uploaddir['path'] . '/' . $coin["slug"]  . '.png';
+                    $filetype = wp_check_filetype( basename( $filename ), null );
                     
                     $contents = file_get_contents($file_url);
                     $savefile = fopen($filename, 'w');
@@ -135,18 +136,24 @@ function importAction()
                     $wp_filetype = wp_check_filetype(basename($filename), null);
                     
                     $attachment = array(
-                        'post_mime_type' => $wp_filetype['type'],
-                        'post_title' => $filename,
-                        'post_content' => '',
+                        'guid' => $uploaddir['url'] . '/' . basename( $filename ), 
+                        'post_mime_type' => $filetype['type'],
+                        'post_title'     => preg_replace( '/\.[^.]+$/', '', basename( $filename ) ),
+                        'post_content'   => '',
                         'post_status' => 'inherit'
                     );
-                    
+                                       
                     $thumbnail_id = wp_insert_attachment($attachment, $filename);
+                    
+                    $attach_data = wp_generate_attachment_metadata( $thumbnail_id, $filename );
+                    wp_update_attachment_metadata( $thumbnail_id, $attach_data );
+                    
                     set_post_thumbnail($postId, $thumbnail_id);
                     
                     // LIMIT THE LOOP
                     // if (++$i > 19)
                     //    break;
+                    sleep(10); // sleep 10 seconds
                 }
             }
         }

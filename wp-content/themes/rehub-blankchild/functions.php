@@ -131,26 +131,115 @@ function rehubchild_lang_setup()
 //////////////////////////////////////////////////////////////////
 // Advanced Custom Fields Filters
 //////////////////////////////////////////////////////////////////
-/* function acf_load_coin_algorithm_field_choices( $field ) {
-    
-    // reset choices
-    $field['choices'] = array();
-    
-    // get the textarea value from options page without any formatting
-    $choices = get_field('coin_algorithm', 'option', false);
-    // explode the value so that each line is a new array piece
-    $choices = explode("\n", $choices);
-    // remove any unwanted white space
-    $choices = array_map('trim', $choices);
-    // loop through array and add to field 'choices'
-    if( is_array($choices) ) {   
-        foreach( $choices as $choice ) { 
-            $field['choices'][ $choice ] = $choice;
-        }
-        
+add_filter( 'acf/load_field/name=related_coins', 'register_algorithm_value_filter' );
+function register_algorithm_value_filter( $field ) {
+    if ( !isset( $field['filters'] ) ) {
+        return $field;
     }
+
+    $field['filters'][] = 'algorithm_value';
+
     return $field;
 }
 
-add_filter('acf/load_field/name=coin_algorithm', 'acf_load_coin_algorithm_field_choices');
-*/
+add_action( 'acf/create_field/type=relationship', 'create_algorithm_value_filter_menu' );
+function create_algorithm_value_filter_menu( $field ) {
+    if ( 'acf-field-related_coins' !== $field['id'] ) {
+        return;
+    }
+
+    global $wpdb;
+
+    $choices = [
+        'any' => 'Filter by Algorithm',
+    ];
+
+    $values = $wpdb->get_col(
+        "SELECT DISTINCT pm.meta_value FROM {$wpdb->postmeta} pm " .
+        "INNER JOIN {$wpdb->posts} p ON p.ID = pm.post_id " .
+        "WHERE pm.meta_key = 'algorithm' AND p.post_type = 'coin' " .
+        "ORDER BY pm.meta_value ASC"
+    );
+    foreach ( $values as $value ) {
+        $choices[ $value ] = $value;
+    }
+    unset( $values );
+
+    create_field( [
+        'type'    => 'select',
+        'name'    => 'algorithm_value',
+        // The select-algorithm_value class is required by the JS script.
+        // You should also keep the hide-if-js class.
+        'class'   => 'select-algorithm_value hide-if-js',
+        'value'   => '',
+        'choices' => $choices,
+    ] );
+}
+
+add_action( 'admin_print_footer_scripts', 'print_algorithm_value_filter_script', 11 );
+function print_algorithm_value_filter_script() {
+    $screen = get_current_screen();
+
+    // Add the script only on the wp-admin/post.php page, and only if the post
+    // being edited is of the "coin" or "computer-hardware" type.
+    if ( 'computer-hardware' === $screen->id || 'coin' === $screen->id ) :
+    ?>
+    <script>
+        jQuery(function ($) {
+            var field_name = 'algorithm_value',
+                $div = jQuery('#acf-related_coins:has(.has-' + field_name + ')');
+
+            // Moves the Algorithm filter menu to below the Post Type filter menu.
+            $div.find('.select-' + field_name).insertAfter(
+                $div.find('.select-post_type')
+                // And this does the AJAX filtering..
+            ).on('change', function () {
+                $div.find('.has-' + field_name)
+                    .attr('data-' + field_name, this.value);
+
+                $div.find('.select-post_type').trigger('change'); // Run the AJAX.
+            });
+
+            // Shows the Algorithm filter menu only if the chosen Post Type is 'coin'.
+            // Keep the event's namespace! (but you may use name other than post_type).
+            $div.find('.select-post_type').on('change.post_type', function () {
+                if ('coin' === this.value) {
+                    $div.find('.select-' + field_name).show();
+                } else {
+                    $div.find('.select-' + field_name).hide();
+                }
+            });
+        });
+    </script>
+    <?php
+    endif;
+}
+
+add_action( 'acf/fields/relationship/query/name=related_coins', 'query_posts_by_algorithm_value' );
+function query_posts_by_algorithm_value( $options ) {
+    // Filters only if the Post Type is exactly 'coin'.
+    if ( 'coin' !== $options['post_type'] ) {
+        return $options;
+    }
+
+    if ( isset( $options['algorithm_value'] ) ) {
+        $value = $options['algorithm_value'];
+
+        if ( $value && 'any' !== $value ) {
+            if ( ! isset( $options['meta_query'] ) ) {
+                $options['meta_query'] = [];
+            }
+
+            $options['meta_query'][] = [
+                'key'     => 'algorithm',
+                'value'   => $value,
+                'compare' => '=',
+            ];
+        }
+
+        // Don't pass to WP_Query.
+        unset( $options['algorithm_value'] );
+    }
+
+    return $options;
+}
