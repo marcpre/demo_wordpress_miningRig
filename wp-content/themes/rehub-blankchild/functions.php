@@ -157,7 +157,7 @@ function create_algorithm_value_filter_menu( $field ) {
     $values = $wpdb->get_col(
         "SELECT DISTINCT pm.meta_value FROM {$wpdb->postmeta} pm " .
         "INNER JOIN {$wpdb->posts} p ON p.ID = pm.post_id " .
-        "WHERE pm.meta_key = 'algorithm' AND p.post_type = 'coin' " .
+        "WHERE pm.meta_key = 'coin_algorithm' AND p.post_type = 'coin' " .
         "ORDER BY pm.meta_value ASC"
     );
     foreach ( $values as $value ) {
@@ -231,7 +231,7 @@ function query_posts_by_algorithm_value( $options ) {
             }
 
             $options['meta_query'][] = [
-                'key'     => 'algorithm',
+                'key'     => 'coin_algorithm',
                 'value'   => $value,
                 'compare' => '=',
             ];
