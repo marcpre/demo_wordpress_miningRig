@@ -55,11 +55,10 @@ class CoinMarketCapAPI {
                 'circulating_supply' => floatval($value->circulating_supply),
                 'total_supply' => floatval($value->total_supply),
                 'max_supply' => floatval($value->max_supply),
-                'last_updated_coin_market_cap' => date('Y-m-d H:i:s', $value->last_updated),       
             );
                         
             // show db errors
-            $wpdb->show_errors(true);
+            $wpdb->show_errors(false);
             $wpdb->print_error();
             
             try {
@@ -70,9 +69,11 @@ class CoinMarketCapAPI {
                         WHERE 
                             symbol = %s
                             AND name = %s 
-                            AND rank = %s 
                         LIMIT 1",
-                        $value->symbol, $value->name, $value->rank
+                            $value->symbol, 
+                            $value->name
+                            //$value->quotes->USD->price, 
+                            //$value->last_updated
                     )
                 );
             } catch (\Exception $ex) {
@@ -80,7 +81,7 @@ class CoinMarketCapAPI {
             }
 
             // if record does exist $coin_id is the existing id
-            if ( $recordCoinExists == 0 || $recordCoinExists == null ) { 
+            if ( $recordCoinExists == 0 || $recordCoinExists == null || empty($recordCoinExists)) { 
                 // create coin in db and return id
                 $resCoin['created_at'] = date('Y-m-d H:i:s');
                 $resCoin['updated_at'] = date('Y-m-d H:i:s');
@@ -90,7 +91,7 @@ class CoinMarketCapAPI {
                     error_log($ex); 
                 }
             } else { 
-                // exisiting id from db
+                // exisiting id from db to use it in the ticker
                 $coin_id = $recordCoinExists["0"]->id;                
             };
             // coin exists in db until this point!
@@ -106,6 +107,7 @@ class CoinMarketCapAPI {
                 'percent_change_1h' => floatval($tick->percent_change_1h),
                 'percent_change_24h' => floatval($tick->percent_change_24h),
                 'percent_change_7d' => floatval($tick->percent_change_7d),
+                'last_updated_coin_market_cap' => date('Y-m-d H:i:s', $value->last_updated),       
             );
             
             try {
@@ -117,15 +119,16 @@ class CoinMarketCapAPI {
                         price = %s
                         AND coin_id = %s 
                         AND market_cap = %s 
+                        AND last_updated_coin_market_cap = %s
                     LIMIT 1",
-                    floatval($tick->price), $coin_id, floatval($tick->market_cap)
+                    floatval($tick->price), $coin_id, floatval($tick->market_cap), $value->last_updated
                     )
                 );
             } catch (\Exception $ex) {
                 error_log($ex); 
             }
            
-            if ( $recordTickerExists == 0 || $recordTickerExists == null ) {
+            if ( $recordTickerExists == 0 || $recordTickerExists == null || empty($recordTickerExists)) {
                 // ticker does not exists else do nothing
                 try {
                     $resTicker['created_at'] = date('Y-m-d H:i:s');
@@ -137,6 +140,7 @@ class CoinMarketCapAPI {
             } else {
                 error_log("Ticker exists! - " . $value->name . " for the following query: " . $wpdb->last_query);
             }
+            
         }
     }
 }

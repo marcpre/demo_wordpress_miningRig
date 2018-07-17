@@ -232,7 +232,7 @@ function query_posts_by_algorithm_value( $options ) {
 
             $options['meta_query'][] = [
                 'key'     => 'coin_algorithm',
-                'value'   => $value,
+                'value'   => $value, 
                 'compare' => '=',
             ];
         }
