@@ -80,7 +80,7 @@ class CalculateProfitability
             FROM {$wpdb->prefix}ticker t
             INNER JOIN wp_coins c ON c.id = t.coin_id
             WHERE c.symbol = \"" . $coinSymbol . "\"
-            ORDER BY c.created_at ASC
+            ORDER BY t.updated_at DESC
             LIMIT 1;");
             
         if (!isset($coinValueRes)) {

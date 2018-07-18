@@ -252,7 +252,7 @@
                       </tbody>
                     </table>
                     The calculations are based on real time prices, where 1
-                    <?php echo $mainQuery[0]->tag; ?> = $
+                    <?php /* echo $mainQuery[0]->tag; */ ?>BTC = $
                     <?php echo $mainQuery[0]->price; ?>.
                 </div>
               </div>
