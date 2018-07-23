@@ -121,7 +121,7 @@ class CoinMarketCapAPI {
                         AND market_cap = %s 
                         AND last_updated_coin_market_cap = %s
                     LIMIT 1",
-                    floatval($tick->price), $coin_id, floatval($tick->market_cap), $value->last_updated
+                    floatval($tick->price), $coin_id, intval($tick->market_cap), date('Y-m-d H:i:s', $value->last_updated)
                     )
                 );
             } catch (\Exception $ex) {
