@@ -87,9 +87,9 @@ function miningRigBuilder_post_types()
 function custom_tax_hardware_creator() {
 
 	$labels = array(
-		'name'                       => _x( 'Hardware-Creators', 'Taxonomy General Name', 'text_domain' ),
-		'singular_name'              => _x( 'Hardware-Creator', 'Taxonomy Singular Name', 'text_domain' ),
-		'menu_name'                  => __( 'Hardware Creators', 'text_domain' ),
+		'name'                       => _x( 'Hardware-Companies', 'Taxonomy General Name', 'text_domain' ),
+		'singular_name'              => _x( 'Hardware-Company', 'Taxonomy Singular Name', 'text_domain' ),
+		'menu_name'                  => __( 'Hardware-Companies', 'text_domain' ),
 		'all_items'                  => __( 'All Items', 'text_domain' ),
 		'parent_item'                => __( 'Parent Item', 'text_domain' ),
 		'parent_item_colon'          => __( 'Parent Item:', 'text_domain' ),
@@ -117,7 +117,7 @@ function custom_tax_hardware_creator() {
 		'show_in_nav_menus'          => true,
 		'show_tagcloud'              => true,
 	);
-	register_taxonomy( 'Hardware-Creator', array( 'computer-hardware' ), $args );
+	register_taxonomy( 'hardware-company', array( 'computer-hardware' ), $args );
 
 }
 
