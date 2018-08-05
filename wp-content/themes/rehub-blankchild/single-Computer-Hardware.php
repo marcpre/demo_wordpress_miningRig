@@ -251,9 +251,19 @@
                         </tr>
                       </tbody>
                     </table>
+                    <?php
+    global $wpdb;
+           
+    $btcPriceQuery = $wpdb->get_results( "SELECT *
+      FROM 
+          {$wpdb->prefix}ticker t
+      WHERE 
+        t.coin_id = 1
+      ORDER BY t.created_at DESC
+      LIMIT 1;" );
+?>
                     The calculations are based on real time prices, where 1
-                    <?php /* echo $mainQuery[0]->tag; */ ?>BTC = $
-                    <?php echo $mainQuery[0]->price; ?>.
+                    <?php /* echo $mainQuery[0]->tag; */ ?>BTC = $<?php echo $btcPriceQuery[0]->price; ?>
                 </div>
               </div>
             </div>
