@@ -263,7 +263,7 @@
       LIMIT 1;" );
 ?>
                     The calculations are based on real time prices, where 1
-                    <?php /* echo $mainQuery[0]->tag; */ ?>BTC = $<?php echo $btcPriceQuery[0]->price; ?>
+                    <?php /* echo $mainQuery[0]->tag; */ ?>BTC = $<?php echo number_format((float)$btcPriceQuery[0]->price, 2, '.', ''); ?>
                 </div>
               </div>
             </div>
