@@ -2,18 +2,18 @@ jQuery(document).ready(($) => {
 
     function loadHardware(para) {
         table = ""
-        if(para === "cat1=graphic-card"){
+        if (para === "cat1=graphic-card") {
             table = "gpu"
         }
-        
-        if(para === "cat2=asic"){
+
+        if (para === "cat2=asic") {
             table = "asic"
         }
-        
-        if(para === ""){
+
+        if (para === "") {
             table = ""
         }
-        
+
         // Add spinner
         $(".hardwareOverviewSpinner").before("<div class='loading'>Loading&#8230;</div>")
         $.getJSON(miningRigData.root_url + '/wp-json/rigHardware/v1/allProfitableRigHardware?' + para, (results) => {
@@ -35,7 +35,8 @@ jQuery(document).ready(($) => {
                 `${ item.manufacturer }`,
                 `${ item.hashRatePerSecond } MH/s`,
                 `${ item.watt }W`,
-                `${ rentabilityHtml(parseFloat(item.daily_netProfit)) }`,
+                // `${ rentabilityHtml(parseFloat(item.daily_netProfit)) }`,
+                item.daily_netProfit,
             ])
 
             //remove spinner
@@ -63,7 +64,10 @@ jQuery(document).ready(($) => {
                         title: "Watt Estimate"
                     },
                     {
-                        title: "Profitability"
+                        title: "Profitability",
+                        render: function (profit) {
+                            return rentabilityHtml(parseFloat(profit))
+                        }
                     }
                 ],
                 "initComplete": function (settings, json) {
@@ -88,20 +92,3 @@ jQuery(document).ready(($) => {
     })
 
 });
-
-/** 
-$('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
-    var target = $(e.target).attr("href") // activated tab
-    if(target === "#asic") {
-        loadHardware("cat2=asic")
-    } 
-    
-    if(target === "#gpu") {
-        loadHardware("cat1=graphic-card&cat2=asic")
-    }
-    
-    if(target === "#all") {
-        loadHardware("cat1=graphic-card")            
-    } 
-});
-**/
