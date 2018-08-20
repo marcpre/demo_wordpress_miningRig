@@ -36,7 +36,7 @@ jQuery(document).ready(($) => {
                 `${ item.hashRatePerSecond } MH/s`,
                 `${ item.watt }W`,
                 // `${ rentabilityHtml(parseFloat(item.daily_netProfit)) }`,
-                item.daily_netProfit,
+                parseFloat(item.daily_netProfit),
             ])
 
             //remove spinner
