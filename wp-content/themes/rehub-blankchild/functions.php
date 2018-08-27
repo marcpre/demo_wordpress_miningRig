@@ -1,5 +1,7 @@
 <?php
 
+require_once 'vendor/autoload.php';
+
 // Do not allow directly accessing this file.
 if (!defined('ABSPATH')) {
     exit('Direct script access denied.');
@@ -251,12 +253,154 @@ function query_posts_by_algorithm_value($options)
 //////////////////////////////////////////////////////////////////
 // MAILSTER - Custom Tags
 //////////////////////////////////////////////////////////////////
+/**
+ * trims text to a space then adds ellipses if desired
+ * @param string $input text to trim
+ * @param int $length in characters to trim to
+ * @param bool $ellipses if ellipses (...) are to be added
+ * @param bool $strip_html if html tags are to be stripped
+ * @return string 
+ */
+function trim_text($input, $length, $ellipses = true, $strip_html = true) {
+    //strip tags, if desired
+    if ($strip_html) {
+        $input = strip_tags($input);
+    }
+  
+    //no need to trim, already shorter than trim length
+    if (strlen($input) <= $length) {
+        return $input;
+    }
+  
+    //find last space within length
+    $last_space = strrpos(substr($input, 0, $length), ' ');
+    $trimmed_text = substr($input, 0, $last_space);
+  
+    //add ellipses (...)
+    if ($ellipses) {
+        $trimmed_text .= '...';
+    }
+  
+    return $trimmed_text;
+}
 
-
+/**
+ * Get profitable miners
+ */
 if ( function_exists( 'mailster_add_tag' ) ) {
     function mytag_function( $option, $fallback, $campaignID = NULL, $subscriberID = NULL ){
-        $code = "test";
-        return $code;
+
+        global $wpdb;
+        
+        $query = $wpdb->get_results( 
+        "SELECT * 
+    FROM wp_posts p
+    INNER JOIN wp_miningprofitability m ON m.post_id = p.ID
+    LEFT JOIN wp_term_relationships rel ON rel.object_id = p.ID
+    LEFT JOIN wp_term_taxonomy tax ON (tax.term_taxonomy_id = rel.term_taxonomy_id AND tax.taxonomy = 'category')
+    LEFT JOIN wp_terms t ON (t.term_id = tax.term_id AND t.name != 'uncategorized')
+    WHERE
+        m.created_at =(
+        SELECT MAX(pp2.created_at)
+        FROM wp_miningprofitability pp2
+        WHERE pp2.post_id = m.post_id
+    )
+    ORDER BY m.daily_netProfit
+    DESC LIMIT 5;" 
+        );
+        
+        $table = "
+        <table class='center'>
+        <thead>
+          <th>#</th>
+          <th>Model</th>
+          <th>Type</th>
+          <th>Profitability</th>
+        </thead>";
+        
+        //$row = "";
+        $i = 0;
+        foreach ($query as $key => $value) {
+            $i++;
+            $imgUrl = get_the_post_thumbnail_url($value->ID, 'thumbnail');
+            
+            $table .= "<tr class='strippedTag'>
+            <td class='strippedTag'>" . $i ."</td>
+            <td class='strippedTag'><img src='" . $imgUrl ."' height='42' width='42'/> 
+            <a href= '" . $value->guid . "' target='_blank'>
+            " . trim_text($value->post_title, 20, true, false) . "
+             </a></td>
+            <td align='middle' class='strippedTag'>" . $value->name . "</td>
+            <td align='right' class='strippedTag'>$" . number_format($value->daily_netProfit,2) . "/day</td>
+          </tr>";
+        }
+        $table .= "</table>";
+        
+        return $table;
     }
+    
     mailster_add_tag( 'mytag', 'mytag_function' );
   }
+
+/**
+ * Get weekly posts 
+ **/
+if ( function_exists( 'mailster_add_tag' ) ) {
+  function weeklyPosts_function( $option, $fallback, $campaignID = NULL, $subscriberID = NULL ){
+      
+      $client = new \Google_Client();
+      $client->setApplicationName('My PHP App');
+      $client->setScopes([\Google_Service_Sheets::SPREADSHEETS]);
+      $client->setAccessType('offline');
+      $jsonAuth = getenv('My Project-f3aa2c12a011.json');
+      $client->setAuthConfig(json_decode($jsonAuth, true));
+      $sheets = new \Google_Service_Sheets($client);
+      $data = [];
+      $currentRow = 2;
+      $spreadsheetId = getenv('1773823838');
+      $range = 'A2:H';
+      $rows = $sheets->spreadsheets_values->get($spreadsheetId, $range, ['majorDimension' => 'ROWS']);
+      if (isset($rows['values'])) {
+          foreach ($rows['values'] as $row) {
+              /*
+              * If first column is empty, consider it an empty row and skip (this is just for example)
+              */
+              if (empty($row[0])) {
+                  break;
+              }
+              $data[] = [
+                'col-a' => $row[0],
+                'col-b' => $row[1],
+                'col-c' => $row[2],
+                'col-d' => $row[3],
+                'col-e' => $row[4],
+                'col-f' => $row[5],
+                'col-g' => $row[6],
+                'col-h' => $row[7],
+            ];
+            /*
+            * Now for each row we've seen, lets update the I column with the current date
+            */
+            $updateRange = 'I'.$currentRow;
+            $updateBody = new \Google_Service_Sheets_ValueRange([
+                'range' => $updateRange,
+                'majorDimension' => 'ROWS',
+                'values' => ['values' => date('c')],
+            ]);
+            $sheets->spreadsheets_values->update(
+                $spreadsheetId,
+                $updateRange,
+                $updateBody,
+                ['valueInputOption' => 'USER_ENTERED']
+            );
+            $currentRow++;
+        }
+    }
+    
+    print_r($data);
+
+    return "test";
+  }
+  
+  mailster_add_tag( 'myWeeklyPosts', 'weeklyPosts_function' );
+}
