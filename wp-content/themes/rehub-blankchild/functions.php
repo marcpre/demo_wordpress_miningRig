@@ -24,7 +24,7 @@ function enqueue_parent_theme_style()
 
     wp_enqueue_style($parentStyle, get_template_directory_uri() . '/style.css');
 
-    if (is_page('Rig Builder') ) {
+    if (is_page('Rig Builder')) {
 
         //css
         wp_enqueue_style('bootstrap-4.0.0', get_stylesheet_directory_uri() . '/css/bootstrap.min.css', array($parentStyle));
@@ -44,9 +44,9 @@ function enqueue_parent_theme_style()
             'nonce' => wp_create_nonce('wp_rest'),
         ));
     }
-    
+
     if (is_singular('computer-hardware')) {
-       
+
         //css
         wp_enqueue_style('bootstrap-4.0.0', get_stylesheet_directory_uri() . '/css/bootstrap.min.css', array($parentStyle));
         wp_enqueue_style('morris', '//cdnjs.cloudflare.com/ajax/libs/morris.js/0.5.1/morris.css', array($parentStyle));
@@ -55,9 +55,9 @@ function enqueue_parent_theme_style()
         wp_enqueue_script('font-awesome', get_theme_file_uri('/js/libs/fontawesome-all.js'), null, '1.0', true);
         wp_enqueue_script('popper-1.12.9', get_theme_file_uri('/js/libs/popper.min.js'), null, '1.0', true);
         wp_enqueue_script('bootstrap-4.0.0', get_theme_file_uri('/js/libs/bootstrap.min.js'), null, '1.0', true);
-        wp_enqueue_script('jquery', get_theme_file_uri('/js/libs/jquery.min.js'), null, '1.0', true);        
-        wp_enqueue_script('raphael', get_theme_file_uri('/js/libs/raphael-min.js'), null, '1.0', true);        
-        wp_enqueue_script('morris', get_theme_file_uri('/js/libs/morris.min.js'), null, '1.0', true);        
+        wp_enqueue_script('jquery', get_theme_file_uri('/js/libs/jquery.min.js'), null, '1.0', true);
+        wp_enqueue_script('raphael', get_theme_file_uri('/js/libs/raphael-min.js'), null, '1.0', true);
+        wp_enqueue_script('morris', get_theme_file_uri('/js/libs/morris.min.js'), null, '1.0', true);
         wp_enqueue_script('computerHardwareChart', get_theme_file_uri('/js/charts/ComputerHardwareTemplate.js'), null, '1.0', true);
 
         wp_localize_script('computerHardwareChart', 'miningRigData', array(
@@ -65,7 +65,7 @@ function enqueue_parent_theme_style()
             'nonce' => wp_create_nonce('wp_rest'),
         ));
     }
-    
+
     if (is_page('Hardware Overview')) {
 
         //css
@@ -73,12 +73,12 @@ function enqueue_parent_theme_style()
         wp_enqueue_style('dataTables', get_stylesheet_directory_uri() . '/css/jquery.dataTables.min.css', array($parentStyle));
         wp_enqueue_style('dataTables-bootstrap-1.10.16', get_stylesheet_directory_uri() . '/css/dataTables.bootstrap4.min.css', array($parentStyle));
         wp_enqueue_style('style', get_stylesheet_directory_uri() . '/style.css', array($parentStyle));
-        
+
         //js
         //wp_enqueue_script('font-awesome', get_theme_file_uri('/js/libs/fontawesome-all.js'), null, '1.0', true);
-        wp_enqueue_script('jquery', get_theme_file_uri('/js/libs/jquery.min.js'), null, '1.0', true);        
+        wp_enqueue_script('jquery', get_theme_file_uri('/js/libs/jquery.min.js'), null, '1.0', true);
         wp_enqueue_script('bootstrap-4.0.0', get_theme_file_uri('/js/libs/bootstrap.min.js'), null, '1.0', true);
-        wp_enqueue_script('dataTables', get_theme_file_uri('/js/libs/jquery.dataTables.min.js'), null, '1.0', true);                
+        wp_enqueue_script('dataTables', get_theme_file_uri('/js/libs/jquery.dataTables.min.js'), null, '1.0', true);
         wp_enqueue_script('hardware-overview', get_theme_file_uri('/js/overview/HardwareOverview.js'), null, '1.0', true);
 
         wp_localize_script('hardware-overview', 'miningRigData', array(
@@ -86,7 +86,7 @@ function enqueue_parent_theme_style()
             'nonce' => wp_create_nonce('wp_rest'),
         ));
     }
-    
+
     if (is_page('Mining Rigs')) {
 
         //css
@@ -94,12 +94,12 @@ function enqueue_parent_theme_style()
         wp_enqueue_style('dataTables', get_stylesheet_directory_uri() . '/css/jquery.dataTables.min.css', array($parentStyle));
         wp_enqueue_style('dataTables-1.10.16', get_stylesheet_directory_uri() . '/css/dataTables.bootstrap4.min.css', array($parentStyle));
         wp_enqueue_style('style', get_stylesheet_directory_uri() . '/style.css', array($parentStyle));
-        
+
         //js
         wp_enqueue_script('font-awesome', get_theme_file_uri('/js/libs/fontawesome-all.js'), null, '1.0', true);
         wp_enqueue_script('bootstrap-4.0.0', get_theme_file_uri('/js/libs/bootstrap.min.js'), null, '1.0', true);
-        wp_enqueue_script('jquery', get_theme_file_uri('/js/libs/jquery.min.js'), null, '1.0', true);        
-        wp_enqueue_script('dataTables', get_theme_file_uri('/js/libs/jquery.dataTables.min.js'), null, '1.0', true);                
+        wp_enqueue_script('jquery', get_theme_file_uri('/js/libs/jquery.min.js'), null, '1.0', true);
+        wp_enqueue_script('dataTables', get_theme_file_uri('/js/libs/jquery.dataTables.min.js'), null, '1.0', true);
         wp_enqueue_script('mining-overview', get_theme_file_uri('/js/overview/MiningRigs.js'), null, '1.0', true);
 
         wp_localize_script('mining-overview', 'miningRigData', array(
@@ -107,13 +107,13 @@ function enqueue_parent_theme_style()
             'nonce' => wp_create_nonce('wp_rest'),
         ));
     }
-    
+
     if (is_page('Mining List')) {
 
         //css
         wp_enqueue_style('bootstrap-4.0.0', get_stylesheet_directory_uri() . '/css/bootstrap.min.css', array($parentStyle));
         wp_enqueue_style('style', get_stylesheet_directory_uri() . '/style.css', array($parentStyle));
-        
+
         //js
         // ..
     }
@@ -131,9 +131,10 @@ function rehubchild_lang_setup()
 //////////////////////////////////////////////////////////////////
 // Advanced Custom Fields Filters
 //////////////////////////////////////////////////////////////////
-add_filter( 'acf/load_field/name=related_coins', 'register_algorithm_value_filter' );
-function register_algorithm_value_filter( $field ) {
-    if ( !isset( $field['filters'] ) ) {
+add_filter('acf/load_field/name=related_coins', 'register_algorithm_value_filter');
+function register_algorithm_value_filter($field)
+{
+    if (!isset($field['filters'])) {
         return $field;
     }
 
@@ -142,9 +143,10 @@ function register_algorithm_value_filter( $field ) {
     return $field;
 }
 
-add_action( 'acf/create_field/type=relationship', 'create_algorithm_value_filter_menu' );
-function create_algorithm_value_filter_menu( $field ) {
-    if ( 'acf-field-related_coins' !== $field['id'] ) {
+add_action('acf/create_field/type=relationship', 'create_algorithm_value_filter_menu');
+function create_algorithm_value_filter_menu($field)
+{
+    if ('acf-field-related_coins' !== $field['id']) {
         return;
     }
 
@@ -160,29 +162,30 @@ function create_algorithm_value_filter_menu( $field ) {
         "WHERE pm.meta_key = 'coin_algorithm' AND p.post_type = 'coin' " .
         "ORDER BY pm.meta_value ASC"
     );
-    foreach ( $values as $value ) {
-        $choices[ $value ] = $value;
+    foreach ($values as $value) {
+        $choices[$value] = $value;
     }
-    unset( $values );
+    unset($values);
 
-    create_field( [
-        'type'    => 'select',
-        'name'    => 'algorithm_value',
+    create_field([
+        'type' => 'select',
+        'name' => 'algorithm_value',
         // The select-algorithm_value class is required by the JS script.
         // You should also keep the hide-if-js class.
-        'class'   => 'select-algorithm_value hide-if-js',
-        'value'   => '',
+        'class' => 'select-algorithm_value hide-if-js',
+        'value' => '',
         'choices' => $choices,
-    ] );
+    ]);
 }
 
-add_action( 'admin_print_footer_scripts', 'print_algorithm_value_filter_script', 11 );
-function print_algorithm_value_filter_script() {
+add_action('admin_print_footer_scripts', 'print_algorithm_value_filter_script', 11);
+function print_algorithm_value_filter_script()
+{
     $screen = get_current_screen();
 
     // Add the script only on the wp-admin/post.php page, and only if the post
     // being edited is of the "coin" or "computer-hardware" type.
-    if ( 'computer-hardware' === $screen->id || 'coin' === $screen->id ) :
+    if ('computer-hardware' === $screen->id || 'coin' === $screen->id):
     ?>
     <script>
         jQuery(function ($) {
@@ -212,34 +215,48 @@ function print_algorithm_value_filter_script() {
         });
     </script>
     <?php
-    endif;
+endif;
 }
 
-add_action( 'acf/fields/relationship/query/name=related_coins', 'query_posts_by_algorithm_value' );
-function query_posts_by_algorithm_value( $options ) {
+add_action('acf/fields/relationship/query/name=related_coins', 'query_posts_by_algorithm_value');
+function query_posts_by_algorithm_value($options)
+{
     // Filters only if the Post Type is exactly 'coin'.
-    if ( 'coin' !== $options['post_type'] ) {
+    if ('coin' !== $options['post_type']) {
         return $options;
     }
 
-    if ( isset( $options['algorithm_value'] ) ) {
+    if (isset($options['algorithm_value'])) {
         $value = $options['algorithm_value'];
 
-        if ( $value && 'any' !== $value ) {
-            if ( ! isset( $options['meta_query'] ) ) {
+        if ($value && 'any' !== $value) {
+            if (!isset($options['meta_query'])) {
                 $options['meta_query'] = [];
             }
 
             $options['meta_query'][] = [
-                'key'     => 'coin_algorithm',
-                'value'   => $value, 
+                'key' => 'coin_algorithm',
+                'value' => $value,
                 'compare' => '=',
             ];
         }
 
         // Don't pass to WP_Query.
-        unset( $options['algorithm_value'] );
+        unset($options['algorithm_value']);
     }
 
     return $options;
 }
+
+//////////////////////////////////////////////////////////////////
+// MAILSTER - Custom Tags
+//////////////////////////////////////////////////////////////////
+
+
+if ( function_exists( 'mailster_add_tag' ) ) {
+    function mytag_function( $option, $fallback, $campaignID = NULL, $subscriberID = NULL ){
+        $code = "test";
+        return $code;
+    }
+    mailster_add_tag( 'mytag', 'mytag_function' );
+  }
