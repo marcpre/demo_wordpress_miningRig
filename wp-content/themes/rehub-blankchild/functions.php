@@ -1,7 +1,5 @@
 <?php
 
-require_once 'vendor/autoload.php';
-
 // Do not allow directly accessing this file.
 if (!defined('ABSPATH')) {
     exit('Direct script access denied.');
@@ -14,6 +12,8 @@ if (defined('RH_GRANDCHILD_DIR')) {
 require get_theme_file_path('/inc/computerHardwareRoute.php');
 require get_theme_file_path('/inc/miningRigsRoute.php');
 require get_theme_file_path('/inc/miningProfRoute.php');
+
+// require_once 'vendor/autoload.php';
 
 add_action('wp_enqueue_scripts', 'enqueue_parent_theme_style');
 function enqueue_parent_theme_style()
@@ -188,36 +188,36 @@ function print_algorithm_value_filter_script()
     // Add the script only on the wp-admin/post.php page, and only if the post
     // being edited is of the "coin" or "computer-hardware" type.
     if ('computer-hardware' === $screen->id || 'coin' === $screen->id):
-    ?>
-    <script>
-        jQuery(function ($) {
-            var field_name = 'algorithm_value',
-                $div = jQuery('#acf-related_coins:has(.has-' + field_name + ')');
+        ?>
+        <script>
+            jQuery(function ($) {
+                var field_name = 'algorithm_value',
+                    $div = jQuery('#acf-related_coins:has(.has-' + field_name + ')');
 
-            // Moves the Algorithm filter menu to below the Post Type filter menu.
-            $div.find('.select-' + field_name).insertAfter(
-                $div.find('.select-post_type')
-                // And this does the AJAX filtering..
-            ).on('change', function () {
-                $div.find('.has-' + field_name)
-                    .attr('data-' + field_name, this.value);
+                // Moves the Algorithm filter menu to below the Post Type filter menu.
+                $div.find('.select-' + field_name).insertAfter(
+                    $div.find('.select-post_type')
+                    // And this does the AJAX filtering..
+                ).on('change', function () {
+                    $div.find('.has-' + field_name)
+                        .attr('data-' + field_name, this.value);
 
-                $div.find('.select-post_type').trigger('change'); // Run the AJAX.
+                    $div.find('.select-post_type').trigger('change'); // Run the AJAX.
+                });
+
+                // Shows the Algorithm filter menu only if the chosen Post Type is 'coin'.
+                // Keep the event's namespace! (but you may use name other than post_type).
+                $div.find('.select-post_type').on('change.post_type', function () {
+                    if ('coin' === this.value) {
+                        $div.find('.select-' + field_name).show();
+                    } else {
+                        $div.find('.select-' + field_name).hide();
+                    }
+                });
             });
-
-            // Shows the Algorithm filter menu only if the chosen Post Type is 'coin'.
-            // Keep the event's namespace! (but you may use name other than post_type).
-            $div.find('.select-post_type').on('change.post_type', function () {
-                if ('coin' === this.value) {
-                    $div.find('.select-' + field_name).show();
-                } else {
-                    $div.find('.select-' + field_name).hide();
-                }
-            });
-        });
-    </script>
+        </script>
     <?php
-endif;
+    endif;
 }
 
 add_action('acf/fields/relationship/query/name=related_coins', 'query_posts_by_algorithm_value');
@@ -253,47 +253,50 @@ function query_posts_by_algorithm_value($options)
 //////////////////////////////////////////////////////////////////
 // MAILSTER - Custom Tags
 //////////////////////////////////////////////////////////////////
+
 /**
  * trims text to a space then adds ellipses if desired
  * @param string $input text to trim
  * @param int $length in characters to trim to
  * @param bool $ellipses if ellipses (...) are to be added
  * @param bool $strip_html if html tags are to be stripped
- * @return string 
+ * @return string
  */
-function trim_text($input, $length, $ellipses = true, $strip_html = true) {
+function trim_text($input, $length, $ellipses = true, $strip_html = true)
+{
     //strip tags, if desired
     if ($strip_html) {
         $input = strip_tags($input);
     }
-  
+
     //no need to trim, already shorter than trim length
     if (strlen($input) <= $length) {
         return $input;
     }
-  
+
     //find last space within length
     $last_space = strrpos(substr($input, 0, $length), ' ');
     $trimmed_text = substr($input, 0, $last_space);
-  
+
     //add ellipses (...)
     if ($ellipses) {
         $trimmed_text .= '...';
     }
-  
+
     return $trimmed_text;
 }
 
 /**
  * Get profitable miners
  */
-if ( function_exists( 'mailster_add_tag' ) ) {
-    function mytag_function( $option, $fallback, $campaignID = NULL, $subscriberID = NULL ){
+if (function_exists('mailster_add_tag')) {
+    function mytag_function($option, $fallback, $campaignID = NULL, $subscriberID = NULL)
+    {
 
         global $wpdb;
-        
-        $query = $wpdb->get_results( 
-        "SELECT * 
+
+        $query = $wpdb->get_results(
+            "SELECT * 
     FROM wp_posts p
     INNER JOIN wp_miningprofitability m ON m.post_id = p.ID
     LEFT JOIN wp_term_relationships rel ON rel.object_id = p.ID
@@ -306,9 +309,9 @@ if ( function_exists( 'mailster_add_tag' ) ) {
         WHERE pp2.post_id = m.post_id
     )
     ORDER BY m.daily_netProfit
-    DESC LIMIT 5;" 
+    DESC LIMIT 5;"
         );
-        
+
         $table = "
         <table class='center'>
         <thead>
@@ -317,44 +320,45 @@ if ( function_exists( 'mailster_add_tag' ) ) {
           <th>Type</th>
           <th>Profitability</th>
         </thead>";
-        
+
         //$row = "";
         $i = 0;
         foreach ($query as $key => $value) {
             $i++;
             $imgUrl = get_the_post_thumbnail_url($value->ID, 'thumbnail');
-            
+
             $table .= "<tr class='strippedTag'>
-            <td class='strippedTag'>" . $i ."</td>
-            <td class='strippedTag'><img src='" . $imgUrl ."' height='42' width='42'/> 
+            <td class='strippedTag'>" . $i . "</td>
+            <td class='strippedTag'><img src='" . $imgUrl . "' height='42' width='42'/> 
             <a href= '" . $value->guid . "' target='_blank'>
             " . trim_text($value->post_title, 20, true, false) . "
              </a></td>
             <td align='middle' class='strippedTag'>" . $value->name . "</td>
-            <td align='right' class='strippedTag'>$" . number_format($value->daily_netProfit,2) . "/day</td>
+            <td align='right' class='strippedTag'>$" . number_format($value->daily_netProfit, 2) . "/day</td>
           </tr>";
         }
         $table .= "</table>";
-        
+
         return $table;
     }
-    
-    mailster_add_tag( 'mytag', 'mytag_function' );
-  }
 
+    mailster_add_tag('mytag', 'mytag_function');
+}
 /**
- * Get weekly posts 
+ * Get weekly posts
  **/
+/*
 if ( function_exists( 'mailster_add_tag' ) ) {
   function weeklyPosts_function( $option, $fallback, $campaignID = NULL, $subscriberID = NULL ){
-      
+
+
       $client = new \Google_Client();
       $client->setApplicationName('My PHP App');
       $client->setScopes([\Google_Service_Sheets::SPREADSHEETS]);
       $client->setAccessType('offline');
-      $jsonAuth = getenv('My Project-f3aa2c12a011.json');
+      $jsonAuth = getenv('googleCreditentials.json');
       $client->setAuthConfig(json_decode($jsonAuth, true));
-      $sheets = new \Google_Service_Sheets($client);
+      
       $data = [];
       $currentRow = 2;
       $spreadsheetId = getenv('1773823838');
@@ -362,9 +366,7 @@ if ( function_exists( 'mailster_add_tag' ) ) {
       $rows = $sheets->spreadsheets_values->get($spreadsheetId, $range, ['majorDimension' => 'ROWS']);
       if (isset($rows['values'])) {
           foreach ($rows['values'] as $row) {
-              /*
-              * If first column is empty, consider it an empty row and skip (this is just for example)
-              */
+
               if (empty($row[0])) {
                   break;
               }
@@ -378,9 +380,7 @@ if ( function_exists( 'mailster_add_tag' ) ) {
                 'col-g' => $row[6],
                 'col-h' => $row[7],
             ];
-            /*
-            * Now for each row we've seen, lets update the I column with the current date
-            */
+
             $updateRange = 'I'.$currentRow;
             $updateBody = new \Google_Service_Sheets_ValueRange([
                 'range' => $updateRange,
@@ -399,8 +399,10 @@ if ( function_exists( 'mailster_add_tag' ) ) {
     
     print_r($data);
 
-    return "test";
+    $test = "lolo lolo lolonator11112234!";
+    return $test;
   }
-  
-  mailster_add_tag( 'myWeeklyPosts', 'weeklyPosts_function' );
-}
+  */
+
+// mailster_add_tag( 'myWeeklyPosts', 'weeklyPosts_function' );
+
