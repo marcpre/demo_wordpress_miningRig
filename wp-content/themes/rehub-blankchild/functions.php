@@ -13,7 +13,10 @@ require get_theme_file_path('/inc/computerHardwareRoute.php');
 require get_theme_file_path('/inc/miningRigsRoute.php');
 require get_theme_file_path('/inc/miningProfRoute.php');
 
-// require_once 'vendor/autoload.php';
+//require_once 'vendor/autoload.php';
+if (file_exists(get_theme_file_path() . '/vendor/autoload.php')) {
+    require get_theme_file_path() . '/vendor/autoload.php';
+}
 
 add_action('wp_enqueue_scripts', 'enqueue_parent_theme_style');
 function enqueue_parent_theme_style()
@@ -343,66 +346,71 @@ if (function_exists('mailster_add_tag')) {
     }
 
     mailster_add_tag('mytag', 'mytag_function');
-}
-/**
- * Get weekly posts
- **/
-/*
-if ( function_exists( 'mailster_add_tag' ) ) {
-  function weeklyPosts_function( $option, $fallback, $campaignID = NULL, $subscriberID = NULL ){
 
+    /**
+     * Get weekly posts
+     **/
+    function weeklyPosts_function($option, $fallback, $campaignID = NULL, $subscriberID = NULL)
+    {
 
-      $client = new \Google_Client();
-      $client->setApplicationName('My PHP App');
-      $client->setScopes([\Google_Service_Sheets::SPREADSHEETS]);
-      $client->setAccessType('offline');
-      $jsonAuth = getenv('googleCreditentials.json');
-      $client->setAuthConfig(json_decode($jsonAuth, true));
-      
-      $data = [];
-      $currentRow = 2;
-      $spreadsheetId = getenv('1773823838');
-      $range = 'A2:H';
-      $rows = $sheets->spreadsheets_values->get($spreadsheetId, $range, ['majorDimension' => 'ROWS']);
-      if (isset($rows['values'])) {
-          foreach ($rows['values'] as $row) {
-
-              if (empty($row[0])) {
-                  break;
-              }
-              $data[] = [
-                'col-a' => $row[0],
-                'col-b' => $row[1],
-                'col-c' => $row[2],
-                'col-d' => $row[3],
-                'col-e' => $row[4],
-                'col-f' => $row[5],
-                'col-g' => $row[6],
-                'col-h' => $row[7],
-            ];
-
-            $updateRange = 'I'.$currentRow;
-            $updateBody = new \Google_Service_Sheets_ValueRange([
-                'range' => $updateRange,
-                'majorDimension' => 'ROWS',
-                'values' => ['values' => date('c')],
-            ]);
-            $sheets->spreadsheets_values->update(
-                $spreadsheetId,
-                $updateRange,
-                $updateBody,
-                ['valueInputOption' => 'USER_ENTERED']
-            );
-            $currentRow++;
+        try {
+            $test = "lolonator";
+            $client = new \Google_Client();
+        } catch (Exception $e) {
+            print_r($e);
         }
+
+        $client->setApplicationName('My PHP App');
+        $client->setScopes([\Google_Service_Sheets::SPREADSHEETS]);
+        $client->setAccessType('offline');
+        $jsonAuth = getenv('googleCreditentials.json');
+        $client->setAuthConfig(json_decode($jsonAuth, true));
+
+        $sheets = new \Google_Service_Sheets($client);
+
+        $data = [];
+        $currentRow = 2;
+        $spreadsheetId = getenv('1773823838');
+        $range = 'A2:H';
+        $rows = $sheets->spreadsheets_values->get($spreadsheetId, $range, ['majorDimension' => 'ROWS']);
+        if (isset($rows['values'])) {
+            foreach ($rows['values'] as $row) {
+
+                if (empty($row[0])) {
+                    break;
+                }
+                $data[] = [
+                    'col-a' => $row[0],
+                    'col-b' => $row[1],
+                    'col-c' => $row[2],
+                    'col-d' => $row[3],
+                    'col-e' => $row[4],
+                    'col-f' => $row[5],
+                    'col-g' => $row[6],
+                    'col-h' => $row[7],
+                ];
+
+                $updateRange = 'I' . $currentRow;
+                $updateBody = new \Google_Service_Sheets_ValueRange([
+                    'range' => $updateRange,
+                    'majorDimension' => 'ROWS',
+                    'values' => ['values' => date('c')],
+                ]);
+                $sheets->spreadsheets_values->update(
+                    $spreadsheetId,
+                    $updateRange,
+                    $updateBody,
+                    ['valueInputOption' => 'USER_ENTERED']
+                );
+                $currentRow++;
+            }
+        }
+
+//        print_r($data);
+
+        $test = "lolo lolo lolonator11112234!";
+        return $test;
     }
-    
-    print_r($data);
 
-    $test = "lolo lolo lolonator11112234!";
-    return $test;
-  }
-  */
-
-// mailster_add_tag( 'myWeeklyPosts', 'weeklyPosts_function' );
-
+    mailster_add_tag('myWeeklyPosts', 'weeklyPosts_function');
+}

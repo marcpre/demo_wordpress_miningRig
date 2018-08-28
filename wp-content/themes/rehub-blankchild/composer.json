@@ -1,5 +1,6 @@
 {
+    "name": "marcus/rehub-blankchild",
     "require": {
-        "google/apiclient": "2.0"
+        "google/apiclient": "^2.0"
     }
 }
