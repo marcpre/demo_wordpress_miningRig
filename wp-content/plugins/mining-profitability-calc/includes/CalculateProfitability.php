@@ -44,6 +44,7 @@ class CalculateProfitability
         /**
          * Get Data
          */
+        /*
         $compHardware = new WP_Query(array(
             'posts_per_page' => -1,
             'post_type' => 'Computer-Hardware',
@@ -57,23 +58,24 @@ class CalculateProfitability
                 ),
             ),
         ));
-        
+        */
         /**
          * TESTING FOR CERTAIN POST IDs
          */
-        /*
+
         // TODO use this for testing !!!
-        $asicIDs = array(605, 606, 3872); 
-        $gpuIDs = array(391, 175);
-        $ids = array_merge($asicIDs, $gpuIDs);
+        $asicIDs = array(6403);
+        // $gpuIDs = array(391, 175);
+        // $ids = array_merge($asicIDs, $gpuIDs);
+        $ids = array_merge($asicIDs);
         
         $compHardware = new WP_Query(array(
             'posts_per_page' => -1,
             'post_type' => 'Computer-Hardware',
             'post__in' => $ids,
         ));
-        */
-        
+
+
         // Get current BTC price
         $coinSymbol = "BTC"; //Get BTC to USD price        
         $coinValueRes = $wpdb->get_results("SELECT *
@@ -115,7 +117,8 @@ class CalculateProfitability
                         FROM {$wpdb->prefix}whattomine_api
                         WHERE ALGORITHM = \"" . $compHardwareAlgorithm . "\"" . "
                         GROUP BY id)
-                    ORDER BY updated_at DESC
+                        AND updated_at > DATE_SUB(NOW(), INTERVAL 1 DAY)
+                    ORDER BY profitability24 DESC
                     LIMIT 1;");
             } catch (\Exception $ex) {
                 error_log($ex);

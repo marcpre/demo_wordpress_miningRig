@@ -354,18 +354,19 @@ if (function_exists('mailster_add_tag')) {
     {
 
         try {
-            $test = "lolonator";
             $client = new \Google_Client();
         } catch (Exception $e) {
             print_r($e);
         }
 
-        $client->setApplicationName('My PHP App');
-        $client->setScopes([\Google_Service_Sheets::SPREADSHEETS]);
-        $client->setAccessType('offline');
-        $jsonAuth = getenv('googleCreditentials.json');
-        $client->setAuthConfig(json_decode($jsonAuth, true));
+        // $jsonAuth = getenv('googleCreditentials.json');
+        // $client->setAuthConfig(json_decode($jsonAuth, true));
+        // $client->setAuthConfig(get_theme_file_path() . '/googleCreditentials.json');
+        // $jsonAuth = getenv(get_theme_file_path() . '/googleCreditentials.json');
+        // $client->setAuthConfig(json_decode($jsonAuth, true));
 
+        // $sheets = new \Google_Service_Sheets($client);
+        $client = getClient();
         $sheets = new \Google_Service_Sheets($client);
 
         $data = [];
@@ -413,4 +414,64 @@ if (function_exists('mailster_add_tag')) {
     }
 
     mailster_add_tag('myWeeklyPosts', 'weeklyPosts_function');
+}
+
+/**
+ * Returns an authorized API client.
+ * @return Google_Client the authorized client object
+ */
+function getClient()
+{
+    $client = new Google_Client();
+    $client->setApplicationName('Google Sheets API PHP Quickstart');
+    $client->setScopes(Google_Service_Sheets::SPREADSHEETS_READONLY);
+    // $client->setAuthConfig('googleCreditentials.json');
+    $client->setAccessType('offline');
+
+    // Load previously authorized credentials from a file.
+    $credentialsPath = get_theme_file_path() . '/googleCreditentials.json';
+    if (file_exists($credentialsPath)) {
+        $accessToken = json_decode(file_get_contents($credentialsPath), true);
+        try {
+            $client->setAccessToken($accessToken);
+        } catch (Exception $e) {
+            print_r($e);
+        }
+    } else {
+        return "File not found.";
+    }
+
+    // Refresh the token if it's expired.
+    /*
+    if ($client->isAccessTokenExpired()) {
+        $client->fetchAccessTokenWithRefreshToken($client->getRefreshToken());
+        file_put_contents($credentialsPath, json_encode($client->getAccessToken()));
+    }*/
+    return $client;
+}
+
+add_action('cron_request', 'so_add_cron_xdebug_cookie', 10, 2);
+
+
+/**
+ * Allow debugging of wp_cron jobs
+ *
+ * @param array $cron_request_array
+ * @param string $doing_wp_cron
+ *
+ * @return array $cron_request_array with the current XDEBUG_SESSION cookie added if set
+ */
+function
+so_add_cron_xdebug_cookie($cron_request_array, $doing_wp_cron)
+{
+    if (empty ($_COOKIE['XDEBUG_SESSION'])) {
+        return ($cron_request_array);
+    }
+
+    if (empty ($cron_request_array['args']['cookies'])) {
+        $cron_request_array['args']['cookies'] = array();
+    }
+    $cron_request_array['args']['cookies']['XDEBUG_SESSION'] = $_COOKIE['XDEBUG_SESSION'];
+
+    return ($cron_request_array);
 }
