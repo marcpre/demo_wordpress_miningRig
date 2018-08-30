@@ -110,6 +110,7 @@ class CalculateProfitability
             $compHardwareAlgorithm = get_field('algorithm', $postId);
             
             try {
+                // get the latest entry for the last 24h, where the highest profitability is the first entry
                 $whatToMineRes = $wpdb->get_results("SELECT *
                     FROM {$wpdb->prefix}whattomine_api
                     WHERE id IN(
