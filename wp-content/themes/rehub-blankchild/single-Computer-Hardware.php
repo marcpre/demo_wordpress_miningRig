@@ -64,6 +64,7 @@
               <?php the_time(get_option( 'date_format' )); ?>
             </div>
             <?php */ ?>
+                    <?php /* ?>
                     <?php if (rehub_option('rehub_disable_share_top') == '1' || vp_metabox('rehub_post_side.disable_parts') == '1') : ?>
                     <?php else : ?>
                         <div class="top_share">
@@ -71,6 +72,7 @@
                         </div>
                         <div class="clearfix"></div>
                     <?php endif; ?>
+                    <?php */ ?>
                     <!--    </div> -->
                     <?php /* ?>
             <?php  include(rh_locate_template( 'inc/parts/top_image.php')); ?>
@@ -81,9 +83,14 @@
                         <?php echo do_shortcode(rehub_option('rehub_single_before_post')); ?>
                     </div>
                 <?php endif; ?>
-
                 <div class="post-inner">
+                    <!-- ************************* -->
+                    <!-- START PRODUCT DESCRIPTION -->
+                    <!-- ************************* -->
                     <?php the_content(); ?>
+                    <!-- ************************* -->
+                    <!-- END PRODUCT DESCRIPTION   -->
+                    <!-- ************************* -->
                 </div>
                 <!-- Stats START -->
                 <div class="container-fluid">
