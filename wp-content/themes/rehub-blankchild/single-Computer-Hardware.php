@@ -84,13 +84,7 @@
                     </div>
                 <?php endif; ?>
                 <div class="post-inner">
-                    <!-- ************************* -->
-                    <!-- START PRODUCT DESCRIPTION -->
-                    <!-- ************************* -->
                     <?php the_content(); ?>
-                    <!-- ************************* -->
-                    <!-- END PRODUCT DESCRIPTION   -->
-                    <!-- ************************* -->
                 </div>
                 <!-- Stats START -->
                 <div class="container-fluid">
