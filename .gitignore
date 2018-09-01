@@ -44,5 +44,5 @@ wp-content/plugins/*
 wp-content/themes/*
 !wp-content/themes/rehub-blankchild
 wp-content/themes/rehub-blankchild/vendor
-wp-content/themes/rehub-blankchild/googleCreditentials.json
+wp-content/themes/rehub-blankchild/credentials.json
 

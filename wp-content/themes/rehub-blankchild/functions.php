@@ -359,15 +359,15 @@ if (function_exists('mailster_add_tag')) {
             print_r($e);
         }
 
-        // $jsonAuth = getenv('googleCreditentials.json');
+        // $jsonAuth = getenv('credentials.json');
         // $client->setAuthConfig(json_decode($jsonAuth, true));
-        // $client->setAuthConfig(get_theme_file_path() . '/googleCreditentials.json');
-        // $jsonAuth = getenv(get_theme_file_path() . '/googleCreditentials.json');
+        // $client->setAuthConfig(get_theme_file_path() . '/credentials.json');
+        // $jsonAuth = getenv(get_theme_file_path() . '/credentials.json');
         // $client->setAuthConfig(json_decode($jsonAuth, true));
 
         // $sheets = new \Google_Service_Sheets($client);
         $client = getClient();
-        $sheets = new \Google_Service_Sheets($client);
+        $sheets = new Google_Service_Sheets($client);
 
         $data = [];
         $currentRow = 2;
@@ -425,11 +425,11 @@ function getClient()
     $client = new Google_Client();
     $client->setApplicationName('Google Sheets API PHP Quickstart');
     $client->setScopes(Google_Service_Sheets::SPREADSHEETS_READONLY);
-    // $client->setAuthConfig('googleCreditentials.json');
+    // $client->setAuthConfig('credentials.json');
     $client->setAccessType('offline');
 
     // Load previously authorized credentials from a file.
-    $credentialsPath = get_theme_file_path() . '/googleCreditentials.json';
+    $credentialsPath = get_theme_file_path() . '/credentials.json';
     if (file_exists($credentialsPath)) {
         $accessToken = json_decode(file_get_contents($credentialsPath), true);
         try {
