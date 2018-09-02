@@ -2,10 +2,31 @@
 <?php /* * Template Name: 2nd Version Computer Hardware Post Template * Template Post Type: Computer-Hardware */ ?>
 <?php get_header(); ?>
 <?php global $post; ?>
+<?php if (rh_is_plugin_active('content-egg/content-egg.php')): ?>
+    <?php $module_id = get_post_meta($post->ID, '_rehub_module_ce_id', true); ?>
+    <?php $unique_id = get_post_meta($post->ID, '_rehub_product_unique_id', true); ?>
+    <?php if ($unique_id && $module_id): ?>
+        <?php $itemsync = \ContentEgg\application\components\ContentManager::getProductbyUniqueId($unique_id, $module_id, $post->ID); ?>
+    <?php endif; ?>
+<?php endif; ?>
 <!-- CONTENT -->
 <!-- Title area -->
 <div class="rh-container rh_post_layouxt_compare_full clearfix">
     <div class="main-side single full_width clearfix">
+        <?php $crumb = '';
+        if (function_exists('yoast_breadcrumb')) {
+            $crumb = yoast_breadcrumb('<div class="breadcrumb">', '</div>', false);
+        }
+        if (!is_string($crumb) || $crumb === '') {
+            if (rehub_option('rehub_disable_breadcrumbs') == '1' || vp_metabox('rehub_post_side.disable_parts') == '1') {
+                echo '';
+            } elseif (function_exists('dimox_breadcrumbs')) {
+                dimox_breadcrumbs();
+            }
+        }
+        echo $crumb; ?>
+        <?php echo re_badge_create('labelsmall'); ?>
+        <?php rh_post_header_cat('post', true); ?>
         <div class="rh_post_layout_compare_full_holder">
             <div class="wpsm-one-third wpsm-column-first compare-full-images modulo-lightbox">
                 <?php wp_enqueue_script('modulobox');
@@ -478,7 +499,7 @@
     <!-- /Sidebar -->
 </div>
 </div>
-<!-- /CONTENT -->
+    <!-- /CONTENT -->
 
 
 <!-- FOOTER -->
