@@ -1,0 +1,387 @@
+https://www.tonextech.com/wp-content/uploads/2018/06/demo-content-import-file_2018-06-19__22-39-35.xml
+
+<wp:postmeta>
+    <wp:meta_key>
+        <![CDATA[ _rehub_module_ce_id ]]>
+    </wp:meta_key>
+    <wp:meta_value>
+        <![CDATA[ Amazon ]]>
+    </wp:meta_value>
+</wp:postmeta>
+
+####################
+
+array (
+  'price' => '379.99',
+  'priceOld' => '469.99',
+  'percentageSaved' => 19.0,
+  'currency' => '$',
+  'currencyCode' => 'USD',
+  'manufacturer' => 'XFX',
+  'category' => '',
+  'categoryPath' => 
+  array (
+  ),
+  'merchant' => 'Amazon.com',
+  'logo' => '',
+  'domain' => 'amazon.com',
+  'rating' => '',
+  'reviewsCount' => '',
+  'availability' => '',
+  'orig_url' => '',
+  'ean' => '0778656074644',
+  'upc' => '',
+  'sku' => '',
+  'isbn' => '',
+  'woo_sync' => '',
+  'woo_attr' => '',
+  'features' => 
+  array (
+    0 => 
+    array (
+      'name' => 'Aspect Ratio',
+      'value' => 'Unknown',
+    ),
+    1 => 
+    array (
+      'name' => 'Binding',
+      'value' => 'Personal Computers',
+    ),
+    2 => 
+    array (
+      'name' => 'Brand',
+      'value' => 'XFX',
+    ),
+    3 => 
+    array (
+      'name' => 'Catalog Number List',
+      'value' => '90691830; 168187; 845612',
+    ),
+    4 => 
+    array (
+      'name' => 'EAN',
+      'value' => '0778656074644',
+    ),
+    5 => 
+    array (
+      'name' => 'EAN List',
+      'value' => 'EAN List Element: 0778656074644',
+    ),
+    6 => 
+    array (
+      'name' => 'Item Dimensions',
+      'value' => 'Height: 488; Length: 1063; Weight: 250; Width: 157',
+    ),
+    7 => 
+    array (
+      'name' => 'Label',
+      'value' => 'XFX',
+    ),
+    8 => 
+    array (
+      'name' => 'Languages',
+      'value' => 'Name: English; Type: Unknown',
+    ),
+    9 => 
+    array (
+      'name' => 'Manufacturer',
+      'value' => 'XFX',
+    ),
+    10 => 
+    array (
+      'name' => 'Model',
+      'value' => 'RX-580P8DFD6',
+    ),
+    11 => 
+    array (
+      'name' => 'MPN',
+      'value' => 'FBA_RX-580P8DFD6',
+    ),
+    12 => 
+    array (
+      'name' => 'Package Dimensions',
+      'value' => 'Height: 331; Length: 1354; Weight: 278; Width: 953',
+    ),
+    13 => 
+    array (
+      'name' => 'Package Quantity',
+      'value' => '1',
+    ),
+    14 => 
+    array (
+      'name' => 'Part Number',
+      'value' => 'FBA_RX-580P8DFD6',
+    ),
+    15 => 
+    array (
+      'name' => 'Product Group',
+      'value' => 'Personal Computer',
+    ),
+    16 => 
+    array (
+      'name' => 'Product Type Name',
+      'value' => 'PERSONAL_COMPUTER',
+    ),
+    17 => 
+    array (
+      'name' => 'Publisher',
+      'value' => 'XFX',
+    ),
+    18 => 
+    array (
+      'name' => 'Size',
+      'value' => 'RX 580',
+    ),
+    19 => 
+    array (
+      'name' => 'Studio',
+      'value' => 'XFX',
+    ),
+    20 => 
+    array (
+      'name' => 'Title',
+      'value' => 'XFX GTS XXX Edition RX 580 8GB OC+ 1386Mhz DDR5 3xDP HDMI DVI Graphic Cards RX-580P8DFD6',
+    ),
+    21 => 
+    array (
+      'name' => 'UPC',
+      'value' => '778656074644',
+    ),
+    22 => 
+    array (
+      'name' => 'UPC List',
+      'value' => 'UPC List Element: 778656074644',
+    ),
+    23 => 
+    array (
+      'name' => 'Warranty',
+      'value' => '3 Years',
+    ),
+  ),
+  'unique_id' => 'us-B06Y66K3XD',
+  'title' => 'XFX GTS XXX Edition RX 580 8GB OC+ 1386Mhz DDR5 3xDP HDMI DVI Graphic Cards RX-580P8DFD6',
+  'description' => '',
+  'img' => 'https://images-na.ssl-images-amazon.com/images/I/41aPQA9mndL.jpg',
+  'url' => 'https://www.amazon.com/XFX-1386Mhz-Graphic-Cards-RX-580P8DFD6/dp/B06Y66K3XD?psc=1&SubscriptionId=AKIAIZ3S74HU3GOABUYQ&tag=food-processr-20&linkCode=xm2&camp=2025&creative=165953&creativeASIN=B06Y66K3XD',
+  'last_update' => '1523187913',
+  'extra' => 
+  array (
+    'locale' => 'us',
+    'associate_tag' => 'food-processr-20',
+    'itemLinks' => 
+    array (
+      0 => 
+      array (
+        'Description' => 'Technical Details',
+        'URL' => 'https://www.amazon.com/XFX-1386Mhz-Graphic-Cards-RX-580P8DFD6/dp/tech-data/B06Y66K3XD?SubscriptionId=AKIAIZ3S74HU3GOABUYQ&tag=food-processr-20&linkCode=xm2&camp=2025&creative=386001&creativeASIN=B06Y66K3XD',
+      ),
+      1 => 
+      array (
+        'Description' => 'Add To Baby Registry',
+        'URL' => 'https://www.amazon.com/gp/registry/baby/add-item.html?asin.0=B06Y66K3XD&SubscriptionId=AKIAIZ3S74HU3GOABUYQ&tag=food-processr-20&linkCode=xm2&camp=2025&creative=386001&creativeASIN=B06Y66K3XD',
+      ),
+      2 => 
+      array (
+        'Description' => 'Add To Wedding Registry',
+        'URL' => 'https://www.amazon.com/gp/registry/wedding/add-item.html?asin.0=B06Y66K3XD&SubscriptionId=AKIAIZ3S74HU3GOABUYQ&tag=food-processr-20&linkCode=xm2&camp=2025&creative=386001&creativeASIN=B06Y66K3XD',
+      ),
+      3 => 
+      array (
+        'Description' => 'Add To Wishlist',
+        'URL' => 'https://www.amazon.com/gp/registry/wishlist/add-item.html?asin.0=B06Y66K3XD&SubscriptionId=AKIAIZ3S74HU3GOABUYQ&tag=food-processr-20&linkCode=xm2&camp=2025&creative=386001&creativeASIN=B06Y66K3XD',
+      ),
+      4 => 
+      array (
+        'Description' => 'Tell A Friend',
+        'URL' => 'https://www.amazon.com/gp/pdp/taf/B06Y66K3XD?SubscriptionId=AKIAIZ3S74HU3GOABUYQ&tag=food-processr-20&linkCode=xm2&camp=2025&creative=386001&creativeASIN=B06Y66K3XD',
+      ),
+      5 => 
+      array (
+        'Description' => 'All Customer Reviews',
+        'URL' => 'https://www.amazon.com/review/product/B06Y66K3XD?SubscriptionId=AKIAIZ3S74HU3GOABUYQ&tag=food-processr-20&linkCode=xm2&camp=2025&creative=386001&creativeASIN=B06Y66K3XD',
+      ),
+      6 => 
+      array (
+        'Description' => 'All Offers',
+        'URL' => 'https://www.amazon.com/gp/offer-listing/B06Y66K3XD?SubscriptionId=AKIAIZ3S74HU3GOABUYQ&tag=food-processr-20&linkCode=xm2&camp=2025&creative=386001&creativeASIN=B06Y66K3XD',
+      ),
+    ),
+    'imageSet' => 
+    array (
+      0 => 
+      array (
+        'attributes' => 
+        array (
+          'Category' => 'variant',
+        ),
+        'SwatchImage' => 'https://images-na.ssl-images-amazon.com/images/I/418RqUe9dlL._SL30_.jpg',
+        'SmallImage' => 'https://images-na.ssl-images-amazon.com/images/I/418RqUe9dlL._SL75_.jpg',
+        'ThumbnailImage' => 'https://images-na.ssl-images-amazon.com/images/I/418RqUe9dlL._SL75_.jpg',
+        'TinyImage' => 'https://images-na.ssl-images-amazon.com/images/I/418RqUe9dlL._SL110_.jpg',
+        'MediumImage' => 'https://images-na.ssl-images-amazon.com/images/I/418RqUe9dlL._SL160_.jpg',
+        'LargeImage' => 'https://images-na.ssl-images-amazon.com/images/I/418RqUe9dlL.jpg',
+      ),
+      1 => 
+      array (
+        'attributes' => 
+        array (
+          'Category' => 'variant',
+        ),
+        'SwatchImage' => 'https://images-na.ssl-images-amazon.com/images/I/41oG1wTKpiL._SL30_.jpg',
+        'SmallImage' => 'https://images-na.ssl-images-amazon.com/images/I/41oG1wTKpiL._SL75_.jpg',
+        'ThumbnailImage' => 'https://images-na.ssl-images-amazon.com/images/I/41oG1wTKpiL._SL75_.jpg',
+        'TinyImage' => 'https://images-na.ssl-images-amazon.com/images/I/41oG1wTKpiL._SL110_.jpg',
+        'MediumImage' => 'https://images-na.ssl-images-amazon.com/images/I/41oG1wTKpiL._SL160_.jpg',
+        'LargeImage' => 'https://images-na.ssl-images-amazon.com/images/I/41oG1wTKpiL.jpg',
+      ),
+      2 => 
+      array (
+        'attributes' => 
+        array (
+          'Category' => 'variant',
+        ),
+        'SwatchImage' => 'https://images-na.ssl-images-amazon.com/images/I/41sfGqDpQPL._SL30_.jpg',
+        'SmallImage' => 'https://images-na.ssl-images-amazon.com/images/I/41sfGqDpQPL._SL75_.jpg',
+        'ThumbnailImage' => 'https://images-na.ssl-images-amazon.com/images/I/41sfGqDpQPL._SL75_.jpg',
+        'TinyImage' => 'https://images-na.ssl-images-amazon.com/images/I/41sfGqDpQPL._SL110_.jpg',
+        'MediumImage' => 'https://images-na.ssl-images-amazon.com/images/I/41sfGqDpQPL._SL160_.jpg',
+        'LargeImage' => 'https://images-na.ssl-images-amazon.com/images/I/41sfGqDpQPL.jpg',
+      ),
+      3 => 
+      array (
+        'attributes' => 
+        array (
+          'Category' => 'variant',
+        ),
+        'SwatchImage' => 'https://images-na.ssl-images-amazon.com/images/I/31rILKyBf%2BL._SL30_.jpg',
+        'SmallImage' => 'https://images-na.ssl-images-amazon.com/images/I/31rILKyBf%2BL._SL75_.jpg',
+        'ThumbnailImage' => 'https://images-na.ssl-images-amazon.com/images/I/31rILKyBf%2BL._SL75_.jpg',
+        'TinyImage' => 'https://images-na.ssl-images-amazon.com/images/I/31rILKyBf%2BL._SL110_.jpg',
+        'MediumImage' => 'https://images-na.ssl-images-amazon.com/images/I/31rILKyBf%2BL._SL160_.jpg',
+        'LargeImage' => 'https://images-na.ssl-images-amazon.com/images/I/31rILKyBf%2BL.jpg',
+      ),
+      4 => 
+      array (
+        'attributes' => 
+        array (
+          'Category' => 'primary',
+        ),
+        'SwatchImage' => 'https://images-na.ssl-images-amazon.com/images/I/41aPQA9mndL._SL30_.jpg',
+        'SmallImage' => 'https://images-na.ssl-images-amazon.com/images/I/41aPQA9mndL._SL75_.jpg',
+        'ThumbnailImage' => 'https://images-na.ssl-images-amazon.com/images/I/41aPQA9mndL._SL75_.jpg',
+        'TinyImage' => 'https://images-na.ssl-images-amazon.com/images/I/41aPQA9mndL._SL110_.jpg',
+        'MediumImage' => 'https://images-na.ssl-images-amazon.com/images/I/41aPQA9mndL._SL160_.jpg',
+        'LargeImage' => 'https://images-na.ssl-images-amazon.com/images/I/41aPQA9mndL.jpg',
+      ),
+    ),
+    'AmountSaved' => '$90.00',
+    'PercentageSaved' => '',
+    'IsEligibleForSuperSaverShipping' => '1',
+    'customerReviews' => 
+    array (
+    ),
+    'editorialReviews' => 
+    array (
+    ),
+    'smallImage' => 'https://images-na.ssl-images-amazon.com/images/I/41aPQA9mndL._SL75_.jpg',
+    'mediumImage' => 'https://images-na.ssl-images-amazon.com/images/I/41aPQA9mndL._SL160_.jpg',
+    'largeImage' => 'https://images-na.ssl-images-amazon.com/images/I/41aPQA9mndL.jpg',
+    'addToCartUrl' => 'http://www.amazon.com/gp/aws/cart/add.html?ASIN.1=B06Y66K3XD&Quantity.1=1&AssociateTag=food-processr-20',
+    'ASIN' => 'B06Y66K3XD',
+    'itemAttributes' => 
+    array (
+      'Actor' => '',
+      'Artist' => '',
+      'AspectRatio' => 'Unknown',
+      'AudienceRating' => '',
+      'AudioFormat' => '',
+      'Binding' => 'Personal Computers',
+      'Brand' => 'XFX',
+      'CEROAgeRating' => '',
+      'ClothingSize' => '',
+      'Color' => '',
+      'Creator' => '',
+      'Department' => '',
+      'Director' => '',
+      'EAN' => '0778656074644',
+      'EANList' => '',
+      'Edition' => '',
+      'EISBN' => '',
+      'EpisodeSequence' => '',
+      'ESRBAgeRating' => '',
+      'Feature' => 
+      array (
+        0 => 'Chipset: AMD Radeon rx 580. Microsoft windows 10 and microsoft directx 12 supported',
+        1 => 'Video Memory: 8GB DDR5. The XFX Radeon RX 580 Series graphics card coupled with AMD LiquidVR technology delivers a virtually stutter-free, low latency experience, essential for remarkable virtual reality environments.',
+        2 => '1386Mhz (OC+)/ 1366Mhz (true Clock). Chipset: AMD Radeon rx 580',
+        3 => 'XFX double dissipation cooling technology. XFX custom back plate.
+Master Carton Dimensions (inches) 	16.93 x 19.29 x 13.98',
+        4 => 'Minimum power supply requirement  500 watt. Displayport 1.4. Up to 6 displays supported may require the use of mst hubs',
+      ),
+      'Format' => '',
+      'Genre' => '',
+      'HardwarePlatform' => '',
+      'HazardousMaterialType' => '',
+      'IsAdultProduct' => '',
+      'IsAutographed' => '',
+      'ISBN' => '',
+      'IsEligibleForTradeIn' => '',
+      'IsMemorabilia' => '',
+      'IssuesPerYear' => '',
+      'ItemDimensions' => '',
+      'ItemPartNumber' => '',
+      'Label' => 'XFX',
+      'Languages' => '',
+      'LegalDisclaimer' => '',
+      'ManufacturerMaximumAge' => '',
+      'ManufacturerMinimumAge' => '',
+      'ManufacturerPartsWarrantyDescription' => '',
+      'MediaType' => '',
+      'Model' => 'RX-580P8DFD6',
+      'MPN' => 'FBA_RX-580P8DFD6',
+      'NumberOfDiscs' => '',
+      'NumberOfIssues' => '',
+      'NumberOfItems' => '0',
+      'NumberOfPages' => '',
+      'NumberOfTracks' => '',
+      'OperatingSystem' => '',
+      'PackageQuantity' => '1',
+      'PartNumber' => 'FBA_RX-580P8DFD6',
+      'Platform' => '',
+      'ProductGroup' => 'Personal Computer',
+      'ProductTypeSubcategory' => '',
+      'PublicationDate' => '',
+      'Publisher' => 'XFX',
+      'RegionCode' => '',
+      'ReleaseDate' => '',
+      'RunningTime' => '',
+      'SeikodoProductCode' => '',
+      'Size' => 'RX 580',
+      'SKU' => '',
+      'Studio' => 'XFX',
+      'SubscriptionLength' => '',
+      'TradeInValue' => '',
+      'UPC' => '778656074644',
+      'UPCList' => '',
+      'Warranty' => '3 Years',
+      'WEEETaxValue' => '',
+      'PackageDimensions' => '',
+    ),
+    'toLowToDisplay' => '',
+    'availability' => 'Usually ships in 24 hours',
+    'lowestNewPrice' => '379.99',
+    'lowestUsedPrice' => '332.49',
+    'lowestCollectiblePrice' => '',
+    'lowestRefurbishedPrice' => '',
+    'totalNew' => '39',
+    'totalUsed' => '5',
+    'totalCollectible' => '0',
+    'totalRefurbished' => '0',
+    'date' => '',
+    'author' => '',
+    'source' => '',
+    'domain' => '',
+  ),
+  'added' => '1',
+  'keyword' => 'B06Y66K3XD',
+)
