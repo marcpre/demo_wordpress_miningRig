@@ -1,8 +1,9 @@
 <?php
-require "../vendor/autoload.php";
-require "./src/Spintax/Spintax.php";
+// require __FILE__  . "../vendor/autoload.php";
+// TODO
+// include __FILE__ . "src/Spintax/Spintax.php";
 
-// error_reporting(E_ALL ^ E_NOTICE);  
+// error_reporting(E_ALL ^ E_NOTICE);
 
 use eftec\bladeone;
 use DaveChild\TextStatistics as TS;
@@ -10,7 +11,7 @@ use Noodlehaus\Config;
 // use Spintax;
 use Noodlehaus\Exception;
 
-class AutoContentCreator
+class SinglePostContent
 {
 
     public function __construct()
@@ -20,14 +21,14 @@ class AutoContentCreator
 
     public function main()
     {
-        $views = __DIR__ . '/views';
-        $cache = __DIR__ . '/cache';
+        $views = __DIR__ . '\views';
+        $cache = __DIR__ . '\cache';
         define("BLADEONE_MODE", 1); // (optional) 1=forced (test),2=run fast (production), 0=automatic, default value.
         $blade = new bladeone\BladeOne($views, $cache);
 
         $textStatistics = new TS\TextStatistics;
-        global $wpdb;
         $conn = "";
+        global $wpdb;
 
         $posts = "SELECT  wp_posts.* 
         FROM wp_posts  
@@ -43,34 +44,34 @@ class AutoContentCreator
          */
         $data = array();
         $i = 0;
-        if ($result->num_rows > 0) {
+        if (count($result) > 0) {
             // output data of each row
-            while ($row = $result->fetch_assoc()) {
+            foreach($result as $key => $row) {
                 // array_push($data, $row);
 
                 // TODO remove after finish
-                if ($row["ID"] == 4204) {
+                if ($row->ID == 4204) {
 
-                    echo "Get variables: " . $row["ID"] . "\n";
+                    echo "Get variables: " . $row->ID . "\n";
 
-                    $manufacturer = $conn->query(createMetaQuery($row["ID"], 'manufacturer'))->fetch_assoc()["meta_value"];
-                    $algorithm = $conn->query(createMetaQuery($row["ID"], 'algorithm'))->fetch_assoc()["meta_value"];
-                    $hashRate = $conn->query(createMetaQuery($row["ID"], 'hash_rate'))->fetch_assoc()["meta_value"];
-                    $powerConsumption = $conn->query(createMetaQuery($row["ID"], 'watt_estimate'))->fetch_assoc()["meta_value"];
-                    $modelName = $row["post_title"];
-                    $category = $conn->query(createPostIDQuery($row["ID"]))->fetch_assoc()["name"];
-                    $coins = getCoinList($row["ID"], $conn);
-                    $averageMiningCosts30 = getMiningCosts($row["ID"], $conn);
-                    $averageMiningProfit30 = getMiningProfitability($row["ID"], $conn);
-                    $miningModelsByCompany = getminingModelsByCompany($row["ID"], $manufacturer, $conn);
-                    $currentPrice = getAmazon($row["ID"], 'price', $conn);
-                    $comparisonTableArray = getComparisonTable($row["ID"], $manufacturer, $conn);
-                    $daysUntilProfitable = getDaysUntilProfitable($row["ID"], $currentPrice, $conn);
-                    $numberOfMiningModels = getArrayOFMiningModelsByCompany($row["ID"], $manufacturer, $conn);
+                    $manufacturer = $wpdb->get_results(SinglePostContent::createMetaQuery($row->ID, 'manufacturer'))[0]->meta_value;
+                    $algorithm = $wpdb->get_results(SinglePostContent::createMetaQuery($row->ID, 'algorithm'))[0]->meta_value;
+                    $hashRate = $wpdb->get_results(SinglePostContent::createMetaQuery($row->ID, 'hash_rate'))[0]->meta_value;
+                    $powerConsumption = $wpdb->get_results(SinglePostContent::createMetaQuery($row->ID, 'watt_estimate'))[0]->meta_value;
+                    $modelName = $row->post_title;
+                    $category = $wpdb->get_results(SinglePostContent::createPostIDQuery($row->ID))[0]->name;
+                    $coins = SinglePostContent::getCoinList($row->ID);
+                    $averageMiningCosts30 = SinglePostContent::getMiningCosts($row->ID);
+                    $averageMiningProfit30 = SinglePostContent::getMiningProfitability($row->ID);
+                    $miningModelsByCompany = SinglePostContent::getminingModelsByCompany($row->ID, $manufacturer);
+                    $currentPrice = SinglePostContent::getAmazon($row->ID, 'price');
+                    $comparisonTableArray = SinglePostContent::getComparisonTable($row->ID, $manufacturer);
+                    $daysUntilProfitable = SinglePostContent::getDaysUntilProfitable($row->ID, $currentPrice)[0]->daysUntilProfitable;
+                    $numberOfMiningModels = SinglePostContent::getArrayOFMiningModelsByCompany($row->ID, $manufacturer);
 
                     $i++;
                     array_push($data, array(
-                        'postId' => $row["ID"],
+                        'postId' => $row->ID,
                         'company' => $manufacturer,
                         'category' => $category,
                         'algorithm' => $algorithm,
@@ -107,7 +108,7 @@ class AutoContentCreator
          * Fill template
          **/
         $finalOutput = '';
-        $spintax = new Spintax();
+        //$spintax = new Spintax();
         foreach ($data as $key => $value) {
             // print_r($data[$key]);
 
@@ -128,7 +129,8 @@ class AutoContentCreator
             // &nbsp;
             $output = str_replace("&nbsp;", " ", $output);
             $output = str_replace("  +", " ", $output); // replace 1 or more spaces
-
+/*
+ * TODO
             $spintaxOutput = "";
             $spintaxOutput .= $spintax->process($output);
             $spintaxOutput .= "\n ######################### \n";
@@ -136,7 +138,7 @@ class AutoContentCreator
             $spintaxOutput .= preg_replace('/\s{1,}/', ' ', $spintaxOutput); // replace 1 or more spaces
 
             $finalOutput .= $spintaxOutput;
-
+*/
             echo $finalOutput;
             // echo 'Flesch-Kincaid Reading Ease: ' . $textStatistics->fleschKincaidReadingEase($output) . "\n";
         }
@@ -161,17 +163,12 @@ class AutoContentCreator
         return $str;
     }
 
-    public function getMetaQuery($postID, $metaValue, $conn)
+    public function getMetaQuery($postID, $metaValue)
     {
+        global $wpdb;
         $str = "SELECT * FROM wp_postmeta WHERE post_id = " . $postID . " and meta_key = '" . $metaValue . "' LIMIT 1;";
+        $res = $wpdb->get_results($str);
 
-        $res = $conn->query($str)->fetch_assoc() or die($conn->error);;
-        $dat = "";
-        /*
-        while($ro = $res->fetch_assoc()) {
-            $dat .= $ro["post_title"] . ", ";
-        }
-        */
         return $res;
     }
 
@@ -187,9 +184,10 @@ class AutoContentCreator
         return $str;
     }
 
-    public function getCoinList($postID, $conn)
+    public function getCoinList($postID)
     {
-        $coins = $conn->query(createMetaQuery($postID, 'related_coins'))->fetch_assoc()["meta_value"];
+        global $wpdb;
+        $coins = $wpdb->get_results(SinglePostContent::createMetaQuery($postID, 'related_coins'))[0]->meta_value;
 
         if (empty($coins)) {
             return "";
@@ -208,39 +206,43 @@ class AutoContentCreator
 
         $str = "SELECT * FROM `wp_posts` WHERE ID IN (" . $para . ")";
 
-        $res = $conn->query($str) or die($conn->error);;
+        $res = $wpdb->get_results($str);
         $dat = "";
-        while ($ro = $res->fetch_assoc()) {
-            $dat .= $ro["post_title"] . ", ";
+        foreach($res as $key => $ro) {
+            $dat .= $ro->post_title . ", ";
         }
         $dat = preg_replace("/,\s$/", '', $dat); //remove last , from string
         return $dat;
     }
 
-    public function getMiningCosts($postID, $conn)
+    public function getMiningCosts($postID)
     {
-        $res = $conn->query("SELECT avg(daily_costs) FROM wp_miningprofitability WHERE created_at >= NOW() - INTERVAL 30 DAY AND post_id = " . $postID . ";")->fetch_assoc()["avg(daily_costs)"];
+        global $wpdb;
+        $res = $wpdb->get_results("SELECT avg(daily_costs) as daily_costs FROM wp_miningprofitability WHERE created_at >= NOW() - INTERVAL 30 DAY AND post_id = " . $postID . ";")[0]->daily_costs;
         return $res;
     }
 
-    public function getMiningProfitability($postID, $conn)
+    public function getMiningProfitability($postID)
     {
-        $res = $conn->query("SELECT avg(daily_grossProfit) FROM wp_miningprofitability WHERE created_at >= NOW() - INTERVAL 30 DAY AND post_id = " . $postID . ";")->fetch_assoc()["avg(daily_grossProfit)"];
+        global $wpdb;
+        $res = $wpdb->get_results("SELECT avg(daily_grossProfit) as daily_grossProfit FROM wp_miningprofitability WHERE created_at >= NOW() - INTERVAL 30 DAY AND post_id = " . $postID . ";")[0]->daily_grossProfit;
         return $res;
     }
 
-    public function getminingModelsByCompany($postID, $manufacturer, $conn)
+    public function getminingModelsByCompany($postID, $manufacturer)
     {
+        global $wpdb;
+
         $query = "SELECT P.ID, P.post_title, P.post_content, P.post_author, meta_value
 FROM wp_posts AS P
 LEFT JOIN wp_postmeta AS PM on PM.post_id = P.ID
 WHERE P.post_type = 'computer-hardware' and P.post_status = 'publish' and meta_value = '" . $manufacturer . "' 
 ORDER BY P.post_date DESC";
 
-        $res = $conn->query($query) or die($conn->error);;
+        $res = $wpdb->get_results($query);
         $dat = "";
-        while ($ro = $res->fetch_assoc()) {
-            $dat .= $ro["post_title"] . ", ";
+        foreach($res as $key => $ro) {
+            $dat .= $ro->post_title . ", ";
         }
         $dat = preg_replace("/,\s$/", '', $dat); //remove last , from string
         $dat = str_replace($manufacturer, '', $dat); //remove last , from string
@@ -248,50 +250,53 @@ ORDER BY P.post_date DESC";
         return $dat;
     }
 
-    public function getArrayOFMiningModelsByCompany($postID, $manufacturer, $conn)
+    public function getArrayOFMiningModelsByCompany($postID, $manufacturer)
     {
+        global $wpdb;
+
         $query = "SELECT P.ID, P.post_title, P.post_content, P.post_author, meta_value
 FROM wp_posts AS P
 LEFT JOIN wp_postmeta AS PM on PM.post_id = P.ID
 WHERE P.post_type = 'computer-hardware' and P.post_status = 'publish' and meta_value = '" . $manufacturer . "' 
 ORDER BY P.post_date DESC";
 
-        $res = $conn->query($query) or die($conn->error);;
+        $res = $wpdb->get_results($query);
         $dat = [];
-        while ($ro = $res->fetch_assoc()) {
+        foreach($res as $key => $ro) {
             array_push($dat, array(
-                'ID' => $ro["ID"],
-                'post_title' => $ro["post_title"],
-                'meta_value' => $ro["meta_value"],
+                'ID' => $ro->ID,
+                'post_title' => $ro->post_title,
+                'meta_value' => $ro->meta_value,
             ));
         }
         return $dat;
     }
 
-    public function getComparisonTable($postID, $manufacturer, $conn)
+    public function getComparisonTable($postID, $manufacturer)
     {
+        global $wpdb;
+
         $query = "SELECT P.ID, P.post_title, P.post_content, P.post_author, meta_value, P.guid
 FROM wp_posts AS P
 LEFT JOIN wp_postmeta AS PM on PM.post_id = P.ID
 WHERE P.post_type = 'computer-hardware' and P.post_status = 'publish' and meta_value = '" . $manufacturer . "' 
 ORDER BY P.post_date DESC";
 
-
-        $res = $conn->query($query) or die($conn->error);;
+        $res = $wpdb->get_results($query);
         $dat = array();
-        while ($ro = $res->fetch_assoc()) {
+        foreach($res as $key => $ro) {
 
-            $watt = getMetaQuery($ro["ID"], 'watt_estimate', $conn);
-            $hashRate = getMetaQuery($ro["ID"], 'hash_rate', $conn);
-            $amzLink = getAmazon($ro["ID"], 'url', $conn);
-            $image = getAmazon($ro["ID"], 'img', $conn);
+            $watt = SinglePostContent::getMetaQuery($ro->ID, 'watt_estimate')[0];
+            $hashRate = SinglePostContent::getMetaQuery($ro->ID, 'hash_rate')[0];
+            $amzLink = SinglePostContent::getAmazon($ro->ID, 'url')[0];
+            $image = SinglePostContent::getAmazon($ro->ID, 'img');
 
             array_push($dat, array(
-                'model' => $ro["post_title"],
+                'model' => $ro->post_title,
                 'image' => $image,
-                'watt' => $watt["meta_value"],
-                'hashRate' => $hashRate["meta_value"],
-                'link' => $ro["guid"],
+                'watt' => $watt->meta_value,
+                'hashRate' => $hashRate->meta_value,
+                'link' => $ro->guid,
                 'amzLink' => $amzLink,
             ));
         }
@@ -299,26 +304,26 @@ ORDER BY P.post_date DESC";
         return $dat;
     }
 
-    public function getDaysUntilProfitable($postID, $price, $conn)
+    public function getDaysUntilProfitable($postID, $price)
     {
+        global $wpdb;
+
         $query = "SELECT *
 FROM wp_miningprofitability
 WHERE post_id = " . $postID . "  
 ORDER BY wp_miningprofitability.created_at DESC
 LIMIT 1";
 
-
-        $res = $conn->query($query) or die($conn->error);;
+        $res = $wpdb->get_results($query);
         $dat = array();
-        while ($ro = $res->fetch_assoc()) {
+        foreach($res as $key => $ro) {
 
-            $daily_netProfit = $ro["daily_netProfit"];
-            $daily_grossProfit = $ro["daily_grossProfit"];
-            $daily_costs = $ro["daily_costs"];
+            $daily_netProfit = $ro->daily_netProfit;
+            $daily_grossProfit = $ro->daily_grossProfit;
+            $daily_costs = $ro->daily_costs;
             $currentPrice = $price;
 
             $daysUntilProfitable = $currentPrice / $daily_netProfit;
-
 
             array_push($dat, array(
                 'daily_netProfit' => $daily_netProfit,
@@ -332,10 +337,12 @@ LIMIT 1";
         return $dat;
     }
 
-    public function getAmazon($postID, $tag, $conn)
+    public function getAmazon($postID, $tag)
     {
-        $conn->query("set names 'utf8';");
-        $arr = $conn->query(createMetaQuery($postID, '_cegg_data_Amazon'))->fetch_assoc()["meta_value"];
+        global $wpdb;
+
+        $wpdb->query("set names 'utf8';");
+        $arr = $wpdb->get_results(SinglePostContent::createMetaQuery($postID, '_cegg_data_Amazon'))[0]->meta_value;
         // TODO The problem are the special characters! That's why unserialize is not working correctly!!!
         // $arr = urldecode($arr);
         // $arr = unserialize($arr);

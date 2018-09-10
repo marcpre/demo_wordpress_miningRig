@@ -3,12 +3,18 @@
 /*
 Plugin Name: Auto Content Creator
 Plugin URI: 
-Description: 
+Description: Creates content based on content templates and custom fields
 Author:
 Version: 1.0
 Author: Batman
 Author URI:
 */
+
+if ( ! defined( 'ABSPATH' ) ) {
+    exit;
+}
+
+require_once 'vendor/autoload.php';
 
 /**
  * Main Auto Content Creator class.
@@ -25,10 +31,10 @@ class AutoContentCreator
         define( 'AutoContentCreator_DIR', trailingslashit( dirname( __FILE__ ) ) );
         define( 'AutoContentCreator_VERSION', '0.0.1' );
         register_activation_hook( basename( AutoContentCreator_DIR ) . '/' . basename( AutoContentCreator_FILE ), array( $this, 'activate' ) );
-        add_action('admin_menu', 'button_menu');
 
         add_action( 'plugins_loaded', array( $this, 'includes' ) );
         add_action( 'init', array( $this, 'maybe_update' ) );
+        add_action('admin_menu', array( $this, 'button_menu' ) );
     }
     /**
      * Called on plugin activation
@@ -41,12 +47,12 @@ class AutoContentCreator
      * Includes.
      */
     public function includes() {
-        include_once( AutoContentCreator_DIR . 'includes/singlePost_content.php' );
+        include_once( AutoContentCreator_DIR . 'includes/SinglePostContent.php' );
     }
 
     public function button_menu()
     {
-        add_menu_page('Import Coin Page', 'Import Content', 'manage_options', 'autoContentCreator-slug', 'autoContentCreator_admin_page');
+        add_menu_page('Import Coin Page', 'Import Content', 'manage_options', 'autoContentCreator-slug', array( $this, 'autoContentCreator_admin_page' ) );
 
     }
 
@@ -82,7 +88,7 @@ class AutoContentCreator
         // this is a WordPress security feature - see: https://codex.wordpress.org/WordPress_Nonces
         wp_nonce_field('autoContentCreator_clicked');
         echo '<input type="hidden" value="true" name="autoContentCreator" />';
-        submit_button('Import CoinMarketCap/WhatToMine Coins');
+        submit_button('Generate Computer Hardware Content Templates');
         echo '</form>';
 
         echo '</div>';
@@ -94,7 +100,7 @@ class AutoContentCreator
     public function maybe_update() {
         $version = get_option( 'AutoContentCreator_version', 0 );
         if ( version_compare( $version, AutoContentCreator_VERSION, '<' ) ) {
-            $this->create_tables();
+            // $this->create_tables();
             update_option( 'AutoContentCreator_version', AutoContentCreator_VERSION );
         }
     }
