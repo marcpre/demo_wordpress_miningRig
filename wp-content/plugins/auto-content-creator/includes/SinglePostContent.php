@@ -45,7 +45,7 @@ class SinglePostContent
         $i = 0;
         if (count($result) > 0) {
             // output data of each row
-            foreach($result as $key => $row) {
+            foreach ($result as $key => $row) {
                 // array_push($data, $row);
 
                 // TODO remove after finish
@@ -131,13 +131,15 @@ class SinglePostContent
 
             $spintaxOutput = "";
             $spintaxOutput .= $spintax->process($output);
-            $spintaxOutput .= "\n ######################### \n";
+            // $spintaxOutput .= "\n ######################### \n";
 
-            $spintaxOutput .= preg_replace('/\s{1,}/', ' ', $spintaxOutput); // replace 1 or more spaces
+            $spintaxOutput = preg_replace('/\s{1,}/', ' ', $spintaxOutput); // replace 1 or more spaces
+
+            SinglePostContent::insertContentIntoWordpress($data[$key]["postId"], $spintaxOutput);
 
             $finalOutput .= $spintaxOutput;
 
-            echo $finalOutput;
+            // echo $finalOutput;
             // echo 'Flesch-Kincaid Reading Ease: ' . $textStatistics->fleschKincaidReadingEase($output) . "\n";
         }
 
@@ -154,6 +156,21 @@ class SinglePostContent
      * ***********************************************
      * ***********************************************
      **/
+
+    public function insertContentIntoWordpress($id, $content)
+    {
+        if (empty($id) || empty($content)) {
+            return;
+        }
+
+        $post = array(
+            'ID' => $id,
+            'post_content' => $content,
+        );
+
+        // Update the post into the database
+        wp_update_post($post);
+    }
 
     public function createMetaQuery($postID, $metaValue)
     {
@@ -206,7 +223,7 @@ class SinglePostContent
 
         $res = $wpdb->get_results($str);
         $dat = "";
-        foreach($res as $key => $ro) {
+        foreach ($res as $key => $ro) {
             $dat .= $ro->post_title . ", ";
         }
         $dat = preg_replace("/,\s$/", '', $dat); //remove last , from string
@@ -239,7 +256,7 @@ ORDER BY P.post_date DESC";
 
         $res = $wpdb->get_results($query);
         $dat = "";
-        foreach($res as $key => $ro) {
+        foreach ($res as $key => $ro) {
             $dat .= $ro->post_title . ", ";
         }
         $dat = preg_replace("/,\s$/", '', $dat); //remove last , from string
@@ -260,7 +277,7 @@ ORDER BY P.post_date DESC";
 
         $res = $wpdb->get_results($query);
         $dat = [];
-        foreach($res as $key => $ro) {
+        foreach ($res as $key => $ro) {
             array_push($dat, array(
                 'ID' => $ro->ID,
                 'post_title' => $ro->post_title,
@@ -282,7 +299,7 @@ ORDER BY P.post_date DESC";
 
         $res = $wpdb->get_results($query);
         $dat = array();
-        foreach($res as $key => $ro) {
+        foreach ($res as $key => $ro) {
 
             $watt = SinglePostContent::getMetaQuery($ro->ID, 'watt_estimate')[0];
             $hashRate = SinglePostContent::getMetaQuery($ro->ID, 'hash_rate')[0];
@@ -314,7 +331,7 @@ LIMIT 1";
 
         $res = $wpdb->get_results($query);
         $dat = array();
-        foreach($res as $key => $ro) {
+        foreach ($res as $key => $ro) {
 
             $daily_netProfit = $ro->daily_netProfit;
             $daily_grossProfit = $ro->daily_grossProfit;
