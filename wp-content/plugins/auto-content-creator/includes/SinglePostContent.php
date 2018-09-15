@@ -157,7 +157,7 @@ class SinglePostContent
      * ***********************************************
      **/
 
-    public function insertContentIntoWordpress($id, $content)
+    public static function insertContentIntoWordpress($id, $content)
     {
         if (empty($id) || empty($content)) {
             return;
@@ -172,13 +172,13 @@ class SinglePostContent
         wp_update_post($post);
     }
 
-    public function createMetaQuery($postID, $metaValue)
+    public static function createMetaQuery($postID, $metaValue)
     {
         $str = "SELECT * FROM wp_postmeta WHERE post_id = " . $postID . " and meta_key = '" . $metaValue . "' LIMIT 1;";
         return $str;
     }
 
-    public function getMetaQuery($postID, $metaValue)
+    public static function getMetaQuery($postID, $metaValue)
     {
         global $wpdb;
         $str = "SELECT * FROM wp_postmeta WHERE post_id = " . $postID . " and meta_key = '" . $metaValue . "' LIMIT 1;";
@@ -187,7 +187,7 @@ class SinglePostContent
         return $res;
     }
 
-    public function createPostIDQuery($postID)
+    public static function createPostIDQuery($postID)
     {
         $str = "SELECT t.* 
     FROM `wp_terms` t
@@ -199,7 +199,7 @@ class SinglePostContent
         return $str;
     }
 
-    public function getCoinList($postID)
+    public static function getCoinList($postID)
     {
         global $wpdb;
         $coins = $wpdb->get_results(SinglePostContent::createMetaQuery($postID, 'related_coins'))[0]->meta_value;
@@ -230,21 +230,21 @@ class SinglePostContent
         return $dat;
     }
 
-    public function getMiningCosts($postID)
+    public static function getMiningCosts($postID)
     {
         global $wpdb;
         $res = $wpdb->get_results("SELECT avg(daily_costs) as daily_costs FROM wp_miningprofitability WHERE created_at >= NOW() - INTERVAL 30 DAY AND post_id = " . $postID . ";")[0]->daily_costs;
         return $res;
     }
 
-    public function getMiningProfitability($postID)
+    public static function getMiningProfitability($postID)
     {
         global $wpdb;
         $res = $wpdb->get_results("SELECT avg(daily_grossProfit) as daily_grossProfit FROM wp_miningprofitability WHERE created_at >= NOW() - INTERVAL 30 DAY AND post_id = " . $postID . ";")[0]->daily_grossProfit;
         return $res;
     }
 
-    public function getminingModelsByCompany($postID, $manufacturer)
+    public static function getminingModelsByCompany($postID, $manufacturer)
     {
         global $wpdb;
 
@@ -265,7 +265,7 @@ ORDER BY P.post_date DESC";
         return $dat;
     }
 
-    public function getArrayOFMiningModelsByCompany($postID, $manufacturer)
+    public static function getArrayOFMiningModelsByCompany($postID, $manufacturer)
     {
         global $wpdb;
 
@@ -287,7 +287,7 @@ ORDER BY P.post_date DESC";
         return $dat;
     }
 
-    public function getComparisonTable($postID, $manufacturer)
+    public static function getComparisonTable($postID, $manufacturer)
     {
         global $wpdb;
 
@@ -303,15 +303,16 @@ ORDER BY P.post_date DESC";
 
             $watt = SinglePostContent::getMetaQuery($ro->ID, 'watt_estimate')[0];
             $hashRate = SinglePostContent::getMetaQuery($ro->ID, 'hash_rate')[0];
-            $amzLink = SinglePostContent::getAmazon($ro->ID, 'url')[0];
+            $amzLink = SinglePostContent::getAmazon($ro->ID, 'url');
             $image = SinglePostContent::getAmazon($ro->ID, 'img');
 
             array_push($dat, array(
+                'id' => $ro->ID,
                 'model' => $ro->post_title,
                 'image' => $image,
                 'watt' => $watt->meta_value,
                 'hashRate' => $hashRate->meta_value,
-                'link' => $ro->guid,
+                'link' => get_permalink( $ro->ID ),
                 'amzLink' => $amzLink,
             ));
         }
@@ -319,7 +320,7 @@ ORDER BY P.post_date DESC";
         return $dat;
     }
 
-    public function getDaysUntilProfitable($postID, $price)
+    public static function getDaysUntilProfitable($postID, $price)
     {
         global $wpdb;
 
@@ -352,7 +353,7 @@ LIMIT 1";
         return $dat;
     }
 
-    public function getAmazon($postID, $tag)
+    public static function getAmazon($postID, $tag)
     {
         global $wpdb;
 
@@ -384,7 +385,7 @@ LIMIT 1";
         return $dat;
     }
 
-    public function is_serialized($data)
+    public static function is_serialized($data)
     {
         // if it isn't a string, it isn't serialized
         if (!is_string($data))
