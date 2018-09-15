@@ -1,6 +1,6 @@
-<p><insertdata><?php echo static::e($company); ?></insertdata> is one of the <synonym words=" world most well known mining rig building companies | ">world premier manufacture </synonym> and it’s no secret that their <synonym words="mining rigs are | rigs are| computer hardware is ">hardware is </synonym> used <synonym words="extensively | generally | universally ">widely</synonym> by <synonym words="crypto-miners | mining enthusiasts">miners</synonym> to <synonym words="earn money| return money| profit">make money</synonym>. If you want to mine <synonym words="BTC| the Bitcoin cryptocurrency| the most well known coin - BTC -">Bitcoin</synonym>, you are better off buying <synonym words="computer hardware| mining rigs| mining hardware "> hardware </synonym> from <insertdata><?php echo static::e($company); ?></insertdata>. The <synonym words="company| manufacturer| mining rig builder| cooperation">firm</synonym> <synonym words="brought to the market | is selling "> launched </synonym> the <insertdata><?php echo static::e($model); ?></insertdata>, their <synonym words="latest computer hardware"> latest miner </synonym><synonym words=""></synonym>.<br></p>
+<p><insertdata><?php echo static::e($company); ?></insertdata> is one of the <synonym words=" world most well known mining rig building companies | ">world premier manufacture </synonym> and it’s no secret that their <synonym words="mining rigs are | rigs are| computer hardware is ">hardware is </synonym> used <synonym words="extensively | generally | universally ">widely</synonym> by <synonym words="crypto-miners | mining enthusiasts">miners</synonym> to <synonym words="earn money| return money| profit">make money</synonym>. If you want to mine <synonym words="BTC| the Bitcoin cryptocurrency| the most well known coin - BTC -">Bitcoin</synonym>, you are better off buying <synonym words="computer hardware| mining rigs| mining hardware "> hardware </synonym> from <insertdata><?php echo static::e($company); ?></insertdata>. The <synonym words="company| manufacturer| mining rig builder| cooperation">firm</synonym> <synonym words="brought to the market | is selling "> launched </synonym> the <insertdata><?php echo static::e($model); ?></insertdata>, their <synonym words=" computer hardware"> latest miner </synonym> <synonym words="lately | in recent past | not so long ago | not long ago ">recently</synonym>.<br></p>
 <p>The <ifelse> <?php if( count( $category ) === 1 ): ?> <insertdata><?php echo static::e($category); ?></insertdata> <?php endif; ?> </ifelse> <synonym words="miner">model</synonym> <insertdata><?php echo static::e($miningModel); ?></insertdata> from <?php echo static::e($company); ?> was previously under the
- <synonym words="top| best| most profitable">top 3</synonym> miners on <a title="coindation.com" href="http://www.coindation.com" target="_blank" > <synonym words="coindation.com|coindation|Coindation|Coindation.com">www.coindation.com</synonym></a>.
+ <synonym words="top| best| most profitable"> profitable </synonym> miners on <a title="coindation.com" href="http://www.coindation.com" target="_blank" > <synonym words="coindation.com|coindation|Coindation|Coindation.com">www.coindation.com</synonym></a>.
 It is mining <insertdata><?php echo static::e($algorithm); ?></insertdata> algorithm with a <synonym words=" | | max">maximum </synonym> <synonym words="Hash-Rate | HashRate">Hashrate</synonym> of <insertdata><?php echo static::e($hashRate); ?>H/s</insertdata> <synonym words="and a power consumption of| consuming power as much as">for a power consumption of</synonym> <insertdata><?php echo static::e($powerConsumption); ?>W</insertdata>.
 <ifelse>
 <?php if(count( $listOfAlgorithms ) === 1): ?>
@@ -18,7 +18,7 @@ You can mine with the <insertdata><?php echo static::e($modelWithoutManufacturer
  <ul>
  <!-- Positive -->
  <li> <i class="fa fa-plus-circle" style="color:#45cb32" ></i>
- <synonym words="<?php echo static::e($model); ?>|<?php echo static::e($modelWithoutManufacturer); ?>">The <?php echo static::e($model); ?></synonym> <synonym words="is not that expensive | reasonable for the price">is quite affordable</synonym>.
+ <synonym words="<?php echo static::e($model); ?>|<?php echo static::e($modelWithoutManufacturer); ?>">The <?php echo static::e($model); ?></synonym> <synonym words="is not that expensive | reasonable for the price">is quite affordable</synonym>
  </li>
  <li> <i class="fa fa-plus-circle" style="color:#45cb32" ></i>
  <synonym words="Watt usage is low| wattage is: <?php echo static::e($powerConsumption); ?>| Watt usage of "> Low watt usage of:&nbsp; </synonym> <insertdata><?php echo static::e($powerConsumption); ?>W</insertdata>
@@ -44,16 +44,16 @@ You can mine with the <insertdata><?php echo static::e($modelWithoutManufacturer
  <synonym words="The <?php echo static::e($model); ?>"><?php echo static::e($model); ?></synonym> is <synonym words="not cheap| costly| high-priced">quite expensive</synonym>
  </li>
  <li> <i class="fa fa-minus-circle" style="color:#ff0000" ></i>
- <synonym words="Watt is high with <?php echo static::e($powerConsumption); ?>| Watt is <?php echo static::e($powerConsumption); ?>">Watt usage is high</synonym>
+ <synonym words="Wattage is high with <?php echo static::e($powerConsumption); ?>| Wattage is <?php echo static::e($powerConsumption); ?>">Watt usage is high</synonym>
  </li>
  <li> <i class="fa fa-minus-circle" style="color:#ff0000" ></i>
- <synonym words="Profitability is very low with the <?php echo static::e($modelWithoutManufacturer); ?> | Low profitability when doing ">Mining is not profitable with the <synonym words="<?php echo static::e($modelWithoutManufacturer); ?> | mining rig "> <?php echo static::e($model); ?> </synonym></synonym>
+ <synonym words="Profitability is very low with the | Not really profitable with the  ">Mining is not profitable with the </synonym> <synonym words=" <?php echo static::e($modelWithoutManufacturer); ?> | mining rig "> <?php echo static::e($model); ?> </synonym>
  </li>
  </ul>
 </div>
 <h2><synonym words="Expenses| Electricity Costs| Operating Costs| Operating Expenses| Costs for Electricity| Costs for Operating the Rig">Costs</synonym>
  <b></b></h2>
-In our<synonym words=" | ">profitability</synonym> calculations we assume an overall <synonym words="costs | charge | amount | expenditure">price</synonym> of 0.1 <synonym words="pennies">cents</synonym>. Hence we derive <synonym words="costs | a baseline | expenditures ">a cost baseline</synonym> of&nbsp;<insertdata><?php echo static::e($miningCosts); ?></insertdata>. Hence the <synonym words="miner"><?php echo static::e($modelWithoutManufacturer); ?> | <?php echo static::e($model); ?> | cryptocurrency miner |<?php echo static::e($category); ?>-miner</synonym> has&nbsp;<insertdata><?php echo static::e($daysUntilProfitable); ?></insertdata> days until the miner gets profitable. (as per <insertdata><?php echo static::e($monthToday); ?></insertdata>).
+In our <synonym words=" | "> profitability </synonym> calculations we assume an overall <synonym words="costs | charge | amount | expenditure">price</synonym> of 0.1 <synonym words="pennies">cents</synonym>. Hence we derive <synonym words="costs | a baseline | expenditures ">a cost baseline</synonym> of&nbsp;<insertdata><?php echo static::e($miningCosts); ?></insertdata>. Hence the <synonym words="miner"><?php echo static::e($modelWithoutManufacturer); ?> | <?php echo static::e($model); ?> | cryptocurrency miner |<?php echo static::e($category); ?>-miner</synonym> has&nbsp;<insertdata><?php echo static::e($daysUntilProfitable); ?></insertdata> days until the miner gets profitable. (as per <insertdata><?php echo static::e($monthToday); ?></insertdata>).
 <synonym words="We define 'payback period' as| 'Payback Period' is defined for us as| The definition of payback period is">Our definition of payback period is</synonym>: <synonym words="Number of days to make your initial costs back">The time that it takes the cryptominer to make its money back in days</synonym>. As <synonym words="markets | cryptocurrency-markets | crypto">crypto markets</synonym> have been proven in the past to be <synonym words="quite volatile| fluctuating">unpredictable</synonym> we can only use as <synonym words="origin | starting point | start | base">current starting point</synonym> the <synonym words="price of BTC.| BTC price.">current price of BTC.</synonym><p></p>
 
 <h2><synonym words="Comparison Table| Comparison| Overview| Overview Table| Side-By-Side Comparison| Similar Models">Comparison</synonym></h2>
@@ -85,8 +85,8 @@ In our<synonym words=" | ">profitability</synonym> calculations we assume an ove
  <?php $__currentLoopData = $comparisonTableArray; $this->addLoop($__currentLoopData); foreach($__currentLoopData as $arr): $this->incrementLoopIndices(); $loop = $this->getFirstLoop(); ?>
  <tr>
  <td> <?php echo static::e($arr["model"]); ?> </td>
- <td> <?php echo static::e($arr["hashRate"]); ?> </td>
- <td> <?php echo static::e($arr["watt"]); ?> </td>
+ <td> <?php echo static::e($arr["hashRate"]); ?>H/s </td>
+ <td> <?php echo static::e($arr["watt"]); ?>W </td>
  <td><a href="<?php echo static::e($arr["link"]); ?>" target="_blank" >Review of <?php echo static::e($arr["model"]); ?></a></td>
  <td><a href="<?php echo static::e($arr["amzLink"]); ?>" target="_blank" >Buy Now</a></td>
  </tr>

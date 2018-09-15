@@ -1,7 +1,6 @@
-<p><insertdata>{{$company}}</insertdata> is one of the <synonym words=" world most well known mining rig building companies | ">world premier manufacture </synonym> and it’s no secret that their <synonym words="mining rigs are | rigs are| computer hardware is ">hardware is </synonym> used <synonym words="extensively | generally | universally ">widely</synonym> by <synonym words="crypto-miners | mining enthusiasts">miners</synonym> to <synonym words="earn money| return money| profit">make money</synonym>. If you want to mine <synonym words="BTC| the Bitcoin cryptocurrency| the most well known coin - BTC -">Bitcoin</synonym>, you are better off buying <synonym words="computer hardware| mining rigs| mining hardware "> hardware </synonym> from <insertdata>{{$company}}</insertdata>. The <synonym words="company| manufacturer| mining rig builder| cooperation">firm</synonym> <synonym words="brought to the market | is selling "> launched </synonym> the <insertdata>{{$model}}</insertdata>, their <synonym words="latest computer hardware"> latest miner </synonym><synonym words=""></synonym>.<br></p>
-<p>The <ifelse> @if( count( $category ) === 1 ) <insertdata>{{ $category }}</insertdata> @endif </ifelse> <synonym words="miner">model</synonym> <insertdata>{{$miningModel}}</insertdata> from {{$company}} was previously under the
-    <synonym words="top| best| most profitable">top 3</synonym> miners on <a title="coindation.com" href="http://www.coindation.com" target="_blank" > <synonym words="coindation.com|coindation|Coindation|Coindation.com">www.coindation.com</synonym></a>.
-It is mining <insertdata>{{$algorithm}}</insertdata> algorithm with a <synonym words=" | | max">maximum </synonym> <synonym words="Hash-Rate | HashRate">Hashrate</synonym> of <insertdata>{{$hashRate}}H/s</insertdata> <synonym words="and a power consumption of| consuming power as much as">for a power consumption of</synonym> <insertdata>{{$powerConsumption}}W</insertdata>.
+<p><insertdata>{{$company}}</insertdata> is one of the <synonym words=" world most well known mining rig building companies | ">world premier manufacture </synonym> and it’s no secret that their <synonym words="mining rigs are | rigs are| computer hardware is ">hardware is </synonym> used <synonym words="extensively | generally | universally ">widely</synonym> by <synonym words="crypto-miners | mining enthusiasts">miners</synonym> to <synonym words="earn money| return money| profit">make money</synonym>. If you want to mine <synonym words="BTC| the Bitcoin cryptocurrency| the most well known coin - BTC -">Bitcoin</synonym>, you are better off buying <synonym words="computer hardware| mining rigs| mining hardware "> hardware </synonym> from <insertdata>{{$company}}</insertdata>. The <synonym words="company| manufacturer| mining rig builder| cooperation">firm</synonym> <synonym words="brought to the market | is selling "> launched </synonym> the <insertdata>{{$model}}</insertdata>, their <synonym words=" computer hardware"> latest miner </synonym> <synonym words="lately | in recent past | not so long ago | not long ago ">recently</synonym>.<br></p>
+<p>The <ifelse> @if( count( $category ) === 1 ) <insertdata>{{ $category }}</insertdata> @endif </ifelse> <synonym words="miner">model</synonym> <insertdata>{{$miningModelsByCompany}}</insertdata> from {{$company}} were recently under the
+    <synonym words="top| best| most profitable"> profitable </synonym> miners on <a title="coindation.com" href="http://www.coindation.com" target="_blank" > <synonym words="coindation.com|coindation|Coindation|Coindation.com">www.coindation.com</synonym></a>. <synonym words="{{$model}}|{{$modelWithoutManufacturer}}|The {{$modelWithoutManufacturer}}"> The {{$model}}</synonym> is mining <insertdata>{{$algorithm}}</insertdata> algorithm with a <synonym words=" | | max">maximum </synonym> <synonym words="Hash-Rate | HashRate">Hashrate</synonym> of <insertdata>{{$hashRate}}H/s</insertdata> <synonym words="and a power consumption of| consuming power as much as">for a power consumption of</synonym> <insertdata>{{$powerConsumption}}W</insertdata>.
 <ifelse>
 @if (count( $listOfAlgorithms ) === 1)
         The model focuses on the following algorithm: <insertdata>{{$listOfAlgorithms}}</insertdata>.
@@ -18,7 +17,7 @@ You can mine with the <insertdata>{{$modelWithoutManufacturer}}</insertdata> the
      <ul>
          <!-- Positive -->
          <li> <i class="fa fa-plus-circle" style="color:#45cb32" ></i>
-             <synonym words="{{$model}}|{{$modelWithoutManufacturer}}">The {{$model}}</synonym> <synonym words="is not that expensive | reasonable for the price">is quite affordable</synonym>.
+             <synonym words="{{$model}}|{{$modelWithoutManufacturer}}">The {{$model}}</synonym> <synonym words="is not that expensive | reasonable for the price">is quite affordable</synonym>
          </li>
          <li> <i class="fa fa-plus-circle" style="color:#45cb32" ></i>
              <synonym words="Watt usage is low| wattage is: {{ $powerConsumption }}| Watt usage of "> Low watt usage of:&nbsp; </synonym> <insertdata>{{ $powerConsumption }}W</insertdata>
@@ -44,16 +43,16 @@ You can mine with the <insertdata>{{$modelWithoutManufacturer}}</insertdata> the
              <synonym words="The {{$model}}">{{$model}}</synonym> is <synonym words="not cheap| costly| high-priced">quite expensive</synonym>
          </li>
          <li> <i class="fa fa-minus-circle" style="color:#ff0000" ></i>
-             <synonym words="Watt is high with {{ $powerConsumption }}| Watt is {{ $powerConsumption }}">Watt usage is high</synonym>
+             <synonym words="Wattage is high with {{ $powerConsumption }}| Wattage is {{ $powerConsumption }}">Watt usage is high</synonym>
          </li>
          <li> <i class="fa fa-minus-circle" style="color:#ff0000" ></i>
-             <synonym words="Profitability is very low with the {{$modelWithoutManufacturer}} | Low profitability when doing ">Mining is not profitable with the <synonym words="{{$modelWithoutManufacturer}} | mining rig "> {{$model}} </synonym></synonym>
+             <synonym words="Profitability is very low with the | Not really profitable with the  ">Mining is not profitable with the </synonym> <synonym words=" {{$modelWithoutManufacturer}} | mining rig "> {{$model}} </synonym>
          </li>
      </ul>
 </div>
 <h2><synonym words="Expenses| Electricity Costs| Operating Costs| Operating Expenses| Costs for Electricity| Costs for Operating the Rig">Costs</synonym>
     <b></b></h2>
-In our<synonym words=" | ">profitability</synonym> calculations we assume an overall <synonym words="costs | charge | amount | expenditure">price</synonym> of 0.1 <synonym words="pennies">cents</synonym>. Hence we derive <synonym words="costs | a baseline | expenditures ">a cost baseline</synonym> of&nbsp;<insertdata>{{ $miningCosts }}</insertdata>. Hence the <synonym words="miner">{{$modelWithoutManufacturer}} | {{$model}} | cryptocurrency miner |{{ $category }}-miner</synonym> has&nbsp;<insertdata>{{$daysUntilProfitable}}</insertdata> days until the miner gets profitable. (as per <insertdata>{{$monthToday}}</insertdata>).
+In our <synonym words=" | "> profitability </synonym> calculations we assume an overall <synonym words="costs | charge | amount | expenditure">price</synonym> of 0.1 <synonym words="pennies">cents</synonym>. Hence we derive <synonym words="costs | a baseline | expenditures ">a cost baseline</synonym> of&nbsp;<insertdata>{{ $miningCosts }}</insertdata>. Hence the <synonym words="miner">{{$modelWithoutManufacturer}} | {{$model}} | cryptocurrency miner |{{ $category }}-miner</synonym> has&nbsp;<insertdata>{{$daysUntilProfitable}}</insertdata> days until the miner gets profitable. (as per <insertdata>{{$monthToday}}</insertdata>).
 <synonym words="We define 'payback period' as| 'Payback Period' is defined for us as| The definition of payback period is">Our definition of payback period is</synonym>: <synonym words="Number of days to make your initial costs back">The time that it takes the cryptominer to make its money back in days</synonym>. As <synonym words="markets | cryptocurrency-markets | crypto">crypto markets</synonym> have been proven in the past to be <synonym words="quite volatile| fluctuating">unpredictable</synonym> we can only use as <synonym words="origin | starting point | start | base">current starting point</synonym> the <synonym words="price of BTC.| BTC price.">current price of BTC.</synonym><p></p>
 
 <h2><synonym words="Comparison Table| Comparison| Overview| Overview Table| Side-By-Side Comparison| Similar Models">Comparison</synonym></h2>
@@ -85,8 +84,8 @@ In our<synonym words=" | ">profitability</synonym> calculations we assume an ove
       @foreach($comparisonTableArray as $arr)
       <tr>
           <td> {{$arr["model"]}} </td>
-          <td> {{$arr["hashRate"]}} </td>
-          <td> {{$arr["watt"]}} </td>
+          <td> {{$arr["hashRate"]}}H/s </td>
+          <td> {{$arr["watt"]}}W </td>
           <td><a href="{{$arr["link"]}}" target="_blank" >Review of {{$arr["model"]}}</a></td>
           <td><a href="{{$arr["amzLink"]}}" target="_blank" >Buy Now</a></td>
       </tr>
