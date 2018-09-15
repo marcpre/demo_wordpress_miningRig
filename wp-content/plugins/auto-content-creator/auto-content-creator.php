@@ -47,6 +47,7 @@ class AutoContentCreator
      */
     public function includes() {
         include_once( AutoContentCreator_DIR . 'includes/SinglePostContent.php' );
+        include_once( AutoContentCreator_DIR . 'includes/src/Spintax/Spintax.php' );
     }
 
     public function button_menu()

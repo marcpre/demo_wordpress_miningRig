@@ -1,7 +1,7 @@
 <?php
 // require __FILE__  . "../vendor/autoload.php";
 // TODO
-include __FILE__ . "src/Spintax/Spintax.php";
+// include __FILE__ . "src/Spintax/Spintax.php";
 
 // error_reporting(E_ALL ^ E_NOTICE);
 
