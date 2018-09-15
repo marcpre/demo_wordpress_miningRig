@@ -1,6 +1,5 @@
 <?php
-
-/*
+/**
 Plugin Name: Auto Content Creator
 Plugin URI: 
 Description: Creates content based on content templates and custom fields
@@ -106,5 +105,3 @@ class AutoContentCreator
     }
 }
 new AutoContentCreator();
-
-?>

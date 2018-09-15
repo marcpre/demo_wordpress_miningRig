@@ -1,15 +1,14 @@
 <?php
 // require __FILE__  . "../vendor/autoload.php";
 // TODO
-// include __FILE__ . "src/Spintax/Spintax.php";
+include __FILE__ . "src/Spintax/Spintax.php";
 
 // error_reporting(E_ALL ^ E_NOTICE);
 
+// require_once 'vendor/autoload.php';
+
 use eftec\bladeone;
 use DaveChild\TextStatistics as TS;
-use Noodlehaus\Config;
-// use Spintax;
-use Noodlehaus\Exception;
 
 class SinglePostContent
 {
@@ -66,7 +65,7 @@ class SinglePostContent
                     $miningModelsByCompany = SinglePostContent::getminingModelsByCompany($row->ID, $manufacturer);
                     $currentPrice = SinglePostContent::getAmazon($row->ID, 'price');
                     $comparisonTableArray = SinglePostContent::getComparisonTable($row->ID, $manufacturer);
-                    $daysUntilProfitable = SinglePostContent::getDaysUntilProfitable($row->ID, $currentPrice)[0]->daysUntilProfitable;
+                    $daysUntilProfitable = SinglePostContent::getDaysUntilProfitable($row->ID, $currentPrice)[0]["daysUntilProfitable"];
                     $numberOfMiningModels = SinglePostContent::getArrayOFMiningModelsByCompany($row->ID, $manufacturer);
 
                     $i++;
@@ -89,7 +88,7 @@ class SinglePostContent
                         'dayToday' => date('F jS, Y', strtotime("now")),
                         'monthToday' => date('F, Y', strtotime("now")),
                         'comparisonTableArray' => $comparisonTableArray,
-                        'daysUntilProfitable' => number_format((float)$daysUntilProfitable[0]["daysUntilProfitable"], 0, '.', ''),
+                        'daysUntilProfitable' => number_format((float)$daysUntilProfitable, 0, '.', ''),
                         'numberOfMiningModels' => count($numberOfMiningModels),
                     ));
 
@@ -108,7 +107,7 @@ class SinglePostContent
          * Fill template
          **/
         $finalOutput = '';
-        //$spintax = new Spintax();
+        $spintax = new Spintax();
         foreach ($data as $key => $value) {
             // print_r($data[$key]);
 
@@ -129,8 +128,7 @@ class SinglePostContent
             // &nbsp;
             $output = str_replace("&nbsp;", " ", $output);
             $output = str_replace("  +", " ", $output); // replace 1 or more spaces
-/*
- * TODO
+
             $spintaxOutput = "";
             $spintaxOutput .= $spintax->process($output);
             $spintaxOutput .= "\n ######################### \n";
@@ -138,7 +136,7 @@ class SinglePostContent
             $spintaxOutput .= preg_replace('/\s{1,}/', ' ', $spintaxOutput); // replace 1 or more spaces
 
             $finalOutput .= $spintaxOutput;
-*/
+
             echo $finalOutput;
             // echo 'Flesch-Kincaid Reading Ease: ' . $textStatistics->fleschKincaidReadingEase($output) . "\n";
         }

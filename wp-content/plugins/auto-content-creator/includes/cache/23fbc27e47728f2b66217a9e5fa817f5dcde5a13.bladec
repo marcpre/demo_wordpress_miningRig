@@ -22,16 +22,16 @@ You can mine with the <insertdata><?php echo static::e($modelWithoutManufacturer
  <li>
  <synonym words="Watt usage is low, wattage is: <?php echo static::e($powerConsumption); ?>, Watt usage of <?php echo static::e($powerConsumption); ?>"> Low watt usage of:&nbsp; </synonym> <insertdata><?php echo static::e($powerConsumption); ?></insertdata>
  </li>
- <li>With the <synonym words=" - algorithm - | ">current algorithm</synonym>,&nbsp;<insertdata><?php echo static::e($algorithm); ?>,</insertdata>&nbsp;<synonym words="numerous, ,various">multiple</synonym>&nbsp;<synonym words="cryptos| coins">cryptocurrencies</synonym>can be mined
+ <li>With the <synonym words="algorithm">current algorithm</synonym>,&nbsp;<insertdata> - <?php echo static::e($algorithm); ?> -,</insertdata>&nbsp;<synonym words="numerous| |various">multiple</synonym>&nbsp;<synonym words="cryptos| coins">cryptocurrencies</synonym> can be mined
  </li>
  <li>
- <synonym words="Powerful| Massive| Notable">Impressive</synonym>Hash Rate:&nbsp;<insertdata><?php echo static::e($hashRate); ?></insertdata>H/s
+ <synonym words="Powerful| Massive| Notable">Impressive</synonym> Hash Rate:&nbsp;<insertdata><?php echo static::e($hashRate); ?></insertdata>H/s
  </li>
  <li>
  <synonym words="Small for its size">Does not require lots of space</synonym>
  </li>
  <li>
- <synonym words="<?php echo static::e($model); ?>|<?php echo static::e($modelWithoutManufacturer); ?>|The <?php echo static::e($modelWithoutManufacturer); ?>">The <?php echo static::e($model); ?></synonym><synonym words="makes money | is rewarding | is worthwhile | is lucrative | becomes cost-effective"> is profitable </synonym>in<insertdata><?php echo static::e($daysUntilProfitable); ?></insertdata> days
+ <synonym words="<?php echo static::e($model); ?>|<?php echo static::e($modelWithoutManufacturer); ?>|The <?php echo static::e($modelWithoutManufacturer); ?>">The <?php echo static::e($model); ?></synonym><synonym words="makes money | is rewarding | is worthwhile | is lucrative | becomes cost-effective"> is profitable </synonym> in <insertdata><?php echo static::e($daysUntilProfitable); ?></insertdata> days
  </li>
  </ul>
 '-'-es
