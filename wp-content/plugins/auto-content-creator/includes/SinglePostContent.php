@@ -49,52 +49,52 @@ class SinglePostContent
                 // array_push($data, $row);
 
                 // TODO remove after finish
-                if ($row->ID == 4204) {
+                // if ($row->ID == 605) {
 
-                    echo "Get variables: " . $row->ID . "\n";
+                echo "Get variables: " . $row->ID . "\n";
 
-                    $manufacturer = $wpdb->get_results(SinglePostContent::createMetaQuery($row->ID, 'manufacturer'))[0]->meta_value;
-                    $algorithm = $wpdb->get_results(SinglePostContent::createMetaQuery($row->ID, 'algorithm'))[0]->meta_value;
-                    $hashRate = $wpdb->get_results(SinglePostContent::createMetaQuery($row->ID, 'hash_rate'))[0]->meta_value;
-                    $powerConsumption = $wpdb->get_results(SinglePostContent::createMetaQuery($row->ID, 'watt_estimate'))[0]->meta_value;
-                    $modelName = $row->post_title;
-                    $category = $wpdb->get_results(SinglePostContent::createPostIDQuery($row->ID))[0]->name;
-                    $coins = SinglePostContent::getCoinList($row->ID);
-                    $averageMiningCosts30 = SinglePostContent::getMiningCosts($row->ID);
-                    $averageMiningProfit30 = SinglePostContent::getMiningProfitability($row->ID);
-                    $miningModelsByCompany = SinglePostContent::getminingModelsByCompany($row->ID, $manufacturer);
-                    $currentPrice = SinglePostContent::getAmazon($row->ID, 'price');
-                    $comparisonTableArray = SinglePostContent::getComparisonTable($row->ID, $manufacturer);
-                    $daysUntilProfitable = SinglePostContent::getDaysUntilProfitable($row->ID, $currentPrice)[0]["daysUntilProfitable"];
-                    $numberOfMiningModels = SinglePostContent::getArrayOFMiningModelsByCompany($row->ID, $manufacturer);
+                $manufacturer = $wpdb->get_results(SinglePostContent::createMetaQuery($row->ID, 'manufacturer'))[0]->meta_value;
+                $algorithm = $wpdb->get_results(SinglePostContent::createMetaQuery($row->ID, 'algorithm'))[0]->meta_value;
+                $hashRate = $wpdb->get_results(SinglePostContent::createMetaQuery($row->ID, 'hash_rate'))[0]->meta_value;
+                $powerConsumption = $wpdb->get_results(SinglePostContent::createMetaQuery($row->ID, 'watt_estimate'))[0]->meta_value;
+                $modelName = $row->post_title;
+                $category = $wpdb->get_results(SinglePostContent::createPostIDQuery($row->ID))[0]->name;
+                $coins = SinglePostContent::getCoinList($row->ID);
+                $averageMiningCosts30 = SinglePostContent::getMiningCosts($row->ID);
+                $averageMiningProfit30 = SinglePostContent::getMiningProfitability($row->ID);
+                $miningModelsByCompany = SinglePostContent::getminingModelsByCompany($row->ID, $manufacturer);
+                $currentPrice = SinglePostContent::getAmazon($row->ID, 'price');
+                $comparisonTableArray = SinglePostContent::getComparisonTable($row->ID, $manufacturer);
+                $daysUntilProfitable = SinglePostContent::getDaysUntilProfitable($row->ID, $currentPrice)[0]["daysUntilProfitable"];
+                $numberOfMiningModels = SinglePostContent::getArrayOFMiningModelsByCompany($row->ID, $manufacturer);
 
-                    $i++;
-                    array_push($data, array(
-                        'postId' => $row->ID,
-                        'company' => $manufacturer,
-                        'category' => $category,
-                        'algorithm' => $algorithm,
-                        'hashRate' => number_format($hashRate),
-                        'powerConsumption' => number_format($powerConsumption),
-                        'model' => $modelName,
-                        'modelWithoutManufacturer' => trim(str_replace($manufacturer, "", $modelName)),
-                        'listOfAlgorithms' => $algorithm,
-                        'listOfCryptocurrencies' => $coins,
-                        'miningCosts' => number_format((float)$averageMiningCosts30, 2, '.', ''),
-                        '$miningModelsByCompany' => $miningModelsByCompany,
-                        'dailyProfitOfMiner' => number_format((float)$averageMiningProfit30, 5, '.', ''),
-                        'numberOfMiningModels' => $miningModelsByCompany,
-                        'currentPrice' => number_format((float)$currentPrice),
-                        'dayToday' => date('F jS, Y', strtotime("now")),
-                        'monthToday' => date('F, Y', strtotime("now")),
-                        'comparisonTableArray' => $comparisonTableArray,
-                        'daysUntilProfitable' => number_format((float)$daysUntilProfitable, 0, '.', ''),
-                        'numberOfMiningModels' => count($numberOfMiningModels),
-                    ));
+                $i++;
+                array_push($data, array(
+                    'postId' => $row->ID,
+                    'company' => $manufacturer,
+                    'category' => $category,
+                    'algorithm' => $algorithm,
+                    'hashRate' => number_format($hashRate),
+                    'powerConsumption' => number_format($powerConsumption),
+                    'model' => $modelName,
+                    'modelWithoutManufacturer' => trim(str_replace($manufacturer, "", $modelName)),
+                    'listOfAlgorithms' => $algorithm,
+                    'listOfCryptocurrencies' => $coins,
+                    'miningCosts' => number_format((float)$averageMiningCosts30, 2, '.', ''),
+                    'miningModelsByCompany' => $miningModelsByCompany,
+                    'dailyProfitOfMiner' => number_format((float)$averageMiningProfit30, 5, '.', ''),
+                    'numberOfMiningModels' => $miningModelsByCompany,
+                    'currentPrice' => number_format((float)$currentPrice),
+                    'dayToday' => date('F jS, Y', strtotime("now")),
+                    'monthToday' => date('F, Y', strtotime("now")),
+                    'comparisonTableArray' => $comparisonTableArray,
+                    'daysUntilProfitable' => number_format((float)$daysUntilProfitable, 0, '.', ''),
+                    'numberOfMiningModels' => count($numberOfMiningModels),
+                ));
 
-                    // TODO remove after finish
-                    break;
-                }
+                // TODO remove after finish
+                // break;
+                // }
                 // TODO also remove this!
             }
         } else {
@@ -312,7 +312,7 @@ ORDER BY P.post_date DESC";
                 'image' => $image,
                 'watt' => number_format($watt->meta_value),
                 'hashRate' => number_format($hashRate->meta_value),
-                'link' => get_permalink( $ro->ID ),
+                'link' => get_permalink($ro->ID),
                 'amzLink' => $amzLink,
             ));
         }
@@ -340,6 +340,10 @@ LIMIT 1";
             $currentPrice = $price;
 
             $daysUntilProfitable = $currentPrice / $daily_netProfit;
+
+            if ($daysUntilProfitable < 0) {
+                $daysUntilProfitable = 0;
+            }
 
             array_push($dat, array(
                 'daily_netProfit' => $daily_netProfit,

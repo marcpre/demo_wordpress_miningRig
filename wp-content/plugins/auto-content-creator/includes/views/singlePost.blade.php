@@ -9,8 +9,10 @@
 @else
         <insertdata><synonym words="{{$model}}|{{$modelWithoutManufacturer}}|The {{$modelWithoutManufacturer}}">The {{$model}}</synonym></insertdata> supports multiple algorithms, such as <insertdata>{{ $listOfAlgorithms }}</insertdata>
 @endif </ifelse>
+    @empty( $listOfCryptocurrencies )
 You can mine with the <insertdata>{{$modelWithoutManufacturer}}</insertdata> the <synonym words=" ">following</synonym> <synonym words="crypto-coins|cryptocurrencies">coins</synonym>: <insertdata>{{$listOfCryptocurrencies}}</insertdata>.
 </p>
+@endempty
 
 <h2><synonym words=" Pros/Cons| Plus/Minuses| Like/dislike">Advantages/Disadvantages</synonym> of the {{$modelWithoutManufacturer}}</h2>
 <div class="su-list su-list-style- Vorteile" >
@@ -94,7 +96,7 @@ In our <synonym words=" | "> profitability </synonym> calculations we assume an 
 </table>
 {{-- Comparison Table END --}}
 
-<p>As you can see <synonym words=" the manufacturer | <insertdata>{{$company}}</insertdata>"> the company</synonym><synonym words=" sells | has available | has in stock">has currently</synonym>&nbsp;<insertdata>{{$numberOfMiningModels}}</insertdata> <synonym words="miners | products | crypto-miners">models</synonym> <synonym words="to buy|.|">on the market</synonym>.
+<p>As you can see <synonym words=" the manufacturer | <insertdata>{{$company}}</insertdata>"> the company</synonym><synonym words=" sells | has available | has in stock">has currently</synonym>&nbsp;<insertdata>{{$numberOfMiningModels}}</insertdata> <synonym words="miners | products | crypto-miners">models</synonym> <synonym words="to buy| |">on the market</synonym>.
 </p>
 <p>Find below <synonym words="further information | collected information | information | our data | curated data">deeper information</synonym> about <synonym words="daily profitability|real-time profitability|estimated earnings|profit potential">profitability</synonym>, <synonym words="expenditure | real-time costs | estimated costs | electricity estimates | electricity costs">costs</synonym> and specific <synonym words="cryptos | crypto-coins">coins</synonym> to mine.
 </p>

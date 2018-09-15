@@ -81,6 +81,7 @@ class AutoContentCreator
         if (isset($_POST['autoContentCreator']) && check_admin_referer('autoContentCreator_clicked')) {
             // the button has been pressed AND we've passed the security check
             SinglePostContent::main();
+            echo 'Done!';
         }
 
         echo '<form action="options-general.php?page=autoContentCreator-slug" method="post">';
