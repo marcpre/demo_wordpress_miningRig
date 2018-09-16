@@ -475,3 +475,14 @@ so_add_cron_xdebug_cookie($cron_request_array, $doing_wp_cron)
 
     return ($cron_request_array);
 }
+
+/****************
+ * Custom Button*
+ ****************/
+add_action('media_buttons', 'add_my_media_button', 99);
+
+function add_my_media_button()
+{
+    echo '<a href="#" id="insert-my-media" class="button">Own content</a>';
+}
+
