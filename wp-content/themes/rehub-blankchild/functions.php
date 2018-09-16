@@ -479,10 +479,54 @@ so_add_cron_xdebug_cookie($cron_request_array, $doing_wp_cron)
 /****************
  * Custom Button*
  ****************/
-add_action('media_buttons', 'add_my_media_button', 99);
+// Support from here: https://stackoverflow.com/questions/52352239/trigger-plugin-function-when-pressing-button/52352365#52352365
 
+add_action('media_buttons', 'add_my_media_button', 99);
 function add_my_media_button()
 {
-    echo '<a href="#" id="insert-my-media" class="button">Own content</a>';
+
+    $post = $GLOBALS['post_ID'];
+    echo "<a href='#' id='insert-my-media' data-post-id='{$post}' class='button'>Own content</a>";
+
 }
 
+add_action('wp_ajax_updateContent', 'updateContent');
+function updateContent()
+{
+
+    $post_id = intval($_POST['post_id']);
+
+    try {
+        $sp = new SinglePostContent();
+        $sp->main($post_id);
+    } catch (Exception $e) {
+        echo $e;
+    }
+    wp_die(); // this is required to terminate immediately and return a proper response
+}
+
+add_action('admin_footer', 'my_media_button_script');
+
+function my_media_button_script()
+{
+
+    ?>
+    <script>
+        jQuery(document).ready(function ($) {
+            $('#insert-my-media').click(function () {
+                var post_id = $(this).attr('data-post-id');
+                var data = {
+                    'action': 'updateContent',
+                    'post_id': post_id
+                };
+                // since 2.8 ajaxurl is always defined in the admin header and points to admin-ajax.php
+                jQuery.post(ajaxurl, data, function (response) {
+                    console.log("test12")
+                    console.log(response);
+                });
+            });
+        });
+    </script>
+
+    <?php
+}
