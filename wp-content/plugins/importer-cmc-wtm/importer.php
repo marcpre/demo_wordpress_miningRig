@@ -53,7 +53,7 @@ function importCoinMarketCap_admin_page()
     echo '<input type="hidden" value="true" name="importCoinMarketCap" />';
     submit_button('Import CoinMarketCap/WhatToMine Coins');
     echo '</form>';
-    
+    echo 'The script already checks if a coin exists and updates only non existent coins!';
     echo '</div>';
     
 }
@@ -109,7 +109,7 @@ function importAction()
                     $file_url = "https://s2.coinmarketcap.com/static/img/coins/128x128/" . $cmcid . ".png";
 
                     // insert the post
-                    echo ('<li>' . $pubid . '</li>');
+                    echo ('<li>' . $pubid . '|' . sanitize_textarea_field($algo) . '</li>');
                      
                     $postId = wp_insert_post(array(
                         'post_type' => 'coin',

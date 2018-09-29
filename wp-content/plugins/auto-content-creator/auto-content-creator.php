@@ -80,7 +80,7 @@ class AutoContentCreator
         // Check whether the button has been pressed AND also check the nonce
         if (isset($_POST['autoContentCreator']) && check_admin_referer('autoContentCreator_clicked')) {
             // the button has been pressed AND we've passed the security check
-            SinglePostContent::main();
+            SinglePostContent::main(null);
             echo 'Done!';
         }
 

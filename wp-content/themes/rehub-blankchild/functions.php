@@ -523,6 +523,7 @@ function my_media_button_script()
                 jQuery.post(ajaxurl, data, function (response) {
                     console.log("test12")
                     console.log(response);
+                    location.reload();
                 });
             });
         });

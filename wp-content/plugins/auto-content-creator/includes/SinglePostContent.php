@@ -21,8 +21,12 @@ class SinglePostContent
     public function main($postID)
     {
 
-        $views = __DIR__ . '\views';
-        $cache = __DIR__ . '\cache';
+//        include_once( AutoContentCreator_DIR . 'includes\views' );
+        // $views = __DIR__ . '\views';
+        // $cache = __DIR__ . '\cache';
+        $views = AutoContentCreator_DIR . 'includes/views';
+        $cache = AutoContentCreator_DIR . 'includes/cache';
+
         define("BLADEONE_MODE", 1); // (optional) 1=forced (test),2=run fast (production), 0=automatic, default value.
         $blade = new bladeone\BladeOne($views, $cache);
 
@@ -30,7 +34,7 @@ class SinglePostContent
         $conn = "";
         global $wpdb;
 
-        if (isset($postID)) {
+        if (!empty($postID)) {
             // return only the post with the id
             $posts = "SELECT  wp_posts.* 
                 FROM wp_posts  
