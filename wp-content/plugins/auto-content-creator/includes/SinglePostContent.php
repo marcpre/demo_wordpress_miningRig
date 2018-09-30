@@ -67,9 +67,9 @@ class SinglePostContent
                 // array_push($data, $row);
 
                 // TODO remove after finish
-                // if ($row->ID == 605) {
+                // if ($row->ID == 6478) {
 
-                echo "Get variables: " . $row->ID . "\n";
+                echo nl2br ("Get variables: " . $row->ID . "\n");
 
                 $manufacturer = $wpdb->get_results(SinglePostContent::createMetaQuery($row->ID, 'manufacturer'))[0]->meta_value;
                 $algorithm = $wpdb->get_results(SinglePostContent::createMetaQuery($row->ID, 'algorithm'))[0]->meta_value;
@@ -155,6 +155,8 @@ class SinglePostContent
 
             SinglePostContent::insertContentIntoWordpress($data[$key]["postId"], $spintaxOutput);
 
+            echo nl2br ($key . " ### Insert Post: " . $data[$key]['postId'] . " - " . $data[$key]['model'] . "\n");
+
             $finalOutput .= $spintaxOutput;
 
             // echo $finalOutput;
@@ -162,6 +164,7 @@ class SinglePostContent
         }
 
         file_put_contents("./SINGLE_CONTENT_OUTPUT.html", $finalOutput);
+        echo nl2br ("**********DONE**********" . "\n");
 
     }
 
@@ -381,6 +384,9 @@ LIMIT 1";
 
         $wpdb->query("set names 'utf8';");
         $arr = $wpdb->get_results(SinglePostContent::createMetaQuery($postID, '_cegg_data_Amazon'))[0]->meta_value;
+        //$arr = $wpdb->get_results(SinglePostContent::createMetaQuery($postID, '_cegg_data_Offer'))[0]->meta_value;
+
+
         // TODO The problem are the special characters! That's why unserialize is not working correctly!!!
         // $arr = urldecode($arr);
         // $arr = unserialize($arr);
@@ -388,7 +394,8 @@ LIMIT 1";
         // file_put_contents("./lolonator.txt", $arr);
 
         if (empty($arr)) {
-            return "";
+            // return "";
+            $arr = $wpdb->get_results(SinglePostContent::createMetaQuery($postID, '_cegg_data_Offer'))[0]->meta_value;
         }
 
         if (!unserialize($arr)) {
