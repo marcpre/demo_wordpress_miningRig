@@ -92,6 +92,27 @@ function enqueue_parent_theme_style()
         ));
     }
 
+    if (is_page('Upcoming Crypto Miners')) {
+
+        //css
+        wp_enqueue_style('bootstrap-4.0.0', get_stylesheet_directory_uri() . '/css/bootstrap.min.css', array($parentStyle));
+        wp_enqueue_style('dataTables', get_stylesheet_directory_uri() . '/css/jquery.dataTables.min.css', array($parentStyle));
+        wp_enqueue_style('dataTables-bootstrap-1.10.16', get_stylesheet_directory_uri() . '/css/dataTables.bootstrap4.min.css', array($parentStyle));
+        wp_enqueue_style('style', get_stylesheet_directory_uri() . '/style.css', array($parentStyle));
+
+        //js
+        //wp_enqueue_script('font-awesome', get_theme_file_uri('/js/libs/fontawesome-all.js'), null, '1.0', true);
+        wp_enqueue_script('jquery', get_theme_file_uri('/js/libs/jquery.min.js'), null, '1.0', true);
+        wp_enqueue_script('bootstrap-4.0.0', get_theme_file_uri('/js/libs/bootstrap.min.js'), null, '1.0', true);
+        wp_enqueue_script('dataTables', get_theme_file_uri('/js/libs/jquery.dataTables.min.js'), null, '1.0', true);
+        wp_enqueue_script('upcoming-miners-overview', get_theme_file_uri('/js/overview/UpcomingMinersOverview.js'), null, '1.0', true);
+
+        wp_localize_script('hardware-overview', 'miningRigData', array(
+            'root_url' => get_site_url(),
+            'nonce' => wp_create_nonce('wp_rest'),
+        ));
+    }
+
     if (is_page('Mining Rigs')) {
 
         //css

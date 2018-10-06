@@ -12,6 +12,11 @@ function computerHardwareRoutes()
         'methods' => WP_REST_SERVER::READABLE,
         'callback' => 'allRigHardwareWithProfitability',
     ));
+
+    register_rest_route('rigHardware/v1', 'allUpcomingRigHardware', array(
+        'methods' => WP_REST_SERVER::READABLE,
+        'callback' => 'allUpcomingMiningRigHardware',
+    ));
 }
 
 /**
@@ -160,3 +165,96 @@ function allRigHardwareWithProfitability($data)
     }
     return $results;
 }
+
+/**
+ * Hardware Overview - Get all Hardware that is needed for a rig
+ * e.g.: http://localhost/demo_wordpress_rig-builder/wp-json/rigHardware/v1/allUpcomingRigHardware?cat1=graphic-card&cat2=asic
+ */
+function allUpcomingMiningRigHardware($data)
+{
+
+    global $wpdb;
+
+    // show db errors
+    $wpdb->show_errors(false);
+    $wpdb->print_error();
+
+    $slug = "";
+    if(isset($data['cat1']) && !isset($data['cat2'])) {
+        $slug .= " AND t.slug LIKE '" . sanitize_text_field($data['cat1']) . "' ";
+    }
+
+    if(isset($data['cat2']) && !isset($data['cat1'])) {
+        $slug .= " AND t.slug LIKE '" . sanitize_text_field($data['cat2']) . "' ";
+    }
+
+    /*
+    // ############################################################################
+    // # This query works, BUT is slower --> HOWEVER, it can be better explained! #
+    // ############################################################################
+    */
+    $mainQuery = $wpdb->get_results( "SELECT *
+        FROM {$wpdb->prefix}posts p INNER JOIN 
+            {$wpdb->prefix}miningprofitability m 
+            ON m.post_id = p.ID
+            LEFT JOIN wp_term_relationships rel ON rel.object_id = p.ID
+            LEFT JOIN wp_term_taxonomy tax ON (tax.term_taxonomy_id = rel.term_taxonomy_id AND tax.taxonomy='category')
+            LEFT JOIN wp_terms t ON (t.term_id = tax.term_id AND t.name!='uncategorized')
+        WHERE m.created_at =(SELECT MAX(pp2.created_at)
+                            FROM {$wpdb->prefix}miningprofitability pp2
+                            WHERE pp2.post_id = m.post_id) ".
+        $slug . " 
+        ORDER BY
+            m.daily_grossProfit
+        DESC;" );
+
+    $wpdb->flush();
+    /*
+    $mainQuery = $wpdb->get_results("SELECT *
+        FROM {$wpdb->prefix}posts t
+        INNER JOIN (
+            SELECT post_id, daily_netProfit, daily_grossProfit, daily_costs, max(created_at) AS MaxDate
+            FROM {$wpdb->prefix}miningprofitability
+            GROUP BY post_id
+        ) tm ON t.ID  = tm.post_id
+        ORDER BY tm.daily_netProfit DESC;");
+    */
+    $results = array(
+        'upcomingMiningRigHardware' => array(),
+    );
+
+    foreach ($mainQuery as $key => $value) {
+
+        $post_id = $mainQuery[$key]->ID;
+
+        //get post meta
+        $amazon = get_post_meta($post_id, '_cegg_data_Amazon', true);
+        $keys = key($amazon); // get key
+
+        array_push($results['profRigHardware'], array(
+            //'array_lolonator' => print_r($amazon),
+
+            'unique_id' => $amazon[$keys]['unique_id'],
+            'title' => get_the_title($post_id),
+            'permalink' => get_the_permalink($post_id),
+            // 'manufacturer' => $amazon[$keys]['manufacturer'],
+            'manufacturer' => get_field( 'manufacturer' , $post_id),
+            'releaseDate' => get_field( 'release_date' , $post_id),
+            'category' => get_the_category($post_id),
+            'smallImg' => get_the_post_thumbnail_url($post_id, 'thumbnail'),
+            // 'smallImg' => $amazon[$keys[0]]['extra']['smallImage'],
+            'currency' => $amazon[$keys]['currency'],
+            'price' => $amazon[$keys]['price'],
+            'watt' => floatval(get_field('watt_estimate', $post_id)),
+            'algorithm' => get_field('algorithm', $post_id),
+            'hashRatePerSecond' => floatval(get_field('hash_rate', $post_id)) / 1000000,
+            'affiliateLink' => $amazon[$keys]['url'],
+            'daily_netProfit' => number_format( (float) $mainQuery[$key]->daily_netProfit, 2),
+            // 'created_at' => date('Y-m-d H:i:s', strtotime( $mainQuery[$key]->MaxDate)),
+            'created_at' => date('Y-m-d H:i:s', strtotime( $mainQuery[$key]->created_at)),
+
+        ));
+    }
+    return $results;
+}
+
