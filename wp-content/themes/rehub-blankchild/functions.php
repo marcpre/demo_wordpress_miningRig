@@ -105,6 +105,7 @@ function enqueue_parent_theme_style()
         wp_enqueue_script('jquery', get_theme_file_uri('/js/libs/jquery.min.js'), null, '1.0', true);
         wp_enqueue_script('bootstrap-4.0.0', get_theme_file_uri('/js/libs/bootstrap.min.js'), null, '1.0', true);
         wp_enqueue_script('dataTables', get_theme_file_uri('/js/libs/jquery.dataTables.min.js'), null, '1.0', true);
+        wp_enqueue_script('momentjs', get_theme_file_uri('/js/libs/moment.min.js'), null, '1.0', true);
         wp_enqueue_script('upcoming-miners-overview', get_theme_file_uri('/js/overview/UpcomingMinersOverview.js'), null, '1.0', true);
 
         wp_localize_script('upcoming-miners-overview', 'miningRigData', array(

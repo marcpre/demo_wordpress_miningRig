@@ -20,14 +20,20 @@ jQuery(document).ready(($) => {
             console.log("get latest miners overview")
             console.log(results)
 
+            const formatDateToMoment = function (date) {
+                var dateParts = date.split("/");
+                var dateObj = new Date(dateParts[2], dateParts[1] - 1, dateParts[0]); // month is 0-based
+                var momentObj = moment(dateObj);
+                return momentObj.format('MMMM YYYY');
+            }
             //transform data set
-            let dataSet = results.profRigHardware.map((item, i) => [
+            let dataSet = results.upcomingMiningRigHardware.map((item, i) => [
                 `<img src="${ item.smallImg }" alt="${ item.title }" height="42" width="42"> 
          <a href="${item.permalink}" target="_blank">
             ${item.title}
              </a>`,
                 `${ item.manufacturer }`,
-                `${ item.releaseDate }`,
+                `${ formatDateToMoment(item.releaseDate) }`,
                 `${ item.hashRatePerSecond } MH/s`,
                 `${ item.watt }W`,
                 // `${ rentabilityHtml(parseFloat(item.daily_netProfit)) }`,

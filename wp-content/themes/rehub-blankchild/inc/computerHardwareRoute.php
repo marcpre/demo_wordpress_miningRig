@@ -7,11 +7,7 @@ function computerHardwareRoutes()
         'methods' => WP_REST_SERVER::READABLE,
         'callback' => 'allRigHardware',
     ));
-<<<<<<< HEAD
 
-=======
-    
->>>>>>> 42453711f48dd78fa4c3591cdd1a1baf5f6142e0
     register_rest_route('rigHardware/v1', 'allProfitableRigHardware', array(
         'methods' => WP_REST_SERVER::READABLE,
         'callback' => 'allRigHardwareWithProfitability',
@@ -30,11 +26,6 @@ function computerHardwareRoutes()
 
 function allRigHardware($data)
 {
-<<<<<<< HEAD
-
-=======
-   
->>>>>>> 42453711f48dd78fa4c3591cdd1a1baf5f6142e0
     $mainQuery = new WP_Query(array(
         'posts_per_page' => -1,
         'post_type' => 'Computer-Hardware',
@@ -65,11 +56,7 @@ function allRigHardware($data)
             'title' => get_the_title(),
             'permalink' => get_the_permalink(),
             // 'manufacturer' => $amazon[$keys[0]]['manufacturer'],
-<<<<<<< HEAD
-            'manufacturer' => get_field('manufacturer', get_the_ID()),
-=======
             'manufacturer' => get_field( 'manufacturer' , get_the_ID()),
->>>>>>> 42453711f48dd78fa4c3591cdd1a1baf5f6142e0
             'category' => get_the_category(),
             'img' => $amazon[$keys[0]]['img'],
             'currency' => $amazon[$keys[0]]['currency'],
@@ -97,25 +84,6 @@ function allRigHardware($data)
 
 function allRigHardwareWithProfitability($data)
 {
-<<<<<<< HEAD
-
-    global $wpdb;
-
-    // show db errors
-    $wpdb->show_errors(false);
-    $wpdb->print_error();
-
-    $slug = "";
-    if (isset($data['cat1']) && !isset($data['cat2'])) {
-        $slug .= " AND t.slug LIKE '" . sanitize_text_field($data['cat1']) . "' ";
-    }
-
-    if (isset($data['cat2']) && !isset($data['cat1'])) {
-        $slug .= " AND t.slug LIKE '" . sanitize_text_field($data['cat2']) . "' ";
-    }
-
-=======
-    
     global $wpdb;
     
     // show db errors
@@ -131,17 +99,12 @@ function allRigHardwareWithProfitability($data)
         $slug .= " AND t.slug LIKE '" . sanitize_text_field($data['cat2']) . "' ";
     }
     
->>>>>>> 42453711f48dd78fa4c3591cdd1a1baf5f6142e0
     /*
     // ############################################################################
     // # This query works, BUT is slower --> HOWEVER, it can be better explained! #
     // ############################################################################
     */
-<<<<<<< HEAD
-    $mainQuery = $wpdb->get_results("SELECT *
-=======
     $mainQuery = $wpdb->get_results( "SELECT *
->>>>>>> 42453711f48dd78fa4c3591cdd1a1baf5f6142e0
         FROM {$wpdb->prefix}posts p INNER JOIN 
             {$wpdb->prefix}miningprofitability m 
             ON m.post_id = p.ID
@@ -150,21 +113,12 @@ function allRigHardwareWithProfitability($data)
             LEFT JOIN wp_terms t ON (t.term_id = tax.term_id AND t.name!='uncategorized')
         WHERE m.created_at =(SELECT MAX(pp2.created_at)
                             FROM {$wpdb->prefix}miningprofitability pp2
-<<<<<<< HEAD
-                            WHERE pp2.post_id = m.post_id) " .
-        $slug . " 
-        ORDER BY
-            m.daily_grossProfit
-        DESC;");
-
-=======
                             WHERE pp2.post_id = m.post_id) ". 
                             $slug . " 
         ORDER BY
             m.daily_grossProfit
         DESC;" );
         
->>>>>>> 42453711f48dd78fa4c3591cdd1a1baf5f6142e0
     $wpdb->flush();
     /*
     $mainQuery = $wpdb->get_results("SELECT *
@@ -179,41 +133,22 @@ function allRigHardwareWithProfitability($data)
     $results = array(
         'profRigHardware' => array(),
     );
-<<<<<<< HEAD
 
-    foreach ($mainQuery as $key => $value) {
-
-=======
-                            
     foreach ($mainQuery as $key => $value) {
         
->>>>>>> 42453711f48dd78fa4c3591cdd1a1baf5f6142e0
         $post_id = $mainQuery[$key]->ID;
 
         //get post meta
         $amazon = get_post_meta($post_id, '_cegg_data_Amazon', true);
-<<<<<<< HEAD
         $keys = key($amazon); // get key
 
         array_push($results['profRigHardware'], array(
             //'array_lolonator' => print_r($amazon),
-
-=======
-        $keys = key($amazon); // get key 
-        
-        array_push($results['profRigHardware'], array(
-            //'array_lolonator' => print_r($amazon),
-            
->>>>>>> 42453711f48dd78fa4c3591cdd1a1baf5f6142e0
             'unique_id' => $amazon[$keys]['unique_id'],
             'title' => get_the_title($post_id),
             'permalink' => get_the_permalink($post_id),
             // 'manufacturer' => $amazon[$keys]['manufacturer'],
-<<<<<<< HEAD
-            'manufacturer' => get_field('manufacturer', $post_id),
-=======
             'manufacturer' => get_field( 'manufacturer' , $post_id),
->>>>>>> 42453711f48dd78fa4c3591cdd1a1baf5f6142e0
             'category' => get_the_category($post_id),
             'smallImg' => get_the_post_thumbnail_url($post_id, 'thumbnail'),
             // 'smallImg' => $amazon[$keys[0]]['extra']['smallImage'], 
@@ -223,17 +158,10 @@ function allRigHardwareWithProfitability($data)
             'algorithm' => get_field('algorithm', $post_id),
             'hashRatePerSecond' => floatval(get_field('hash_rate', $post_id)) / 1000000,
             'affiliateLink' => $amazon[$keys]['url'],
-<<<<<<< HEAD
-            'daily_netProfit' => number_format((float)$mainQuery[$key]->daily_netProfit, 2),
-            // 'created_at' => date('Y-m-d H:i:s', strtotime( $mainQuery[$key]->MaxDate)),
-            'created_at' => date('Y-m-d H:i:s', strtotime($mainQuery[$key]->created_at)),
-
-=======
             'daily_netProfit' => number_format( (float) $mainQuery[$key]->daily_netProfit, 2),
             // 'created_at' => date('Y-m-d H:i:s', strtotime( $mainQuery[$key]->MaxDate)),
             'created_at' => date('Y-m-d H:i:s', strtotime( $mainQuery[$key]->created_at)),              
             
->>>>>>> 42453711f48dd78fa4c3591cdd1a1baf5f6142e0
         ));
     }
     return $results;
@@ -253,19 +181,12 @@ function allUpcomingMiningRigHardware($data)
     $wpdb->print_error();
 
     $slug = "";
-<<<<<<< HEAD
-    if (isset($data['cat1']) && !isset($data['cat2'])) {
-        $slug .= " AND t.slug LIKE '" . sanitize_text_field($data['cat1']) . "' ";
-    }
 
-    if (isset($data['cat2']) && !isset($data['cat1'])) {
-=======
     if(isset($data['cat1']) && !isset($data['cat2'])) {
         $slug .= " AND t.slug LIKE '" . sanitize_text_field($data['cat1']) . "' ";
     }
 
     if(isset($data['cat2']) && !isset($data['cat1'])) {
->>>>>>> 42453711f48dd78fa4c3591cdd1a1baf5f6142e0
         $slug .= " AND t.slug LIKE '" . sanitize_text_field($data['cat2']) . "' ";
     }
 
@@ -274,11 +195,7 @@ function allUpcomingMiningRigHardware($data)
     // # This query works, BUT is slower --> HOWEVER, it can be better explained! #
     // ############################################################################
     */
-<<<<<<< HEAD
-    $mainQuery = $wpdb->get_results("SELECT *
-=======
     $mainQuery = $wpdb->get_results( "SELECT *
->>>>>>> 42453711f48dd78fa4c3591cdd1a1baf5f6142e0
         FROM {$wpdb->prefix}posts p INNER JOIN 
             {$wpdb->prefix}miningprofitability m 
             ON m.post_id = p.ID
@@ -287,7 +204,6 @@ function allUpcomingMiningRigHardware($data)
             LEFT JOIN wp_terms t ON (t.term_id = tax.term_id AND t.name!='uncategorized')
         WHERE m.created_at =(SELECT MAX(pp2.created_at)
                             FROM {$wpdb->prefix}miningprofitability pp2
-<<<<<<< HEAD
                             WHERE pp2.post_id = m.post_id) " .
         $slug . " 
         ORDER BY
@@ -296,25 +212,6 @@ function allUpcomingMiningRigHardware($data)
 
     $wpdb->flush();
 
-=======
-                            WHERE pp2.post_id = m.post_id) ".
-        $slug . " 
-        ORDER BY
-            m.daily_grossProfit
-        DESC;" );
-
-    $wpdb->flush();
-    /*
-    $mainQuery = $wpdb->get_results("SELECT *
-        FROM {$wpdb->prefix}posts t
-        INNER JOIN (
-            SELECT post_id, daily_netProfit, daily_grossProfit, daily_costs, max(created_at) AS MaxDate
-            FROM {$wpdb->prefix}miningprofitability
-            GROUP BY post_id
-        ) tm ON t.ID  = tm.post_id
-        ORDER BY tm.daily_netProfit DESC;");
-    */
->>>>>>> 42453711f48dd78fa4c3591cdd1a1baf5f6142e0
     $results = array(
         'upcomingMiningRigHardware' => array(),
     );
