@@ -21,7 +21,7 @@ jQuery(document).ready(($) => {
             console.log(results)
 
             //transform data set
-            let dataSet = results.upcomingMiningRigHardware.map((item, i) => [
+            let dataSet = results.profRigHardware.map((item, i) => [
                 `<img src="${ item.smallImg }" alt="${ item.title }" height="42" width="42"> 
          <a href="${item.permalink}" target="_blank">
             ${item.title}
@@ -46,8 +46,8 @@ jQuery(document).ready(($) => {
                     [4, 'desc']
                 ],
                 columns: [{
-                        title: "Model"
-                    },
+                    title: "Model"
+                },
                     {
                         title: "Manufacturer"
                     },
