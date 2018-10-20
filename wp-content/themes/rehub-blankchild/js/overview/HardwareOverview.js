@@ -65,8 +65,11 @@ jQuery(document).ready(($) => {
                     },
                     {
                         title: "Profitability",
-                        render: function (profit) {
-                            return rentabilityHtml(parseFloat(profit))
+                        render: function(profit, type) {
+                            if (type == "display")
+                                return rentabilityHtml(parseFloat(profit))
+                            else
+                                return profit;
                         }
                     }
                 ],

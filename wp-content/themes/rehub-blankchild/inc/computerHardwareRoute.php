@@ -139,8 +139,22 @@ function allRigHardwareWithProfitability($data)
         $post_id = $mainQuery[$key]->ID;
 
         //get post meta
-        $amazon = get_post_meta($post_id, '_cegg_data_Amazon', true);
-        $keys = key($amazon); // get key
+        // $amazon = get_post_meta($post_id, '_cegg_data_Amazon', true);
+        // $keys = key($amazon); // get key
+
+        try {
+            $amazon = get_post_meta($post_id, '_cegg_data_Amazon');
+            if(!empty($amazon)) {
+                $keys = key($amazon); // get key
+            }
+
+            $amazon = get_post_meta($post_id, '_cegg_data_Offer');
+            if(!empty($amazon)) {
+                $keys = key($amazon); // get key
+            }
+        } catch (\Exception $ex) {
+            error_log($ex);
+        }
 
         array_push($results['profRigHardware'], array(
             //'array_lolonator' => print_r($amazon),
