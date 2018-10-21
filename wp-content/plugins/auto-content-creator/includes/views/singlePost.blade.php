@@ -62,6 +62,7 @@ In our <synonym words=" | "> profitability </synonym> calculations we assume an 
 </p>
 
 {{-- Comparison Table START --}}
+<div class="table-responsive overflow-x:auto;" >
 <table class="table table-bordered" >
    <thead>
       <tr>
@@ -94,6 +95,7 @@ In our <synonym words=" | "> profitability </synonym> calculations we assume an 
       @endforeach
    </tbody>
 </table>
+</div>
 {{-- Comparison Table END --}}
 
 <p>As you can see <synonym words=" the manufacturer | <insertdata>{{$company}}</insertdata>"> the company </synonym><synonym words=" sells | has available | has in stock "> has currently </synonym>&nbsp;<insertdata> {{$numberOfMiningModels}} </insertdata> <synonym words=" miners | products | crypto-miners "> models </synonym> <synonym words="to buy | |"> on the market</synonym>.

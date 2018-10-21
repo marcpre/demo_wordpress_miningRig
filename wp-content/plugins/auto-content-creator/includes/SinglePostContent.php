@@ -164,7 +164,7 @@ class SinglePostContent
         }
 
         file_put_contents("./SINGLE_CONTENT_OUTPUT.html", $finalOutput);
-        echo nl2br ("**********DONE**********" . "\n");
+        echo nl2br ("\n" . "**********DONE**********" . "\n");
 
     }
 

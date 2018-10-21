@@ -79,6 +79,7 @@
                 <div class="title_single_area">
                     <h1 class="<?php if (rehub_option('hotmeter_disable') != '1') : ?><?php echo getHotIconclass($post->ID); ?><?php endif; ?>"><?php the_title(); ?></h1>
                 </div>
+                <?php /* ?>
                 <div class="meta-in-compare-full rh-flex-center-align">
                     <?php $overall_review = rehub_get_overall_score(); ?>
                     <?php if ($overall_review): ?>
@@ -102,6 +103,8 @@
                             <?php endif; ?>
                         </span>
                 </div>
+                <?php */ ?>
+                <?php /* ?>
                 <div class="wpsm-one-half wpsm-column-first">
                     <?php if (rehub_option('hotmeter_disable') != '1') {
                         echo '<div class="mb20">';
@@ -170,6 +173,8 @@
                         <?php endif; ?>
                     </div>
                 </div>
+                 <?php */ ?>
+
                 <div class="wpsm-one-half wpsm-column-last">
                     <?php echo do_shortcode('[content-egg-block template=custom/all_merchant_widget]'); ?>
                     <div class="floatright mt15"><?php echo RH_get_wishlist($post->ID); ?></div>
@@ -181,6 +186,10 @@
                         <div class="clearfix"></div>
                     <?php endif; ?>
                 </div>
+            </div>
+            <div class="post-inner">
+                <br>
+                <?php the_content(); ?>
             </div>
         </div>
     </div>
@@ -495,8 +504,10 @@
 
     <!-- /Main Side -->
     <!-- Sidebar -->
+    <?php /* ?>
     <?php if (get_post_meta($post->ID, 'post_size', true) == 'full_post') : ?><?php else : ?><?php get_sidebar(); ?><?php endif; ?>
-    <!-- /Sidebar -->
+    <?php */ ?>
+ <!-- /Sidebar -->
 </div>
 </div>
     <!-- /CONTENT -->
