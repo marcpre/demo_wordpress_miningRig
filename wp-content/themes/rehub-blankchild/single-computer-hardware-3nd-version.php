@@ -1,7 +1,7 @@
 <?php if (!defined('ABSPATH')) exit; // Exit if accessed directly ?>
 <?php
 /*
- * Template Name: 3rd Version Computer Hardware Post Template
+ * Template Name: DO NOT USE 3rd Version Computer Hardware Post Template
  * Template Post Type: Computer-Hardware
  */ ?>
 <?php// global $product, $post;?>

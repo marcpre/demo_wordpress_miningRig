@@ -44070,7 +44070,7 @@ function () {
       this.twitchSharingCode();
       this.vbcodeSharingCode();
       this.youtubeSharingCode();
-      this.discordeSharingCode();
+      this.discordSharingCode();
       var redditSharing = (0, _jquery.default)(".socialnetworkcontent.form-control.reddit").val();
       var twitchSharing = (0, _jquery.default)(".socialnetworkcontent.form-control.twitch").val();
       var vbcodeSharing = (0, _jquery.default)(".socialnetworkcontent.form-control.vBCode").val();

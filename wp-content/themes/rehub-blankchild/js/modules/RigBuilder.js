@@ -431,7 +431,7 @@ class RigBuilder {
         this.twitchSharingCode()
         this.vbcodeSharingCode()
         this.youtubeSharingCode()
-        this.discordeSharingCode()
+        this.discordSharingCode()
 
         let redditSharing = $(".socialnetworkcontent.form-control.reddit").val()
         let twitchSharing = $(".socialnetworkcontent.form-control.twitch").val()
